@@ -2,71 +2,108 @@
     <div class="change-password">
       <el-container>
         <el-header height="33px">
-          <div v-if="changeStatus" class="title">Change Password</div>
-          <el-breadcrumb v-else separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/app/member/account' }">My Account</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/app/member/account/password' }">Change Password</el-breadcrumb-item>
-          </el-breadcrumb>
+          <item-header :status="changeStatus" :headerInfo="headerInfo"></item-header>
         </el-header>
         <el-main class="content">
-          <el-form :label-position="labelPosition" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="150px" class="demo-ruleForm">
-            <el-form-item label="Password type">
-              <el-select v-model="ruleForm.passwordTypes[ruleForm.passwordTypeIndex].value" placeholder="">
-                <el-option v-for="(passwordType, index) in ruleForm.passwordTypes" v-bind:key="index" :label="passwordType.label" :value="passwordType.value"></el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item label="Current password" prop="pass">
-              <el-input type="password" v-model="ruleForm.currentPass" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="New password" prop="pass">
-              <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item label="Confirm password" prop="checkPass">
-              <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button class="save" @click="submitForm('ruleForm')">Save</el-button>
-            </el-form-item>
-          </el-form>
+          <div class="info" v-if="changeStatus != 1">
+            <div class="success-wrapper" v-if="changeStatus == 0">
+              <div class="success">
+                <img src="./img/success.png" alt="success">
+                <div class="success-content">
+                  <h2>Succeed</h2>
+                  <p>Your password has been reset successfully!</p>
+                </div>
+              </div>
+              <el-button class="finished">Finished</el-button>
+            </div>
+            <div class="failure" v-if="changeStatus == 2">
+              <img src="./img/sad.png" alt="failure">
+              <div class="failure-content">
+                <p>Current password invalid!</p>
+              </div>
+            </div>
+          </div>
+          <div class="form-wrapper" v-if="changeStatus !=0">
+            <el-form  :label-position="labelPosition" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="150px">
+              <el-form-item label="Password type:">
+                <el-select v-model="ruleForm.passwordType" placeholder="">
+                  <el-option v-for="(passwordType, index) in passwordTypes" v-bind:key="index" :label="passwordType.label" :value="passwordType.value"></el-option>
+                </el-select>
+              </el-form-item>
+              <el-form-item label="Current password:" prop="pass">
+                <el-input type="password" v-model="ruleForm.currentPass" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="New password:" prop="pass">
+                <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item label="Confirm password:" prop="checkPass">
+                <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
+              </el-form-item>
+              <el-form-item>
+                <el-button class="save" @click="submitForm('ruleForm')">Save</el-button>
+              </el-form-item>
+            </el-form>
+          </div>
         </el-main>
       </el-container>
     </div>
 </template>
 
 <script>
+  import ItemHeader from '@/views/UserCenter/ItemHeader'
   export default {
     data() {
-      var validatePass = (rule, value, callback) => {
+      let validatePass0 = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请输入密码'))
+          callback(new Error('Please enter current password'))
+        }
+        callback()
+      }
+      let validatePass = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('Please enter new password'))
         } else {
+          // 判断密码的格式是否符合要求
+          let reg = /^[\w]{6,12}$/
+          if (value.match(reg)) {
+            callback()
+          } else {
+            callback(new Error('Please enter value between 6 and 12 characters long'))
+          }
+          // 判断两次输入密码不一致
           if (this.ruleForm.checkPass !== '') {
             this.$refs.ruleForm.validateField('checkPass')
           }
           callback()
         }
       }
-      var validatePass2 = (rule, value, callback) => {
+      let validatePass2 = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('请再次输入密码'))
+          callback(new Error('Please enter password again'))
         } else if (value !== this.ruleForm.pass) {
-          callback(new Error('两次输入密码不一致!'))
+          callback(new Error('Entered passwords diff'))
         } else {
           callback()
         }
       }
       return {
-        changeStatus: 0,
+        headerInfo: [
+          ['Change Password'],
+          { description: 'Change Password', path: '/app/member/account/password' }
+        ],
+        changeStatus: 1, // 1 => 未点击Save按钮，0 => 修改密码成功，2 => 修改密码失败
         labelPosition: 'right',
+        passwordTypes: [{ label: 'Login', value: 'login' }, { label: 'Excution', value: 'excution' }],
         ruleForm: {
-          passwordTypes: [{ label: 'Login', value: 'login' }, { label: 'Excution', value: 'Excution' }],
-          passwordTypeIndex: 0,
+          passwordType: 'login',
           currentPass: '',
           pass: '',
           checkPass: ''
         },
         rules: {
+          currentPass: [
+            { validator: validatePass0, trigger: 'blur' }
+          ],
           pass: [
             { validator: validatePass, trigger: 'blur' }
           ],
@@ -86,10 +123,10 @@
             return false
           }
         })
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields()
       }
+    },
+    components: {
+      ItemHeader
     },
     name: 'ChangePassword'
   }
@@ -99,33 +136,29 @@
   .change-password {
     flex: 1;
   }
-  .title {
-    background-color: #E5EFFA;
-    padding-left: 30px;
-    line-height: 33px;
-    font-size: 17px;
-    color: #002E63;
-    font-family: Arial;
-    font-weight: bold;
-  }
-  >>> .el-breadcrumb {
-    font-size: 17px;
-    line-height: 33px;
-  }
-  >>> .el-breadcrumb__inner {
-    color: #002E63;
-    font-weight: normal;
-  }
-  >>> .el-breadcrumb__item:last-child .el-breadcrumb__inner {
-    color: #333333;
-  }
   .content {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    font-size: 16px;
+    padding-top: 0;
+    align-items: stretch;
+  }
+  .info {
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-left: 60px;
+  }
+  .form-wrapper {
+    background-color: #FCFCFC;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 60px;
   }
   >>> .el-form {
     width: 500px;
+    margin-top: 30px;
+    margin-bottom: 15px;
   }
   .save {
     background-color: #FF9A0D;
@@ -134,6 +167,83 @@
     width: 72px;
     height: 30px;
     font-size: 16px;
-    padding: 7px 17px;
+    padding: 7px 16px;
+    text-align: center;
+  }
+  .success, .failure {
+    display: flex;
+    align-items: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    padding-left: 36px;
+  }
+  .success {
+    border: 2px solid #08A66C;
+    border-radius: 4px;
+    width: 690px;
+    height: 92px;
+    box-sizing: border-box;
+    line-height: 1;
+  }
+  .success>img {
+    width: 26px;
+    height: 26px;
+    margin-right: 20px;
+  }
+  .success-content>h2 {
+    margin-top: 0;
+    color: #08A66C;
+    font-size: 20px;
+  }
+  .success-content>p {
+    margin: 0;
+    font-size: 17px;
+  }
+  .finished {
+    font-size: 16px;
+    background-color: #FF9A0D;
+    color: #fff;
+    width: 90px;
+    height: 30px;
+    padding: 7px 16px;
+    outline: none;
+    text-align: center;
+    margin-top: 30px;
+    margin-left: 78px;
+  }
+  .failure {
+    box-sizing: border-box;
+    border-radius: 4px;
+    border: 2px solid #F84C4C;
+    width: 290px;
+    height: 37px;
+    background-color: #FEF3F3;
+    color: #F84C4C;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    font-size: 17px;
+    font-weight: bold;
+    line-height: 1;
+  }
+  .failure>img {
+    width: 17px;
+    height: 17px;
+    margin-right: 16px;
+  }
+  .failure-content>p {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+  >>> .el-input {
+    width: 190px;
+    height: 32px;
+  }
+  >>> .el-input>.el-input__inner {
+    width: 190px;
+    height: 32px;
+  }
+  >>> .el-select .el-input__suffix {
+    margin-top: 5px;
   }
 </style>

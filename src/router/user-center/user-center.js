@@ -1,4 +1,5 @@
 import changePasswordRouter from './ChangePassword/change-password'
+import contactListRouter from './ContactInformation/contact-list'
 const UserCenter = resolve => {
   import('@/views/UserCenter/UserCenter').then(module => {
     resolve(module)
@@ -13,7 +14,8 @@ const userCenterRouter = {
     keepAlive: false
   },
   children: [
-    changePasswordRouter
+    changePasswordRouter,
+    contactListRouter
   ]
 }
 

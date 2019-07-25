@@ -4,6 +4,9 @@ import router from './router/router'
 import store from './store/store'
 import './plugins/element.js'
 
+// 引入font-awesome图标字体
+import 'font-awesome/css/font-awesome.min.css'
+
 Vue.config.productionTip = false
 
 new Vue({
