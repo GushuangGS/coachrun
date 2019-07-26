@@ -4,7 +4,7 @@
 
 <script>
   export default {
-    name: 'Edit'
+    name: 'DeleteConfirm'
   }
 </script>
 

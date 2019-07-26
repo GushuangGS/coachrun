@@ -1,5 +1,7 @@
 import changePasswordRouter from './ChangePassword/change-password'
 import contactListRouter from './ContactInformation/contact-list'
+import editContactRouter from './ContactInformation/edit-contact'
+import creditListRouter from './Credit/CreditList'
 const UserCenter = resolve => {
   import('@/views/UserCenter/UserCenter').then(module => {
     resolve(module)
@@ -15,7 +17,9 @@ const userCenterRouter = {
   },
   children: [
     changePasswordRouter,
-    contactListRouter
+    contactListRouter,
+    editContactRouter,
+    creditListRouter
   ]
 }
 

@@ -7,19 +7,22 @@
         <el-main class="content">
           <div class="info" v-if="changeStatus != 1">
             <div class="success-wrapper" v-if="changeStatus == 0">
-              <div class="success">
+              <!--<div class="success">
                 <img src="./img/success.png" alt="success">
                 <div class="success-content">
                   <h2>Succeed</h2>
                   <p>Your password has been reset successfully!</p>
                 </div>
-              </div>
+              </div>-->
+              <success-box text="Your password has been reset successfully!"></success-box>
               <el-button class="finished">Finished</el-button>
             </div>
-            <div class="failure" v-if="changeStatus == 2">
-              <img src="./img/sad.png" alt="failure">
-              <div class="failure-content">
-                <p>Current password invalid!</p>
+            <div class="failure-wrapper" v-if="changeStatus == 2">
+              <div class="failure">
+                <img src="./img/sad.png" alt="failure">
+                <div class="failure-content">
+                  <p>Current password invalid!</p>
+                </div>
               </div>
             </div>
           </div>
@@ -51,6 +54,7 @@
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import SuccessBox from '@/components/SuccessBox'
   export default {
     data() {
       let validatePass0 = (rule, value, callback) => {
@@ -126,7 +130,8 @@
       }
     },
     components: {
-      ItemHeader
+      ItemHeader,
+      SuccessBox
     },
     name: 'ChangePassword'
   }
@@ -146,14 +151,15 @@
   .info {
     margin-top: 15px;
     margin-bottom: 15px;
+  }
+  .success-wrapper {
     padding-left: 60px;
   }
   .form-wrapper {
     background-color: #FCFCFC;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding-left: 60px;
+    align-items: center;
   }
   >>> .el-form {
     width: 500px;
@@ -170,7 +176,14 @@
     padding: 7px 16px;
     text-align: center;
   }
-  .success, .failure {
+  .failure {
+    display: flex;
+    align-items: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    padding-left: 36px;
+  }
+ /* .success {
     display: flex;
     align-items: center;
     padding-top: 32px;
@@ -198,7 +211,7 @@
   .success-content>p {
     margin: 0;
     font-size: 17px;
-  }
+  }*/
   .finished {
     font-size: 16px;
     background-color: #FF9A0D;
@@ -245,5 +258,10 @@
   }
   >>> .el-select .el-input__suffix {
     margin-top: 5px;
+  }
+  .failure-wrapper {
+    display: flex;
+    justify-content: center;
+    padding-right: 60px;
   }
 </style>
