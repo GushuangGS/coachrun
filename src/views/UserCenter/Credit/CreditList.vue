@@ -53,15 +53,31 @@
         </div>
       </div>
     </el-main>
+    <delete-confirm>
+      <div class="delete-body">
+        <div class="item">
+          <img class="item-img" :src="deleteItem.img">
+          <span class="item-name">{{deleteItem.name}}</span>
+          <span class="item-detail">{{deleteItem.detail}}</span>
+        </div>
+        <p>Are you sure you want to remove this credit card from your list? </p>
+      </div>
+    </delete-confirm>
   </div>
 </template>
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
+  import DeleteConfirm from '@/components/DeleteConfirm'
   export default {
     data() {
       return {
+        deleteItem: {
+          img: '',
+          name: '',
+          detail: ''
+        },
         status: 0,
         headerInfo: [
           [''],
@@ -73,7 +89,8 @@
     },
     components: {
       ItemHeader,
-      SuccessBox
+      SuccessBox,
+      DeleteConfirm
     },
     name: 'CreditList'
   }
@@ -196,5 +213,22 @@
   }
   .success-box-wrapper {
     margin-bottom: 52px;
+  }
+  .delete-body>div.item {
+    height: 38px;
+    line-height: 38px;
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  .delete-body>div.item>img {
+    width: 68px;
+    margin-right: 20px;
+  }
+  .delete-body>div.item>span.name {
+    margin-right: 2px;
+  }
+  .delete-body>p {
+    margin: 0;
+    font-size: 20px;
   }
 </style>
