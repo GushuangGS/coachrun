@@ -5,6 +5,7 @@ import creditListRouter from './Credit/credit-list'
 import addCreditRouter from './Credit/add-credit'
 import editCreditRouter from './Credit/edit-credit'
 import myPointsRouter from './MyPoints/my-points'
+import myOrdersRouter from './MyOrders/my-orders'
 const UserCenter = resolve => {
   import('@/views/UserCenter/UserCenter').then(module => {
     resolve(module)
@@ -25,7 +26,8 @@ const userCenterRouter = {
     creditListRouter,
     addCreditRouter,
     editCreditRouter,
-    myPointsRouter
+    myPointsRouter,
+    myOrdersRouter
   ]
 }
 

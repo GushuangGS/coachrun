@@ -4,7 +4,7 @@
     <el-breadcrumb v-else separator-class="el-icon-arrow-right">
       <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
       <el-breadcrumb-item :to="{ path: '/app/member/account' }">My Account</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: headerInfo[1].path }">{{headerInfo[1].description}}</el-breadcrumb-item>
+      <el-breadcrumb-item v-if="notDefault" :to="{ path: headerInfo[1].path }">{{headerInfo[1].description}}</el-breadcrumb-item>
     </el-breadcrumb>
   </el-header>
 </template>
@@ -19,6 +19,10 @@
       headerInfo: {
         type: Array,
         default: new Array([ [''], { description: '', path: '' } ])
+      },
+      notDefault: {
+        type: Boolean,
+        default: true
       }
     },
     name: 'ItemHeader'

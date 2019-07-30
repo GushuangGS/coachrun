@@ -43,25 +43,34 @@
             <div class="detail">
               <h2 class="table-title">Points Details</h2>
               <el-table
+                empty-text="Start earning your loyalty points today!"
                 :data="tableData"
                 style="width: 100%">
                 <el-table-column
                   prop="source"
                   label="Source"
-                  min-width="206px">
+                  min-width="160px">
                 </el-table-column>
                 <el-table-column
+                  align="center"
+                  header-align="center"
                   prop="points"
                   label="Points"
-                  min-width="62px">
+                  min-width="72px">
+                  <template slot-scope="scope">
+                    <span :class="{'positive': scope.row.points.value > 0, 'negtive': scope.row.points.value < 0, 'pending': scope.row.points.isPending}">{{(scope.row.points.value > 0 ? '+' : '-') + ' ' + Math.abs(scope.row.points.value)}}</span>
+                    <span v-if="scope.row.points.isPending" class="text-pending">Pending</span>
+                  </template>
                 </el-table-column>
                 <el-table-column
+                  align="center"
+                  header-align="center"
                   prop="date"
                   label="Date"
                   min-width="130px">
                 </el-table-column>
               </el-table>
-              <div class="pagination-wrapper">
+              <div class="pagination-wrapper" v-if="tableData.length">
                 <el-pagination
                   background
                   layout="prev, pager, next"
@@ -87,15 +96,15 @@
         ],
         tableData: [{
           source: 'Booking ( Order JT23-600-3427 )',
-          points: '+ 7',
+          points: { value: 7, isPending: false },
           date: '2019-07-23 23:56:08'
         }, {
           source: 'Booking ( Order JT23-600-3427 )',
-          points: '- 12',
+          points: { value: -12, isPending: false },
           date: '2019-07-23 23:56:08'
         }, {
           source: 'Booking ( Order JT23-600-3427 )',
-          points: '+ 7',
+          points: { value: 7, isPending: true },
           date: '2019-07-23 23:56:08'
         }]
       }
@@ -177,13 +186,16 @@
     font-weight: bold;
     line-height: 53px;
     text-align: center;
+    cursor: pointer;
   }
   .detail {
-    margin-top: 20px;
+    margin-left: 10px;
+    margin-top: 40px;
   }
   .detail>.table-title {
     font-size: 20px;
-    margin: 0;
+    margin-top: 0;
+    margin-bottom: 20px;
     line-height: 1;
   }
   .pagination-wrapper {
@@ -191,5 +203,50 @@
     flex-direction: column;
     align-items: flex-end;
     margin-top: 15px;
+  }
+  >>> .el-table__header th {
+    background-color: #E5EFFA;
+    color: #29507D;
+    font-size: 20px;
+  }
+  >>> .el-table_1_column_1 {
+    font-size: 16px;
+    color: #333;
+  }
+  >>> .el-table_1_column_2 {
+    font-size: 26px;
+    font-weight: bold;
+  }
+  >>> .el-table_1_column_3 {
+    font-size: 16px;
+    color: #999;
+  }
+  .positive {
+    color: #FF9D0D;
+  }
+  .negtive {
+    color: #0BA76E;
+  }
+  .pending {
+    opacity: .5;
+  }
+  >>> .cell {
+    position: relative;
+  }
+  .text-pending {
+    font-size: 16px;
+    color: #333;
+    font-weight: normal;
+    position: absolute;
+    right: 0;
+  }
+  .pagination-wrapper {
+    margin-top: 20px;
+  }
+  .pagination-wrapper >>> .el-pagination.is-background .el-pager li:not(.disabled).active {
+    background-color: #419EFF;
+  }
+  .pagination-wrapper >>> .el-pagination.is-background .el-pager li:not(.disabled):not(.active):hover {
+    color: #419EFF;
   }
 </style>
