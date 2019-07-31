@@ -9,13 +9,26 @@
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
               <div class="left">
-                <img src="">
+                <img src="./img/account-icon.png">
                 <div class="account-points">
                   <h4>Jordanauthor@hotmail.com</h4>
                   <p>My Points: <span>7</span></p>
                 </div>
               </div>
-              <div class="right"></div>
+              <div class="right">
+                <p>
+                  <img src="./img/contact-edit.png">
+                  <span>Manage Contact Info</span>
+                </p>
+                <p>
+                  <img src="./img/reschedule.png">
+                  <span>View/Edit Creditcard</span>
+                </p>
+                <p>
+                  <img src="./img/password.png">
+                  <span>Change My Password</span>
+                </p>
+              </div>
             </div>
             <div class="divider"></div>
             <div class="recent-bookings">
@@ -34,10 +47,10 @@
                   </el-row>
                 </div>
                 <el-collapse v-model="activeNames" @change="handleChange">
-                  <el-collapse-item name="1">
+                  <el-collapse-item name="0">
                     <template slot="title">
                       <div class="bookings-item-brief">
-                        <img class="down" src="./img/up.png">
+                        <img src="./img/up.png" :class="{ 'down': judgeImg(0) }">
                         <div>OrderId:&nbsp;&nbsp;<span>JT23-600-3427</span></div>
                         <div>Purchase date:&nbsp;&nbsp;<span>Tue,Jul 23,2019</span></div>
                       </div>
@@ -83,20 +96,59 @@
                       </li>
                     </ul>
                   </el-collapse-item>
-                  <el-collapse-item title="反馈 Feedback" name="2">
-                    <div>控制反馈：通过界面样式和交互动效让用户可以清晰的感知自己的操作；</div>
-                    <div>页面反馈：操作后，通过页面元素的变化清晰地展现当前状态。</div>
-                  </el-collapse-item>
-                  <el-collapse-item title="效率 Efficiency" name="3">
-                    <div>简化流程：设计简洁直观的操作流程；</div>
-                    <div>清晰明确：语言表达清晰且表意明确，让用户快速理解进而作出决策；</div>
-                    <div>帮助用户识别：界面简单直白，让用户快速识别而非回忆，减少用户记忆负担。</div>
-                  </el-collapse-item>
-                  <el-collapse-item title="可控 Controllability" name="4">
-                    <div>用户决策：根据场景可给予用户操作建议或安全提示，但不能代替用户进行决策；</div>
-                    <div>结果可控：用户可以自由的进行操作，包括撤销、回退和终止当前操作等。</div>
+                  <el-collapse-item name="1">
+                    <template slot="title">
+                      <div class="bookings-item-brief">
+                        <img src="./img/up.png" :class="{ 'down': judgeImg(1) }">
+                        <div>OrderId:&nbsp;&nbsp;<span>JT23-600-3427</span></div>
+                        <div>Purchase date:&nbsp;&nbsp;<span>Tue,Jul 23,2019</span></div>
+                      </div>
+                    </template>
+                    <ul class="bookings-item-contents">
+                      <li class="bookings-item-content">
+                        <el-row>
+                          <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
+                          <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
+                          <el-col :span="4"><div>0</div></el-col>
+                          <el-col :span="4"><div class="money">$0</div></el-col>
+                          <el-col :span="4">
+                            <div class="order-status">
+                              Cofirmed
+                              <div class="order-details">Details &raquo;</div>
+                            </div>
+                          </el-col>
+                        </el-row>
+                        <div class="actions">
+                          <el-button class="Reschedule">Reschedule</el-button>
+                          <el-button class="E-Ticket">E-Ticket</el-button>
+                          <el-button class="rack-Bus-Status">Track Bus Status</el-button>
+                        </div>
+                      </li>
+                      <li class="bookings-item-content">
+                        <el-row>
+                          <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
+                          <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
+                          <el-col :span="4"><div>0</div></el-col>
+                          <el-col :span="4"><div class="money">$0</div></el-col>
+                          <el-col :span="4">
+                            <div class="order-status">
+                              Cofirmed
+                              <div class="order-details">Details &raquo;</div>
+                            </div>
+                          </el-col>
+                        </el-row>
+                        <div class="actions">
+                          <el-button class="Reschedule">Reschedule</el-button>
+                          <el-button class="E-Ticket">E-Ticket</el-button>
+                          <el-button class="rack-Bus-Status">Track Bus Status</el-button>
+                        </div>
+                      </li>
+                    </ul>
                   </el-collapse-item>
                 </el-collapse>
+              </div>
+              <div class="no-bookings-found">
+                No Bookings Found !
               </div>
             </div>
           </div>
@@ -115,7 +167,22 @@
         headerInfo: [
           [''],
           { description: '', path: '' }
-        ]
+        ],
+        activeNames: []
+      }
+    },
+    methods: {
+      handleChange(val) {
+      },
+      judgeImg(num) {
+        num = parseInt(num)
+        for (let i = 0; i < this.activeNames.length; i++) {
+          if (num === parseInt(this.activeNames[i])) {
+            return false
+          }
+        }
+        console.log(true)
+        return true
       }
     },
     components: {
@@ -135,43 +202,56 @@
   }
   .content>h2 {
     margin-top: 0;
-    font-size: 26px;
+    font-size: 24px;
     line-height: 28px;
     color: #002E63;
   }
   .account-brief {
     box-sizing: border-box;
-    width: 978px;
     height: 150px;
     padding-top: 28px;
     padding-bottom: 28px;
-    border: 1px solid #aaa;
-  }
-  .account-brief::before, .account-brief::after {
-    display: table;
-    content: '';
-  }
-  .account-brief::after {
-    clear: both;
+    display: flex;
+    align-items: stretch;
   }
   .account-brief>.left {
-    width: 489px;
-    padding-left: 54px;
-    padding-right: 54px;
+    width: 50%;
+    padding-left: 50px;
+    padding-right: 50px;
     display: flex;
     border-right: 2px solid #E8F1FF;
   }
+  .account-brief>.left>img {
+    margin-right: 15px;
+  }
   .account-brief>.right {
-    width: 489px;
+    width: 50%;
+    padding-left: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: stretch;
+  }
+  .account-brief>.right>p {
+    height: 33.33%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  }
+  .account-brief>.right>p>img {
+    margin-right: 20px;
+  }
+  .account-brief>.right>p>span {
+    font-size: 14px;
+    color: #666;
+    line-height: 20px;
   }
   .divider {
-    width: 978px;
     border-top: 1px solid #EAEAEA;
     margin-top: 20px;
-    margin-bottom: 58px;
+    margin-bottom: 56px;
   }
   .recent-bookings {
-    width: 978px;
+
   }
   .bookings-header {
     display: flex;
@@ -204,8 +284,10 @@
     padding-left: 3px;
     padding-right: 3px;
   }
-  >>> .el-collapse-item:not(:last-child) {
+  >>> .el-collapse-item {
     background-color: #F5F5F5;
+  }
+  >>> .el-collapse-item:not(:last-child) {
     margin-bottom: 20px;
   }
   >>> .el-collapse-item__header {
@@ -231,23 +313,28 @@
   }
   .bookings-item-brief>div>span {
     color: #000;
+    font-weight: 500;
   }
   ul.bookings-item-contents {
     padding-left: 0;
     list-style: none;
+    margin-top: 0;
+    margin-bottom: 8px;
   }
   li.bookings-item-content {
-    margin-bottom: 10px;
+    margin-bottom: 8px;
     background-color: #fff;
   }
   div.money {
-    font-size: 16px;
+    font-size: 18px;
     color: #333;
   }
   div.order-status {
     position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     font-size: 14px;
-    line-height: 16px;
+    line-height: 1;
     color: #458A8E;
     padding: 6px 12px;
     font-weight: bold;
@@ -260,6 +347,7 @@
     color: #333;
     white-space: nowrap;
     font-weight: normal;
+    cursor: pointer;
   }
   >>> .el-collapse-item__content {
     padding-bottom: 0;
@@ -273,12 +361,53 @@
   }
   .bookings-item-content >>> .el-row {
     font-size: 14px;
-    line-height: 64px;
+    line-height: 66px;
     color: #000;
-    min-height: 64px;
+    min-height: 66px;
     border-bottom: 1px dashed #F2F6FB;
   }
   >>> .el-collapse-item__wrap {
     background-color: inherit;
+  }
+  .bookings-item-content>.el-row>.el-col:last-child {
+    height: 66px;
+    position: relative;
+  }
+  .actions >>> .el-button.Reschedule, .actions >>> .el-button.E-Ticket {
+    height: 28px;
+    line-height: 16px;
+    font-size: 14px;
+    padding: 6px 8px;
+    border: 1px solid #979797;
+    margin-right: 12px;
+    border-radius: 4px;
+    color: #333;
+  }
+  .actions >>> .el-button.rack-Bus-Status {
+    height: 28px;
+    line-height: 16px;
+    font-size: 14px;
+    padding: 6px 8px;
+    border: 1px solid transparent;
+    margin-right: 12px;
+    background-color: #FFA212;
+    color: #fff;
+    border-radius: 4px;
+  }
+  .column-name >>> .el-row>.el-col {
+    font-weight: 600;
+  }
+  .bookings-item-content >>> .el-row>.el-col:nth-child(1), .bookings-item-content >>> .el-row>.el-col:nth-child(2), .bookings-item-content >>> .el-row>.el-col:nth-child(4) {
+    font-weight: 500;
+  }
+  >>> .el-collapse-item__header>i.el-collapse-item__arrow {
+    display: none;
+  }
+  .no-bookings-found {
+    font-size: 16px;
+    line-height: 18px;
+    color: #333;
+    margin-top: 35px;
+    padding-left: 4px;
   }
 </style>

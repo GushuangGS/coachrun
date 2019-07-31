@@ -2,10 +2,11 @@
     <div class="user-center">
       <div class="content">
         <el-container>
-          <el-header height="50px"></el-header>
+          <el-header height="50px" class="layout-border"></el-header>
           <el-container>
-            <el-aside width="200px">Aside</el-aside>
-            <el-main>
+            <el-aside width="182px" class="layout-border">
+            </el-aside>
+            <el-main class="layout-border">
               <keep-alive>
                 <router-view v-if="$route.meta.keepAlive"></router-view>
               </keep-alive>
@@ -21,13 +22,18 @@
 
 <script>
 export default {
+    components: {
+    },
   name: 'UserCenter'
 }
 </script>
 
 <style scoped>
   .content {
-    width: 1140px;
+    width: 1170px;
     margin: 0 auto;
+  }
+  .layout-border {
+    border: 1px solid #aaa;
   }
 </style>

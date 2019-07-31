@@ -7,13 +7,6 @@
         <el-main class="content">
           <div class="info" v-if="changeStatus != 1">
             <div class="success-wrapper" v-if="changeStatus == 0">
-              <!--<div class="success">
-                <img src="./img/success.png" alt="success">
-                <div class="success-content">
-                  <h2>Succeed</h2>
-                  <p>Your password has been reset successfully!</p>
-                </div>
-              </div>-->
               <success-box text="Your password has been reset successfully!"></success-box>
               <el-button class="finished">Finished</el-button>
             </div>
@@ -55,7 +48,7 @@
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
-  import { savePassword } from '@/api/UserCenter/ChangePassword/change-password'
+  import { changePassword } from '@/api/UserCenter/ChangePassword/change-password'
   import { ERR_OK } from '../../../api/config'
 
   export default {
@@ -124,16 +117,21 @@
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
-            alert('submit!')
+            this._changePassword()
           } else {
             console.log('error submit!!')
             return false
           }
         })
       },
-      _savePassword() {
-        savePassword(this.uid, this.formData).then((res) => {
+      _changePassword() {
+        changePassword(this.uid, this.formData, {
+          'Content-Type': 'application/json',
+          'Authorization': this.token
+        }).then((res) => {
+          console.log(res)
           if (res.code === ERR_OK) {
+
           }
         })
       }
@@ -192,35 +190,6 @@
     padding-bottom: 32px;
     padding-left: 36px;
   }
- /* .success {
-    display: flex;
-    align-items: center;
-    padding-top: 32px;
-    padding-bottom: 32px;
-    padding-left: 36px;
-  }
-  .success {
-    border: 2px solid #08A66C;
-    border-radius: 4px;
-    width: 690px;
-    height: 92px;
-    box-sizing: border-box;
-    line-height: 1;
-  }
-  .success>img {
-    width: 26px;
-    height: 26px;
-    margin-right: 20px;
-  }
-  .success-content>h2 {
-    margin-top: 0;
-    color: #08A66C;
-    font-size: 20px;
-  }
-  .success-content>p {
-    margin: 0;
-    font-size: 17px;
-  }*/
   .finished {
     font-size: 16px;
     background-color: #FF9A0D;
