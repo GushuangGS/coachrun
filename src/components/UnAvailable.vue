@@ -14,7 +14,11 @@
                 </div>
                 <div class="product-details">
                         <el-collapse>
-                            <el-collapse-item title="View promotion detail" name="1">
+                            <el-collapse-item>
+                                    <template slot="title">
+                                            View promotion detail
+                                            <img class="down" src="./img/down.png" alt=""> 
+                                       </template>
                                 <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
                                 <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
                             </el-collapse-item>
@@ -23,6 +27,9 @@
             </div>
             <div class="left-ridus"></div>
             <div class="right-ridus"></div>
+            <div class="top-img">
+                <img src="./img/expired.png" alt="">
+            </div>
         </div>
     </template>
     
@@ -35,7 +42,7 @@
     <style scoped>
         .product-card{
             width:284px;
-            height:253px;
+            /* height:253px; */
             background:rgba(235,235,235,1);
             margin-bottom: 40px;
             position: relative;
@@ -55,6 +62,11 @@
             left: 276px;
             top: 110px;
         }
+        .top-img{
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
         .product-top{
             width:284px;
             height:12px;
@@ -64,7 +76,7 @@
         }
         .product-container{
             width: 284px;
-            height: 241px;
+            /* height: 241px; */
         }
         .product-extra{
             margin: 0 auto;
@@ -132,11 +144,15 @@
         }
         .product-details{
             padding-left:8px; 
-            height:15px;
+            /* height:15px; */
             font-size:13px;
             color:#2D5687;
             margin-top: 20px;
             line-height:15px;
+        }
+
+        .down{
+            margin-left: 5px;
         }
     
         >>> .el-collapse{
@@ -149,5 +165,8 @@
             color:#2D5687;
             border-bottom: none;
             background: none;
+        }
+        >>> .el-collapse-item__wrap{
+            background-color: #EBEBEB;
         }
     </style>
