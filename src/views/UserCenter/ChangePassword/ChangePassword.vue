@@ -55,6 +55,9 @@
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
+  import { savePassword } from '@/api/UserCenter/ChangePassword/change-password'
+  import { ERR_OK } from '../../../api/config'
+
   export default {
     data() {
       let validatePass0 = (rule, value, callback) => {
@@ -125,6 +128,12 @@
           } else {
             console.log('error submit!!')
             return false
+          }
+        })
+      },
+      _savePassword() {
+        savePassword(this.uid, this.formData).then((res) => {
+          if (res.code === ERR_OK) {
           }
         })
       }

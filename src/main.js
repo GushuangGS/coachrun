@@ -7,6 +7,7 @@ import BootstrapVue from 'bootstrap-vue'
 
 // 引入font-awesome图标字体
 import 'font-awesome/css/font-awesome.min.css'
+import './common/css/index.css'
 
 Vue.use(BootstrapVue)
 
