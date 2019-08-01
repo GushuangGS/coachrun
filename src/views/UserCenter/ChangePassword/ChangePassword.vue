@@ -87,6 +87,7 @@
         }
       }
       return {
+        token: '',
         headerInfo: [
           ['Change Password'],
           { description: 'Change Password', path: '/app/member/account/password' }
@@ -125,13 +126,20 @@
         })
       },
       _changePassword() {
-        changePassword(this.uid, this.formData, {
+        let data = {}
+        data.passwordType = this.ruleForm.passwordType
+        data.password = this.ruleForm.currentPass
+        data.newPassword = this.ruleForm.pass
+        data.reNewPassword = this.ruleForm.checkPass
+        changePassword(this.uid, data, {
           'Content-Type': 'application/json',
           'Authorization': this.token
-        }).then((res) => {
-          console.log(res)
+        }).then((response) => {
+          let res = response.data
           if (res.code === ERR_OK) {
-
+            this.changeStatus = 0
+          } else {
+            this.changeStatus = 2
           }
         })
       }

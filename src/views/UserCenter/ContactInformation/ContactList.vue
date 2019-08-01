@@ -25,15 +25,15 @@
                   <el-table-column
                     align="center"
                     header-align="center"
-                    prop="address"
-                    label="Address"
+                    prop="phone"
+                    label="Phone"
                     min-width="300">
                   </el-table-column>
                   <el-table-column
                     align="center"
                     header-align="center"
-                    prop="zipCode"
-                    label="Zip Code"
+                    prop="email"
+                    label="Email"
                     min-width="100">
                   </el-table-column>
                   <el-table-column
@@ -42,8 +42,8 @@
                     label="Actions"
                     min-width="200">
                     <template slot-scope="scope">
-                      <el-button type="text" size="small">Edit</el-button>
-                      <el-button type="text" size="small">Default</el-button>
+                      <el-button type="text" size="small" @click.native="jump(scope.row.id)">Edit</el-button>
+                      <el-button type="text" size="small" v-if="!scope.row.isDefault" @click.native="setDefault(scope.row.id)">Default</el-button>
                       <el-button @click="handleClick(scope.row)" type="text" size="small">Delete</el-button>
                     </template>
                   </el-table-column>
@@ -57,6 +57,8 @@
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import { getContactList } from '../../../api/UserCenter/ContactInformation/contact-list'
+  import { ERR_OK } from '../../../api/config'
   export default {
     data() {
       return {
@@ -66,10 +68,40 @@
           { description: 'Contact Information', path: '/app/member/account/contactlist' }
         ],
         contactList: [
-          { id: 2, isDefault: true, name: 'Tom', address: '杭州市滨江区。。。。。。', zipCode: '310051' },
-          { id: 1, isDefault: false, name: 'Jack', address: '杭州市西湖区三墩镇紫荆花北路望月公寓', zipCode: '310013' }
+          { id: 2, isDefault: true, name: 'Tom', phone: '15751002499', email: '15751002499@163.com' },
+          { id: 1, isDefault: false, name: 'Jack', phone: '16651619952', email: '16651619952@163.com' }
         ]
       }
+    },
+    methods: {
+      _getContactList() {
+        getContactList(1, {
+          'Content-Type': 'application/json',
+          'Authorization': this.token
+        }).then((response) => {
+          let res = response.data
+          if (res.code === ERR_OK) {
+            for (let i = 0; i < res.data.length; i++) {
+              let contactItem = {}
+              contactItem.name = res.data[i].firstName + res.data[i].lastName
+              contactItem.isDefault = res.data[i].isDefault
+              contactItem.phone = res.data[i].phone
+              contactItem.email = res.data[i].email
+              this.contactList.push(contactItem)
+            }
+          } else {
+          }
+        })
+      },
+      jump(id) {
+        this.$router.push(`${this.$router.currentRoute.path}/${id}`)
+      },
+      setDefault(id) {
+
+      }
+    },
+    created() {
+      // this._getContactList()
     },
     components: {
       ItemHeader
@@ -90,14 +122,18 @@
   }
   .container>h2 {
     padding-left: 5px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
-    line-height: 1;
+    line-height: 20px;
     margin-top: 0;
   }
   >>> .el-table__header th {
     background-color: #E5EFFA;
     color: #29507D;
+    padding: 6px 0;
+  }
+  >>> .el-table__body td {
+    padding: 3px 0;
   }
   >>> .el-table__header th>div.cell {
     font-size: 16px;

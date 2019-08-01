@@ -1,9 +1,9 @@
 import axios from 'axios'
-import { baseURL, commonParams } from '../../config'
+import { baseURL } from '../../config'
 
-export function resetPassword(uid, formData, headers) {
-  const url = `${baseURL}/user-api/users/:userId/change-password`
-  const data = Object.assign({}, commonParams, formData)
+export function resetPassword(uid, data, headers) {
+  const url = `${baseURL}/user-api/users/${uid}/change-password`
+  data.uid = uid
 
   return axios.post(url, data, { headers })
 }
