@@ -9,7 +9,7 @@ const editContactRouter = {
   name: 'EditContact',
   component: EditContact,
   meta: {
-    keepAlive: true
+    // keepAlive: true
   }
 }
 

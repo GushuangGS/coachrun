@@ -3,14 +3,14 @@
         <div class="product-top"></div>
         <div class="product-container">
             <div class="product-extra">
-                <div class="product-tltle1">EXTRA</div>
-                <div class="product-tltle2">10%</div>
+                <div class="product-tltle1" v-show="listInfo.calculateType ==1">EXTRA</div>
+                <div class="product-tltle2">{{listInfo.discountValue}}%</div>
                 <div class="product-tltle3">OFF</div>
             </div>
             <div class="product-bus">
-                <span class="product-intro1">Las Vegas to Los Angeles Bus</span>
-                <span class="product-intro2">Departure time: 2019-07-04 to 2019-07-12</span>
-                <span class="product-intro3">Limited 1 Time Offer</span>
+                <span class="product-intro1">{{listInfo.title}}</span>
+                <span class="product-intro2">Departure time: {{listInfo.serviceDates}}</span>
+                <span class="product-intro3" v-show="listInfo.oneTimeUse ==1">Limited 1 Time Offer</span>
             </div>
             <div class="product-details">
                     <el-collapse>
@@ -32,7 +32,8 @@
 
 <script>
     export default{
-        name:'available'
+        name:'available',
+        props:['listInfo']
     }
 </script>
 
@@ -50,16 +51,16 @@
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        background: #ffffff;
+        background: #F5F5F5;
         position: absolute;
     }
     .left-ridus{
-        left: -29px;
-        top: 110px;
+        left: -17px;
+        top: 106px;
     }
     .right-ridus{
-        left: 276px;
-        top: 110px;
+        left: 268px;
+        top: 106px;
     }
     .product-top{
         width:284px;

@@ -1,4 +1,5 @@
 <template>
+  <!-- editcontact -->
   <div class="edit-contact">
     <el-container>
       <el-header height="33px">
@@ -12,89 +13,61 @@
                 <div class="col-6">
                   <b-form-group
                     id="input-group-00"
-                    label="First name:"
+                    label="First Name:"
                     label-for="input-00"
                   >
                     <b-form-input
                       id="input-00"
                       v-model="form.firstName"
-                      required
                     ></b-form-input>
                   </b-form-group>
                 </div>
                 <div class="col-6">
                   <b-form-group
                     id="input-group-01"
-                    label="Last name:"
+                    label="Last Name:"
                     label-for="input-01"
                   >
                     <b-form-input
                       id="input-01"
                       v-model="form.lastName"
-                      required
                     ></b-form-input>
                   </b-form-group>
                 </div>
               </div>
 
-              <b-form-group id="input-group-3" label="Country:" label-for="input-3">
-                <b-form-select
+              <b-form-group
+                id="input-group-3"
+                label="Contact Email:"
+                label-for="input-3"
+              >
+                <b-form-input
                   id="input-3"
-                  v-model="form.country"
-                  :options="countries"
-                  required
-                ></b-form-select>
-              </b-form-group>
-
-              <b-form-group id="input-group-2" label="Street:" label-for="input-2">
-                <b-form-input
-                  id="input-2"
-                  v-model="form.street"
-                  required
-                  placeholder=""
+                  v-model="form.email"
+                  placeholder="Enter email"
                 ></b-form-input>
               </b-form-group>
 
-              <b-form-group id="input-group-5" label="City:" label-for="input-5">
+              <b-form-group id="input-group-4" label="Contact Phone:" label-for="input-4">
                 <b-form-input
-                  id="input-5"
-                  v-model="form.city"
-                  placeholder=""
-                ></b-form-input>
-              </b-form-group>
-
-              <b-form-group id="input-group-6" label="Country/Region/Province:" label-for="input-6">
-                <b-form-input
-                  id="input-6"
-                  v-model="form.CountryRegionProvince"
-                  placeholder=""
-                ></b-form-input>
-              </b-form-group>
-
-              <b-form-group id="input-group-7" label="Phone:" label-for="input-7">
-                <b-form-input
-                  id="input-7"
+                  id="input-4"
                   type="tel"
                   v-model="form.phone"
                   placeholder=""
                 ></b-form-input>
               </b-form-group>
 
-              <b-form-group id="input-group-8" label-for="input-8">
-                <div name="label" class="custom-label">
-                  Zipcode:
-                  &nbsp;
-                  <span class="fa fa-exclamation-circle"></span>
-                </div>
-                <b-form-input
-                  id="input-8"
-                  v-model="form.zipcode"
-                  placeholder=""
-                ></b-form-input>
-              </b-form-group>
+              <b-form-group id="input-group-5" label="Alternate Phone:" label-for="input-5">
+                  <b-form-input
+                    id="input-5"
+                    type="tel"
+                    v-model="form.AlternatePhone"
+                    placeholder=""
+                  ></b-form-input>
+                </b-form-group>
 
-              <b-button type="submit" variant="light">Cancel</b-button>
-              <b-button type="reset" variant="warning">Save</b-button>
+              <b-button type="reset" variant="light">Cancel</b-button>
+              <b-button type="submit" variant="warning">Save</b-button>
             </b-form>
           </div>
         </div>
@@ -111,34 +84,53 @@
         status: 1,
         headerInfo: [
           ['Edit Contact Information'],
-          { description: '', path: '' }
+          { description: '', path: '',title:'My Account' }
         ],
         form: {
-          firstName: '',
-          lastName: '',
-          country: null,
-          street: '',
-          city: '',
-          countryRegionProvince: '',
-          zipcode: '',
-          checked: []
+          firstName:'',
+          lastName:'',
+          email:'',
+          phone:'',
+          AlternatePhone:''
         },
-        countries: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
         show: true
       }
     },
+    created(){
+      this.form = this.$store.state.contactInfo==""?this.$store.state.contactInfo:JSON.parse(localStorage.getItem("contactInfo"));
+      console.log(this.form);
+    },
     methods: {
       onSubmit(evt) {
-        evt.preventDefault()
-        alert(JSON.stringify(this.form))
+        evt.preventDefault();
+        if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.AlternatePhone!=''){
+            console.log(JSON.stringify(this.form));
+            this.$http.patch(this.$api.contactUpdate,
+              { uid:'2199066',aid:'1313',firstName:this.form.firstName,lastName:this.form.lastName,
+              phone:this.form.phone,email:this.form.email,phone2:this.form.AlternatePhone})
+              .then((res)=>{
+                  console.log(res);
+                  //添加成功后，默认都设置为空
+                  this.form = {
+                    firstName:'',
+                    lastName:'',
+                    email:'',
+                    phone:'',
+                    AlternatePhone:''
+                  }
+              })
+        }else{
+          alert('信息不全')
+        }
       },
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
+        this.form.firstName = ''
+        this.form.lastName = ''
         this.form.email = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
+        this.form.phone =''
+        this.form.AlternatePhone =''
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {

@@ -1,4 +1,5 @@
 <template>
+  <!-- contact -->
     <div class="contact-list">
       <el-container>
         <el-header height="33px">
@@ -13,11 +14,12 @@
                   style="width: 100%">
                   <el-table-column
                     header-align="center"
+                    align="center"
                     prop="name"
                     label="Name"
                     min-width="200">
                     <template slot-scope="scope">
-                      <span>{{ scope.row.name }}</span>
+                      <span>{{ scope.row.firstName + scope.row.lastName }}</span>
                       &nbsp;
                       <span v-if="scope.row.isDefault" class="default">[ Default ]</span>
                     </template>
@@ -25,16 +27,16 @@
                   <el-table-column
                     align="center"
                     header-align="center"
-                    prop="phone"
-                    label="Phone"
+                    prop="email"
+                    label="Email"
                     min-width="300">
                   </el-table-column>
                   <el-table-column
                     align="center"
                     header-align="center"
-                    prop="email"
-                    label="Email"
-                    min-width="100">
+                    prop="phone"
+                    label="Phone"
+                    min-width="150">
                   </el-table-column>
                   <el-table-column
                     align="center"
@@ -42,9 +44,9 @@
                     label="Actions"
                     min-width="200">
                     <template slot-scope="scope">
-                      <el-button type="text" size="small" @click.native="jump(scope.row.id)">Edit</el-button>
-                      <el-button type="text" size="small" v-if="!scope.row.isDefault" @click.native="setDefault(scope.row.id)">Default</el-button>
-                      <el-button @click="handleClick(scope.row)" type="text" size="small">Delete</el-button>
+                      <el-button @click="edit(scope.row)"  type="text" size="small">Edit</el-button>
+                      <el-button type="text" size="small">Default</el-button>
+                      <el-button @click="clickdel(scope.row)" type="text" size="small">Delete</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -57,56 +59,48 @@
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
-  import { getContactList } from '../../../api/UserCenter/ContactInformation/contact-list'
-  import { ERR_OK } from '../../../api/config'
   export default {
     data() {
       return {
         status: 0,
         headerInfo: [
           [''],
-          { description: 'Contact Information', path: '/app/member/account/contactlist' }
+          { description: 'Contact Information', path: '/app/member/account/contactlist',title:'My Account' }
         ],
         contactList: [
-          { id: 2, isDefault: true, name: 'Tom', phone: '15751002499', email: '15751002499@163.com' },
-          { id: 1, isDefault: false, name: 'Jack', phone: '16651619952', email: '16651619952@163.com' }
+          // { id: 2, isDefault: true, name: 'Tom', address: '杭州市滨江区。。。。。。', zipCode: '310051' },
+          // { id: 1, isDefault: false, name: 'Jack', address: '杭州市西湖区三墩镇紫荆花北路望月公寓', zipCode: '310013' }
         ]
       }
-    },
-    methods: {
-      _getContactList() {
-        getContactList(1, {
-          'Content-Type': 'application/json',
-          'Authorization': this.token
-        }).then((response) => {
-          let res = response.data
-          if (res.code === ERR_OK) {
-            for (let i = 0; i < res.data.length; i++) {
-              let contactItem = {}
-              contactItem.name = res.data[i].firstName + res.data[i].lastName
-              contactItem.isDefault = res.data[i].isDefault
-              contactItem.phone = res.data[i].phone
-              contactItem.email = res.data[i].email
-              this.contactList.push(contactItem)
-            }
-          } else {
-          }
-        })
-      },
-      jump(id) {
-        this.$router.push(`${this.$router.currentRoute.path}/${id}`)
-      },
-      setDefault(id) {
-
-      }
-    },
-    created() {
-      // this._getContactList()
     },
     components: {
       ItemHeader
     },
-    name: 'ContactList'
+    name: 'ContactList',
+    created(){
+      this.listInfo();
+    },
+    methods:{
+      listInfo(){//获取数据列表
+        this.$http.get(this.$api.contactList,{headers:{'Authorization':'2716316381'}})
+                .then((res)=>{
+                    console.log(res.data.data);
+                    this.contactList = res.data.data;
+                })
+      },
+      clickdel(row){//删除
+        console.log(row);
+        this.$http.delete(this.$api.contactDelete)
+                .then((res)=>{
+                    console.log(res);
+                })
+      },
+      edit(row){//编辑
+        console.log(row);
+        this.$router.push({name: 'EditContact',params:{contactId:'11'}});
+        this.$store.commit('contactInfo',row);
+      }
+    }
   }
 </script>
 
@@ -122,18 +116,14 @@
   }
   .container>h2 {
     padding-left: 5px;
-    font-size: 18px;
+    font-size: 20px;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 1;
     margin-top: 0;
   }
   >>> .el-table__header th {
     background-color: #E5EFFA;
     color: #29507D;
-    padding: 6px 0;
-  }
-  >>> .el-table__body td {
-    padding: 3px 0;
   }
   >>> .el-table__header th>div.cell {
     font-size: 16px;

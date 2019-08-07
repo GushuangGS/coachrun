@@ -9,34 +9,35 @@
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
               <div class="left">
-                <img src="./img/account-icon.png">
+                <img class="left-img" src="./img/account-icon.png">
                 <div class="account-points">
                   <h4>Jordanauthor@hotmail.com</h4>
-                  <p>My Points: <span>7</span></p>
+                  <p class="points">My Points: <span class="points-num">{{dashInfo.availablePoints}}</span></p>
                 </div>
               </div>
               <div class="right">
-                <p>
-                  <img src="./img/contact-edit.png">
-                  <span>Manage Contact Info</span>
-                </p>
-                <p>
-                  <img src="./img/reschedule.png">
-                  <span>View/Edit Creditcard</span>
-                </p>
-                <p>
-                  <img src="./img/password.png">
-                  <span>Change My Password</span>
-                </p>
+                <div>
+                  <img class="right-img" src="./img/contact-edit.png" alt="">
+                  <span class="right-span">Manage Contact Info</span>
+                </div>
+                <div @click="creditcard">
+                  <img class="right-img" src="./img/reschedule.png" alt="">
+                  <span class="right-span">View/Edit Creditcard</span>
+                </div>
+                <div @click="changePass">
+                    <img class="right-img" src="./img/password.png" alt="">
+                    <span class="right-span">Change My Password</span>
+                </div>
               </div>
             </div>
             <div class="divider"></div>
             <div class="recent-bookings">
               <div class="bookings-header">
-                <h4>My Recent Bookings</h4>
-                <span>See All Bookings ></span>
+                <h4>Upcoming Trips</h4>
+                <span  @click="myBookings">See All Bookings ></span>
               </div>
-              <div class="bookings-list">
+              <order-info></order-info>
+              <!-- <div class="bookings-list">
                 <div class="column-name">
                   <el-row>
                     <el-col :span="8"><div class="column-first">Schedule</div></el-col>
@@ -46,60 +47,11 @@
                     <el-col :span="4"><div>Order Status</div></el-col>
                   </el-row>
                 </div>
-                <el-collapse v-model="activeNames" @change="handleChange">
-                  <el-collapse-item name="0">
-                    <template slot="title">
-                      <div class="bookings-item-brief">
-                        <img src="./img/up.png" :class="{ 'down': judgeImg(0) }">
-                        <div>OrderId:&nbsp;&nbsp;<span>JT23-600-3427</span></div>
-                        <div>Purchase date:&nbsp;&nbsp;<span>Tue,Jul 23,2019</span></div>
-                      </div>
-                    </template>
-                    <ul class="bookings-item-contents">
-                      <li class="bookings-item-content">
-                        <el-row>
-                          <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
-                          <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                          <el-col :span="4"><div>0</div></el-col>
-                          <el-col :span="4"><div class="money">$0</div></el-col>
-                          <el-col :span="4">
-                            <div class="order-status">
-                              Cofirmed
-                              <div class="order-details">Details &raquo;</div>
-                            </div>
-                          </el-col>
-                        </el-row>
-                        <div class="actions">
-                          <el-button class="Reschedule">Reschedule</el-button>
-                          <el-button class="E-Ticket">E-Ticket</el-button>
-                          <el-button class="rack-Bus-Status">Track Bus Status</el-button>
-                        </div>
-                      </li>
-                      <li class="bookings-item-content">
-                        <el-row>
-                          <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
-                          <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                          <el-col :span="4"><div>0</div></el-col>
-                          <el-col :span="4"><div class="money">$0</div></el-col>
-                          <el-col :span="4">
-                            <div class="order-status">
-                              Cofirmed
-                              <div class="order-details">Details &raquo;</div>
-                            </div>
-                          </el-col>
-                        </el-row>
-                        <div class="actions">
-                          <el-button class="Reschedule">Reschedule</el-button>
-                          <el-button class="E-Ticket">E-Ticket</el-button>
-                          <el-button class="rack-Bus-Status">Track Bus Status</el-button>
-                        </div>
-                      </li>
-                    </ul>
-                  </el-collapse-item>
+                <el-collapse @change="handleChange">
                   <el-collapse-item name="1">
                     <template slot="title">
                       <div class="bookings-item-brief">
-                        <img src="./img/up.png" :class="{ 'down': judgeImg(1) }">
+                        <img class="down" src="./img/up.png">
                         <div>OrderId:&nbsp;&nbsp;<span>JT23-600-3427</span></div>
                         <div>Purchase date:&nbsp;&nbsp;<span>Tue,Jul 23,2019</span></div>
                       </div>
@@ -114,14 +66,16 @@
                           <el-col :span="4">
                             <div class="order-status">
                               Cofirmed
-                              <div class="order-details">Details &raquo;</div>
                             </div>
                           </el-col>
                         </el-row>
                         <div class="actions">
-                          <el-button class="Reschedule">Reschedule</el-button>
-                          <el-button class="E-Ticket">E-Ticket</el-button>
-                          <el-button class="rack-Bus-Status">Track Bus Status</el-button>
+                          <div class="order-details">Details &raquo;</div>
+                          <div class="btns">
+                              <el-button class="Reschedule">Reschedule</el-button>
+                              <el-button class="E-Ticket">E-Ticket</el-button>
+                              <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
+                          </div>
                         </div>
                       </li>
                       <li class="bookings-item-content">
@@ -133,23 +87,22 @@
                           <el-col :span="4">
                             <div class="order-status">
                               Cofirmed
-                              <div class="order-details">Details &raquo;</div>
                             </div>
                           </el-col>
                         </el-row>
                         <div class="actions">
-                          <el-button class="Reschedule">Reschedule</el-button>
-                          <el-button class="E-Ticket">E-Ticket</el-button>
-                          <el-button class="rack-Bus-Status">Track Bus Status</el-button>
+                            <div class="order-details">Details &raquo;</div>
+                            <div class="btns">
+                                <el-button class="Reschedule">Reschedule</el-button>
+                                <el-button class="E-Ticket">E-Ticket</el-button>
+                                <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
+                            </div>
                         </div>
                       </li>
                     </ul>
                   </el-collapse-item>
                 </el-collapse>
-              </div>
-              <div class="no-bookings-found">
-                No Bookings Found !
-              </div>
+              </div> -->
             </div>
           </div>
         </el-main>
@@ -159,6 +112,8 @@
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import OrderInfo from '@/views/UserCenter/OrderInfo'
+
   export default {
     data() {
       return {
@@ -166,29 +121,43 @@
         status: 0,
         headerInfo: [
           [''],
-          { description: '', path: '' }
+          { description: '', path: '' ,title:'Dashboard',title:'Dashboard'}
         ],
-        activeNames: []
-      }
-    },
-    methods: {
-      handleChange(val) {
-      },
-      judgeImg(num) {
-        num = parseInt(num)
-        for (let i = 0; i < this.activeNames.length; i++) {
-          if (num === parseInt(this.activeNames[i])) {
-            return false
-          }
-        }
-        console.log(true)
-        return true
+        dashInfo:{}//个人信息
       }
     },
     components: {
-      ItemHeader
+      ItemHeader,
+      OrderInfo
     },
-    name: 'MyOrders'
+    name: 'MyOrders',
+    created(){
+      this.orderList();
+    },
+    methods: {
+      handleChange(val) {
+        console.log(val);
+      },
+      orderList(){
+        this.$http.get(this.$api.dashboard)
+                .then((res)=>{
+                  if(res.status == 200){
+                    console.log(res.data.data);
+                    this.dashInfo = res.data.data;
+                    console.log(this.dashInfo);
+                  } 
+                })
+      },
+      creditcard(){//跳转到信用卡页面
+        this.$router.push({name: 'CreditList'});
+      },
+      changePass(){//跳转到修改密码页面
+        this.$router.push({name: 'ChangePassword'});
+      },
+      myBookings(){//mookings页面
+        this.$router.push({name: 'MyBookings'});
+      }
+    }
   }
 </script>
 
@@ -208,50 +177,70 @@
   }
   .account-brief {
     box-sizing: border-box;
+    width: 978px;
     height: 150px;
     padding-top: 28px;
     padding-bottom: 28px;
+    border: 1px solid #aaa;
     display: flex;
-    align-items: stretch;
+    cursor: pointer;
+  }
+  .account-brief::before, .account-brief::after {
+    display: table;
+    content: '';
+  }
+  .account-brief::after {
+    clear: both;
   }
   .account-brief>.left {
-    width: 50%;
-    padding-left: 50px;
-    padding-right: 50px;
+    width: 489px;
+    padding-left: 54px;
+    padding-right: 54px;
     display: flex;
     border-right: 2px solid #E8F1FF;
   }
-  .account-brief>.left>img {
-    margin-right: 15px;
+  .left-img{
+    width: 93px;
+    height: 93px;
+    margin-right: 20px;
   }
-  .account-brief>.right {
-    width: 50%;
-    padding-left: 50px;
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-  }
-  .account-brief>.right>p {
-    height: 33.33%;
-    margin: 0;
+  .points{
+    font-size: 14px;
+    color: #333333;
     display: flex;
     align-items: center;
   }
-  .account-brief>.right>p>img {
-    margin-right: 20px;
+  .points-num{
+    color: #365C86;
+    font-size: 24px;
+    line-height: 24px;
+    margin-left: 10px;
+    font-weight:bold;
   }
-  .account-brief>.right>p>span {
+  .account-brief>.right {
+    width: 489px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    justify-content: space-between;
+  }
+  .right-img{
+    width: 11px;
+    height: 13px;
+  }
+  .right-span{
     font-size: 14px;
-    color: #666;
-    line-height: 20px;
+    color: #666666;
+    margin-left: 10px;
   }
   .divider {
+    width: 978px;
     border-top: 1px solid #EAEAEA;
     margin-top: 20px;
-    margin-bottom: 56px;
+    margin-bottom: 58px;
   }
   .recent-bookings {
-
+    width: 978px;
   }
   .bookings-header {
     display: flex;
@@ -284,10 +273,8 @@
     padding-left: 3px;
     padding-right: 3px;
   }
-  >>> .el-collapse-item {
-    background-color: #F5F5F5;
-  }
   >>> .el-collapse-item:not(:last-child) {
+    background-color: #F5F5F5;
     margin-bottom: 20px;
   }
   >>> .el-collapse-item__header {
@@ -313,41 +300,31 @@
   }
   .bookings-item-brief>div>span {
     color: #000;
-    font-weight: 500;
   }
   ul.bookings-item-contents {
     padding-left: 0;
     list-style: none;
-    margin-top: 0;
-    margin-bottom: 8px;
   }
   li.bookings-item-content {
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     background-color: #fff;
   }
   div.money {
-    font-size: 18px;
+    font-size: 16px;
     color: #333;
   }
   div.order-status {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
+    /* position: absolute; */
     font-size: 14px;
-    line-height: 1;
+    /* line-height: 16px; */
     color: #458A8E;
-    padding: 6px 12px;
+    /* padding: 6px 12px; */
     font-weight: bold;
   }
   div.order-details {
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #333;
+    color: #274F7C;
     white-space: nowrap;
     font-weight: normal;
-    cursor: pointer;
   }
   >>> .el-collapse-item__content {
     padding-bottom: 0;
@@ -356,58 +333,18 @@
     padding-top: 8px;
     padding-bottom: 8px;
     display: flex;
-    justify-content: flex-end;
-    padding-right: 90px;
+    justify-content:space-between;
+    padding-right: 120px;
+    padding-left: 30px;
   }
   .bookings-item-content >>> .el-row {
     font-size: 14px;
-    line-height: 66px;
+    line-height: 64px;
     color: #000;
-    min-height: 66px;
+    min-height: 64px;
     border-bottom: 1px dashed #F2F6FB;
   }
   >>> .el-collapse-item__wrap {
     background-color: inherit;
-  }
-  .bookings-item-content>.el-row>.el-col:last-child {
-    height: 66px;
-    position: relative;
-  }
-  .actions >>> .el-button.Reschedule, .actions >>> .el-button.E-Ticket {
-    height: 28px;
-    line-height: 16px;
-    font-size: 14px;
-    padding: 6px 8px;
-    border: 1px solid #979797;
-    margin-right: 12px;
-    border-radius: 4px;
-    color: #333;
-  }
-  .actions >>> .el-button.rack-Bus-Status {
-    height: 28px;
-    line-height: 16px;
-    font-size: 14px;
-    padding: 6px 8px;
-    border: 1px solid transparent;
-    margin-right: 12px;
-    background-color: #FFA212;
-    color: #fff;
-    border-radius: 4px;
-  }
-  .column-name >>> .el-row>.el-col {
-    font-weight: 600;
-  }
-  .bookings-item-content >>> .el-row>.el-col:nth-child(1), .bookings-item-content >>> .el-row>.el-col:nth-child(2), .bookings-item-content >>> .el-row>.el-col:nth-child(4) {
-    font-weight: 500;
-  }
-  >>> .el-collapse-item__header>i.el-collapse-item__arrow {
-    display: none;
-  }
-  .no-bookings-found {
-    font-size: 16px;
-    line-height: 18px;
-    color: #333;
-    margin-top: 35px;
-    padding-left: 4px;
   }
 </style>

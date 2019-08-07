@@ -1,4 +1,5 @@
 <template>
+  <!-- 修改密码 -->
     <div class="change-password">
       <el-container>
         <el-header height="33px">
@@ -22,7 +23,7 @@
           <div class="form-wrapper" v-if="changeStatus !=0">
             <el-form  :label-position="labelPosition" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="150px">
               <el-form-item label="Password type:">
-                <el-select v-model="ruleForm.passwordType" placeholder="">
+                <el-select v-model="ruleForm.passwordType"  @change="selectGet" placeholder="">
                   <el-option v-for="(passwordType, index) in passwordTypes" v-bind:key="index" :label="passwordType.label" :value="passwordType.value"></el-option>
                 </el-select>
               </el-form-item>
@@ -48,8 +49,6 @@
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
-  import { changePassword } from '@/api/UserCenter/ChangePassword/change-password'
-  import { ERR_OK } from '../../../api/config'
 
   export default {
     data() {
@@ -87,13 +86,12 @@
         }
       }
       return {
-        token: '',
         headerInfo: [
           ['Change Password'],
           { description: 'Change Password', path: '/app/member/account/password' }
         ],
         changeStatus: 1, // 1 => 未点击Save按钮，0 => 修改密码成功，2 => 修改密码失败
-        labelPosition: 'right',
+        labelPosition: 'right',//表单位置
         passwordTypes: [{ label: 'Login', value: 'login' }, { label: 'Excution', value: 'excution' }],
         ruleForm: {
           passwordType: 'login',
@@ -111,35 +109,26 @@
           checkPass: [
             { validator: validatePass2, trigger: 'blur' }
           ]
-        }
+        },
+        getVal:'login'//默认选中值为login
       }
     },
     methods: {
+      selectGet(val){
+        console.log(val);
+        this.getVal = val;
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
-          if (valid) {
-            this._changePassword()
-          } else {
-            console.log('error submit!!')
-            return false
-          }
-        })
-      },
-      _changePassword() {
-        let data = {}
-        data.passwordType = this.ruleForm.passwordType
-        data.password = this.ruleForm.currentPass
-        data.newPassword = this.ruleForm.pass
-        data.reNewPassword = this.ruleForm.checkPass
-        changePassword(this.uid, data, {
-          'Content-Type': 'application/json',
-          'Authorization': this.token
-        }).then((response) => {
-          let res = response.data
-          if (res.code === ERR_OK) {
-            this.changeStatus = 0
-          } else {
-            this.changeStatus = 2
+          if(valid){
+            console.log(this.ruleForm);
+            console.log(this.getVal);
+              this.$http.post(this.$api.resetPassword,
+              {passwordType:this.getVal,password:this.ruleForm.currentPass,rePassword:this.ruleForm.pass,reNewPassword:this.ruleForm.checkPass})
+                  .then((res)=>{
+                      console.log(res);
+                      this.changeStatus = 0;
+                  })
           }
         })
       }
@@ -198,6 +187,35 @@
     padding-bottom: 32px;
     padding-left: 36px;
   }
+ /* .success {
+    display: flex;
+    align-items: center;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    padding-left: 36px;
+  }
+  .success {
+    border: 2px solid #08A66C;
+    border-radius: 4px;
+    width: 690px;
+    height: 92px;
+    box-sizing: border-box;
+    line-height: 1;
+  }
+  .success>img {
+    width: 26px;
+    height: 26px;
+    margin-right: 20px;
+  }
+  .success-content>h2 {
+    margin-top: 0;
+    color: #08A66C;
+    font-size: 20px;
+  }
+  .success-content>p {
+    margin: 0;
+    font-size: 17px;
+  }*/
   .finished {
     font-size: 16px;
     background-color: #FF9A0D;

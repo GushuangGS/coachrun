@@ -22,7 +22,7 @@
               </div>
               <div class="operation">
                 <el-button type="text" size="small">Edit</el-button>
-                <el-button type="text" size="small">Delete</el-button>
+                <el-button type="text" size="small" @click="move">Delete</el-button>
               </div>
             </li>
             <li class="credit-list-item">
@@ -53,7 +53,24 @@
         </div>
       </div>
     </el-main>
-    <delete-confirm>
+    <el-dialog
+      title="Delete Credit Card"
+      :visible.sync="showDialogVisible"
+      width="790px">
+      <div class="delete-body">
+        <div class="item">
+          <img class="item-img" src="./img/AmEx.png">
+          <span class="item-name">AmEx Card</span>
+          <span class="item-detail">……1126</span>
+        </div>
+        <p>Are you sure you want to remove this credit card from your list? </p>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="showDialogVisible = false">Cancel</el-button>
+        <el-button type="primary" @click="showDialogVisible = false">Confirm Remove</el-button>
+      </span>
+    </el-dialog>
+    <!-- <delete-confirm>
       <div class="delete-body">
         <div class="item">
           <img class="item-img" :src="deleteItem.img">
@@ -62,14 +79,14 @@
         </div>
         <p>Are you sure you want to remove this credit card from your list? </p>
       </div>
-    </delete-confirm>
+    </delete-confirm> -->
   </div>
 </template>
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
-  import DeleteConfirm from '@/components/DeleteConfirm'
+  // import DeleteConfirm from '@/components/DeleteConfirm'
   export default {
     data() {
       return {
@@ -81,18 +98,37 @@
         status: 0,
         headerInfo: [
           [''],
-          { description: 'View/Edit Creditcard', path: '/app/member/account/credit' }
+          { description: 'View/Edit Creditcard', path: '/app/member/account/credit',title:'My Account' }
         ],
-        successBoxFlag: true,
-        successBoxText: 'Your Credit Card has been removed successfully!'
+        successBoxFlag: false,
+        successBoxText: 'Your Credit Card has been removed successfully!',
+        showDialogVisible:false
       }
     },
     components: {
       ItemHeader,
-      SuccessBox,
-      DeleteConfirm
+      SuccessBox
+      // DeleteConfirm
     },
-    name: 'CreditList'
+    name: 'CreditList',
+    created(){
+      this.creditList();
+    },
+    methods:{
+      move(){
+        this.showDialogVisible = true;
+      },
+      creditList(){
+        this.$http.get(this.$api.creditList,{userId:'1'})
+              .then((res)=>{
+                  console.log(res.data.data);
+                  if(res.data.data.length == 0){
+                    alert('none')
+                  }
+              })
+      }
+
+    }
   }
 </script>
 
@@ -219,6 +255,7 @@
     line-height: 38px;
     font-size: 20px;
     margin-bottom: 20px;
+    display: flex;
   }
   .delete-body>div.item>img {
     width: 68px;
@@ -227,8 +264,17 @@
   .delete-body>div.item>span.name {
     margin-right: 2px;
   }
+  .item-detail{
+    margin-left: 40px;
+  }
   .delete-body>p {
     margin: 0;
     font-size: 20px;
+  }
+  >>> .el-dialog__header{
+    background: #F0F0F0;
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
   }
 </style>

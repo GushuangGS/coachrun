@@ -1,4 +1,5 @@
 <template>
+  <!-- add-credit -->
     <div class="add-credit">
       <el-container>
         <el-header height="33px">
@@ -38,8 +39,15 @@
                         <b-form-input
                           id="input-00"
                           v-model="form.holderName"
-                          required
+                          :state="validation"
                         ></b-form-input>
+                        <b-form-invalid-feedback :state="validation">
+                            不为空
+                        </b-form-invalid-feedback> 
+                        <!-- <b-form-valid-feedback :state="validation">
+                          hahhhhh
+                        </b-form-valid-feedback> -->
+                        
                       </b-form-group>
                     </div>
                     <div class="col-6">
@@ -61,24 +69,6 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-3">
-                      <b-form-group
-                        id="input-group-10"
-                        label-for="input-10"
-                      >
-                        <div name="label" class="custom-label">
-                          <span class="necessary">* </span>
-                          CVV:
-                          &nbsp;
-                          <span class="fa fa-exclamation-circle"></span>
-                        </div>
-                        <b-form-input
-                          id="input-10"
-                          v-model="form.CVV"
-                          required
-                        ></b-form-input>
-                      </b-form-group>
-                    </div>
                     <div class="col-3">
                       <b-form-group
                         id="input-group-11"
@@ -129,24 +119,32 @@
                         ></b-form-select>
                       </b-form-group>
                     </div>
+                    <div class="col-3">
+                      <b-form-group
+                        id="input-group-10"
+                        label-for="input-10"
+                      >
+                        <div name="label" class="custom-label">
+                          <span class="necessary">* </span>
+                          CVV:
+                          &nbsp;
+                          <el-tooltip content="Top center" placement="top">
+                            <span class="fa fa-exclamation-circle"></span>
+                          </el-tooltip>
+                        </div>
+                        <b-form-input
+                          id="input-10"
+                          v-model="form.CVV"
+                          required
+                        ></b-form-input>
+                      </b-form-group>
+                    </div>
                   </div>
                 </div>
                 <div class="middle"></div>
                 <div class="down">
                   <h2>Billing Address (address where you are receiving the statements for your credit card)</h2>
-                  <b-form-group id="input-group-3" label-for="input-3">
-                    <div name="label" class="custom-label">
-                      <span class="necessary">* </span>
-                      Country:
-                    </div>
-                    <b-form-select
-                      id="input-3"
-                      v-model="form.country"
-                      :options="countries"
-                      required
-                    ></b-form-select>
-                  </b-form-group>
-
+                  
                   <b-form-group id="input-group-4" label-for="input-4">
                     <div name="label" class="custom-label">
                       <span class="necessary">* </span>
@@ -169,6 +167,7 @@
                       id="input-5"
                       v-model="form.city"
                       placeholder=""
+                      required
                     ></b-form-input>
                   </b-form-group>
                   <div class="row">
@@ -198,14 +197,27 @@
                           id="input-61"
                           v-model="form.zipcode"
                           placeholder=""
+                          required
                         ></b-form-input>
                       </b-form-group>
                     </div>
                   </div>
+                  <b-form-group id="input-group-3" label-for="input-3">
+                    <div name="label" class="custom-label">
+                      <span class="necessary">* </span>
+                      Country:
+                    </div>
+                    <b-form-select
+                      id="input-3"
+                      v-model="form.country"
+                      :options="countries"
+                      required
+                    ></b-form-select>
+                  </b-form-group>
                 </div>
                 <div class="btn-wrapper">
-                  <b-button type="submit" variant="light">Cancel</b-button>
-                  <b-button type="reset" variant="warning">Save</b-button>
+                  <b-button type="reset"  variant="light">Cancel</b-button>
+                  <b-button type="submit" variant="warning" @click="save">Save</b-button>
                 </div>
               </b-form>
             </div>
@@ -223,7 +235,7 @@
         status: 1,
         headerInfo: [
           ['Add Credit Card'],
-          { description: '', path: '' }
+          { description: '', path: '',title:'My Account' }
         ],
         form: {
           holderName: '',
@@ -236,17 +248,22 @@
           street: '',
           city: ''
         },
-        types: ['AmEx'],
+        types: ['AmEx','VISA'],
         months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
         years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029'],
         countries: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
         states: ['USA', 'UK', 'China']
       }
     },
+    computed:{
+      validation(){
+        return this.form.holderName != '';
+      }
+    },
     methods: {
       onSubmit(evt) {
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
+        console.log(JSON.stringify(this.form))
       },
       onReset(evt) {
         evt.preventDefault()
@@ -260,6 +277,29 @@
         this.$nextTick(() => {
           this.show = true
         })
+      },
+      save(){
+        this.$http.post(this.$api.creditAdd,
+              {nameOnCard:this.form.holderName,cardNumber:this.form.cardNumber,
+                uid:'11',cardType:this.form.type,expireMonth:this.form.month,
+                expireYear:this.form.year,billingAddress:{street:this.form.street,
+                city:this.form.city,state:this.form.state,zipcode:this.form.zipcode,
+                country:this.form.country},isDefault:false})
+              .then((res)=>{
+                  console.log(res);
+                  //添加成功后，默认都设置为空
+                  this.form = {
+                    holderName: '',
+                    cardNumber: '',
+                    CVV: '',
+                    type: 'AmEx',
+                    month: '01',
+                    year: '2019',
+                    country: null,
+                    street: '',
+                    city: ''
+                  }
+              })
       }
     },
     components: {

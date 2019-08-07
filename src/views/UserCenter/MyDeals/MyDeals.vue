@@ -10,10 +10,9 @@
             <div class="products">
                     <el-row :gutter="20">
                         <el-col :span="8" v-for="(listInfo,index) in dataList" :key="index">
-                            <available></available>
-                            <un-available></un-available>
+                            <un-available :listInfo="listInfo" v-if="listInfo.ususedDate && listInfo.isExpired==1"></un-available>
+                            <available :listInfo="listInfo" v-else=""></available>
                         </el-col>
-                        <!-- listInfo.ususedDate && listInfo.isExpired==1 -->
                         <!-- <el-col :span="8">
                             <un-available></un-available>
                         </el-col>
@@ -34,10 +33,6 @@
     import Available from '@/components/Available'
     import UnAvailable from '@/components/UnAvailable'
 
-    import { dealsInfo } from '@/api/UserCenter/MyDeals/my-deals'
-    import { ERR_OK } from '../../../api/config'
-
-
     export default{
         name:'MyDeals',
         data(){
@@ -45,7 +40,7 @@
                 status: 0,
                 headerInfo: [
                     [''],
-                    { description: 'My Deals', path: '/app/member/account/deals' }
+                    { description: 'My Deals', path: '/app/member/account/deals',title:'My Account' }
                 ],
                 dataList:[],//优惠卷列表
                 isRed:true
@@ -57,17 +52,14 @@
             UnAvailable
         },
         methods:{
-            _dealsInfo(){
-                dealsInfo().then((res)=>{
-                    if(ERR_OK == 200){
-                        console.log(res.data.data);
-                        this.dataList = res.data.data;
-                    }
-                })
-            }
+            
         },
         created(){
-            this._dealsInfo();
+            this.$http.get(this.$api.deals,{website:'1',deviceType:'1',userId:'1571335'})
+                .then((res)=>{
+                    console.log(res);
+                    this.dataList = res.data.data;
+                })
 
         }
     }

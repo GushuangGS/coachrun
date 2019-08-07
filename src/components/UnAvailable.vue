@@ -3,21 +3,21 @@
             <div class="product-top"></div>
             <div class="product-container">
                 <div class="product-extra">
-                    <div class="product-tltle1">EXTRA</div>
-                    <div class="product-tltle2">10%</div>
+                    <div class="product-tltle1" v-show="listInfo.calculateType ==1">EXTRA</div>
+                    <div class="product-tltle2">{{listInfo.discountValue}}%</div>
                     <div class="product-tltle3">OFF</div>
                 </div>
                 <div class="product-bus">
-                    <span class="product-intro1">Las Vegas to Los Angeles Bus</span>
-                    <span class="product-intro2">Departure time: 2019-07-04 to 2019-07-12</span>
-                    <span class="product-intro3">Limited 1 Time Offer</span>
+                    <span class="product-intro1">{{listInfo.title}}</span>
+                    <span class="product-intro2">Departure time: {{listInfo.serviceDates}}</span>
+                    <span class="product-intro3" v-show="listInfo.oneTimeUse ==1">Limited 1 Time Offer</span>
                 </div>
                 <div class="product-details">
                         <el-collapse>
                             <el-collapse-item>
                                     <template slot="title">
                                             View promotion detail
-                                            <img class="down" src="./img/down.png" alt=""> 
+                                            <img class="down"src="./img/down.png" alt=""> 
                                        </template>
                                 <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
                                 <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
@@ -28,14 +28,16 @@
             <div class="left-ridus"></div>
             <div class="right-ridus"></div>
             <div class="top-img">
-                <img src="./img/expired.png" alt="">
+                <img  v-show="listInfo.usedDate ==''"  src="./img/used.png" alt="">
+                <img  v-show="listInfo.isExpired ==1"  src="./img/expired.png" alt="">
             </div>
         </div>
     </template>
     
     <script>
         export default{
-            name:'un-available'
+            name:'un-available',
+            props:['listInfo']
         }
     </script>
     
@@ -55,12 +57,12 @@
             position: absolute;
         }
         .left-ridus{
-            left: -29px;
-            top: 110px;
+            left: -17px;
+            top: 106px;
         }
         .right-ridus{
-            left: 276px;
-            top: 110px;
+            left: 268px;
+            top: 106px;
         }
         .top-img{
             position: absolute;

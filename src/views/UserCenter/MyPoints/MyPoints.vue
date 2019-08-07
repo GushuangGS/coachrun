@@ -44,7 +44,7 @@
               <h2 class="table-title">Points Details</h2>
               <el-table
                 empty-text="Start earning your loyalty points today!"
-                :data="tableData"
+                :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 style="width: 100%">
                 <el-table-column
                   prop="source"
@@ -74,7 +74,10 @@
                 <el-pagination
                   background
                   layout="prev, pager, next"
-                  :total="100">
+                  :total="tableData.length"
+                  @current-change="handleCurrentChange"
+                  :page-size="pagesize"
+                  :current-page="currentPage">
                 </el-pagination>
               </div>
             </div>
@@ -92,8 +95,10 @@
         status: 0,
         headerInfo: [
           [''],
-          { description: 'My Points', path: '/app/member/account/points' }
+          { description: 'My Points', path: '/app/member/account/points',title:'My Account' }
         ],
+        currentPage:1, //初始页
+         pagesize:10,    //    每页的数据
         tableData: [{
           source: 'Booking ( Order JT23-600-3427 )',
           points: { value: 7, isPending: false },
@@ -112,7 +117,23 @@
     components: {
       ItemHeader
     },
-    name: 'MyPoints'
+    name: 'MyPoints',
+    created(){
+      this.tableInfo();
+    },
+    methods:{
+      handleCurrentChange: function(currentPage){
+              this.currentPage = currentPage;
+              console.log(this.currentPage)  //点击第几页
+      },
+      tableInfo(){
+        this.$http.get(this.$api.viewPoint)
+                .then((res)=>{
+                    console.log(res);
+                })
+      }
+
+    }
   }
 </script>
 
@@ -214,7 +235,7 @@
     color: #333;
   }
   >>> .el-table_1_column_2 {
-    font-size: 26px;
+    font-size: 24px;
     font-weight: bold;
   }
   >>> .el-table_1_column_3 {
@@ -223,9 +244,11 @@
   }
   .positive {
     color: #FF9D0D;
+    font-weight: bold;
   }
   .negtive {
     color: #0BA76E;
+    font-weight: bold;
   }
   .pending {
     opacity: .5;
@@ -234,7 +257,7 @@
     position: relative;
   }
   .text-pending {
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
     font-weight: normal;
     position: absolute;

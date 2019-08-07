@@ -1,24 +1,41 @@
 <template>
   <div id="app">
+    <my-header></my-header>
     <keep-alive>
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-<!--    <my-footer></my-footer>-->
+    <!--<my-footer></my-footer>-->
+    <el-footer height="100px" style="background-color: skyblue;margin-top: 100px;"></el-footer>
   </div>
 </template>
 
 <script>
-
+import MyHeader from '@/views/MyHeader'
 export default {
   name: 'app',
   components: {
+    MyHeader
   }
 }
 </script>
 
 <style>
+@import "./styles/fonts/css/a.css";
+body{
+    padding: 0;
+    margin: 0;
+    overflow: auto;
+  }
+  ul li {
+    list-style: none;
+  }
 #app {
-
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* text-align: center; */
+  color: #2c3e50;
+  background-color: #F5F5F5;
 }
 </style>
