@@ -1,18 +1,28 @@
 import userCenterRouter from './user-center/user-center'
 // import login from './login/login'
-const Login = resolve => {
+const Login = resolve => {//登陆页面
   import('@/views/Login/Login').then(module => {
     resolve(module)
   })
 }
-const Register = resolve => {
+const Register = resolve => {//注册页面
   import('@/views/Login/Register').then(module => {
     resolve(module)
   })
 }
 
-const PasswordRetrieval = resolve => {
+const PasswordRetrieval = resolve => {//忘记密码
   import('@/views/UserCenter/ResetPassword/PasswordRetrieval').then(module => {
+    resolve(module)
+  })
+}
+const RemindEmail = resolve => {
+  import('@/views/UserCenter/ResetPassword/RemindEmail').then(module => {
+    resolve(module)
+  })
+}
+const ResetPassword = resolve => {
+  import('@/views/UserCenter/ResetPassword/ResetPassword').then(module => {
     resolve(module)
   })
 }
@@ -37,14 +47,30 @@ const routes = [
       keepAlive: true
     }
   },
-  // {
-  //   path: '/app/member/account/passwordRetrieval',
-  //   name: 'PasswordRetrieval',
-  //   component: PasswordRetrieval,
-  //   meta: {
-  //     keepAlive: true
-  //   }
-  // },
+  {//发生邮箱
+    path: '/app/member/passwordRetrieval',
+    name: 'PasswordRetrieval',
+    component: PasswordRetrieval,
+    meta: {
+      keepAlive: true
+    }
+  },
+  {//发送至邮箱提醒
+    path: '/app/member/remindEmail',
+    name: 'RemindEmail',
+    component: RemindEmail,
+    meta: {
+      keepAlive: true
+    }
+  },
+  {//密码重置页
+    path: '/app/member/resetPassword',
+    name: 'ResetPassword',
+    component: ResetPassword,
+    meta: {
+      keepAlive: true
+    }
+  },
   userCenterRouter
 ]
 

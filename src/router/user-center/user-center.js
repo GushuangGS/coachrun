@@ -8,9 +8,9 @@ import editCreditRouter from './Credit/edit-credit'
 import myPointsRouter from './MyPoints/my-points'
 import myOrdersRouter from './MyOrders/my-orders'
 import myDealsRouter from './MyDeals/my-deals'
-import resetPasswordRouter from './ResetPassword/reset-password'
-import remindEmailRouter from './ResetPassword/remind-email'
-import passwordRetrievalRouter from './ResetPassword/password-retrieval'
+// import resetPasswordRouter from './ResetPassword/reset-password'
+// import remindEmailRouter from './ResetPassword/remind-email'
+// import passwordRetrievalRouter from './ResetPassword/password-retrieval'
 import myBookingsRouter from './MyBookings/my-bookings'
 
 
@@ -38,9 +38,6 @@ const userCenterRouter = {
     myPointsRouter,
     myOrdersRouter,
     myDealsRouter,
-    resetPasswordRouter,
-    remindEmailRouter,
-    passwordRetrievalRouter,
     myBookingsRouter
   ]
 }

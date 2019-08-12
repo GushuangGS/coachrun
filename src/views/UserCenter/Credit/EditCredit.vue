@@ -21,7 +21,7 @@
               <img src="./img/safety.png">
               <span>Your payment details are secure</span>
             </div>
-            <b-form @submit="onSubmit" @reset="onReset">
+            <b-form @reset="onReset">
               <div class="up">
                 <div class="row">
                   <div class="col-6">
@@ -33,12 +33,17 @@
                         <span class="necessary">* </span>
                         Card Holder Name:
                         &nbsp;
-                        <span class="fa fa-exclamation-circle"></span>
+                        <el-tooltip placement="bottom" effect="light">
+                          <div slot="content">Card Holder Name is <br> 
+                            typically the name of the <br> person on the front of the 
+                            <br> credit card.
+                            </div>
+                          <span class="fa fa-exclamation-circle"></span>
+                        </el-tooltip>
                       </div>
                       <b-form-input
                         id="input-00"
                         v-model="form.holderName"
-                        required
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -54,8 +59,11 @@
                       <b-form-input
                         id="input-01"
                         v-model="form.cardNumber"
-                        required
+                        :state="validationNum"
                       ></b-form-input>
+                      <b-form-invalid-feedback>
+                          {{cardNum}}
+                        </b-form-invalid-feedback>
                     </b-form-group>
                   </div>
                 </div>
@@ -75,7 +83,7 @@
                         id="input-11"
                         v-model="form.type"
                         :options="types"
-                        required
+                        @change="selectType"
                       ></b-form-select>
                     </b-form-group>
                   </div>
@@ -92,7 +100,6 @@
                         id="input-12"
                         v-model="form.month"
                         :options="months"
-                        required
                       ></b-form-select>
                     </b-form-group>
                   </div>
@@ -108,7 +115,7 @@
                         id="input-13"
                         v-model="form.year"
                         :options="years"
-                        required
+                        @change="selectYear"
                       ></b-form-select>
                     </b-form-group>
                   </div>
@@ -121,14 +128,18 @@
                         <span class="necessary">* </span>
                         CVV:
                         &nbsp;
-                        <el-tooltip content="Top center" placement="top">
+                        <el-tooltip placement="bottom" effect="light">
+                          <div slot="content">Flip your card over and look at the <br/>
+                              signature box. You should see either the entire <br> 16-digit 
+                              credit card number <br> or just the last four digits followed 
+                              by a <br> special 3-digit code. This 3-digit code <br> is your Card 
+                              Security Code.</div>
                           <span class="fa fa-exclamation-circle"></span>
                         </el-tooltip>
                       </div>
                       <b-form-input
                         id="input-10"
                         v-model="form.CVV"
-                        required
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -146,8 +157,6 @@
                   <b-form-input
                     id="input-4"
                     v-model="form.street"
-                    required
-                    placeholder=""
                   ></b-form-input>
                 </b-form-group>
 
@@ -159,7 +168,6 @@
                   <b-form-input
                     id="input-5"
                     v-model="form.city"
-                    placeholder=""
                   ></b-form-input>
                 </b-form-group>
                 <div class="row">
@@ -173,7 +181,6 @@
                         id="input-60"
                         v-model="form.state"
                         :options="states"
-                        required
                       ></b-form-select>
                     </b-form-group>
                   </div>
@@ -183,12 +190,18 @@
                         <span class="necessary">* </span>
                         Zipcode:
                         &nbsp;
-                        <span class="fa fa-exclamation-circle"></span>
+                        <el-tooltip placement="bottom" effect="light">
+                            <div slot="content">Some countries do not have zip <br>
+                               codes. You can put '00000' instead of <br>
+                                a number. And, you will be able to <br>  
+                                 complete the booking without any <br> problem. 
+                              </div>
+                            <span class="fa fa-exclamation-circle"></span>
+                          </el-tooltip>
                       </div>
                       <b-form-input
                         id="input-61"
                         v-model="form.zipcode"
-                        placeholder=""
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -202,13 +215,12 @@
                     id="input-3"
                     v-model="form.country"
                     :options="countries"
-                    required
                   ></b-form-select>
                 </b-form-group>
               </div>
               <div class="btn-wrapper">
                 <b-button type="reset"  variant="light">Cancel</b-button>
-                <b-button @click="save" type="submit" variant="warning">Save</b-button>
+                <b-button @click="save" variant="warning">Save</b-button>
               </div>
             </b-form>
           </div>
@@ -237,35 +249,97 @@
           year: '2019',
           country: null,
           street: '',
-          city: ''
+          city: '',
+          state:'USA',
+          zipcode:'',
+          country:'Carrots'
         },
-        types: ['AmEx','VISA'],
+        types: ['AmEx','VISA','Master'],
         months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
         years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029'],
-        countries: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        states: ['USA', 'UK', 'China']
+        // countries: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        countries: ['Carrots', 'Beans', 'Tomatoes', 'Corn'],
+        states: ['USA', 'UK', 'China'],
+        infos:{},//编辑的具体信息
+        cardNum:'Your card number must be 15 characters long.'
       }
     },
+    computed:{
+      validationNum(){
+        if(this.form.type == 'AmEx'){
+          return this.form.cardNumber.length ==15;
+        }else{
+          return this.form.cardNumber.length ==16;
+        }
+      },
+    },
+    created(){
+      this.infos = this.$store.state.creditInfo == ''?this.$store.state.creditInfo:JSON.parse(localStorage.getItem("creditInfo"));
+      console.log(this.infos);
+      this.form.holderName = this.infos.nameOnCard;
+      this.form.cardNumber = this.infos.cardNumber;
+      if(this.infos.cardType == 3){
+        this.form.type = 'AmEx';
+      }else if(this.infos.cardType == 2){
+        this.form.type = 'VISA';
+      }else if(this.infos.cardType == 1){
+        this.form.type = 'Master';
+      }
+      this.form.month = this.infos.expireMonth;
+      this.form.year = this.infos.expireYear;
+      this.form.street = this.infos.billingAddress.street;
+      this.form.city = this.infos.billingAddress.city;
+      this.form.state = this.infos.billingAddress.state;
+      this.form.zipcode = this.infos.billingAddress.zipcode;
+      this.form.country = this.infos.billingAddress.country;
+      
+    },
     methods: {
-      onSubmit(evt) {
-        evt.preventDefault()
-        console.log(JSON.stringify(this.form))
+      selectType(val){//选择下拉type属性
+        // console.log(val);
+        if(val == 'VISA' || val == 'Master'){
+          this.cardNum = 'Your card number must be 16 characters long.'
+        }else if(val == 'AmEx'){
+          this.cardNum = 'Your card number must be 15 characters long.'
+        }
+      },
+      selectYear(val){//选择年份
+        var date=new Date;
+        var year=date.getFullYear(); 
+        var month=date.getMonth()+1;
+        if(Number(val)>year){
+          this.months = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
+        }else{
+          this.months = this.months.splice(month-1,13-month);
+          this.form.month = this.months[0];
+        }
+      },
+      expiration(){
+        var date=new Date;
+        var year=date.getFullYear(); 
+        var month=date.getMonth();
+        this.months = this.months.splice(month,12-month);
+        this.form.month = this.months[0];
       },
       onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.name = ''
-        this.form.food = null
-        this.form.checked = []
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+        this.form = {
+          holderName: '',
+          cardNumber: '',
+          CVV: '',
+          type: 'AmEx',
+          month: '01',
+          year: '2019',
+          country: null,
+          street: '',
+          city: '',
+          state:'USA',
+          zipcode:'',
+          country:'Carrots'
+        }
       },
       save(){
-        this.$http.post(this.$api.creditUpdate,
+        if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
+          this.$http.patch(this.$api.creditUpdate,
               {ccid:'ccid',nameOnCard:this.form.holderName,cardNumber:this.form.cardNumber,
                 uid:'11',cardType:this.form.type,expireMonth:this.form.month,
                 expireYear:this.form.year,billingAddress:{aid:'aid',uid:'uid',street:this.form.street,
@@ -275,6 +349,14 @@
                   console.log(res);
                   
               })
+        }else{
+          this.$message({
+            message: 'Incomplete information',
+            type: 'warning',
+            showClose: true,
+            center: true
+          });
+        }
       }
     },
     components: {

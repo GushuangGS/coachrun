@@ -88,6 +88,7 @@
                 },
                 select(value) {//选择器选中的value
                     this.selectValue = value;
+                    console.log(value);
                 },
                 gotoLogin(){
                     this.$router.push({name: 'Login'});

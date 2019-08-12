@@ -9,15 +9,15 @@
                     <el-col :span="3"><div>Order Status</div></el-col>
                   </el-row>
                 </div>
-                <el-collapse @change="handleChange">
-                  <el-collapse-item name="1">
+                <el-collapse v-model="activeNames">
+                  <el-collapse-item name="1" v-for="(info,index) in ticket" :key="index">
                     <template slot="title">
                       <div class="title-bookings">
                         <img class="down" src="@/assets/up.png">
                         <div>
                             <div class="bookings-item-brief">
-                                <div>OrderId:&nbsp;&nbsp;<span>JT23-600-3427</span></div>
-                                <div>Purchase date:&nbsp;&nbsp;<span>Tue,Jul 23,2019</span></div>
+                                <div>Order ID:&nbsp;&nbsp;<span>{{info.orderId}}</span></div>
+                                <div>Purchase Date:&nbsp;&nbsp;<span>Tue,Jul 23,2019</span></div>
                                 
                             </div>
                             <div class="bookings-item-brief">
@@ -98,7 +98,7 @@
                           </div>
                         </div>
                       </li>
-                      <li class="bookings-item-content">
+                      <!-- <li class="bookings-item-content">
                             <el-row>
                               <el-col :span="11">
                                   <div class="column-first">
@@ -227,7 +227,7 @@
                                       <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                                   </div>
                                 </div>
-                              </li>
+                              </li> -->
                       <!-- <li class="bookings-item-content">
                         <el-row>
                           <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
@@ -252,7 +252,7 @@
                     </ul>
                   </el-collapse-item>
 
-                  <el-collapse-item name="2">
+                  <!-- <el-collapse-item name="2">
                         <template slot="title">
                           <div class="title-bookings">
                             <img class="down" src="@/assets/up.png">
@@ -470,29 +470,8 @@
                                       </div>
                                     </div>
                                   </li>
-                          <!-- <li class="bookings-item-content">
-                            <el-row>
-                              <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
-                              <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                              <el-col :span="4"><div>0</div></el-col>
-                              <el-col :span="4"><div class="money">$0</div></el-col>
-                              <el-col :span="4">
-                                <div class="order-status">
-                                  Cofirmed
-                                </div>
-                              </el-col>
-                            </el-row>
-                            <div class="actions">
-                                <div class="order-details">Details &raquo;</div>
-                                <div class="btns">
-                                    <el-button class="Reschedule">Reschedule</el-button>
-                                    <el-button class="E-Ticket">E-Ticket</el-button>
-                                    <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                                </div>
-                            </div>
-                          </li> -->
                         </ul>
-                      </el-collapse-item>
+                  </el-collapse-item> -->
                 </el-collapse>
               </div>
 
@@ -500,19 +479,22 @@
 
 <script>
     export default{
+        props:['ticket'],
         data(){
             return{
-
+              activeNames: ['1']
             }
         },
         name:'OrderInfo',
-        created(){
-
-        },
         methods:{
             handleChange(val) {
-                console.log(val);
-            },
+                // console.log(val);
+            }
+        },
+        watch:{
+          "ticket":function fn(){
+            console.log(this.ticket);
+          }
         }
     }
 

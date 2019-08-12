@@ -12,7 +12,7 @@
                 <img class="left-img" src="./img/account-icon.png">
                 <div class="account-points">
                   <h4>Jordanauthor@hotmail.com</h4>
-                  <p class="points">My Points: <span class="points-num">{{dashInfo.availablePoints}}</span></p>
+                  <p class="points">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
                 </div>
               </div>
               <div class="right">
@@ -36,7 +36,7 @@
                 <h4>Upcoming Trips</h4>
                 <span  @click="myBookings">See All Bookings ></span>
               </div>
-              <order-info></order-info>
+              <order-info :ticket="dashInfo"></order-info>
               <!-- <div class="bookings-list">
                 <div class="column-name">
                   <el-row>
@@ -123,7 +123,8 @@
           [''],
           { description: '', path: '' ,title:'Dashboard',title:'Dashboard'}
         ],
-        dashInfo:{}//个人信息
+        dashInfo:[],//个人信息
+        dashDis:{}//所有信息
       }
     },
     components: {
@@ -135,16 +136,13 @@
       this.orderList();
     },
     methods: {
-      handleChange(val) {
-        console.log(val);
-      },
       orderList(){
         this.$http.get(this.$api.dashboard)
                 .then((res)=>{
                   if(res.status == 200){
-                    console.log(res.data.data);
-                    this.dashInfo = res.data.data;
-                    console.log(this.dashInfo);
+                    console.log(res);
+                    this.dashDis = res.data.data;
+                    this.dashInfo = res.data.data.upcomingOrders;
                   } 
                 })
       },
@@ -256,6 +254,7 @@
   .bookings-header>span {
     font-size: 16px;
     color: #274F7C;
+    cursor: pointer;
   }
   .column-name {
     background-color: #E5EFFA;

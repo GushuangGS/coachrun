@@ -13,15 +13,6 @@
                             <un-available :listInfo="listInfo" v-if="listInfo.ususedDate && listInfo.isExpired==1"></un-available>
                             <available :listInfo="listInfo" v-else=""></available>
                         </el-col>
-                        <!-- <el-col :span="8">
-                            <un-available></un-available>
-                        </el-col>
-                        <el-col :span="8">
-                            <un-available></un-available>
-                        </el-col>
-                        <el-col :span="8">
-                            <un-available></un-available>
-                        </el-col> -->
                     </el-row>
             </div>
         </div>

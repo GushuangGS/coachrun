@@ -4,13 +4,13 @@
         <div class="product-container">
             <div class="product-extra">
                 <div class="product-tltle1" v-show="listInfo.calculateType ==1">EXTRA</div>
-                <div class="product-tltle2">{{listInfo.discountValue}}%</div>
+                <div class="product-tltle2">{{discountValue}}</div>
                 <div class="product-tltle3">OFF</div>
             </div>
             <div class="product-bus">
                 <span class="product-intro1">{{listInfo.title}}</span>
-                <span class="product-intro2">Departure time: {{listInfo.serviceDates}}</span>
-                <span class="product-intro3" v-show="listInfo.oneTimeUse ==1">Limited 1 Time Offer</span>
+                <span class="product-intro2">Departure time: {{listInfo.serviceDateDescription}}</span>
+                <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
             </div>
             <div class="product-details">
                     <el-collapse>
@@ -33,7 +33,26 @@
 <script>
     export default{
         name:'available',
-        props:['listInfo']
+        props:['listInfo'],
+        data(){
+            return{
+                discountValue:''
+            }
+        },
+        created(){
+            console.log(this.listInfo.discountValue);
+            if(this.listInfo.discountValue>1){
+                var str ="$"+this.listInfo.discountValue;
+                this.discountValue = str;
+            }else{
+                var str=Number(this.listInfo.discountValue*100).toFixed(0);
+                str+="%";
+                this.discountValue = str; 
+            }
+        },
+        methods:{
+            
+        }
     }
 </script>
 

@@ -9,7 +9,7 @@
           <div class="info" v-if="changeStatus != 1">
             <div class="success-wrapper" v-if="changeStatus == 0">
               <success-box text="Your password has been reset successfully!"></success-box>
-              <el-button class="finished">Finished</el-button>
+              <el-button @click="clickFinshed" class="finished">Finished</el-button>
             </div>
             <div class="failure-wrapper" v-if="changeStatus == 2">
               <div class="failure">
@@ -27,7 +27,7 @@
                   <el-option v-for="(passwordType, index) in passwordTypes" v-bind:key="index" :label="passwordType.label" :value="passwordType.value"></el-option>
                 </el-select>
               </el-form-item>
-              <el-form-item label="Current password:" prop="pass">
+              <el-form-item label="Current password:" prop="currentPass">
                 <el-input type="password" v-model="ruleForm.currentPass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="New password:" prop="pass">
@@ -52,15 +52,15 @@
 
   export default {
     data() {
-      let validatePass0 = (rule, value, callback) => {
-        if (value === '') {
-          callback(new Error('Please enter current password'))
+      let validatePass = (rule, value, callback) => {
+        if (value == '') {
+          callback(new Error('Please enter current password'));
         }
         callback()
       }
-      let validatePass = (rule, value, callback) => {
+      let validatePass2 = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('Please enter new password'))
+          callback(new Error('Please enter new password'));
         } else {
           // 判断密码的格式是否符合要求
           let reg = /^[\w]{6,12}$/
@@ -76,7 +76,7 @@
           callback()
         }
       }
-      let validatePass2 = (rule, value, callback) => {
+      let validatePass3 = (rule, value, callback) => {
         if (value === '') {
           callback(new Error('Please enter password again'))
         } else if (value !== this.ruleForm.pass) {
@@ -88,7 +88,7 @@
       return {
         headerInfo: [
           ['Change Password'],
-          { description: 'Change Password', path: '/app/member/account/password' }
+          { description: 'Change Password', path: '/app/member/account/password',title:'My Account' }
         ],
         changeStatus: 1, // 1 => 未点击Save按钮，0 => 修改密码成功，2 => 修改密码失败
         labelPosition: 'right',//表单位置
@@ -101,13 +101,13 @@
         },
         rules: {
           currentPass: [
-            { validator: validatePass0, trigger: 'blur' }
+            {required: true, validator: validatePass, trigger: 'blur' }
           ],
           pass: [
-            { validator: validatePass, trigger: 'blur' }
+            {required: true, validator: validatePass2, trigger: 'blur' }
           ],
           checkPass: [
-            { validator: validatePass2, trigger: 'blur' }
+            {required: true, validator: validatePass3, trigger: 'blur' }
           ]
         },
         getVal:'login'//默认选中值为login
@@ -131,6 +131,9 @@
                   })
           }
         })
+      },
+      clickFinshed(){
+        this.changeStatus = 1;
       }
     },
     components: {

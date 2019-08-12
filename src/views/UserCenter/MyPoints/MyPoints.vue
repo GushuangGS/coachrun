@@ -12,28 +12,28 @@
                 <div class="brief-left-middle">
                   <img src="./img/points.png">
                 </div>
-                <div class="brief-left-down">9</div>
+                <div class="brief-left-down">{{resData.availablePoints}}</div>
               </div>
               <div class="brief-right">
                 <div class="brief-right-item">
                   <h4>Booking</h4>
-                  <p>0</p>
+                  <p>{{resData.bookingPoints}}</p>
                 </div>
                 <div class="brief-right-item">
                   <h4>Pending Points</h4>
-                  <p>5</p>
+                  <p>{{resData.pendingPoints}}</p>
                 </div>
                 <div class="brief-right-item">
-                  <h4>Survey</h4>
-                  <p>0</p>
+                  <h4>Redeem</h4>
+                  <p>{{resData.consumptionPoints}}</p>
                 </div>
                 <div class="brief-right-item">
                   <h4>Reviews</h4>
-                  <p>2</p>
+                  <p>{{resData.reviewPoints}}</p>
                 </div>
                 <div class="brief-right-item">
                   <h4>Other</h4>
-                  <p>0</p>
+                  <p>{{resData.otherPoints}}</p>
                 </div>
                 <div class="brief-right-item help">
                   Points Help &nbsp;>>
@@ -47,25 +47,37 @@
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
                 style="width: 100%">
                 <el-table-column
-                  prop="source"
                   label="Source"
                   min-width="160px">
+                  <!-- prop="orderCode" -->
+                  <template slot-scope="scope">
+                      <span v-show="scope.row.rewardType==0">Booking</span>
+                      <span v-show="scope.row.rewardType==1">Review</span>
+                      <span v-show="scope.row.rewardType==2">Redeem</span>
+                      <span v-show="scope.row.rewardType==3">Other</span>
+                      <span v-show="scope.row.rewardType==4">Photo Sharing</span>
+                      <span v-show="scope.row.rewardType==5">Photo Likes</span>
+                      <span v-show="scope.row.rewardType==6">Review</span>
+                      <span v-show="scope.row.orderCode">(Order {{scope.row.orderCode}})</span>
+                    </template>
                 </el-table-column>
+                
                 <el-table-column
                   align="center"
                   header-align="center"
-                  prop="points"
                   label="Points"
-                  min-width="72px">
+                  min-width="140px">
                   <template slot-scope="scope">
-                    <span :class="{'positive': scope.row.points.value > 0, 'negtive': scope.row.points.value < 0, 'pending': scope.row.points.isPending}">{{(scope.row.points.value > 0 ? '+' : '-') + ' ' + Math.abs(scope.row.points.value)}}</span>
-                    <span v-if="scope.row.points.isPending" class="text-pending">Pending</span>
+                      <span  :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0}">{{scope.row.rewardPoint}}</span>
+                      <span v-if="scope.row.isPending==1" class="text-pending">Pending</span>
+                    <!-- <span :class="{'positive': scope.row.points.value > 0, 'negtive': scope.row.points.value < 0, 'pending': scope.row.points.isPending}">{{(scope.row.points.value > 0 ? '+' : '-') + ' ' + Math.abs(scope.row.points.value)}}</span>
+                    <span v-if="scope.row.points.isPending" class="text-pending">Pending{{scope}}</span> -->
                   </template>
                 </el-table-column>
                 <el-table-column
                   align="center"
                   header-align="center"
-                  prop="date"
+                  prop="timestamp"
                   label="Date"
                   min-width="130px">
                 </el-table-column>
@@ -98,20 +110,23 @@
           { description: 'My Points', path: '/app/member/account/points',title:'My Account' }
         ],
         currentPage:1, //初始页
-         pagesize:10,    //    每页的数据
-        tableData: [{
-          source: 'Booking ( Order JT23-600-3427 )',
-          points: { value: 7, isPending: false },
-          date: '2019-07-23 23:56:08'
-        }, {
-          source: 'Booking ( Order JT23-600-3427 )',
-          points: { value: -12, isPending: false },
-          date: '2019-07-23 23:56:08'
-        }, {
-          source: 'Booking ( Order JT23-600-3427 )',
-          points: { value: 7, isPending: true },
-          date: '2019-07-23 23:56:08'
-        }]
+        pagesize:10,    //每页的数据
+        tableData: [
+          // {
+          //   source: 'Booking ( Order JT23-600-3427 )',
+          //   points: { value: 7, isPending: false },
+          //   date: '2019-07-23 23:56:08'
+          // }, {
+          //   source: 'Booking ( Order JT23-600-3427 )',
+          //   points: { value: -12, isPending: false },
+          //   date: '2019-07-23 23:56:08'
+          // }, {
+          //   source: 'Booking ( Order JT23-600-3427 )',
+          //   points: { value: 7, isPending: true },
+          //   date: '2019-07-23 23:56:08'
+          // }
+        ],
+        resData:{}
       }
     },
     components: {
@@ -130,6 +145,9 @@
         this.$http.get(this.$api.viewPoint)
                 .then((res)=>{
                     console.log(res);
+                    this.resData = res.data.data;
+                    this.tableData = res.data.data.pagination.currentResults;
+                    this.pagesize = res.data.data.pagination.pageCount;
                 })
       }
 
@@ -197,7 +215,8 @@
     font-weight: normal;
   }
   .brief>.brief-right>.brief-right-item>p {
-    font-size: 18px;
+    /* font-size: 18px; */
+    font-size: 15px;
     text-align: center;
     color: #666666;
     margin: 0;

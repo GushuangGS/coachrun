@@ -8,24 +8,30 @@
         <div class="success-box-wrapper" v-if="successBoxFlag">
           <success-box :text="successBoxText"></success-box>
         </div>
-        <div class="credits">
+        <div class="credits" v-show="creditNum">
           <h2>My Credit Cards</h2>
           <ul class="credit-list">
-            <li class="credit-list-item">
+            <li class="credit-list-item" v-for="(info,index) in creditInfo" :key="index">
               <div class="icon">
-                <img src="./img/AmEx.png">
+                <img v-show="info.cardType==3" src="./img/AmEx.png">
+                <img v-show="info.cardType==2" src="./img/visa.png">
+                <img v-show="info.cardType==1" src="./img/mastercard.png">
               </div>
-              <div class="credit-name">AmEx Card</div>
-              <div class="description">……1126
+              <div class="credit-name" v-show="info.cardType==3">AmEx Card</div>
+              <div class="credit-name" v-show="info.cardType==2">Visa Card</div>
+              <div class="credit-name" v-show="info.cardType==1">Master Card</div>
+              <div class="description">
+                  {{getNum(info.ccid)}}
                 &nbsp;
-                <span>[ Default ]</span>
+                <span v-show="info.isDefault == true">[ Default ]</span>
               </div>
               <div class="operation">
-                <el-button type="text" size="small">Edit</el-button>
-                <el-button type="text" size="small" @click="move">Delete</el-button>
+                <el-button type="text" size="small" @click="editCredit(info)">Edit</el-button>
+                <el-button v-show="info.isDefault != true" type="text" size="small">Default</el-button>
+                <el-button type="text" size="small" @click="deleteCredit(info)">Delete</el-button>
               </div>
             </li>
-            <li class="credit-list-item">
+            <!-- <li class="credit-list-item">
               <div class="icon">
                 <img src="./img/visa.png">
               </div>
@@ -38,7 +44,7 @@
                 <el-button type="text" size="small">Default</el-button>
                 <el-button type="text" size="small">Delete</el-button>
               </div>
-            </li>
+            </li> -->
           </ul>
         </div>
         <div class="add-credit">
@@ -49,7 +55,7 @@
                 <img src="./img/AmEx.png"><img src="./img/mastercard.png"><img src="./img/visa.png">
               </div>
             </div>
-            <el-button class="add-btn">Add a card</el-button>
+            <el-button class="add-btn" @click="addCredit">Add a card</el-button>
         </div>
       </div>
     </el-main>
@@ -59,27 +65,21 @@
       width="790px">
       <div class="delete-body">
         <div class="item">
-          <img class="item-img" src="./img/AmEx.png">
-          <span class="item-name">AmEx Card</span>
-          <span class="item-detail">……1126</span>
+          <img class="item-img" v-show="deleteInfo.cardType==3" src="./img/AmEx.png">
+          <img class="item-img" v-show="deleteInfo.cardType==2" src="./img/visa.png">
+          <img class="item-img" v-show="deleteInfo.cardType==1" src="./img/mastercard.png">
+          <span class="item-name" v-show="deleteInfo.cardType==3">AmEx Card</span>
+          <span class="item-name" v-show="deleteInfo.cardType==2">Visa Card</span>
+          <span class="item-name" v-show="deleteInfo.cardType==1">Master Card</span>
+          <span class="item-detail">{{getNum(deleteInfo.ccid)}}</span>
         </div>
         <p>Are you sure you want to remove this credit card from your list? </p>
       </div>
       <span slot="footer" class="dialog-footer">
         <el-button @click="showDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="showDialogVisible = false">Confirm Remove</el-button>
+        <el-button type="warning" @click="removeCredit">Confirm Remove</el-button>
       </span>
     </el-dialog>
-    <!-- <delete-confirm>
-      <div class="delete-body">
-        <div class="item">
-          <img class="item-img" :src="deleteItem.img">
-          <span class="item-name">{{deleteItem.name}}</span>
-          <span class="item-detail">{{deleteItem.detail}}</span>
-        </div>
-        <p>Are you sure you want to remove this credit card from your list? </p>
-      </div>
-    </delete-confirm> -->
   </div>
 </template>
 
@@ -90,6 +90,7 @@
   export default {
     data() {
       return {
+        
         deleteItem: {
           img: '',
           name: '',
@@ -100,9 +101,12 @@
           [''],
           { description: 'View/Edit Creditcard', path: '/app/member/account/credit',title:'My Account' }
         ],
-        successBoxFlag: false,
+        successBoxFlag: false,//成功界面默认消失
         successBoxText: 'Your Credit Card has been removed successfully!',
-        showDialogVisible:false
+        showDialogVisible:false,//弹窗默认消失
+        creditInfo:[],//信用卡列表
+        creditNum:true,
+        deleteInfo:''//删除信用卡信息
       }
     },
     components: {
@@ -115,19 +119,44 @@
       this.creditList();
     },
     methods:{
-      move(){
-        this.showDialogVisible = true;
+      getNum(str){
+        str=String(str);
+        str = str.substring(str.length-4);
+        return str = '****'+str;
       },
-      creditList(){
+      removeCredit(){//移除信用卡
+        this.$http.delete(this.$api.creditDelete,{userId:this.deleteInfo.uid,ccid:this.deleteInfo.ccid})
+              .then((res)=>{
+                  console.log(res);
+                  this.showDialogVisible = false;
+                  this.successBoxFlag = true;
+              })
+      },
+      creditList(){//信用卡列表
         this.$http.get(this.$api.creditList,{userId:'1'})
               .then((res)=>{
                   console.log(res.data.data);
-                  if(res.data.data.length == 0){
-                    alert('none')
+                  if(res.data.data.length != 0){
+                    this.creditNum = true;
+                    this.creditInfo = res.data.data;
+                  }else{
+                    this.creditNum = false;
                   }
               })
+      },
+      editCredit(info){//编辑更新信用卡
+        console.log(info);
+        this.$store.commit('creditInfo',info);
+        this.$router.push({name: 'EditCredit',params:{edit:info.ccid}});
+      },
+      addCredit(){//添加信用卡
+        this.$router.push({name: 'AddCredit'});
+      },
+      deleteCredit(info){//删除信用卡
+        this.showDialogVisible = true;
+        console.log(info);
+        this.deleteInfo = info;
       }
-
     }
   }
 </script>

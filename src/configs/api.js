@@ -1,25 +1,30 @@
 export default {
     deals:'/promotions/users/:userId/deals',//deals页面
     resetPassword:'/users/reset-password',//reset-password
-    changePassword:'/users/change-password',//change-password
+    changePassword:'/users/identity/change-password',//change-password
+    forgotPassword:'/users/forgot-password',//forgot-password
     //credit
-    creditList:'/users/:userId/credit-cards/',//creditList
-    creditAdd:'/users/:userId/credit-cards/',//creditAdd
-    creditUpdate:'/users/:userId/credit-cards/:ccid',//creditUpdate
-    creditDetail:'/users/:userId/credit-cards/:ccid',// get wait
-    creditDelete:'/users/:userId/credit-cards/:ccid',// delete wait
+    creditList:'/users/identity/credit-cards',//creditList
+    creditAdd:'/users/identity/credit-cards',//creditAdd
+    creditUpdate:'/users/identity/credit-cards/:ccid',//creditUpdate
+    creditDetail:'/users/identity/credit-cards/:ccid',// get wait
+    creditDelete:'/users/identity/credit-cards/:ccid',// creditDelete
     //contact-info
-    contactAdd:'/users/:userId/contact-infos',//contactAdd
-    contactList:'/users/:userId/contact-infos',//contactList
-    contactUpdate:'/users/:userId/contact-infos/:aid',//contactUpdate
-    contactDetail:'/users/:userId/contact-infos/:aid',//contactDetail  wait
-    contactDelete:'/users/:userId/contact-infos/:aid',//contactDelete 
+    contactAdd:'/users/identity/contact-infos',//contactAdd
+    contactList:'/users/identity/contact-infos',//contactList
+    contactUpdate:'/users/identity/contact-infos/:aid',//contactUpdate
+    contactDetail:'/users/identity/contact-infos/:aid',//contactDetail  wait
+    contactDelete:'/users/identity/contact-infos/:aid',//contactDelete 
     //dashboard
     dashboard:'/users/:userId/dashboard',//dashboard
     //viewPoint
-    viewPoint:'/users/:userId/view-point',//viewPoint
+    viewPoint:'/users/identity/view-point',//viewPoint
     // login
     login:'/users/login',
-    register:'/users/register'
+    register:'/users/register',
+    //bookings
+    bookingList:'/users/bookings',
+    bookingDetail:'/orders/users/:userId/bookings/:orderId',
+    bookingReclaim:'/orders/users/:userId/bookings/reclaim'
   };
   

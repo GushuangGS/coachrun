@@ -20,9 +20,9 @@
         </el-form> -->
         <div class="email">
             <span class="email-discrib">Login Email:</span>
-            <input class="email-input" type="email">
+            <input v-model="value" class="email-input" type="email">
         </div>
-        <el-button class="btn">
+        <el-button class="btn" @click="resetPass">
                 Reset login password
         </el-button>
     </div>
@@ -36,11 +36,18 @@
             return{
                 ruleForm: {
                     email: ''
-                }
+                },
+                value:''
             }
         },
         methods:{
-
+            resetPass(){
+                this.$http.post(this.$api.forgotPassword,
+                {email:this.value,recaptchaResponse:'1313'})
+                    .then((res)=>{
+                        console.log(res);
+                    })
+            }
         }
     }
 
