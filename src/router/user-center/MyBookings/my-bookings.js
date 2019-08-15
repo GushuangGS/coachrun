@@ -9,7 +9,7 @@ const MyBookings = resolve => {
     name: 'MyBookings',
     component: MyBookings,
     meta: {
-      keepAlive: true
+      // keepAlive: true
     }
   }
   

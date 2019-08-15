@@ -66,7 +66,9 @@
                         <b-form-input
                           id="input-01"
                           v-model="form.cardNumber"
-                          :state="validationNum"
+                          v-on:focus="showTips"
+                          v-on:blur="hideTips"
+                          :state="showTip==true?validationNum:validationNum2"
                         ></b-form-input>
                         <b-form-invalid-feedback>
                             {{cardNum}}
@@ -261,6 +263,7 @@
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
+
   export default {
     data() {
       return {
@@ -290,22 +293,40 @@
         // countries: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
         countries: ['Carrots', 'Beans', 'Tomatoes', 'Corn'],
         states: ['USA', 'UK', 'China'],
-        cardNum:'Your card number must be 15 characters long.'
+        cardNum:'Your card number must be 15 characters long.',
+        showTip:'false',//默认不显示
       }
     },
     computed:{
       validationNum(){
         if(this.form.type == 'AmEx'){
           return this.form.cardNumber.length ==15;
-        }else{
+        }else if(this.form.type == 'VISA' || this.form.type == 'Master'){
           return this.form.cardNumber.length ==16;
         }
       },
+      validationNum2(){
+        if(this.form.cardNumber.length!=0){
+          if(this.form.type == 'AmEx'){
+            return this.form.cardNumber.length ==15;
+          }else if(this.form.type == 'VISA' || this.form.type == 'Master'){
+            return this.form.cardNumber.length ==16;
+          }
+        }
+      }
     },
     created(){
       this.expiration();
     },
     methods: {
+      showTips(){
+        this.showTip = true;
+        console.log(this.showTip);
+      },
+      hideTips(){
+        this.showTip = false;
+        console.log(this.showTip);
+      },
       selectType(val){//选择下拉type属性
         // console.log(val);
         if(val == 'VISA' || val == 'Master'){

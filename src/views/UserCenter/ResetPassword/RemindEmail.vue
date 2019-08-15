@@ -1,20 +1,20 @@
 <template>
-    <div>
+    <div class="wrap-box">
         <div class="wrap">
             <div class="send-img">
-                    <img src="./img/message.png" alt="">
-                </div>
-                <div class="content">
-                    <span class="title">Please Check Your Email Inbox</span>
-                    <p class="main">An email has been sent to selinaquzhou@126.com.
-                            Please follow the instructions in the email to
-                            set your new password. If the e-mail address 
-                            you entered selinaquzhou@126.com is associated with 
-                            a customer account in our records, you will receive an 
-                            e-mail from us with instructions to reset your password. 
-                            If you don't receive this e-mail, please check your junk 
-                            mail folder or visit our Help pages to contact Customer 
-                            Service for further assistance.</p>
+                <img src="./img/message.png" alt="">
+            </div>
+            <div class="content">
+                <span class="title">Please Check Your Email Inbox</span>
+                <p class="main">An email has been sent to selinaquzhou@126.com.
+                        Please follow the instructions in the email to
+                        set your new password. If the e-mail address 
+                        you entered selinaquzhou@126.com is associated with 
+                        a customer account in our records, you will receive an 
+                        e-mail from us with instructions to reset your password. 
+                        If you don't receive this e-mail, please check your junk 
+                        mail folder or visit our Help pages to contact Customer 
+                        Service for further assistance.</p>
              </div>
         </div>
         <span @click="back" class="back">Back to Home ></span>
@@ -39,10 +39,14 @@
 </script>
 
 <style scoped>
-    .wrap{
-        margin: 50px auto 0;
-        background: #FAECCC;
+    .wrap-box{
         width: 886px;
+        min-height: 525px;
+        margin: 50px auto 0;
+    }
+    .wrap{
+        background: #FAECCC;
+        /* width: 886px; */
         height: 160px;
         display: flex;
         flex-wrap: wrap;

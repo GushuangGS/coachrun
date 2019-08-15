@@ -83,12 +83,17 @@
 
 <style scoped>
     .wrap{
-        margin: 50px auto;
+        width: 100%;
+        height: 100%;
         background: #F5F5F5;
-        width: 420px;
-        height: auto;
+        margin-top: 20px;
+        padding: 50px;
     }
     .box{
+        margin: 50px auto;
+        background:rgba(255,255,255,1);
+        width: 420px;
+        height: auto;
         padding: 20px 30px;
     }
     .title{

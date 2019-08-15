@@ -4,7 +4,7 @@
             <div class="product-container">
                 <div class="product-extra">
                     <div class="product-tltle1" v-show="listInfo.calculateType ==1">EXTRA</div>
-                    <div class="product-tltle2">{{discountValue}}%</div>
+                    <div class="product-tltle2">{{discountValue}}</div>
                     <div class="product-tltle3">OFF</div>
                 </div>
                 <div class="product-bus">
@@ -135,7 +135,7 @@
         }
         .product-bus{
             width: 284px;
-            height: auto;
+            height: 60px;
         }
         .product-intro1,.product-intro2,.product-intro3{
             padding-left: 8px;

@@ -45,7 +45,7 @@
               <el-table
                 empty-text="Start earning your loyalty points today!"
                 :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
-                style="width: 100%">
+                style="width: 100%;">
                 <el-table-column
                   label="Source"
                   min-width="160px">
@@ -178,7 +178,7 @@
   }
   .brief>.brief-left>.brief-left-up {
     line-height: 1;
-    font-size: 20px;
+    font-size: 18px;
     text-align: center;
     margin-bottom: 10px;
   }
@@ -247,7 +247,7 @@
   >>> .el-table__header th {
     background-color: #E5EFFA;
     color: #29507D;
-    font-size: 20px;
+    font-size: 18px;
   }
   >>> .el-table_1_column_1 {
     font-size: 16px;
@@ -264,16 +264,19 @@
   .positive {
     color: #FF9D0D;
     font-weight: bold;
+    font-size: 24px;
   }
   .negtive {
     color: #0BA76E;
     font-weight: bold;
+    font-size: 24px;
   }
   .pending {
     opacity: .5;
   }
   >>> .cell {
     position: relative;
+    font-size: 14px;
   }
   .text-pending {
     font-size: 14px;

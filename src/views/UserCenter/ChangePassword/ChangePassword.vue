@@ -24,7 +24,11 @@
             <el-form  :label-position="labelPosition" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="150px">
               <el-form-item label="Password type:">
                 <el-select v-model="ruleForm.passwordType"  @change="selectGet" placeholder="">
-                  <el-option v-for="(passwordType, index) in passwordTypes" v-bind:key="index" :label="passwordType.label" :value="passwordType.value"></el-option>
+                  <el-option v-for="(passwordType, index) in passwordTypes" 
+                      v-bind:key="index" 
+                      :label="passwordType.label" 
+                      :value="passwordType.value">
+                  </el-option>
                 </el-select>
               </el-form-item>
               <el-form-item label="Current password:" prop="currentPass">
@@ -92,7 +96,7 @@
         ],
         changeStatus: 1, // 1 => 未点击Save按钮，0 => 修改密码成功，2 => 修改密码失败
         labelPosition: 'right',//表单位置
-        passwordTypes: [{ label: 'Login', value: 'login' }, { label: 'Excution', value: 'excution' }],
+        passwordTypes: [{ label: 'Login', value: '1' }, { label: 'Excution', value: '2' }],
         ruleForm: {
           passwordType: 'login',
           currentPass: '',
@@ -110,7 +114,7 @@
             {required: true, validator: validatePass3, trigger: 'blur' }
           ]
         },
-        getVal:'login'//默认选中值为login
+        getVal:'1'//默认选中值为login
       }
     },
     methods: {

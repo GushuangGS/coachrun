@@ -46,7 +46,7 @@
                     <template slot-scope="scope">
                       <el-button @click="edit(scope.row)"  type="text" size="small">Edit</el-button>
                       <el-button type="text" size="small">Default</el-button>
-                      <el-button @click="clickdel(scope.row)" type="text" size="small">Delete</el-button>
+                      <el-button @click="clickdel(scope.$index)" type="text" size="small">Delete</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -88,12 +88,19 @@
                     this.contactList = res.data.data;
                 })
       },
-      clickdel(row){//删除
-        console.log(row);
-        this.$http.delete(this.$api.contactDelete)
-                .then((res)=>{
-                    console.log(res);
-                })
+      clickdel(index){//删除
+        // console.log(index);
+        this.$confirm('是否确认删除？', '删除', {
+                    distinguishCancelAndClose: true,
+                    confirmButtonText: '确认',
+                    cancelButtonText: '取消'
+                }).then(() => {
+                  this.$http.delete(this.$api.contactDelete)
+                      .then((res)=>{
+                          console.log(res);
+                          this.contactList.splice(index,1);
+                      })
+                }).catch(() => {});
       },
       edit(row){//编辑
         console.log(row);

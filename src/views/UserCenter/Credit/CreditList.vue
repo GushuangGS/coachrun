@@ -28,7 +28,7 @@
               <div class="operation">
                 <el-button type="text" size="small" @click="editCredit(info)">Edit</el-button>
                 <el-button v-show="info.isDefault != true" type="text" size="small">Default</el-button>
-                <el-button type="text" size="small" @click="deleteCredit(info)">Delete</el-button>
+                <el-button type="text" size="small" @click="deleteCredit(info,index)">Delete</el-button>
               </div>
             </li>
             <!-- <li class="credit-list-item">
@@ -106,7 +106,8 @@
         showDialogVisible:false,//弹窗默认消失
         creditInfo:[],//信用卡列表
         creditNum:true,
-        deleteInfo:''//删除信用卡信息
+        deleteInfo:'',//删除信用卡信息
+        deleteIndex:''
       }
     },
     components: {
@@ -130,6 +131,7 @@
                   console.log(res);
                   this.showDialogVisible = false;
                   this.successBoxFlag = true;
+                  this.creditInfo.splice(this.deleteIndex,1);
               })
       },
       creditList(){//信用卡列表
@@ -152,10 +154,11 @@
       addCredit(){//添加信用卡
         this.$router.push({name: 'AddCredit'});
       },
-      deleteCredit(info){//删除信用卡
+      deleteCredit(info,index){//删除信用卡
         this.showDialogVisible = true;
-        console.log(info);
+        console.log(info,index);
         this.deleteInfo = info;
+        this.deleteIndex = index;
       }
     }
   }

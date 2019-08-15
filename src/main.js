@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import App from './App.vue'
-import router from './router/router'
+// import router from './router/router'
+import {router} from './router/router'
+
 import store from './store'
 // import './plugins/element.js'
 import ElementUI from 'element-ui'
@@ -9,6 +11,7 @@ import locale from './plugins/en.js'
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import api from './configs/api'
+import VueCookie from 'vue-cookie';
 
 
 // 引入font-awesome图标字体
@@ -17,13 +20,89 @@ import './common/css/index.css'
 
 Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
+Vue.use(VueCookie);
 
 Vue.config.productionTip = false;
 
 //配置axios 挂载到实例化对象上
 Vue.prototype.$http = axios;
 axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
+// axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
 Vue.prototype.$api = api;
+
+// ---------------------------------------
+let loading;//定义loading变量
+function startLoading() {//使用Element loading-start 方法
+  loading = Vue.prototype.$loading({
+      lock: true,
+      text: 'loading……',
+      // background: 'rgba(0, 0, 0, 0.7)'
+  })
+}
+function endLoading() {//使用Element loading-close 方法
+  loading.close()
+}
+
+let needLoadingRequestCount = 0
+export function showFullScreenLoading() {
+    if (needLoadingRequestCount === 0) {
+        startLoading()
+    }
+    needLoadingRequestCount++;
+}
+export function tryHideFullScreenLoading() {
+  if (needLoadingRequestCount <= 0) return
+  needLoadingRequestCount--;
+  if (needLoadingRequestCount === 0) {
+      endLoading();
+  }
+}
+//http request 拦截器
+axios.interceptors.request.use(
+  config => {
+      var token = '';
+      // if(typeof Cookies.get('user') === 'undefined'){
+      //     //此时为空
+      // }else {
+      //     token = JSON.parse(Cookies.get('user')).token
+      // }//注意使用的时候需要引入cookie方法，推荐js-cookie
+      config.data = JSON.stringify(config.data);
+      config.headers = {
+          'Content-Type':'application/json'
+      }
+      if(token != ''){
+        config.headers.token = token;
+      }
+      showFullScreenLoading();
+      return config;
+  },
+  error => {
+      return Promise.reject(err);
+  }
+);
+//http response 拦截器
+axios.interceptors.response.use(
+  response => {
+      //当返回信息为未登录或者登录失效的时候重定向为登录页面
+      if(response.data.code == 'W_100004' || response.data.message == '用户未登录或登录超时，请登录！'){
+          router.push({
+              path:"/",
+              querry:{redirect:router.currentRoute.fullPath}//从哪个页面跳转
+          })
+      }
+      tryHideFullScreenLoading()
+      return response;
+  },
+  error => {
+      return Promise.reject(error);
+  }
+)
+
+
+
+
+
+// ---------------------------------------
 
 new Vue({
   router,

@@ -1,4 +1,5 @@
 <template>
+    <div class="login-bg">
     <div class="login">
        <h3 class="login-title">Log In</h3>
        <el-form :model="loginInfo" :rules="rules" ref="loginForm" label-width="90px">
@@ -34,9 +35,11 @@
             </div>
        </div>
     </div>
+    </div>
 </template>
 
 <script>
+    import VueCookie from 'vue-cookie';
     export default{
         name:'Login',
         data(){
@@ -77,7 +80,9 @@
                                     //清空Cookie
                                     this.clearCookie();
                                 }
+                                this.$cookie.set('display', data.data.data.user.display);
                                 this.$router.push({name: 'MyOrders'});
+                                this.$store.commit('login');
                             });
                     }
                 })
@@ -120,13 +125,20 @@
 </script>
 
 <style scoped>
+    .login-bg{
+        width: 100%;
+        height: 100%;
+        background: #F5F5F5;
+        margin-top: 20px;
+        padding: 50px;
+    }
     .login{
         width: 448px;
-        height:522px;
+        min-height: 525px;
         background:rgba(255,255,255,1);
         /* background: skyblue; */
         border-radius:2px;
-        margin: 50px auto;
+        margin: 0 auto;
         padding: 20px 30px 30px 30px;
     }
     .login-title{

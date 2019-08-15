@@ -9,7 +9,7 @@ const myOrderRouter = {
   name: 'MyOrders',
   component: MyOrders,
   meta: {
-    keepAlive: true
+    // keepAlive: true
   }
 }
 

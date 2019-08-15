@@ -5,17 +5,20 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <!--<my-footer></my-footer>-->
-    <el-footer height="100px" style="background-color: skyblue;margin-top: 100px;"></el-footer>
+    <my-footer></my-footer>
+    <!-- <el-footer height="100px" style="background-color: skyblue;margin-top: 100px;"></el-footer> -->
   </div>
 </template>
 
 <script>
 import MyHeader from '@/views/MyHeader'
+import MyFooter from '@/views/MyFooter'
+
 export default {
   name: 'app',
   components: {
-    MyHeader
+    MyHeader,
+    MyFooter
   }
 }
 </script>
@@ -36,6 +39,6 @@ body{
   -moz-osx-font-smoothing: grayscale;
   /* text-align: center; */
   color: #2c3e50;
-  background-color: #F5F5F5;
+  /* background-color: #F5F5F5; */
 }
 </style>

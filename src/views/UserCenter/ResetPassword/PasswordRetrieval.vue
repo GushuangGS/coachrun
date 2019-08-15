@@ -1,32 +1,33 @@
 <template>
-    <div class="wrap">
-        <span class="title">Password Retrieval</span>
-        <span class="discrib">
-            Forgot your password? Enter your 
-            email address for us to email you the 
-            instructions to reset your password.
-        </span>
-        <!-- <el-form :model="ruleForm" ref="ruleForm" label-width="auto">
-            <el-form-item
-                prop="email"
-                label="Login Email:"
-                :rules="[
-                { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-                { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-                ]"
-            >
-                <el-input v-model="ruleForm.email"></el-input>
-            </el-form-item>
-        </el-form> -->
-        <div class="email">
-            <span class="email-discrib">Login Email:</span>
-            <input v-model="value" class="email-input" type="email">
+    <div class="wrap-bg">
+        <div class="wrap">
+            <span class="title">Password Retrieval</span>
+            <span class="discrib">
+                Forgot your password? Enter your 
+                email address for us to email you the 
+                instructions to reset your password.
+            </span>
+            <!-- <el-form :model="ruleForm" ref="ruleForm" label-width="auto">
+                <el-form-item
+                    prop="email"
+                    label="Login Email:"
+                    :rules="[
+                    { required: true, message: '请输入邮箱地址', trigger: 'blur' },
+                    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+                    ]"
+                >
+                    <el-input v-model="ruleForm.email"></el-input>
+                </el-form-item>
+            </el-form> -->
+            <div class="email">
+                <span class="email-discrib">Login Email:</span>
+                <input v-model="value" class="email-input" type="email">
+            </div>
+            <el-button class="btn" @click="resetPass">
+                    Reset login password
+            </el-button>
         </div>
-        <el-button class="btn" @click="resetPass">
-                Reset login password
-        </el-button>
     </div>
-
 </template>
 
 <script>
@@ -54,9 +55,16 @@
 </script>
 
 <style scoped>
-    .wrap{
-        margin: 50px auto 0;
+    .wrap-bg{
+        width: 100%;
+        height: 100%;
         background: #F5F5F5;
+        margin-top: 20px;
+        padding: 50px;
+    }
+    .wrap{
+        margin: 50px auto;
+        background:rgba(255,255,255,1);
         width: 380px;
         height: 420px;
         padding: 28px 0 0 40px;

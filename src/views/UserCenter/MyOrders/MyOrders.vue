@@ -9,14 +9,14 @@
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
               <div class="left">
-                <img class="left-img" src="./img/account-icon.png">
+                <img class="left-img" src="./img/touxiang.png">
                 <div class="account-points">
                   <h4>Jordanauthor@hotmail.com</h4>
                   <p class="points">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
                 </div>
               </div>
               <div class="right">
-                <div>
+                <div @click="contactInfo">
                   <img class="right-img" src="./img/contact-edit.png" alt="">
                   <span class="right-span">Manage Contact Info</span>
                 </div>
@@ -146,13 +146,16 @@
                   } 
                 })
       },
+      contactInfo(){
+        this.$router.push({name: 'AddContact'});
+      },
       creditcard(){//跳转到信用卡页面
         this.$router.push({name: 'CreditList'});
       },
       changePass(){//跳转到修改密码页面
         this.$router.push({name: 'ChangePassword'});
       },
-      myBookings(){//mookings页面
+      myBookings(){//bookings页面
         this.$router.push({name: 'MyBookings'});
       }
     }
@@ -206,6 +209,7 @@
     font-size: 14px;
     color: #333333;
     display: flex;
+    width: 260px;
     align-items: center;
   }
   .points-num{
@@ -223,8 +227,8 @@
     justify-content: space-between;
   }
   .right-img{
-    width: 11px;
-    height: 13px;
+    width: 18px;
+    height: 18px;
   }
   .right-span{
     font-size: 14px;

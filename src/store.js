@@ -6,7 +6,9 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
       contactInfo:{},
-      creditInfo:{}
+      creditInfo:{},
+      isLogin:false,//默认没有登录
+      loginName:''
   },
   mutations: {
     contactInfo(state,data){//编辑
@@ -16,6 +18,15 @@ export default new Vuex.Store({
     creditInfo(state,data){//编辑信用卡
       state.creditInfo=data;   
       localStorage.setItem("creditInfo",JSON.stringify(data));
+    },
+    login(state){
+      state.isLogin = true;
+    },
+    logout(state){
+      state.isLogin = false;
+    },
+    loginName(state,data){
+      state.loginName = data;
     }
   },
   actions: {
@@ -24,6 +35,9 @@ export default new Vuex.Store({
     },
     updateCreditInfo(context,data){
       context.commit('creditInfo',data);
+    },
+    updateLoginName(context,data){
+      context.commit('loginName',data);
     }
   }
 })

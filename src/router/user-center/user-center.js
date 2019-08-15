@@ -25,7 +25,8 @@ const userCenterRouter = {
   name: 'UserCenter',
   component: UserCenter,
   meta: {
-    keepAlive: false
+    keepAlive: false,
+    auth: true
   },
   children: [
     changePasswordRouter,

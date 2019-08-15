@@ -1,5 +1,5 @@
 export default {
-    deals:'/promotions/users/:userId/deals',//deals页面
+    deals:'/promotions/identity/deals',//deals页面
     resetPassword:'/users/reset-password',//reset-password
     changePassword:'/users/identity/change-password',//change-password
     forgotPassword:'/users/forgot-password',//forgot-password
@@ -16,14 +16,15 @@ export default {
     contactDetail:'/users/identity/contact-infos/:aid',//contactDetail  wait
     contactDelete:'/users/identity/contact-infos/:aid',//contactDelete 
     //dashboard
-    dashboard:'/users/:userId/dashboard',//dashboard
+    dashboard:'/users/identity/dashboard',//dashboard
     //viewPoint
     viewPoint:'/users/identity/view-point',//viewPoint
     // login
     login:'/users/login',
     register:'/users/register',
+    logout:'users/logout',
     //bookings
-    bookingList:'/users/bookings',
+    bookingList:'/users/identity/bookings',
     bookingDetail:'/orders/users/:userId/bookings/:orderId',
     bookingReclaim:'/orders/users/:userId/bookings/reclaim'
   };

@@ -34,20 +34,14 @@ const routes = [
   {//登陆
     path:'/app/member/login',
     name:'Login',
-    component:Login,
-    meta: {
-      keepAlive: true
-    }
+    component:Login
   },
   {//注册
     path:'/app/member/register',
     name:'Register',
-    component:Register,
-    meta: {
-      keepAlive: true
-    }
+    component:Register
   },
-  {//发生邮箱
+  {//发送邮箱
     path: '/app/member/passwordRetrieval',
     name: 'PasswordRetrieval',
     component: PasswordRetrieval,
@@ -74,4 +68,6 @@ const routes = [
   userCenterRouter
 ]
 
-export default routes
+export default routes;
+
+

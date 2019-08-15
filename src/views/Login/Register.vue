@@ -1,4 +1,5 @@
 <template>
+    <div class="register-bg">
         <div class="login">
            <h3 class="login-title">Register</h3>
            <el-form :model="loginInfo" :rules="rules" ref="loginForm" label-width="90px">
@@ -47,11 +48,12 @@
                 </div>
            </div>
         </div>
-    </template>
+    </div>
+</template>
     
     <script>
         export default{
-            name:'Login',
+            name:'Register',
             data(){
                 return{
                     loginInfo: {
@@ -65,9 +67,11 @@
                         password: [{ required: true, trigger: 'blur' },
                         { min: 6, max: 12, message: 'Please enter value between 6 and 12 characters long', trigger: 'blur' }]
                     },
-                    options: [{value: '888',label: 'United States'},
-                    {value: '999',label: 'USA'},
-                    {value: '666',label: 'china'},
+                    options: [
+                        {value: '8088',label: 'United States'},
+                        {value: '9999',label: 'USA'},
+                        {value: '6866',label: 'China'},
+                        
                     ],
                     selectValue: '999',//赋值选中国家的值
                     selectLabel:'USA',//默认为一个国家
@@ -98,13 +102,20 @@
     </script>
     
     <style scoped>
+        .register-bg{
+            width: 100%;
+            height: 100%;
+            background: #F5F5F5;
+            margin-top: 20px;
+            padding: 50px;
+        }
         .login{
             width: 448px;
             height:522px;
             background:rgba(255,255,255,1);
             /* background: skyblue; */
             border-radius:2px;
-            margin: 50px auto;
+            margin: 0 auto;
             padding: 20px 30px 30px 30px;
         }
         .login-title{

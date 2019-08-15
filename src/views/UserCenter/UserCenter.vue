@@ -7,15 +7,14 @@
             <el-aside width="200px">
               <!-- ----------- -->
               <el-menu
-                default-active="2"
+                :default-active="$route.path"
                 class="el-menu-vertical-demo"
-                background-color="#F1F1F1"
                 text-color="#6F6F6F"
                 active-text-color="#E38E16"
                 :default-openeds="openeds"
                 router
               >
-                <el-menu-item index="/app/member/account/orders">
+                <el-menu-item index="/app/member/account/orders" :route="{name:'MyOrders'}">
                   <span slot="title">Dashboard</span>
                 </el-menu-item>
                 <el-submenu index="2">
@@ -23,12 +22,12 @@
                     <span>My Account</span>
                   </template>
                   <el-menu-item-group>
-                    <el-menu-item index="/app/member/account/bookings">My Bookings</el-menu-item>
-                    <el-menu-item index="/app/member/account/contact">Contact Infomation</el-menu-item>
-                    <el-menu-item index="/app/member/account/password">Change Password</el-menu-item>
-                    <el-menu-item index="/app/member/account/credit">View/Edit Creditcard</el-menu-item>
-                    <el-menu-item index="/app/member/account/points">My Points</el-menu-item>
-                    <el-menu-item index="/app/member/account/deals">My Deals</el-menu-item>
+                    <el-menu-item index="/app/member/account/bookings" :route="{name:'MyBookings'}">My Bookings</el-menu-item>
+                    <el-menu-item index="/app/member/account/contact" :route="{name:'ContactList'}">Contact Infomation</el-menu-item>
+                    <el-menu-item index="/app/member/account/password" :route="{name:'ChangePassword'}">Change Password</el-menu-item>
+                    <el-menu-item index="/app/member/account/credit" :route="{name:'CreditList'}">View/Edit Creditcard</el-menu-item>
+                    <el-menu-item index="/app/member/account/points" :route="{name:'MyPoints'}">My Points</el-menu-item>
+                    <el-menu-item index="/app/member/account/deals" :route="{name:'MyDeals'}">My Deals</el-menu-item>
                   </el-menu-item-group>
                 </el-submenu>
               </el-menu>
@@ -56,6 +55,9 @@ export default {
       openeds: ['2']
     }
   },
+  created(){
+    // console.log(this.$route);
+  },
   methods: {
       handleOpen(key, keyPath) {
         console.log(key, keyPath);
@@ -69,7 +71,20 @@ export default {
 
 <style scoped>
   .content {
-    width: 1140px;
+    width: 1240px;
+    min-height: 530px;
     margin: 0 auto;
+  }
+  >>> .el-menu-item{
+    background: #F1F1F1;
+  }
+  >>> .el-menu-item-group__title{
+    background: #F1F1F1;
+  }
+  >>> .el-submenu{
+    background: #F1F1F1;
+  }
+  >>> .el-menu-item-group>ul>li{
+    background: #FBFBFB;
   }
 </style>

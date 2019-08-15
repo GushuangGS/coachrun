@@ -50,7 +50,7 @@
                         <template slot="title">
                           <div class="title-bookings">
                             <img class="down" src="./img/up.png">
-                            <div>
+                            <div class="bookings-item">
                                 <div class="bookings-item-brief">
                                     <div>Order ID:&nbsp;&nbsp;<span>{{info.orderId}}</span></div>
                                     <div>Purchase Date:&nbsp;&nbsp;<span>{{dateChange(info.saleDate)}}</span></div>
@@ -64,7 +64,7 @@
                             </div>
                             <div class="total-pay">
                               <span>Total Payment:</span>
-                              <span class="total-money">$31</span>
+                              <span class="total-money">${{info.paymentAmount}}</span>
                             </div>
                           </div>
                         </template>
@@ -80,21 +80,21 @@
                                       <div v-show="item.pickupLocation.nextDay==0" class="icon-night1"></div>
                                       <div v-show="item.pickupLocation.nextDay==1" class="icon-night2"></div>
                                       <div class="bookings-disc bookings-disc-color2" v-show="item.serviceStatus==3">
-                                          Cancled
-                                    </div>
+                                          Canclled
+                                      </div>
                                       <!-- <div class="bookings-disc bookings-disc-color1" >
                                             SCHEDULED
                                       </div> -->
                                     </div>
                                 </el-col>
                               <el-col :span="4"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col>
-                              <el-col :span="3"><div>{{item.passengerNumber}}</div></el-col>
+                              <el-col :span="3"><div>{{item.passengers.length}}</div></el-col>
                               <el-col :span="3"><div class="money">${{item.paymentAmount}}</div></el-col>
                               <el-col :span="3">
                                 <div v-if="item.status==5" class="order-status">
                                   Cofirmed
                                 </div>
-                                <div v-if="item.status==2" class="order-status2">
+                                <div v-if="item.status==8" class="order-status2">
                                     Cancelled
                                   </div>
                               </el-col>
@@ -649,6 +649,9 @@
                             <!-- </ul>
                           </el-collapse-item> -->
                     </el-collapse>
+                    <div class="no-bookings" v-if="bookingsList.length==0">
+                        No Bookings Found !
+                    </div>
                   </div>
                   <div class="pagination-wrapper" v-show="false">
                         <el-pagination
@@ -703,7 +706,7 @@
             value:'Today & Last 30 days',
             valueTime:'',
             bookingsList:[],
-            str:'2019-05-02',
+            // str:'2019-05-02',
             activeNames: ['1']
           }
         },
@@ -713,11 +716,11 @@
         name: 'MyBookings',
         created(){
           this.orderList();
-          console.log(this.str.substr(5,2))
+          // console.log(this.str.substr(5,2));        
         },
         methods: {
           orderList(){
-            this.$http.get(this.$api.bookingList)
+            this.$http.get(this.$api.bookingList,{dateRange:16})
                     .then((res)=>{
                         console.log(res);
                         this.bookingsList = res.data.data;
@@ -728,10 +731,22 @@
               console.log(this.currentPage)  //点击第几页
           },
           select(value) {//选择器选中的value
+            this.$http.get(this.$api.bookingList,
+            {dateRange:value})
+                    .then((res)=>{
+                        console.log(res);
+                        this.bookingsList = res.data.data;
+                    })
               console.log(value);
           },
           selectTime(value){
-            console.log(value[0]);
+            this.$http.get(this.$api.bookingList,
+            {startDate:value[0],endDate:value[1]})
+                    .then((res)=>{
+                        console.log(res);
+                        this.bookingsList = res.data.data;
+                    })
+            console.log(value[0],value[1]);
             this.value = value[0] +"---"+value[1];
           },
           dateChange(str){
@@ -772,7 +787,7 @@
             timeLeft = str.substring(str.length-3);
             if(timeUS<12){
               timeUS = timeUS+timeLeft+'am';
-            }else if(timeUS>12){
+            }else if(timeUS>=12){
               timeUS = timeUS-12+timeLeft+'pm';
             }
             return timeUS;
@@ -829,9 +844,10 @@
         height: 80px;
       } 
       .total-pay{
-        margin-left: 150px;
+        margin-left: 100px;
         font-size: 14px;
         color:rgba(51,51,51,1);
+        line-height: 30px;
       }
       .total-money{
         font-size: 16px;
@@ -854,6 +870,9 @@
         height: 18px;
         margin-left: 20px;
         transition: all .5s;
+      }
+      .bookings-item{
+        width: 700px;
       }
       .bookings-item-brief>img {
         margin-left: 20px;
@@ -978,6 +997,13 @@
     }
     .line-none{
       text-decoration: line-through;
+    }
+    .no-bookings{
+      color:rgba(51,51,51,1); 
+      line-height:18px;
+      font-size: 16px;
+      margin-top: 10px;
+      font-weight: bold;
     }
     </style>
     
