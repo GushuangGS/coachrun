@@ -21,8 +21,9 @@ const UserCenter = resolve => {
 }
 
 const userCenterRouter = {
-  path: '/app/member/account',
-  name: 'UserCenter',
+  // path: '/app/member/account',
+  path: '',
+  // name: 'UserCenter',
   component: UserCenter,
   meta: {
     keepAlive: false,

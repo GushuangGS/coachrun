@@ -51,7 +51,6 @@
                     console.log(res);
                     this.dataList = res.data.data;
                 })
-
         }
     }
 

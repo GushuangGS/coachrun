@@ -59,11 +59,13 @@
                       <b-form-input
                         id="input-01"
                         v-model="form.cardNumber"
-                        :state="validationNum"
+                        v-on:focus="showTips"
+                        v-on:blur="hideTips"
+                        :state="showTip==true?validationNum:validationNum2"
                       ></b-form-input>
                       <b-form-invalid-feedback>
-                          {{cardNum}}
-                        </b-form-invalid-feedback>
+                        {{cardNum}}
+                      </b-form-invalid-feedback>
                     </b-form-group>
                   </div>
                 </div>
@@ -174,14 +176,19 @@
                   <div class="col-4">
                     <b-form-group id="input-group-60" label-for="input-60">
                       <div name="label" class="custom-label">
-                        <span class="necessary">* </span>
                         State:
                       </div>
                       <b-form-select
+                        v-show="stateChange"  
                         id="input-60"
                         v-model="form.state"
-                        :options="states"
+                        :options="statesOptions"
                       ></b-form-select>
+                      <b-form-input
+                          v-show="!stateChange"
+                          id="input-60"
+                          v-model="form.state"
+                        ></b-form-input>
                     </b-form-group>
                   </div>
                   <div class="col-8">
@@ -214,7 +221,8 @@
                   <b-form-select
                     id="input-3"
                     v-model="form.country"
-                    :options="countries"
+                    :options="countryOptions"
+                    @change="selectCountry"
                   ></b-form-select>
                 </b-form-group>
               </div>
@@ -232,6 +240,9 @@
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import countryOptions from '@/configs/country.json'
+  import statesOptions from '@/configs/states.json'
+
   export default {
     data() {
       return {
@@ -257,11 +268,12 @@
         types: ['AmEx','VISA','Master'],
         months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
         years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029'],
-        // countries: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        countries: ['Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        states: ['USA', 'UK', 'China'],
         infos:{},//编辑的具体信息
-        cardNum:'Your card number must be 15 characters long.'
+        cardNum:'Your card number must be 15 characters long.',
+        showTip:'false',//默认不显示
+        stateChange:'true',
+        countryOptions,
+        statesOptions
       }
     },
     computed:{
@@ -272,6 +284,15 @@
           return this.form.cardNumber.length ==16;
         }
       },
+      validationNum2(){
+        if(this.form.cardNumber.length!=0){
+          if(this.form.type == 'AmEx'){
+            return this.form.cardNumber.length ==15;
+          }else if(this.form.type == 'VISA' || this.form.type == 'Master'){
+            return this.form.cardNumber.length ==16;
+          }
+        }
+      }
     },
     created(){
       this.infos = this.$store.state.creditInfo == ''?this.$store.state.creditInfo:JSON.parse(localStorage.getItem("creditInfo"));
@@ -293,8 +314,17 @@
       this.form.zipcode = this.infos.billingAddress.zipcode;
       this.form.country = this.infos.billingAddress.country;
       
+      this.selectCountry();
     },
     methods: {
+      showTips(){
+        this.showTip = true;
+        console.log(this.showTip);
+      },
+      hideTips(){
+        this.showTip = false;
+        console.log(this.showTip);
+      },
       selectType(val){//选择下拉type属性
         // console.log(val);
         if(val == 'VISA' || val == 'Master'){
@@ -312,6 +342,14 @@
         }else{
           this.months = this.months.splice(month-1,13-month);
           this.form.month = this.months[0];
+        }
+      },
+      selectCountry(val){//选择国家
+        console.log(val);
+        if(val == 'USA'){
+          this.stateChange = true;
+        }else{
+          this.stateChange = false;
         }
       },
       expiration(){

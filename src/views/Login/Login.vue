@@ -76,11 +76,12 @@
                                     //传入账号名，密码，和保存天数3个参数
                                     this.setCookie(this.loginInfo.email, this.loginInfo.password, 7);
                                 }else {
-                                    console.log("清空Cookie");
                                     //清空Cookie
                                     this.clearCookie();
                                 }
-                                this.$cookie.set('display', data.data.data.user.display);
+                                // this.$cookie.set('display', data.data.data.user.display);
+                                // sessionStorage.setItem("display", data.data.data.user.display); 
+                                sessionStorage.setItem("token", data.data.data.token); 
                                 this.$router.push({name: 'MyOrders'});
                                 this.$store.commit('login');
                             });

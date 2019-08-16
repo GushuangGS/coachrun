@@ -44,7 +44,6 @@
                 <b-form-input
                   id="input-3"
                   v-model="form.email"
-                  placeholder="Enter email"
                 ></b-form-input>
               </b-form-group>
 
@@ -53,7 +52,6 @@
                   id="input-4"
                   type="tel"
                   v-model="form.phone"
-                  placeholder=""
                 ></b-form-input>
               </b-form-group>
 
@@ -62,7 +60,6 @@
                     id="input-5"
                     type="tel"
                     v-model="form.AlternatePhone"
-                    placeholder=""
                   ></b-form-input>
                 </b-form-group>
 
@@ -120,7 +117,12 @@
                   }
               })
         }else{
-          alert('信息不全')
+          this.$message({
+            message: 'Incomplete information',
+            type: 'warning',
+            showClose: true,
+            center: true
+          });
         }
       },
       onReset(evt) {

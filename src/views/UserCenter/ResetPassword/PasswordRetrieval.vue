@@ -23,6 +23,11 @@
                 <span class="email-discrib">Login Email:</span>
                 <input v-model="value" class="email-input" type="email">
             </div>
+            <div id='recaptcha'
+                class="g-recaptcha"
+                data-sitekey="your_site_key"
+                data-callback="onSubmit">
+            </div>
             <el-button class="btn" @click="resetPass">
                     Reset login password
             </el-button>
@@ -66,7 +71,7 @@
         margin: 50px auto;
         background:rgba(255,255,255,1);
         width: 380px;
-        height: 420px;
+        height: 380px;
         padding: 28px 0 0 40px;
     }
     .title{
@@ -95,6 +100,9 @@
         height: 40px;
         font-size: 14px;
     }
+    #recaptcha{
+        margin-top: 20px;
+    }
     .btn{
         width: 200px;
         height: 48px;
@@ -102,7 +110,7 @@
         font-weight: bold;
         font-size: 14px;
         background: rgba(255,154,13,0.6);
-        margin-top: 120px;
+        margin-top: 20px;
         margin-left: 50px;
     }
     >>> .el-form-item__label:before{

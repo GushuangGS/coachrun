@@ -82,7 +82,7 @@
     },
     methods:{
       listInfo(){//获取数据列表
-        this.$http.get(this.$api.contactList,{headers:{'Authorization':'2716316381'}})
+        this.$http.get(this.$api.contactList,{headers:{'Authorization':sessionStorage.getItem('token')}})
                 .then((res)=>{
                     console.log(res.data.data);
                     this.contactList = res.data.data;

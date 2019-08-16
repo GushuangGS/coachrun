@@ -18,8 +18,10 @@ router.beforeEach((to,from,next)=>{
   // console.log(to);
   const name=to.name;
   if (to.matched.some(record => record.meta.auth)){
-    const display = VueCookie.get('display');
-    if(display){
+    // const display = VueCookie.get('display');
+    // const display = sessionStorage.getItem('display');
+    const token = sessionStorage.getItem('token');
+    if(token){
       next();
     }else {//没有登录信息
       if(name == "MyDeals" || name == "MyPoints" || name=="CreditList" || name=="ChangePassword" 

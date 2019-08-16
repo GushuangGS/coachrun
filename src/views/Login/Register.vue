@@ -6,7 +6,7 @@
                 <el-form-item prop="email" label="Email:">
                     <el-input v-model="loginInfo.email"></el-input>
                 </el-form-item> 
-                <el-form-item class="phone" prop="phone" label="Phone:">
+                <!-- <el-form-item class="phone" prop="phone" label="Phone:">
                     <el-select class="select" v-model="selectLabel" @change="select">
                         <el-option v-for="item in options"
                         :key="item.value"
@@ -14,20 +14,16 @@
                         :value="item.value"></el-option>
                     </el-select>
                     <el-input class="phone-num" type="phone" v-model="loginInfo.phone"></el-input>
-                </el-form-item>
-                <!-- <el-form-item class="phone" prop="region" label="Phone:">
-                    <el-select class="select" v-model="loginInfo.region" placeholder="请选择活动区域">
-                        <el-option label="区域一" value="shanghai"></el-option>
-                        <el-option label="区域二" value="beijing"></el-option>
-                    </el-select>
-                </el-form-item>  -->
-                <!-- <el-form-item prop="phone">
-                    <el-input class="phone-num" type="phone" v-model="loginInfo.phone"></el-input>
                 </el-form-item> -->
+                <el-form-item prop="phone" label="Phone:">
+                    <template>
+                            <VuePhoneNumberInput v-model="loginInfo.phone" />
+                    </template>
+                </el-form-item> 
                 <el-form-item label="Password:" prop="password">
                     <el-input type="password" v-model="loginInfo.password"></el-input>
                 </el-form-item>
-                <el-button type="primary" @click.native.prevent="register" class="login-btn">Creat My Account</el-button>
+                <el-button type="primary" @click.native.prevent="register" class="login-btn">Create My Account</el-button>
            </el-form>
            <div class="register">
                <span class="register-info">Already a member?</span>
@@ -52,8 +48,10 @@
 </template>
     
     <script>
+        import VuePhoneNumberInput from 'vue-phone-number-input'
         export default{
             name:'Register',
+            components: {VuePhoneNumberInput},
             data(){
                 return{
                     loginInfo: {
@@ -75,6 +73,7 @@
                     ],
                     selectValue: '999',//赋值选中国家的值
                     selectLabel:'USA',//默认为一个国家
+                    yourValue:''
                 }
             },
             methods:{
@@ -124,7 +123,9 @@
         >>> .el-form-item__label{
             font-size: 16px;
         }
-
+        >>> .el-form-item__content{
+            line-height:normal;
+        }
         .phone{
             /* display: flex;
             flex-direction: row; */

@@ -11,7 +11,7 @@
                 <span class="product-intro1">{{listInfo.title}}</span>
                 <span class="product-intro2">Departure time: {{listInfo.serviceDateDescription}}</span>
                 <span class="product-intro3" v-if="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
-                <span>{{listInfo.deviceType}}</span>
+                <span class="product-intro2">Applicable device:{{useType(this.listInfo)}}</span>
             </div>
             <div class="product-details">
                     <el-collapse>
@@ -55,16 +55,16 @@
                 this.discountValue = str; 
             }
 
-            // console.log(this.binaryAgent(this.num));
         },
         methods:{
-            binaryAgent(str) {
-                str = str.split(" ");
-                str = str.map((a) => {
-                    return String.fromCharCode(parseInt(a, 2));
-                }).join("");
-                // console.log(str);
-                return str;
+            useType(coupon){
+                ((coupon.deviceType & 1) == 1
+                ? this.$t("lang.users_identity_deals_desktop") + ","
+                : "") +
+                ((coupon.deviceType & 2) == 2
+                ? this.$t("lang.users_identity_deals_mobile") + ","
+                : "") +
+                ((coupon.deviceType & 4) == 4 ? "APP" : "")
             }
         }
     }
@@ -145,7 +145,7 @@
     }
     .product-bus{
         width: 284px;
-        height: 60px;
+        height: 70px;
     }
     .product-intro1,.product-intro2,.product-intro3{
         padding-left: 8px;

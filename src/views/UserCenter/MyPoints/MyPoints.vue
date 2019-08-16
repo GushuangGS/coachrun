@@ -110,7 +110,7 @@
           { description: 'My Points', path: '/app/member/account/points',title:'My Account' }
         ],
         currentPage:1, //初始页
-        pagesize:10,    //每页的数据
+        pagesize:20,    //每页的数据
         tableData: [
           // {
           //   source: 'Booking ( Order JT23-600-3427 )',
@@ -134,15 +134,17 @@
     },
     name: 'MyPoints',
     created(){
-      this.tableInfo();
+      this.tableInfo(this.currentPage);
     },
     methods:{
       handleCurrentChange: function(currentPage){
               this.currentPage = currentPage;
               console.log(this.currentPage)  //点击第几页
+              this.tableInfo(this.currentPage);
       },
-      tableInfo(){
-        this.$http.get(this.$api.viewPoint)
+      tableInfo(num){
+        this.$http.get(this.$api.viewPoint,{headers:{'Authorization':sessionStorage.getItem('token')}},
+        {query:{pageNo:num,pageSize:this.pagesize}})
                 .then((res)=>{
                     console.log(res);
                     this.resData = res.data.data;

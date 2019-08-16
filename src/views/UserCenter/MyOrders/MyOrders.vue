@@ -115,6 +115,7 @@
   import OrderInfo from '@/views/UserCenter/OrderInfo'
 
   export default {
+    name: 'MyOrders',
     data() {
       return {
         notDefault: false,
@@ -131,13 +132,14 @@
       ItemHeader,
       OrderInfo
     },
-    name: 'MyOrders',
     created(){
       this.orderList();
     },
     methods: {
       orderList(){
-        this.$http.get(this.$api.dashboard)
+        this.$http.get(this.$api.dashboard,{
+          headers:{'Authorization':sessionStorage.getItem('token')}
+        })
                 .then((res)=>{
                   if(res.status == 200){
                     console.log(res);
@@ -317,11 +319,8 @@
     color: #333;
   }
   div.order-status {
-    /* position: absolute; */
     font-size: 14px;
-    /* line-height: 16px; */
     color: #458A8E;
-    /* padding: 6px 12px; */
     font-weight: bold;
   }
   div.order-details {

@@ -71,8 +71,8 @@
                           :state="showTip==true?validationNum:validationNum2"
                         ></b-form-input>
                         <b-form-invalid-feedback>
-                            {{cardNum}}
-                          </b-form-invalid-feedback>
+                          {{cardNum}}
+                        </b-form-invalid-feedback>
                       </b-form-group>
                     </div>
                   </div>
@@ -172,7 +172,6 @@
                     <b-form-input
                       id="input-4"
                       v-model="form.street"
-                      
                     ></b-form-input>
                     <!-- <b-form-invalid-feedback>
                         :state="nameState(form.street)"
@@ -188,7 +187,6 @@
                     <b-form-input
                       id="input-5"
                       v-model="form.city"
-                    
                     ></b-form-input>
                     <!-- <b-form-invalid-feedback>
                         :state="nameState(form.city)"
@@ -199,15 +197,20 @@
                     <div class="col-4">
                       <b-form-group id="input-group-60" label-for="input-60">
                         <div name="label" class="custom-label">
-                          <span class="necessary">* </span>
+                          <!-- <span class="necessary">* </span> -->
                           State:
                         </div>
                         <b-form-select
+                          v-show="stateChange"
                           id="input-60"
                           v-model="form.state"
-                          :options="states"
+                          :options="statesOptions"
                         ></b-form-select>
-                        
+                        <b-form-input
+                          v-show="!stateChange"
+                          id="input-60"
+                          v-model="form.state"
+                        ></b-form-input>
                       </b-form-group>
                     </div>
                     <div class="col-8">
@@ -228,7 +231,6 @@
                         <b-form-input
                           id="input-61"
                           v-model="form.zipcode"
-                          
                         ></b-form-input>
                         <!-- <b-form-invalid-feedback>
                             :state="nameState(form.zipcode)"
@@ -245,7 +247,8 @@
                     <b-form-select
                       id="input-3"
                       v-model="form.country"
-                      :options="countries"
+                      :options="countryOptions"
+                      @change="selectCountry"
                     ></b-form-select>
                   </b-form-group>
                 </div>
@@ -263,6 +266,8 @@
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import countryOptions from '@/configs/country.json'
+  import statesOptions from '@/configs/states.json';
 
   export default {
     data() {
@@ -282,19 +287,19 @@
           country: null,
           street: '',
           city: '',
-          state:'USA',
+          state:'',
           zipcode:'',
-          country:'Carrots'
+          country:'null'
         },
         types: ['AmEx','VISA','Master'],
         months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
         years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029',
          '2030', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2039'],
-        // countries: [{ text: 'Select One', value: null }, 'Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        countries: ['Carrots', 'Beans', 'Tomatoes', 'Corn'],
-        states: ['USA', 'UK', 'China'],
         cardNum:'Your card number must be 15 characters long.',
         showTip:'false',//默认不显示
+        stateChange:'true',
+        countryOptions,
+        statesOptions
       }
     },
     computed:{
@@ -317,6 +322,7 @@
     },
     created(){
       this.expiration();
+      // console.log(this.countryOptions);
     },
     methods: {
       showTips(){
@@ -352,6 +358,14 @@
         var month=date.getMonth();
         this.months = this.months.splice(month,12-month);
         this.form.month = this.months[0];
+      },
+      selectCountry(val){//选择国家
+        console.log(val);
+        if(val == 'USA'){
+          this.stateChange = true;
+        }else{
+          this.stateChange = false;
+        }
       },
       nameState(name) {//不能为空
         return (name !== null && name !== '') ? null : false
@@ -408,17 +422,6 @@
           zipcode:'',
           country:'Carrots'
         }
-        // evt.preventDefault()
-        // // Reset our form values
-        // this.form.email = '';
-        // this.form.name = '';
-        // this.form.food = null;
-        // this.form.checked = [];
-        // // Trick to reset/clear native browser form validation state
-        // this.show = false;
-        // this.$nextTick(() => {
-        //   this.show = true;
-        // })
       }
     },
     components: {

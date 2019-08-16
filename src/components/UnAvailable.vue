@@ -11,6 +11,7 @@
                     <span class="product-intro1">{{listInfo.title}}</span>
                     <span class="product-intro2">Departure time: {{listInfo.serviceDateDescription}}</span>
                     <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
+                    <span>{{listInfo.deviceType}}</span>
                 </div>
                 <div class="product-details">
                         <el-collapse>
@@ -19,8 +20,11 @@
                                             View promotion detail
                                             <img class="down"src="./img/down.png" alt=""> 
                                        </template>
-                                <div>与现实生活一致：与现实生活的流程、逻辑保持一致，遵循用户习惯的语言和概念；</div>
-                                <div>在界面中一致：所有的元素和结构需保持一致，比如：设计样式、图标和文本、元素的位置等。</div>
+                                       <div>{{listInfo.description}}</div>
+                                        <div>{{listInfo.serviceDateDescription}}</div>
+                                        <div v-for="(item,index) in listInfo.products" :key="index">
+                                            {{item.name}}
+                                        </div>
                             </el-collapse-item>
                         </el-collapse>
                 </div>

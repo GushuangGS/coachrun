@@ -2,7 +2,6 @@ import Vue from 'vue'
 import App from './App.vue'
 // import router from './router/router'
 import {router} from './router/router'
-
 import store from './store'
 // import './plugins/element.js'
 import ElementUI from 'element-ui'
@@ -12,15 +11,17 @@ import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import api from './configs/api'
 import VueCookie from 'vue-cookie';
-
-
+import VuePhoneNumberInput from 'vue-phone-number-input';
+import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 // 引入font-awesome图标字体
 import 'font-awesome/css/font-awesome.min.css'
 import './common/css/index.css'
 
+
 Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
+Vue.use(VuePhoneNumberInput);
 
 Vue.config.productionTip = false;
 
@@ -30,7 +31,7 @@ axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
 // axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
 Vue.prototype.$api = api;
 
-// ---------------------------------------
+// -------------------loading--------------------
 let loading;//定义loading变量
 function startLoading() {//使用Element loading-start 方法
   loading = Vue.prototype.$loading({
@@ -40,13 +41,13 @@ function startLoading() {//使用Element loading-start 方法
   })
 }
 function endLoading() {//使用Element loading-close 方法
-  loading.close()
+  loading.close();
 }
 
-let needLoadingRequestCount = 0
+let needLoadingRequestCount = 0;
 export function showFullScreenLoading() {
     if (needLoadingRequestCount === 0) {
-        startLoading()
+        startLoading();
     }
     needLoadingRequestCount++;
 }
@@ -58,9 +59,12 @@ export function tryHideFullScreenLoading() {
   }
 }
 //http request 拦截器
+
+
 axios.interceptors.request.use(
   config => {
       var token = '';
+      let apiKey = "7:1350154:0:2";
       // if(typeof Cookies.get('user') === 'undefined'){
       //     //此时为空
       // }else {
@@ -68,7 +72,8 @@ axios.interceptors.request.use(
       // }//注意使用的时候需要引入cookie方法，推荐js-cookie
       config.data = JSON.stringify(config.data);
       config.headers = {
-          'Content-Type':'application/json'
+          'Content-Type':'application/json',
+          'X-Api-Key':btoa(apiKey)
       }
       if(token != ''){
         config.headers.token = token;
@@ -83,10 +88,11 @@ axios.interceptors.request.use(
 //http response 拦截器
 axios.interceptors.response.use(
   response => {
+    // console.log(response);
       //当返回信息为未登录或者登录失效的时候重定向为登录页面
       if(response.data.code == 'W_100004' || response.data.message == '用户未登录或登录超时，请登录！'){
           router.push({
-              path:"/",
+              path:"/app/member/login",
               querry:{redirect:router.currentRoute.fullPath}//从哪个页面跳转
           })
       }
@@ -97,10 +103,6 @@ axios.interceptors.response.use(
       return Promise.reject(error);
   }
 )
-
-
-
-
 
 // ---------------------------------------
 

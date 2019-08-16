@@ -46,7 +46,7 @@
                     </div>
                     <el-collapse v-model="activeNames">
 
-                      <el-collapse-item name="1" v-for="(info,index) in bookingsList" :key="index">
+                      <el-collapse-item v-for="(info,index) in bookingsList" :key="index"  :name="index">
                         <template slot="title">
                           <div class="title-bookings">
                             <img class="down" src="./img/up.png">
@@ -707,7 +707,7 @@
             valueTime:'',
             bookingsList:[],
             // str:'2019-05-02',
-            activeNames: ['1']
+            activeNames: []
           }
         },
         components: {
@@ -724,6 +724,9 @@
                     .then((res)=>{
                         console.log(res);
                         this.bookingsList = res.data.data;
+                        for(var i = 0; i < this.bookingsList.length; i++) {
+                          this.activeNames.push(i);
+                        }
                     })
           },
           handleCurrentChange: function(currentPage){
@@ -827,24 +830,17 @@
         display: flex;
         align-items: center;
       }
-      >>> .el-collapse {
-    
-      }
-      >>> .el-collapse-item {
-        padding-left: 3px;
-        padding-right: 3px;
-      }
       >>> .el-collapse-item:not(:last-child) {
         background-color: #F5F5F5;
         margin-bottom: 20px;
       }
       >>> .el-collapse-item__header {
         border-bottom: none;
-        background-color: inherit;
+        background-color: #F5F5F5;
         height: 80px;
       } 
       .total-pay{
-        margin-left: 100px;
+        /* margin-left: 100px; */
         font-size: 14px;
         color:rgba(51,51,51,1);
         line-height: 30px;

@@ -27,9 +27,13 @@ const ResetPassword = resolve => {
   })
 }
 const routes = [
+  // {
+  //   path: '/',
+  //   redirect: '/app/member/account'
+  // },
   {
-    path: '/',
-    redirect: '/app/member/account'
+    path: '*',
+    redirect:  { name: 'MyOrders' },
   },
   {//登陆
     path:'/app/member/login',
