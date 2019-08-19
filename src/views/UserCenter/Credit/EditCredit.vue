@@ -255,15 +255,14 @@
           holderName: '',
           cardNumber: '',
           CVV: '',
-          type: 'AmEx',
-          month: '01',
+          type: '',
+          month: '08',
           year: '2019',
-          country: null,
           street: '',
           city: '',
-          state:'USA',
+          state:'null',
           zipcode:'',
-          country:'Carrots'
+          country:''
         },
         types: ['AmEx','VISA','Master'],
         months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
@@ -346,7 +345,7 @@
       },
       selectCountry(val){//选择国家
         console.log(val);
-        if(val == 'USA'){
+        if(val == 'us'){
           this.stateChange = true;
         }else{
           this.stateChange = false;
@@ -360,24 +359,24 @@
         this.form.month = this.months[0];
       },
       onReset(evt) {
-        this.form = {
-          holderName: '',
-          cardNumber: '',
-          CVV: '',
-          type: 'AmEx',
-          month: '01',
-          year: '2019',
-          country: null,
-          street: '',
-          city: '',
-          state:'USA',
-          zipcode:'',
-          country:'Carrots'
-        }
+        this.$router.go(-1);
+        // this.form = {
+        //   holderName: '',
+        //   cardNumber: '',
+        //   CVV: '',
+        //   type: 'null',
+        //   month: '01',
+        //   year: '2019',
+        //   street: '',
+        //   city: '',
+        //   state:'null',
+        //   zipcode:'',
+        //   country:'us'
+        // }
       },
       save(){
         if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
-          this.$http.patch(this.$api.creditUpdate,
+          this.$http.patch(this.$api.creditUpdate,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},
               {ccid:'ccid',nameOnCard:this.form.holderName,cardNumber:this.form.cardNumber,
                 uid:'11',cardType:this.form.type,expireMonth:this.form.month,
                 expireYear:this.form.year,billingAddress:{aid:'aid',uid:'uid',street:this.form.street,

@@ -27,8 +27,8 @@ Vue.config.productionTip = false;
 
 //配置axios 挂载到实例化对象上
 Vue.prototype.$http = axios;
-axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
-// axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
+// axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
+axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
 Vue.prototype.$api = api;
 
 // -------------------loading--------------------
@@ -64,20 +64,20 @@ export function tryHideFullScreenLoading() {
 axios.interceptors.request.use(
   config => {
       var token = '';
-      let apiKey = "7:1350154:0:2";
+      let apiKey = "7:1350154:0:1";
       // if(typeof Cookies.get('user') === 'undefined'){
       //     //此时为空
       // }else {
       //     token = JSON.parse(Cookies.get('user')).token
       // }//注意使用的时候需要引入cookie方法，推荐js-cookie
       config.data = JSON.stringify(config.data);
-      config.headers = {
-          'Content-Type':'application/json',
-          'X-Api-Key':btoa(apiKey)
-      }
-      if(token != ''){
-        config.headers.token = token;
-      }
+      config.headers['Content-Type'] ='application/json';
+      config.headers['X-Api-Key'] = btoa(apiKey);
+      // config.headers = {
+      //     'Content-Type':'application/json',
+      //     'X-Api-Key':btoa(apiKey),
+      //     // 'Authorization':`Bearer ${sessionStorage.getItem('token')}`
+      // }
       showFullScreenLoading();
       return config;
   },

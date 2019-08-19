@@ -102,9 +102,8 @@
         evt.preventDefault();
         if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.AlternatePhone!=''){
             console.log(JSON.stringify(this.form));
-            this.$http.patch(this.$api.contactUpdate,
-              { uid:'2199066',aid:'1313',firstName:this.form.firstName,lastName:this.form.lastName,
-              phone:this.form.phone,email:this.form.email,phone2:this.form.AlternatePhone})
+            this.$http.patch(this.$api.contactUpdate,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}},
+              {firstName:this.form.firstName,lastName:this.form.lastName,phone:this.form.phone,email:this.form.email,phone2:this.form.AlternatePhone,isDefault:this.form.isDefault})
               .then((res)=>{
                   console.log(res);
                   //添加成功后，默认都设置为空

@@ -5,7 +5,8 @@ const EditContact = resolve => {
 }
 
 const editContactRouter = {
-  path: '/app/member/account/contact/:contactId',
+  // path: '/app/member/account/contact/:contactId',
+  path: '/app/member/account/editContact',
   name: 'EditContact',
   component: EditContact,
   meta: {

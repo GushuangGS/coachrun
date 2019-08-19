@@ -126,7 +126,7 @@
         return str = '****'+str;
       },
       removeCredit(){//移除信用卡
-        this.$http.delete(this.$api.creditDelete,{userId:this.deleteInfo.uid,ccid:this.deleteInfo.ccid})
+        this.$http.delete(this.$api.creditDelete,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},{userId:this.deleteInfo.uid,ccid:this.deleteInfo.ccid})
               .then((res)=>{
                   console.log(res);
                   this.showDialogVisible = false;
@@ -135,7 +135,7 @@
               })
       },
       creditList(){//信用卡列表
-        this.$http.get(this.$api.creditList,{userId:'1'})
+        this.$http.get(this.$api.creditList,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
               .then((res)=>{
                   console.log(res.data.data);
                   if(res.data.data.length != 0){

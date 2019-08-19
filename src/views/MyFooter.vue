@@ -9,7 +9,7 @@
                 </el-col>
                 <el-col :span="5">
                     <div>
-                        <p class="bot-title">ABOUST US</p>
+                        <p class="bot-title">ABOUT US</p>
                         <span class="about">CoachRun provides affordable inter-city bus 
                             services on the East Coast, Florida and the West Coast.
                         </span>
@@ -124,7 +124,7 @@
     font-weight:400;
     color:rgba(255,255,255,1);
     line-height: 43px;
-    border-top: 1px solid rgba(0,162,255,1);
+    border-top: 1px solid #fff;
     font-size: 12px;
 }
 </style>

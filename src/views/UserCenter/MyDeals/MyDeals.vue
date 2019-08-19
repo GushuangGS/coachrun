@@ -46,7 +46,8 @@
             
         },
         created(){
-            this.$http.get(this.$api.deals,{website:'1',deviceType:'1',userId:'1571335'})
+            this.$http.get(this.$api.deals,{headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}},
+                            {website:'1',deviceType:'1',userId:'1571335'})
                 .then((res)=>{
                     console.log(res);
                     this.dataList = res.data.data;

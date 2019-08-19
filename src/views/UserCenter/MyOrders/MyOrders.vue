@@ -103,6 +103,9 @@
                   </el-collapse-item>
                 </el-collapse>
               </div> -->
+              <div class="no-bookings" v-if="dashInfo.length==0">
+                No Bookings Found !
+            </div>
             </div>
           </div>
         </el-main>
@@ -137,9 +140,7 @@
     },
     methods: {
       orderList(){
-        this.$http.get(this.$api.dashboard,{
-          headers:{'Authorization':sessionStorage.getItem('token')}
-        })
+        this.$http.get(this.$api.dashboard,{headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                 .then((res)=>{
                   if(res.status == 200){
                     console.log(res);
@@ -349,4 +350,11 @@
   >>> .el-collapse-item__wrap {
     background-color: inherit;
   }
+  .no-bookings{
+      color:rgba(51,51,51,1); 
+      line-height:18px;
+      font-size: 16px;
+      margin-top: 10px;
+      font-weight: bold;
+    }
 </style>

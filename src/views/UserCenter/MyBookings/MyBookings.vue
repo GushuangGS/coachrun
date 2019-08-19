@@ -720,7 +720,7 @@
         },
         methods: {
           orderList(){
-            this.$http.get(this.$api.bookingList,{dateRange:16})
+            this.$http.get(this.$api.bookingList,{dateRange:16},{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                     .then((res)=>{
                         console.log(res);
                         this.bookingsList = res.data.data;

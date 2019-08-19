@@ -22,7 +22,7 @@
                 <img src="./img/safety.png">
                 <span>Your payment details are secure</span>
               </div>
-              <b-form @reset="onReset">
+              <b-form>
                   <!-- @submit="onSubmit" -->
                 <div class="up">
                   <div class="row">
@@ -253,7 +253,7 @@
                   </b-form-group>
                 </div>
                 <div class="btn-wrapper">
-                  <b-button type="reset"  variant="light">Cancel</b-button>
+                  <b-button @click="onReset" type="reset"  variant="light">Cancel</b-button>
                   <b-button @click="onSubmit" variant="warning">Save</b-button>
                 </div>
               </b-form>
@@ -281,15 +281,14 @@
           holderName: '',
           cardNumber: '',
           CVV: '',
-          type: 'AmEx',
+          type: 'null',
           month: '01',
           year: '2019',
-          country: null,
           street: '',
           city: '',
           state:'',
           zipcode:'',
-          country:'null'
+          country:'us'
         },
         types: ['AmEx','VISA','Master'],
         months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
@@ -361,7 +360,7 @@
       },
       selectCountry(val){//选择国家
         console.log(val);
-        if(val == 'USA'){
+        if(val == 'us'){
           this.stateChange = true;
         }else{
           this.stateChange = false;
@@ -374,9 +373,9 @@
         if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
           evt.preventDefault();
           console.log(JSON.stringify(this.form));
-          this.$http.post(this.$api.creditAdd,
+          this.$http.post(this.$api.creditAdd,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},
               {nameOnCard:this.form.holderName,cardNumber:this.form.cardNumber,
-                uid:'11',cardType:this.form.type,expireMonth:this.form.month,
+                uid:'',cardType:this.form.type,expireMonth:this.form.month,
                 expireYear:this.form.year,billingAddress:{street:this.form.street,
                 city:this.form.city,state:this.form.state,zipcode:this.form.zipcode,
                 country:this.form.country},isDefault:false})
@@ -387,15 +386,14 @@
                     holderName: '',
                     cardNumber: '',
                     CVV: '',
-                    type: 'AmEx',
+                    type: 'null',
                     month: '01',
                     year: '2019',
-                    country: null,
                     street: '',
                     city: '',
-                    state:'USA',
+                    state:'',
                     zipcode:'',
-                    country:'Carrots'
+                    country:'us'
                   }
               })
         }else{
@@ -408,20 +406,20 @@
         }
       },
       onReset(evt) {//清空
-        this.form = {
-          holderName: '',
-          cardNumber: '',
-          CVV: '',
-          type: 'AmEx',
-          month: '01',
-          year: '2019',
-          country: null,
-          street: '',
-          city: '',
-          state:'USA',
-          zipcode:'',
-          country:'Carrots'
-        }
+        this.$router.go(-1);
+        // this.form = {
+        //   holderName: '',
+        //   cardNumber: '',
+        //   CVV: '',
+        //   type: 'null',
+        //   month: '01',
+        //   year: '2019',
+        //   street: '',
+        //   city: '',
+        //   state:'',
+        //   zipcode:'',
+        //   country:'us'
+        // }
       }
     },
     components: {

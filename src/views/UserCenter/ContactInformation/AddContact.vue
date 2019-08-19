@@ -101,7 +101,7 @@
               evt.preventDefault();
               if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.AlternatePhone!=''){
                   console.log(JSON.stringify(this.form));
-                  this.$http.post(this.$api.contactAdd,
+                  this.$http.post(this.$api.contactAdd,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},
                     { uid:'2199066',firstName:this.form.firstName,lastName:this.form.lastName,
                     phone:this.form.phone,email:this.form.email,phone2:this.form.AlternatePhone})
                     .then((res)=>{
@@ -116,21 +116,26 @@
                         }
                     })
               }else{
-                alert('信息不全')
+                this.$message({
+                  message: 'Incomplete information',
+                  type: 'warning',
+                  showClose: true,
+                  center: true
+                });
               }
             },
             onReset(evt) {
-              evt.preventDefault()
+              evt.preventDefault();
               // Reset our form values
-              this.form.firstName = ''
-              this.form.lastName = ''
-              this.form.email = ''
-              this.form.phone =''
-              this.form.AlternatePhone =''
+              this.form.firstName = '';
+              this.form.lastName = '';
+              this.form.email = '';
+              this.form.phone ='';
+              this.form.AlternatePhone ='';
               // Trick to reset/clear native browser form validation state
-              this.show = false
+              this.show = false;
               this.$nextTick(() => {
-                this.show = true
+                this.show = true;
               })
             }
           },

@@ -17,7 +17,10 @@
                 </el-form-item> -->
                 <el-form-item prop="phone" label="Phone:">
                     <template>
-                            <VuePhoneNumberInput v-model="loginInfo.phone" />
+                            <VuePhoneNumberInput v-model="loginInfo.phone" 
+                            default-country-code="US" 
+                            @update="onUpdate"
+                            />
                     </template>
                 </el-form-item> 
                 <el-form-item label="Password:" prop="password">
@@ -73,10 +76,15 @@
                     ],
                     selectValue: '999',//赋值选中国家的值
                     selectLabel:'USA',//默认为一个国家
-                    yourValue:''
+                    yourValue:'',
+                    results: {}
                 }
             },
             methods:{
+                onUpdate(payload) {
+                    this.results = payload;
+                    console.log(payload);
+                },
                 register(){
                     console.log(this.selectValue);
                     this.$refs.loginForm.validate((valid)=>{

@@ -81,7 +81,7 @@
                                 }
                                 // this.$cookie.set('display', data.data.data.user.display);
                                 // sessionStorage.setItem("display", data.data.data.user.display); 
-                                sessionStorage.setItem("token", data.data.data.token); 
+                                sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token); 
                                 this.$router.push({name: 'MyOrders'});
                                 this.$store.commit('login');
                             });

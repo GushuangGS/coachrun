@@ -20,7 +20,7 @@ router.beforeEach((to,from,next)=>{
   if (to.matched.some(record => record.meta.auth)){
     // const display = VueCookie.get('display');
     // const display = sessionStorage.getItem('display');
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem('IvyCustomer_LoginToken');
     if(token){
       next();
     }else {//没有登录信息

@@ -82,7 +82,7 @@
     },
     methods:{
       listInfo(){//获取数据列表
-        this.$http.get(this.$api.contactList,{headers:{'Authorization':sessionStorage.getItem('token')}})
+        this.$http.get(this.$api.contactList,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                 .then((res)=>{
                     console.log(res.data.data);
                     this.contactList = res.data.data;
@@ -95,7 +95,7 @@
                     confirmButtonText: '确认',
                     cancelButtonText: '取消'
                 }).then(() => {
-                  this.$http.delete(this.$api.contactDelete)
+                  this.$http.delete(this.$api.contactDelete,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                       .then((res)=>{
                           console.log(res);
                           this.contactList.splice(index,1);
@@ -104,7 +104,8 @@
       },
       edit(row){//编辑
         console.log(row);
-        this.$router.push({name: 'EditContact',params:{contactId:'11'}});
+        // this.$router.push({name: 'EditContact',params:{contactId:row.aid}});
+        this.$router.push({name: 'EditContact'});
         this.$store.commit('contactInfo',row);
       }
     }
