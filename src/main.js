@@ -92,7 +92,7 @@ axios.interceptors.response.use(
       //当返回信息为未登录或者登录失效的时候重定向为登录页面
       if(response.data.code == 'W_100004' || response.data.message == '用户未登录或登录超时，请登录！'){
           router.push({
-              path:"/app/member/login",
+              path:"/render/user/login",
               querry:{redirect:router.currentRoute.fullPath}//从哪个页面跳转
           })
       }

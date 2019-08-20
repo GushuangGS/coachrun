@@ -6,10 +6,10 @@
             </div>
             <div class="content">
                 <span class="title">Please Check Your Email Inbox</span>
-                <p class="main">An email has been sent to selinaquzhou@126.com.
+                <p class="main">An email has been sent to {{$store.state.sendEmail}}.
                         Please follow the instructions in the email to
                         set your new password. If the e-mail address 
-                        you entered selinaquzhou@126.com is associated with 
+                        you entered {{$store.state.sendEmail}} is associated with 
                         a customer account in our records, you will receive an 
                         e-mail from us with instructions to reset your password. 
                         If you don't receive this e-mail, please check your junk 
@@ -31,7 +31,8 @@
         },
         methods:{
             back(){
-                this.$router.push({name: 'MyDeals'});
+                // this.$router.push({name: 'MyDeals'});
+                this.$router.go(-1);
             }
         }
     }

@@ -36,17 +36,17 @@ const routes = [
     redirect:  { name: 'MyOrders' },
   },
   {//登陆
-    path:'/app/member/login',
+    path:'/render/user/login',
     name:'Login',
     component:Login
   },
   {//注册
-    path:'/app/member/register',
+    path:'/render/user/register',
     name:'Register',
     component:Register
   },
   {//发送邮箱
-    path: '/app/member/passwordRetrieval',
+    path: '/render/user/passwordRetrieval',
     name: 'PasswordRetrieval',
     component: PasswordRetrieval,
     meta: {
@@ -54,7 +54,7 @@ const routes = [
     }
   },
   {//发送至邮箱提醒
-    path: '/app/member/remindEmail',
+    path: '/render/user/remindEmail',
     name: 'RemindEmail',
     component: RemindEmail,
     meta: {
@@ -62,7 +62,7 @@ const routes = [
     }
   },
   {//密码重置页
-    path: '/app/member/resetPassword',
+    path: '/render/user/resetPassword',
     name: 'ResetPassword',
     component: ResetPassword,
     meta: {

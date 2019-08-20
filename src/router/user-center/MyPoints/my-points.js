@@ -5,7 +5,8 @@ const MyPoints = resolve => {
 }
 
 const myPointsRouter = {
-  path: '/app/member/account/points',
+  // path: '/app/member/account/points',
+  path: '/render/user/points',
   name: 'MyPoints',
   component: MyPoints,
   meta: {

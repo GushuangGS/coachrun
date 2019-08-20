@@ -14,7 +14,7 @@
                 :default-openeds="openeds"
                 router
               >
-                <el-menu-item index="/app/member/account/orders" :route="{name:'MyOrders'}">
+                <el-menu-item index="/render/user/orders" :route="{name:'MyOrders'}">
                   <span slot="title">Dashboard</span>
                 </el-menu-item>
                 <el-submenu index="2">
@@ -22,12 +22,12 @@
                     <span>My Account</span>
                   </template>
                   <el-menu-item-group>
-                    <el-menu-item index="/app/member/account/bookings" :route="{name:'MyBookings'}">My Bookings</el-menu-item>
-                    <el-menu-item index="/app/member/account/contact" :route="{name:'ContactList'}">Contact Infomation</el-menu-item>
-                    <el-menu-item index="/app/member/account/password" :route="{name:'ChangePassword'}">Change Password</el-menu-item>
-                    <el-menu-item index="/app/member/account/credit" :route="{name:'CreditList'}">View/Edit Creditcard</el-menu-item>
-                    <el-menu-item index="/app/member/account/points" :route="{name:'MyPoints'}">My Points</el-menu-item>
-                    <el-menu-item index="/app/member/account/deals" :route="{name:'MyDeals'}">My Deals</el-menu-item>
+                    <el-menu-item index="/render/user/bookings" :route="{name:'MyBookings'}">My Bookings</el-menu-item>
+                    <el-menu-item index="/render/user/contact" :route="{name:'ContactList'}">Contact Infomation</el-menu-item>
+                    <el-menu-item index="/render/user/password" :route="{name:'ChangePassword'}">Change Password</el-menu-item>
+                    <el-menu-item index="/render/user/credit" :route="{name:'CreditList'}">View/Edit Creditcard</el-menu-item>
+                    <el-menu-item index="/render/user/points" :route="{name:'MyPoints'}">My Points</el-menu-item>
+                    <el-menu-item index="/render/user/deals" :route="{name:'MyDeals'}">My Deals</el-menu-item>
                   </el-menu-item-group>
                 </el-submenu>
               </el-menu>

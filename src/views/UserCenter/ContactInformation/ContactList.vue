@@ -45,8 +45,8 @@
                     min-width="200">
                     <template slot-scope="scope">
                       <el-button @click="edit(scope.row)"  type="text" size="small">Edit</el-button>
-                      <el-button type="text" size="small">Default</el-button>
-                      <el-button @click="clickdel(scope.$index)" type="text" size="small">Delete</el-button>
+                      <el-button @click="setDefault(scope.row)" type="text" size="small">Default</el-button>
+                      <el-button @click="clickdel(scope.row)" type="text" size="small">Delete</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -88,17 +88,17 @@
                     this.contactList = res.data.data;
                 })
       },
-      clickdel(index){//删除
+      clickdel(row){//删除
         // console.log(index);
         this.$confirm('是否确认删除？', '删除', {
                     distinguishCancelAndClose: true,
                     confirmButtonText: '确认',
                     cancelButtonText: '取消'
                 }).then(() => {
-                  this.$http.delete(this.$api.contactDelete,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                  this.$http.delete(`${this.$api.contactDelete}/${row.aid}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                       .then((res)=>{
                           console.log(res);
-                          this.contactList.splice(index,1);
+                          this.listInfo();
                       })
                 }).catch(() => {});
       },
@@ -107,6 +107,16 @@
         // this.$router.push({name: 'EditContact',params:{contactId:row.aid}});
         this.$router.push({name: 'EditContact'});
         this.$store.commit('contactInfo',row);
+      },
+      setDefault(row){
+        console.log(row);
+        this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,
+              {isDefault:'true'},
+              {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+              .then((res)=>{
+                  console.log(res);
+                  this.listInfo();
+              })
       }
     }
   }

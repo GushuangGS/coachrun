@@ -127,8 +127,9 @@
           if(valid){
             console.log(this.ruleForm);
             console.log(this.getVal);
-              this.$http.post(this.$api.resetPassword,
-              {passwordType:this.getVal,password:this.ruleForm.currentPass,rePassword:this.ruleForm.pass,reNewPassword:this.ruleForm.checkPass})
+              this.$http.post(this.$api.changePassword,
+              {passwordType:this.getVal,password:this.ruleForm.currentPass,newPassword:this.ruleForm.pass,reNewPassword:this.ruleForm.checkPass},
+              {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                   .then((res)=>{
                       console.log(res);
                       this.changeStatus = 0;

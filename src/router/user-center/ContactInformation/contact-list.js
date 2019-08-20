@@ -5,11 +5,12 @@ const ContactList = resolve => {
 }
 
 const contactListRouter = {
-  path: '/app/member/account/contact',
+  // path: '/app/member/account/contact',
+  path: '/render/user/contact',
   name: 'ContactList',
   component: ContactList,
   meta: {
-    keepAlive: true
+    // keepAlive: true
   }
 }
 

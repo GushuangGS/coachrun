@@ -101,9 +101,10 @@
               evt.preventDefault();
               if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.AlternatePhone!=''){
                   console.log(JSON.stringify(this.form));
-                  this.$http.post(this.$api.contactAdd,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},
+                  this.$http.post(this.$api.contactAdd,
                     { uid:'2199066',firstName:this.form.firstName,lastName:this.form.lastName,
-                    phone:this.form.phone,email:this.form.email,phone2:this.form.AlternatePhone})
+                    phone:this.form.phone,email:this.form.email,phone2:this.form.AlternatePhone},
+                    {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                     .then((res)=>{
                         console.log(res);
                         //添加成功后，默认都设置为空

@@ -8,7 +8,8 @@ export default new Vuex.Store({
       contactInfo:{},
       creditInfo:{},
       isLogin:false,//默认没有登录
-      loginName:''
+      loginName:'',
+      sendEmail:''//邮箱信息
   },
   mutations: {
     contactInfo(state,data){//编辑
@@ -27,6 +28,9 @@ export default new Vuex.Store({
     },
     loginName(state,data){
       state.loginName = data;
+    },
+    sendEmail(state,data){
+      state.sendEmail = data;
     }
   },
   actions: {
@@ -38,6 +42,9 @@ export default new Vuex.Store({
     },
     updateLoginName(context,data){
       context.commit('loginName',data);
+    },
+    updateSendEmail(context,data){
+      context.commit('sendEmail',data);
     }
   }
 })

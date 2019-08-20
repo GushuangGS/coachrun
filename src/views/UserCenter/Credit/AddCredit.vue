@@ -252,6 +252,12 @@
                     ></b-form-select>
                   </b-form-group>
                 </div>
+                <el-switch
+                  class="isDefault"
+                  v-model="showDefault"
+                  inactive-text="Default payment method："
+                  @change="selectDefault">
+                </el-switch>
                 <div class="btn-wrapper">
                   <b-button @click="onReset" type="reset"  variant="light">Cancel</b-button>
                   <b-button @click="onSubmit" variant="warning">Save</b-button>
@@ -290,7 +296,11 @@
           zipcode:'',
           country:'us'
         },
-        types: ['AmEx','VISA','Master'],
+        types:['AmEx','VISA','Master'],
+        // types: [
+        // { value: 3, text: 'AmEx' },
+        // { value: 2, text: 'VISA' },
+        // { value: 1, text: 'Master' }],
         months: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
         years: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029',
          '2030', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2039'],
@@ -298,11 +308,14 @@
         showTip:'false',//默认不显示
         stateChange:'true',
         countryOptions,
-        statesOptions
+        statesOptions,
+        selectNum:'',//选择数字
+        showDefault:true
       }
     },
     computed:{
       validationNum(){
+        console.log(this.form.type)
         if(this.form.type == 'AmEx'){
           return this.form.cardNumber.length ==15;
         }else if(this.form.type == 'VISA' || this.form.type == 'Master'){
@@ -333,7 +346,7 @@
         console.log(this.showTip);
       },
       selectType(val){//选择下拉type属性
-        // console.log(val);
+        console.log(val);
         if(val == 'VISA' || val == 'Master'){
           this.cardNum = 'Your card number must be 16 characters long.'
         }else if(val == 'AmEx'){
@@ -369,32 +382,52 @@
       nameState(name) {//不能为空
         return (name !== null && name !== '') ? null : false
       },
+      selectDefault(val){
+        console.log(val);
+        this.showDefault = val;
+      },
       onSubmit(evt) {//添加信用卡
+        if(this.form.type == 'VISA'){
+          this.selectNum = 2;
+        }else if(this.form.type == 'AmEx'){
+          this.selectNum = 3;
+        }else if(this.form.type == 'Master'){
+          this.selectNum = 1;
+        }
         if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
           evt.preventDefault();
           console.log(JSON.stringify(this.form));
-          this.$http.post(this.$api.creditAdd,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},
-              {nameOnCard:this.form.holderName,cardNumber:this.form.cardNumber,
-                uid:'',cardType:this.form.type,expireMonth:this.form.month,
-                expireYear:this.form.year,billingAddress:{street:this.form.street,
-                city:this.form.city,state:this.form.state,zipcode:this.form.zipcode,
-                country:this.form.country},isDefault:false})
+          this.$http.post(this.$api.creditAdd,
+              {nameOnCard:this.form.holderName,
+                cardNumber:this.form.cardNumber,
+                cardType:this.selectNum,
+                expireMonth:parseInt(this.form.month),
+                expireYear:parseInt(this.form.year),
+                xCardCode:this.form.CVV,
+                billingAddress:{
+                  street:this.form.street,
+                  city:this.form.city,
+                  state:this.form.state,
+                  zipcode:this.form.zipcode,
+                  country:this.form.country},
+                  isDefault:this.showDefault},
+                {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
               .then((res)=>{
                   console.log(res);
                   //添加成功后，默认都设置为空
-                  this.form = {
-                    holderName: '',
-                    cardNumber: '',
-                    CVV: '',
-                    type: 'null',
-                    month: '01',
-                    year: '2019',
-                    street: '',
-                    city: '',
-                    state:'',
-                    zipcode:'',
-                    country:'us'
-                  }
+                  // this.form = {
+                  //   holderName: '',
+                  //   cardNumber: '',
+                  //   CVV: '',
+                  //   type: 'null',
+                  //   month: '01',
+                  //   year: '2019',
+                  //   street: '',
+                  //   city: '',
+                  //   state:'',
+                  //   zipcode:'',
+                  //   country:'us'
+                  // }
               })
         }else{
           this.$message({
@@ -548,5 +581,9 @@
   >>> .btn-warning {
     background-color: #FF9A0D;
     color: #fff;
+  }
+  .isDefault{
+    padding-left: 124px;
+    padding-right: 124px;
   }
 </style>

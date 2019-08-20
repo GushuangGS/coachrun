@@ -720,7 +720,7 @@
         },
         methods: {
           orderList(){
-            this.$http.get(this.$api.bookingList,{dateRange:16},{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+            this.$http.get(this.$api.bookingList,{params:{dateRange:16},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                     .then((res)=>{
                         console.log(res);
                         this.bookingsList = res.data.data;
@@ -735,7 +735,7 @@
           },
           select(value) {//选择器选中的value
             this.$http.get(this.$api.bookingList,
-            {dateRange:value})
+            {params:{dateRange:value},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                     .then((res)=>{
                         console.log(res);
                         this.bookingsList = res.data.data;
@@ -744,7 +744,7 @@
           },
           selectTime(value){
             this.$http.get(this.$api.bookingList,
-            {startDate:value[0],endDate:value[1]})
+            {params:{startDate:value[0],endDate:value[1]},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                     .then((res)=>{
                         console.log(res);
                         this.bookingsList = res.data.data;

@@ -28,8 +28,11 @@
                 data-sitekey="your_site_key"
                 data-callback="onSubmit">
             </div>
-            <el-button class="btn" @click="resetPass">
+            <el-button class="btn" v-show="sendAuthCode" @click="resetPass">
                     Reset login password
+            </el-button>
+            <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
+                {{auth_time}} seconds countdown
             </el-button>
         </div>
     </div>
@@ -43,16 +46,36 @@
                 ruleForm: {
                     email: ''
                 },
-                value:''
+                value:'',
+                sendAuthCode: true,/*布尔值，通过v-show控制显示‘获取按钮’还是‘倒计时’ */
+                auth_time: 0,/*倒计时 计数器*/
             }
         },
         methods:{
             resetPass(){
-                this.$http.post(this.$api.forgotPassword,
-                {email:this.value,recaptchaResponse:'1313'})
-                    .then((res)=>{
-                        console.log(res);
-                    })
+                this.$store.commit('sendEmail',this.value);
+                this.$router.push({name: 'RemindEmail'});
+                console.log(this.value);
+                ///--------------------------
+                this.sendAuthCode = false;
+                //设置倒计时秒
+                this.auth_time = 30;
+                var auth_timetimer = setInterval(() => {
+                    this.auth_time--;
+                    if (this.auth_time <= 0) {
+                        this.sendAuthCode = true;
+                        clearInterval(auth_timetimer);
+                    }
+                }, 1000);
+                //-----------------------------
+                if(this.value!=''){
+                    this.$http.post(this.$api.forgotPassword,
+                        {email:this.value,token:'111'})
+                            .then((res)=>{
+                                console.log(res);
+                            })
+                }
+                
             }
         }
     }
@@ -110,6 +133,14 @@
         font-weight: bold;
         font-size: 14px;
         background: rgba(255,154,13,0.6);
+        margin-top: 20px;
+        margin-left: 50px;
+    }
+    .btn2{
+        width: 200px;
+        height: 48px;
+        font-weight: bold;
+        font-size: 14px;
         margin-top: 20px;
         margin-left: 50px;
     }

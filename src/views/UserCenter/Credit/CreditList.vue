@@ -21,13 +21,13 @@
               <div class="credit-name" v-show="info.cardType==2">Visa Card</div>
               <div class="credit-name" v-show="info.cardType==1">Master Card</div>
               <div class="description">
-                  {{getNum(info.ccid)}}
+                  {{getNum(info.cardNumber)}}
                 &nbsp;
                 <span v-show="info.isDefault == true">[ Default ]</span>
               </div>
               <div class="operation">
                 <el-button type="text" size="small" @click="editCredit(info)">Edit</el-button>
-                <el-button v-show="info.isDefault != true" type="text" size="small">Default</el-button>
+                <el-button v-show="info.isDefault != true" @click="setDefault(info)" type="text" size="small">Default</el-button>
                 <el-button type="text" size="small" @click="deleteCredit(info,index)">Delete</el-button>
               </div>
             </li>
@@ -90,7 +90,6 @@
   export default {
     data() {
       return {
-        
         deleteItem: {
           img: '',
           name: '',
@@ -126,7 +125,7 @@
         return str = '****'+str;
       },
       removeCredit(){//移除信用卡
-        this.$http.delete(this.$api.creditDelete,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},{userId:this.deleteInfo.uid,ccid:this.deleteInfo.ccid})
+        this.$http.delete(`${this.$api.creditDelete}/${this.deleteInfo.ccid}`,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},{userId:this.deleteInfo.uid,ccid:this.deleteInfo.ccid})
               .then((res)=>{
                   console.log(res);
                   this.showDialogVisible = false;
@@ -149,7 +148,16 @@
       editCredit(info){//编辑更新信用卡
         console.log(info);
         this.$store.commit('creditInfo',info);
-        this.$router.push({name: 'EditCredit',params:{edit:info.ccid}});
+        this.$router.push({name: 'EditCredit'});
+      },
+      setDefault(info){
+        console.log(info);
+        this.$http.patch(`${this.$api.creditUpdate}/${info.ccid}`,
+              {isDefault:true},
+              {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+              .then((res)=>{
+                  console.log(res);
+              })
       },
       addCredit(){//添加信用卡
         this.$router.push({name: 'AddCredit'});

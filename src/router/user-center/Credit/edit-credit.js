@@ -5,7 +5,8 @@ const EditCredit = resolve => {
 }
 
 const editCreditRouter = {
-  path: '/app/member/account/credit/edit/:edit',
+  // path: '/app/member/account/credit/edit/:edit',
+  path: '/render/user/editCredit',
   name: 'EditCredit',
   component: EditCredit,
   meta: {

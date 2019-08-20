@@ -5,7 +5,8 @@ const AddContact = resolve => {
   }
   
   const addContactRouter = {
-    path: '/app/member/account/addContact',
+    // path: '/app/member/account/addContact',
+    path: '/render/user/addContact',
     name: 'AddContact',
     component: AddContact,
     meta: {

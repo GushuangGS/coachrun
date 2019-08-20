@@ -5,7 +5,8 @@ const AddCredit = resolve => {
 }
 
 const addCreditRouter = {
-  path: '/app/member/account/credit/add',
+  // path: '/app/member/account/credit/add',
+  path: '/render/user/credit/add',
   name: 'AddCredit',
   component: AddCredit,
   meta: {

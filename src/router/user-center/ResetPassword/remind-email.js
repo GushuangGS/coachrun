@@ -5,7 +5,8 @@ const RemindEmail = resolve => {
   }
   
   const RemindEmailRouter = {
-    path: '/app/member/account/remindEmail',
+    // path: '/app/member/account/remindEmail',
+    path: '/render/user/remindEmail',
     name: 'RemindEmail',
     component: RemindEmail,
     meta: {

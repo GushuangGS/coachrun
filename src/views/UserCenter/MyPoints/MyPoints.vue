@@ -143,8 +143,10 @@
               this.tableInfo(this.currentPage);
       },
       tableInfo(num){
-        this.$http.get(this.$api.viewPoint,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}},
-        {params:{pageNo:num,pageSize:this.pagesize}})
+        this.$http.get(this.$api.viewPoint,
+        {params:{pageNo:num,pageSize:this.pagesize},
+        headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}},
+        )
                 .then((res)=>{
                     console.log(res);
                     this.resData = res.data.data;

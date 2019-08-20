@@ -6,15 +6,15 @@ export default {
     //credit
     creditList:'/users/identity/credit-cards',//creditList
     creditAdd:'/users/identity/credit-cards',//creditAdd
-    creditUpdate:'/users/identity/credit-cards/:ccid',//creditUpdate
+    creditUpdate:'/users/identity/credit-cards',//creditUpdate
     creditDetail:'/users/identity/credit-cards/:ccid',// get wait
-    creditDelete:'/users/identity/credit-cards/:ccid',// creditDelete
+    creditDelete:'/users/identity/credit-cards',// creditDelete
     //contact-info
     contactAdd:'/users/identity/contact-infos',//contactAdd
     contactList:'/users/identity/contact-infos',//contactList
-    contactUpdate:'/users/identity/contact-infos/:aid',//contactUpdate
+    contactUpdate:'/users/identity/contact-infos',//contactUpdate
     contactDetail:'/users/identity/contact-infos/:aid',//contactDetail  wait
-    contactDelete:'/users/identity/contact-infos/:aid',//contactDelete 
+    contactDelete:'/users/identity/contact-infos',//contactDelete 
     //dashboard
     dashboard:'/users/identity/dashboard',//dashboard
     //viewPoint

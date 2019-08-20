@@ -69,7 +69,8 @@
             save(){
                 this.$refs.ruleForm.validate((valid) => {
                     if(valid){
-                        this.$http.post(this.$api.resetPassword,{verificationCode:'1',password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
+                        this.$http.post(this.$api.resetPassword,
+                        {verificationCode:'1',password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
                             .then((res)=>{
                                 console.log(res);
                             })

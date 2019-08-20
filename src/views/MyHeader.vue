@@ -39,7 +39,7 @@
         </div>
         <div class="show-name" v-show="$store.state.isLogin">
             <!-- <span class="user-name">Hello, {{getName()}}</span> -->
-            <span class="user-name" @click="gotoMine">Hello, {{$cookie.get('display')}}</span>
+            <span class="user-name" @click="gotoMine">Hello, {{$cookie.get('email')}}</span>
             <span class="logot" @click="logout">Logout</span>
         </div>
         <div class="shopping-cart">
@@ -68,7 +68,8 @@
             }
         },
         created(){
-            const name = VueCookie.get('display');
+            // const name = VueCookie.get('display');
+            const name = sessionStorage.getItem('IvyCustomer_LoginToken');
             if(name){
                 this.$store.commit('login');
                 this.isLogin = this.$store.state.isLogin;
@@ -99,10 +100,10 @@
                     confirmButtonText: '确认',
                     cancelButtonText: '取消'
                 }).then(() => {
-                    this.$http.delete(this.$api.logout)
+                    this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                                 .then((data) => {
                                     console.log(data);
-                                    this.$cookie.delete('display');
+                                    sessionStorage.removeItem("IvyCustomer_LoginToken");
                                     this.$store.commit('logout');
                                     this.$router.push({name: 'MyBookings'});
                                 });

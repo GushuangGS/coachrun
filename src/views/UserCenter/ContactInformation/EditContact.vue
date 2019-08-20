@@ -59,7 +59,7 @@
                   <b-form-input
                     id="input-5"
                     type="tel"
-                    v-model="form.AlternatePhone"
+                    v-model="form.phone2"
                   ></b-form-input>
                 </b-form-group>
 
@@ -88,7 +88,7 @@
           lastName:'',
           email:'',
           phone:'',
-          AlternatePhone:''
+          phone2:''
         },
         show: true
       }
@@ -100,19 +100,26 @@
     methods: {
       onSubmit(evt) {
         evt.preventDefault();
-        if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.AlternatePhone!=''){
+        if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.phone2!=''){
             console.log(JSON.stringify(this.form));
-            this.$http.patch(this.$api.contactUpdate,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}},
-              {firstName:this.form.firstName,lastName:this.form.lastName,phone:this.form.phone,email:this.form.email,phone2:this.form.AlternatePhone,isDefault:this.form.isDefault})
+            this.$http.patch(`${this.$api.contactUpdate}/${this.form.aid}`,
+              {firstName:this.form.firstName,lastName:this.form.lastName,phone:this.form.phone,email:this.form.email,phone2:this.form.phone2,isDefault:this.form.isDefault},
+              {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               .then((res)=>{
                   console.log(res);
+                  this.$message({
+                    message: 'Editorial Success',
+                    type: 'success',
+                    showClose: true,
+                    center: true
+                  });
                   //添加成功后，默认都设置为空
                   this.form = {
                     firstName:'',
                     lastName:'',
                     email:'',
                     phone:'',
-                    AlternatePhone:''
+                    phone2:''
                   }
               })
         }else{
@@ -131,7 +138,7 @@
         this.form.lastName = ''
         this.form.email = ''
         this.form.phone =''
-        this.form.AlternatePhone =''
+        this.form.phone2 =''
         // Trick to reset/clear native browser form validation state
         this.show = false
         this.$nextTick(() => {

@@ -15,6 +15,10 @@
                         </el-col>
                     </el-row>
             </div>
+            <div class="none-deals" v-if="dataList.length==0">
+                <img class="none-deals-img" src="./img/nodata.png">
+                <div class="none-deals-tips">Sorry, No deals avaliable!</div>
+            </div>
         </div>
     </div>
 </template>
@@ -73,5 +77,19 @@
     }
     >>> .el-collapse-item__arrow{
         display: none;
+    }
+    .none-deals{
+       display: flex;
+       align-items: center;
+       flex-direction: column;
+       margin-top: 50px;
+    }
+    .none-deals-img{
+        width:80px;
+        height: auto;
+    }
+    .none-deals-tips{
+        font-size: 16px;
+        margin-top: 20px;
     }
 </style>

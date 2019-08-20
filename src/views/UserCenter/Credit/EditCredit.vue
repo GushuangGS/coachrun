@@ -226,6 +226,12 @@
                   ></b-form-select>
                 </b-form-group>
               </div>
+              <el-switch
+                  class="isDefault"
+                  v-model="showDefault"
+                  inactive-text="Default payment method："
+                  @change="selectDefault">
+                </el-switch>
               <div class="btn-wrapper">
                 <b-button type="reset"  variant="light">Cancel</b-button>
                 <b-button @click="save" variant="warning">Save</b-button>
@@ -271,8 +277,11 @@
         cardNum:'Your card number must be 15 characters long.',
         showTip:'false',//默认不显示
         stateChange:'true',
-        countryOptions,
-        statesOptions
+        countryOptions,//国家选择
+        statesOptions,//城市选择
+        chooseMonth:'',//选择月份
+        selectNum:'',//选择数字
+        showDefault:true
       }
     },
     computed:{
@@ -296,6 +305,13 @@
     created(){
       this.infos = this.$store.state.creditInfo == ''?this.$store.state.creditInfo:JSON.parse(localStorage.getItem("creditInfo"));
       console.log(this.infos);
+      //将月份转换成字符串
+      if(this.infos.expireMonth>9){
+        this.chooseMonth = this.infos.expireMonth.toString();
+      }else{
+        this.chooseMonth = '0'+this.infos.expireMonth.toString();
+      }
+      console.log(this.chooseMonth);
       this.form.holderName = this.infos.nameOnCard;
       this.form.cardNumber = this.infos.cardNumber;
       if(this.infos.cardType == 3){
@@ -305,14 +321,14 @@
       }else if(this.infos.cardType == 1){
         this.form.type = 'Master';
       }
-      this.form.month = this.infos.expireMonth;
+      this.form.month = this.chooseMonth;
       this.form.year = this.infos.expireYear;
+      this.form.CVV = this.infos.xCardCode;
       this.form.street = this.infos.billingAddress.street;
       this.form.city = this.infos.billingAddress.city;
       this.form.state = this.infos.billingAddress.state;
       this.form.zipcode = this.infos.billingAddress.zipcode;
       this.form.country = this.infos.billingAddress.country;
-      
       this.selectCountry();
     },
     methods: {
@@ -344,7 +360,6 @@
         }
       },
       selectCountry(val){//选择国家
-        console.log(val);
         if(val == 'us'){
           this.stateChange = true;
         }else{
@@ -357,6 +372,10 @@
         var month=date.getMonth();
         this.months = this.months.splice(month,12-month);
         this.form.month = this.months[0];
+      },
+      selectDefault(val){
+        this.showDefault = val;
+        console.log(val);
       },
       onReset(evt) {
         this.$router.go(-1);
@@ -375,16 +394,33 @@
         // }
       },
       save(){
+        if(this.form.type == 'VISA'){
+          this.selectNum = 2;
+        }else if(this.form.type == 'AmEx'){
+          this.selectNum = 3;
+        }else if(this.form.type == 'Master'){
+          this.selectNum = 1;
+        }
         if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
-          this.$http.patch(this.$api.creditUpdate,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}},
-              {ccid:'ccid',nameOnCard:this.form.holderName,cardNumber:this.form.cardNumber,
-                uid:'11',cardType:this.form.type,expireMonth:this.form.month,
-                expireYear:this.form.year,billingAddress:{aid:'aid',uid:'uid',street:this.form.street,
-                city:this.form.city,state:this.form.state,zipcode:this.form.zipcode,
-                country:this.form.country},isDefault:false})
+          this.$http.patch(`${this.$api.creditUpdate}/${this.infos.ccid}`,
+              {ccid:this.infos.ccid,
+                nameOnCard:this.form.holderName,
+                cardNumber:this.form.cardNumber,
+                cardType:this.selectNum,
+                expireMonth:this.form.month,
+                expireYear:this.form.year,
+                xCardCode:this.form.CVV,
+                isDefault:this.showDefault,
+                billingAddress:{
+                  uid:'11',
+                  street:this.form.street,
+                  city:this.form.city,
+                  state:this.form.state,
+                  zipcode:this.form.zipcode,
+                  country:this.form.country}},
+                {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               .then((res)=>{
                   console.log(res);
-                  
               })
         }else{
           this.$message({
@@ -522,5 +558,9 @@
   >>> .btn-warning {
     background-color: #FF9A0D;
     color: #fff;
+  }
+  .isDefault{
+    padding-left: 124px;
+    padding-right: 124px;
   }
 </style>

@@ -80,7 +80,7 @@
                                     this.clearCookie();
                                 }
                                 // this.$cookie.set('display', data.data.data.user.display);
-                                // sessionStorage.setItem("display", data.data.data.user.display); 
+                                // sessionStorage.setItem("display", data.data.data.user.display);
                                 sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token); 
                                 this.$router.push({name: 'MyOrders'});
                                 this.$store.commit('login');
@@ -119,7 +119,7 @@
             },
             //清除cookie
             clearCookie: function() {
-                this.setCookie("", "", -1); //修改2值都为空，天数为负1天就好了
+                this.setCookie("", "", -1); //修改2值都为空，天数为负1天
             }
         }
     }

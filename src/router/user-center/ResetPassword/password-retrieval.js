@@ -5,7 +5,8 @@ const PasswordRetrieval = resolve => {
   }
   
   const PasswordRetrievalRouter = {
-    path: '/app/member/account/passwordRetrieval',
+    // path: '/app/member/account/passwordRetrieval',
+    path: '/render/user/passwordRetrieval',
     name: 'PasswordRetrieval',
     component: PasswordRetrieval,
     meta: {
