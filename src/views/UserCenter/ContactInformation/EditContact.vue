@@ -48,19 +48,27 @@
               </b-form-group>
 
               <b-form-group id="input-group-4" label="Contact Phone:" label-for="input-4">
-                <b-form-input
+                <!-- <b-form-input
                   id="input-4"
                   type="tel"
                   v-model="form.phone"
-                ></b-form-input>
+                ></b-form-input> -->
+                <VuePhoneNumberInput v-model="form.phone" 
+                  default-country-code="US" 
+                  @update="onUpdate"
+                  />
               </b-form-group>
 
               <b-form-group id="input-group-5" label="Alternate Phone:" label-for="input-5">
-                  <b-form-input
+                  <!-- <b-form-input
                     id="input-5"
                     type="tel"
                     v-model="form.phone2"
-                  ></b-form-input>
+                  ></b-form-input> -->
+                  <VuePhoneNumberInput v-model="form.phone2" 
+                    default-country-code="US" 
+                    @update="onUpdateAgain"
+                    />
                 </b-form-group>
 
               <b-button type="reset" variant="light">Cancel</b-button>
@@ -75,6 +83,7 @@
 
 <script>
   import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import VuePhoneNumberInput from 'vue-phone-number-input'
   export default {
     data() {
       return {
@@ -90,20 +99,30 @@
           phone:'',
           phone2:''
         },
-        show: true
+        show: true,
+        results: {},
+        resultsAgain:{}
       }
     },
     created(){
       this.form = this.$store.state.contactInfo==""?this.$store.state.contactInfo:JSON.parse(localStorage.getItem("contactInfo"));
+      this.form.phone = this.intStr(this.form.phone);
+      this.form.phone2 = this.intStr(this.form.phone2);
       console.log(this.form);
     },
     methods: {
+      onUpdate(payload) {
+          this.results = payload;
+      },
+      onUpdateAgain(payload){
+        this.resultsAgain = payload;
+      },
       onSubmit(evt) {
         evt.preventDefault();
         if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.phone2!=''){
             console.log(JSON.stringify(this.form));
             this.$http.patch(`${this.$api.contactUpdate}/${this.form.aid}`,
-              {firstName:this.form.firstName,lastName:this.form.lastName,phone:this.form.phone,email:this.form.email,phone2:this.form.phone2,isDefault:this.form.isDefault},
+              {firstName:this.form.firstName,lastName:this.form.lastName,phone:this.results.formatInternational,email:this.form.email,phone2:this.resultsAgain.formatInternational,isDefault:this.form.isDefault},
               {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               .then((res)=>{
                   console.log(res);
@@ -131,23 +150,28 @@
           });
         }
       },
+      intStr(val){
+        return val.slice(val.indexOf(' ') + 1);
+      },
       onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.firstName = ''
-        this.form.lastName = ''
-        this.form.email = ''
-        this.form.phone =''
-        this.form.phone2 =''
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+        this.$router.go(-1);
+        // evt.preventDefault();
+        // // Reset our form values
+        // this.form.firstName = ''
+        // this.form.lastName = ''
+        // this.form.email = ''
+        // this.form.phone =''
+        // this.form.phone2 =''
+        // // Trick to reset/clear native browser form validation state
+        // this.show = false
+        // this.$nextTick(() => {
+        //   this.show = true
+        // })
       }
     },
     components: {
-      ItemHeader
+      ItemHeader,
+      VuePhoneNumberInput
     },
     name: 'EditContact'
   }

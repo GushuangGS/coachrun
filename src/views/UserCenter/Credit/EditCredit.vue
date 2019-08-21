@@ -329,6 +329,7 @@
       this.form.state = this.infos.billingAddress.state;
       this.form.zipcode = this.infos.billingAddress.zipcode;
       this.form.country = this.infos.billingAddress.country;
+      this.showDefault = this.infos.isDefault;
       this.selectCountry();
     },
     methods: {
@@ -421,6 +422,7 @@
                 {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               .then((res)=>{
                   console.log(res);
+                  this.$router.push({name:'CreditList'});
               })
         }else{
           this.$message({

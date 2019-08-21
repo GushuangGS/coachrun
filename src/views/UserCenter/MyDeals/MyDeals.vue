@@ -54,7 +54,12 @@
                             {website:'1',deviceType:'1',userId:'1571335'})
                 .then((res)=>{
                     console.log(res);
-                    this.dataList = res.data.data;
+                    if(res.data.data!=null || res.data.data!=undefined){
+                        this.dataList = res.data.data;
+                    }else{
+                        this.dataList = [];
+                    }
+                    
                 })
         }
     }

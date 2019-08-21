@@ -428,6 +428,8 @@
                   //   zipcode:'',
                   //   country:'us'
                   // }
+                  this.$router.push({path: '/render/user/credit'});
+                  // this.$router.go(-1);
               })
         }else{
           this.$message({

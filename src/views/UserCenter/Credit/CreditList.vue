@@ -8,7 +8,7 @@
         <div class="success-box-wrapper" v-if="successBoxFlag">
           <success-box :text="successBoxText"></success-box>
         </div>
-        <div class="credits" v-show="creditNum">
+        <div class="credits" v-if="creditInfo.length>0">
           <h2>My Credit Cards</h2>
           <ul class="credit-list">
             <li class="credit-list-item" v-for="(info,index) in creditInfo" :key="index">
@@ -136,12 +136,11 @@
       creditList(){//信用卡列表
         this.$http.get(this.$api.creditList,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
               .then((res)=>{
-                  console.log(res.data.data);
-                  if(res.data.data.length != 0){
-                    this.creditNum = true;
+                  console.log(res);
+                  if(res.data.data!=null || res.data.data!=undefined){
                     this.creditInfo = res.data.data;
                   }else{
-                    this.creditNum = false;
+                    this.bookingsList = [];
                   }
               })
       },
@@ -157,6 +156,7 @@
               {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               .then((res)=>{
                   console.log(res);
+                  this.creditList();
               })
       },
       addCredit(){//添加信用卡

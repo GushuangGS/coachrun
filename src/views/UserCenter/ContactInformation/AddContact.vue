@@ -49,22 +49,30 @@
                     </b-form-group>
       
                     <b-form-group id="input-group-4" label="Contact Phone:" label-for="input-4">
-                      <b-form-input
+                      <!-- <b-form-input
                         id="input-4"
                         type="tel"
                         v-model="form.phone"
                         placeholder=""
-                      ></b-form-input>
+                      ></b-form-input> -->
+                      <VuePhoneNumberInput v-model="form.phone" 
+                        default-country-code="US" 
+                        @update="onUpdate"
+                        />
                     </b-form-group>
       
                     <b-form-group id="input-group-5" label="Alternate Phone:" label-for="input-5">
-                        <b-form-input
+                        <!-- <b-form-input
                           id="input-5"
                           type="tel"
                           v-model="form.AlternatePhone"
                           placeholder=""
-                        ></b-form-input>
-                      </b-form-group>
+                        ></b-form-input> -->
+                        <VuePhoneNumberInput v-model="form.AlternatePhone" 
+                          default-country-code="US" 
+                          @update="onUpdateAgain"
+                          />
+                    </b-form-group>
       
                     <b-button type="reset" variant="light">Cancel</b-button>
                     <b-button type="submit" variant="warning">Save</b-button>
@@ -78,6 +86,7 @@
       
       <script>
         import ItemHeader from '@/views/UserCenter/ItemHeader'
+        import VuePhoneNumberInput from 'vue-phone-number-input'
         export default {
           data() {
             return {
@@ -93,17 +102,25 @@
                 phone:'',
                 AlternatePhone:''
               },
-              show: true
+              show: true,
+              results: {},
+              resultsAgain:{}
             }
           },
           methods: {
+            onUpdate(payload) {
+                this.results = payload;
+            },
+            onUpdateAgain(payload){
+              this.resultsAgain = payload;
+            },
             onSubmit(evt) {
               evt.preventDefault();
               if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.AlternatePhone!=''){
                   console.log(JSON.stringify(this.form));
                   this.$http.post(this.$api.contactAdd,
-                    { uid:'2199066',firstName:this.form.firstName,lastName:this.form.lastName,
-                    phone:this.form.phone,email:this.form.email,phone2:this.form.AlternatePhone},
+                    { firstName:this.form.firstName,lastName:this.form.lastName,
+                    phone:this.results.formatInternational,email:this.form.email,phone2:this.resultsAgain.formatInternational},
                     {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                     .then((res)=>{
                         console.log(res);
@@ -115,6 +132,7 @@
                           phone:'',
                           AlternatePhone:''
                         }
+                        this.$router.push({name:'ContactList'});
                     })
               }else{
                 this.$message({
@@ -141,7 +159,8 @@
             }
           },
           components: {
-            ItemHeader
+            ItemHeader,
+            VuePhoneNumberInput
           },
           name: 'AddContact'
         }

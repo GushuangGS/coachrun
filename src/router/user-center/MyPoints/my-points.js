@@ -10,7 +10,7 @@ const myPointsRouter = {
   name: 'MyPoints',
   component: MyPoints,
   meta: {
-    keepAlive: true
+    // keepAlive: true
   }
 }
 

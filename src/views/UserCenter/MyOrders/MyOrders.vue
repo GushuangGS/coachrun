@@ -1,10 +1,10 @@
 <template>
     <div class="my-orders">
       <el-container>
-        <el-header height="33px">
+        <!-- <el-header height="33px">
           <item-header :notDefault="notDefault" :status="status" :headerInfo="headerInfo"></item-header>
-        </el-header>
-        <el-main>
+        </el-header> -->
+        <!-- <el-main> -->
           <div class="content">
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
@@ -108,7 +108,7 @@
             </div>
             </div>
           </div>
-        </el-main>
+        <!-- </el-main> -->
       </el-container>
     </div>
 </template>
@@ -142,10 +142,14 @@
       orderList(){
         this.$http.get(this.$api.dashboard,{headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                 .then((res)=>{
-                  if(res.status == 200){
-                    console.log(res);
-                    this.dashDis = res.data.data;
-                    this.dashInfo = res.data.data.upcomingOrders;
+                  console.log(res);
+                  if(res.data.code == 200){
+                    if(res.data.data!=null || res.data.data!=undefined){
+                      this.dashDis = res.data.data;
+                      if(res.data.data.upcomingOrders!=null || res.data.data.upcomingOrders!=undefined){
+                        this.dashInfo = res.data.data.upcomingOrders;
+                      }
+                    }
                   } 
                 })
       },
@@ -170,7 +174,7 @@
     flex: 1;
   }
   .content {
-    margin-top: 10px;
+    /* margin-top: 10px; */
     padding-left: 20px;
   }
   .content>h2 {
@@ -349,6 +353,7 @@
   }
   >>> .el-collapse-item__wrap {
     background-color: inherit;
+    border: 2px solid #F5F5F5;
   }
   .no-bookings{
       color:rgba(51,51,51,1); 

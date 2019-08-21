@@ -25,9 +25,11 @@
             </div>
             <div id='recaptcha'
                 class="g-recaptcha"
-                data-sitekey="your_site_key"
-                data-callback="onSubmit">
+                data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
+                data-callback="onSubmit"
+                data-size="invisible">
             </div>
+            <!-- 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI -->
             <el-button class="btn" v-show="sendAuthCode" @click="resetPass">
                     Reset login password
             </el-button>

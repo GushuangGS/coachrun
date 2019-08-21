@@ -67,10 +67,7 @@
           [''],
           { description: 'Contact Information', path: '/app/member/account/contactlist',title:'My Account' }
         ],
-        contactList: [
-          // { id: 2, isDefault: true, name: 'Tom', address: '杭州市滨江区。。。。。。', zipCode: '310051' },
-          // { id: 1, isDefault: false, name: 'Jack', address: '杭州市西湖区三墩镇紫荆花北路望月公寓', zipCode: '310013' }
-        ]
+        contactList: []
       }
     },
     components: {
@@ -85,7 +82,11 @@
         this.$http.get(this.$api.contactList,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                 .then((res)=>{
                     console.log(res.data.data);
-                    this.contactList = res.data.data;
+                    if(res.data.data!=null || res.data.data!=undefined){
+                      this.contactList = res.data.data;
+                    }else{
+                      this.contactList = [];
+                    }
                 })
       },
       clickdel(row){//删除

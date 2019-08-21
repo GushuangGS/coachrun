@@ -65,6 +65,8 @@ axios.interceptors.request.use(
   config => {
       var token = '';
       let apiKey = "7:1350154:0:1";
+      // let apiKey = "1:0:0:1";
+
       // if(typeof Cookies.get('user') === 'undefined'){
       //     //此时为空
       // }else {

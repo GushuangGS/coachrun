@@ -44,7 +44,7 @@
                         <el-col :span="3"><div>Order Status</div></el-col>
                       </el-row>
                     </div>
-                    <el-collapse v-model="activeNames">
+                    <el-collapse v-model="activeNames" v-if="bookingsList.length>0">
 
                       <el-collapse-item v-for="(info,index) in bookingsList" :key="index"  :name="index">
                         <template slot="title">
@@ -53,8 +53,8 @@
                             <div class="bookings-item">
                                 <div class="bookings-item-brief">
                                     <div>Order ID:&nbsp;&nbsp;<span>{{info.orderId}}</span></div>
-                                    <div>Purchase Date:&nbsp;&nbsp;<span>{{dateChange(info.saleDate)}}</span></div>
-                                    
+                                    <!-- <div>Purchase Date:&nbsp;&nbsp;<span>{{dateChange(info.saleDate)}}</span></div> -->
+                                    <div>Purchase Date:&nbsp;&nbsp;<span>{{info.saleDate}}</span></div>
                                 </div>
                                 <div class="bookings-item-brief">
                                     <div>Name:&nbsp;&nbsp;<span>{{info.customerName}}</span></div>
@@ -74,8 +74,8 @@
                               <el-col :span="11">
                                   <div class="column-first">
                                       <span style="width: 200px;line-height: 20px">
-                                            {{item.pickupLocation.address.city}} {{timeChange(item.pickupLocation.stopTime)}}
-                                             ->  {{item.dropoffLocation.address.city}} {{timeChange(item.dropoffLocation.stopTime)}}
+                                            {{item.pickupLocation.address.city}} {{timeChange(item.pickupLocation.time)}}
+                                             ->  {{item.dropoffLocation.address.city}} {{timeChange(item.dropoffLocation.time)}}
                                       </span>
                                       <div v-show="item.pickupLocation.nextDay==0" class="icon-night1"></div>
                                       <div v-show="item.pickupLocation.nextDay==1" class="icon-night2"></div>
@@ -144,7 +144,7 @@
                                                   :key="index">
                                                   <span>Child{{index+1}}:</span>&nbsp;
                                                   <span>{{Child.name}}</span>&nbsp;
-                                                  <span>(Age:{{Child.age}})</span>
+                                                  <span v-if="Child.age!=undefined">(Age:{{Child.age}})</span>
                                               </div>                                                  
                                           </div>
                                           <div v-if="item.passengers.filter(name=>name.peopleType=='Infant').length!=0">
@@ -192,7 +192,7 @@
                                   <el-button v-show="item.serviceStatus!=3" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                               </div>
                             </div>
-                            <div class="actions" v-if="item.status==2">
+                            <div class="actions" v-if="item.status==8">
                                 <div class="order-details">
                                     <div>
                                         <span class="details-left">Itinerary ID:</span>
@@ -235,7 +235,7 @@
                                                     :key="index">
                                                     <span>Child{{index+1}}:</span>&nbsp;
                                                     <span>{{Child.name}}</span>&nbsp;
-                                                    <span>(Age:{{Child.age}})</span>
+                                                    <span v-if="Child.age!=undefined">(Age:{{Child.age}})</span>
                                                 </div>
                                             </div>
                                             <div class="line-none" v-if="item.passengers.filter(name=>name.peopleType=='Infant').length!=0">
@@ -723,7 +723,11 @@
             this.$http.get(this.$api.bookingList,{params:{dateRange:16},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                     .then((res)=>{
                         console.log(res);
-                        this.bookingsList = res.data.data;
+                        if(res.data.data!=null || res.data.data!=undefined){
+                          this.bookingsList = res.data.data;
+                        }else{
+                          this.bookingsList = [];
+                        }
                         for(var i = 0; i < this.bookingsList.length; i++) {
                           this.activeNames.push(i);
                         }
@@ -738,7 +742,11 @@
             {params:{dateRange:value},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                     .then((res)=>{
                         console.log(res);
-                        this.bookingsList = res.data.data;
+                        if(res.data.data!=null || res.data.data!=undefined){
+                          this.bookingsList = res.data.data;
+                        }else{
+                          this.bookingsList = [];
+                        }
                     })
               console.log(value);
           },
@@ -747,7 +755,11 @@
             {params:{startDate:value[0],endDate:value[1]},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                     .then((res)=>{
                         console.log(res);
-                        this.bookingsList = res.data.data;
+                        if(res.data.data!=null || res.data.data!=undefined){
+                          this.bookingsList = res.data.data;
+                        }else{
+                          this.bookingsList = [];
+                        }
                     })
             console.log(value[0],value[1]);
             this.value = value[0] +"---"+value[1];
@@ -887,6 +899,7 @@
       ul.bookings-item-contents {
         padding-left: 0;
         list-style: none;
+        background-color: #F5F5F5;
       }
       li.bookings-item-content {
         margin-bottom: 10px;
@@ -971,7 +984,7 @@
         justify-content:space-between;
         padding-right: 120px;
         padding-left: 30px;
-        height: 180px;
+        /* height: 180px; */
         align-items: center;
       }
       .bookings-item-content >>> .el-row {
@@ -983,6 +996,7 @@
       }
       >>> .el-collapse-item__wrap {
         background-color: inherit;
+        border: 2px solid #F5F5F5;
       }
 
       .pagination-wrapper {

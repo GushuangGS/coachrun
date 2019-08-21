@@ -2,9 +2,11 @@
   <el-header height="33px" :class="{'header-bg': status}">
     <div v-if="status" class="title">{{headerInfo[0][0]}}</div>
     <el-breadcrumb v-else separator-class="el-icon-arrow-right">
-      <el-breadcrumb-item :to="{ path: '/' }">Home</el-breadcrumb-item>
-      <el-breadcrumb-item :to="{ path: '/app/member/account' }">{{headerInfo[1].title}}</el-breadcrumb-item>
-      <el-breadcrumb-item v-if="notDefault" :to="{ path: headerInfo[1].path }">{{headerInfo[1].description}}</el-breadcrumb-item>
+      <!-- <el-breadcrumb-item>Home</el-breadcrumb-item> -->
+      <!-- <el-breadcrumb-item :to="{ path: '/render/user' }">{{headerInfo[1].title}}</el-breadcrumb-item> -->
+      <!-- <el-breadcrumb-item v-if="notDefault" :to="{ path: headerInfo[1].path }">{{headerInfo[1].description}}</el-breadcrumb-item> -->
+      <el-breadcrumb-item>{{headerInfo[1].title}}</el-breadcrumb-item>
+      <el-breadcrumb-item v-if="notDefault">{{headerInfo[1].description}}</el-breadcrumb-item>
     </el-breadcrumb>
   </el-header>
 </template>

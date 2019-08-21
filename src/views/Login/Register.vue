@@ -17,10 +17,10 @@
                 </el-form-item> -->
                 <el-form-item prop="phone" label="Phone:">
                     <template>
-                            <VuePhoneNumberInput v-model="loginInfo.phone" 
-                            default-country-code="US" 
-                            @update="onUpdate"
-                            />
+                        <VuePhoneNumberInput v-model="loginInfo.phone" 
+                        default-country-code="US" 
+                        @update="onUpdate"
+                        />
                     </template>
                 </el-form-item> 
                 <el-form-item label="Password:" prop="password">
@@ -90,7 +90,7 @@
                     this.$refs.loginForm.validate((valid)=>{
                         if (valid){
                             this.$http.post(this.$api.register,
-                                { username: this.loginInfo.email,mobilePhone:this.loginInfo.phone ,password:this.loginInfo.password,acceptNewsletter:'true'})
+                                { username: this.loginInfo.email,mobilePhone:this.results.formatInternational ,password:this.loginInfo.password,acceptNewsletter:'true'})
                                 .then((data) => {
                                     console.log(data);
                                 });

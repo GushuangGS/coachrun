@@ -51,6 +51,7 @@
 </template>
 
 <script>
+  import VueCookie from 'vue-cookie';
   import ItemHeader from '@/views/UserCenter/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
 
@@ -133,6 +134,7 @@
                   .then((res)=>{
                       console.log(res);
                       this.changeStatus = 0;
+                      this.$cookie.set('password', this.ruleForm.pass);
                   })
           }
         })

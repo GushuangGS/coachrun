@@ -1,33 +1,14 @@
 <template>
     <div class="header">
-        <!-- <el-button @click="login">login</el-button> -->
         <div class="logo" @click="toHome">
             <img src="@/assets/coachrunlogo.png" alt="">
         </div>
-        <ul class="title">
+        <ul class="header-title">
             <li v-for="(list,index) in navLists" :key="index">
-                <span class="nav" :class="{ bgColor:changeBg == index}" @click="changeColor(index)">
+                <span :class="{ bgColor:changeBg == index}" @click="changeColor(index)">
                     {{list.text}}
                 </span>
-                <!-- <router-link :to="{name:'UserCenter'}">
-                    {{list.text}}
-                </router-link> -->
             </li>
-            <!-- <li>
-                <router-link :to="{name:'UserCenter'}">Bus Routes</router-link>
-            </li>
-            <li>
-                <router-link :to="{name:'UserCenter'}">Bus Stations</router-link>
-            </li>
-            <li>
-                <router-link :to="{name:'UserCenter'}">Bus Rental</router-link>
-            </li>
-            <li>
-                <router-link :to="{name:'UserCenter'}">Hotel</router-link>
-            </li>
-            <li>
-                <router-link :to="{name:'UserCenter'}">Ticket Policy</router-link>
-            </li> -->
         </ul>
         <div class="login-register" v-show="!$store.state.isLogin">
             <span class="login" @click="login">
@@ -38,8 +19,7 @@
             </span>
         </div>
         <div class="show-name" v-show="$store.state.isLogin">
-            <!-- <span class="user-name">Hello, {{getName()}}</span> -->
-            <span class="user-name" @click="gotoMine">Hello, {{$cookie.get('email')}}</span>
+            <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span>
             <span class="logot" @click="logout">Logout</span>
         </div>
         <div class="shopping-cart">
@@ -64,17 +44,16 @@
                     {"text":"Bus Hotel","link":"MyOrders","src":"https://lanhuapp.com"},
                     {"text":"Ticket Policy","link":"Register","src":"https://www.baidu.com"}
                 ],
-                changeBg:0
+                changeBg:0,
+                userName:''
             }
         },
         created(){
-            // const name = VueCookie.get('display');
             const name = sessionStorage.getItem('IvyCustomer_LoginToken');
             if(name){
                 this.$store.commit('login');
-                this.isLogin = this.$store.state.isLogin;
-                this.$store.commit('loginName',name);
             }
+        
         },
         methods:{
             toHome(){
@@ -103,14 +82,13 @@
                     this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                                 .then((data) => {
                                     console.log(data);
+                                    this.$router.push({name: 'Login'});
                                     sessionStorage.removeItem("IvyCustomer_LoginToken");
+                                    sessionStorage.removeItem("loginName");
                                     this.$store.commit('logout');
-                                    this.$router.push({name: 'MyBookings'});
+                                    this.$store.commit('loginName','');
                                 });
                 });
-            },
-            getName(){
-                return this.$store.state.loginName;
             }
         }
     }
@@ -128,7 +106,6 @@
 .logo{
     width: 132px;
     height: 26px;
-    /* margin-top: 27px; */
 }
 .right-menu{
     display: flex;
@@ -136,7 +113,6 @@
 .login-register{
     height: 35px;
     line-height: 35px;
-    /* margin: 23px 20px 22px 250px; */
     margin-left: 230px;
     padding: 0 15px;
     border:1px solid rgba(219,219,219,1);
@@ -178,23 +154,20 @@ margin-left: 5px;
 .live-chat{
     margin-left: 28px;
 }
-.shopping-cart,.live-chat{
-    /* margin-top: 32px; */
-}
-.title{
+.header-title{
     display: flex;
     align-items: center;
+    margin: 0;
 }
-.title li{
+.header-title li{
     white-space: nowrap;
     margin-left: 40px;
     text-align: center;
     font-weight: bold;
 }
-.title li a{
+.header-title li a{
     text-decoration: none;
     color:rgba(35,35,35,1);
     font-weight: bold;
 }
-
 </style>

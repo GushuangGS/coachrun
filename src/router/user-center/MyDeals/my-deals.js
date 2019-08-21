@@ -10,7 +10,7 @@ const myDealsRouter = {
   name: 'MyDeals',
   component: MyDeals,
   meta: {
-    keepAlive: true
+    // keepAlive: true
   }
 }
 
