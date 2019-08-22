@@ -7,7 +7,7 @@ deploy:
    name: coachrun-pc
    url: http://coachrun.com
  only:
-   - master         #指定分支，只允许master
+   - test         #指定分支，只允许master
  tags:
    - coachrun-pc
  script:
