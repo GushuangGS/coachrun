@@ -231,7 +231,7 @@
                   v-model="showDefault"
                   inactive-text="Default payment method："
                   @change="selectDefault">
-                </el-switch>
+              </el-switch>
               <div class="btn-wrapper">
                 <b-button type="reset"  variant="light">Cancel</b-button>
                 <b-button @click="save" variant="warning">Save</b-button>

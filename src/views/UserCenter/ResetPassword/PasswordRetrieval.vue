@@ -34,8 +34,11 @@
                     Reset login password
             </el-button>
             <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
-                {{auth_time}} seconds countdown
+                Reset login password
             </el-button>
+            <!-- <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
+                {{auth_time}} seconds countdown
+            </el-button> -->
         </div>
     </div>
 </template>
@@ -51,28 +54,42 @@
                 value:'',
                 sendAuthCode: true,/*布尔值，通过v-show控制显示‘获取按钮’还是‘倒计时’ */
                 auth_time: 0,/*倒计时 计数器*/
+                isClick:false
             }
         },
+        created(){
+
+        },
         methods:{
+            onSubmit(token) {
+                alert('thanks ' + this.value);
+            },
             resetPass(){
-                this.$store.commit('sendEmail',this.value);
-                this.$router.push({name: 'RemindEmail'});
-                console.log(this.value);
-                ///--------------------------
-                this.sendAuthCode = false;
-                //设置倒计时秒
-                this.auth_time = 30;
-                var auth_timetimer = setInterval(() => {
-                    this.auth_time--;
-                    if (this.auth_time <= 0) {
-                        this.sendAuthCode = true;
-                        clearInterval(auth_timetimer);
-                    }
-                }, 1000);
-                //-----------------------------
+                event.preventDefault();
+                if (!this.value) {
+                    alert("You must add text to the required field");
+                } else {
+                    grecaptcha.execute();
+                }
+                //---------------------------------------------------------
                 if(this.value!=''){
+                    this.$store.commit('sendEmail',this.value);
+                    this.$router.push({name: 'RemindEmail'});
+                    ///--------------------------
+                    this.sendAuthCode = false;
+                    //设置倒计时秒
+                    this.auth_time = 30;
+                    var auth_timetimer = setInterval(() => {
+                        this.auth_time--;
+                        if (this.auth_time <= 0) {
+                            this.sendAuthCode = true;
+                            clearInterval(auth_timetimer);
+                        }
+                    }, 1000);
+                    //-----------------------------
                     this.$http.post(this.$api.forgotPassword,
-                        {email:this.value,token:'111'})
+                        {email:this.value,token:'111'},
+                        {headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                             .then((res)=>{
                                 console.log(res);
                             })

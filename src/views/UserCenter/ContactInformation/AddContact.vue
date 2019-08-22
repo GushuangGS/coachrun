@@ -8,7 +8,7 @@
             <el-main>
               <div class="content">
                 <div class="form-wrapper">
-                  <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+                  <b-form @submit="onSubmit" @reset="onReset">
                     <div class="row">
                       <div class="col-6">
                         <b-form-group
@@ -19,7 +19,11 @@
                           <b-form-input
                             id="input-00"
                             v-model="form.firstName"
+                            :state="showTip==true?validationName:''"
                           ></b-form-input>
+                          <!-- <b-form-invalid-feedback>
+                            {{form.firstName}}
+                          </b-form-invalid-feedback> -->
                         </b-form-group>
                       </div>
                       <div class="col-6">
@@ -31,6 +35,7 @@
                           <b-form-input
                             id="input-01"
                             v-model="form.lastName"
+                            :state="showTip==true?validationLastName:''"
                           ></b-form-input>
                         </b-form-group>
                       </div>
@@ -44,7 +49,7 @@
                       <b-form-input
                         id="input-3"
                         v-model="form.email"
-                        placeholder="Enter email"
+                        :state="showTip==true?validationEmail:''"
                       ></b-form-input>
                     </b-form-group>
       
@@ -73,6 +78,12 @@
                           @update="onUpdateAgain"
                           />
                     </b-form-group>
+                    <el-switch
+                      class="isDefault"
+                      v-model="showDefault"
+                      inactive-text="Default information："
+                      @change="selectDefault">
+                    </el-switch>
       
                     <b-button type="reset" variant="light">Cancel</b-button>
                     <b-button type="submit" variant="warning">Save</b-button>
@@ -102,9 +113,22 @@
                 phone:'',
                 AlternatePhone:''
               },
-              show: true,
+              // show: true,
               results: {},
-              resultsAgain:{}
+              resultsAgain:{},
+              showDefault:true,
+              showTip:false,//默认不显示
+            }
+          },
+          computed:{
+            validationName(){
+              return this.form.firstName!='';
+            },
+            validationLastName(){
+              return this.form.lastName!='';
+            },
+            validationEmail(){
+              return this.form.email!='';
             }
           },
           methods: {
@@ -114,48 +138,74 @@
             onUpdateAgain(payload){
               this.resultsAgain = payload;
             },
+            selectDefault(val){
+              this.showDefault = val;
+              console.log(val);
+            },
             onSubmit(evt) {
               evt.preventDefault();
-              if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.AlternatePhone!=''){
-                  console.log(JSON.stringify(this.form));
-                  this.$http.post(this.$api.contactAdd,
-                    { firstName:this.form.firstName,lastName:this.form.lastName,
-                    phone:this.results.formatInternational,email:this.form.email,phone2:this.resultsAgain.formatInternational},
-                    {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
-                    .then((res)=>{
-                        console.log(res);
-                        //添加成功后，默认都设置为空
-                        this.form = {
-                          firstName:'',
-                          lastName:'',
-                          email:'',
-                          phone:'',
-                          AlternatePhone:''
-                        }
-                        this.$router.push({name:'ContactList'});
-                    })
+              if(this.form.firstName=='' || this.form.lastName=='' || this.form.email=='' || this.form.phone==''){
+                this.showTip = true;
               }else{
-                this.$message({
-                  message: 'Incomplete information',
-                  type: 'warning',
-                  showClose: true,
-                  center: true
-                });
+                console.log(JSON.stringify(this.form));
+                this.$http.post(this.$api.contactAdd,
+                  { firstName:this.form.firstName,lastName:this.form.lastName,
+                  phone:this.results.formatInternational,email:this.form.email,phone2:this.resultsAgain.formatInternational,isDefault:this.showDefault},
+                  {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                  .then((res)=>{
+                      console.log(res);
+                      //添加成功后，默认都设置为空
+                      this.form = {
+                        firstName:'',
+                        lastName:'',
+                        email:'',
+                        phone:'',
+                        AlternatePhone:''
+                      }
+                      this.$router.push({name:'ContactList'});
+                  })
               }
+              // if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.AlternatePhone!=''){
+              //     console.log(JSON.stringify(this.form));
+              //     this.$http.post(this.$api.contactAdd,
+              //       { firstName:this.form.firstName,lastName:this.form.lastName,
+              //       phone:this.results.formatInternational,email:this.form.email,phone2:this.resultsAgain.formatInternational,isDefault:this.showDefault},
+              //       {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+              //       .then((res)=>{
+              //           console.log(res);
+              //           //添加成功后，默认都设置为空
+              //           this.form = {
+              //             firstName:'',
+              //             lastName:'',
+              //             email:'',
+              //             phone:'',
+              //             AlternatePhone:''
+              //           }
+              //           this.$router.push({name:'ContactList'});
+              //       })
+              // }else{
+              //   this.$message({
+              //     message: 'Incomplete information',
+              //     type: 'warning',
+              //     showClose: true,
+              //     center: true
+              //   });
+              // }
             },
             onReset(evt) {
-              evt.preventDefault();
-              // Reset our form values
-              this.form.firstName = '';
-              this.form.lastName = '';
-              this.form.email = '';
-              this.form.phone ='';
-              this.form.AlternatePhone ='';
-              // Trick to reset/clear native browser form validation state
-              this.show = false;
-              this.$nextTick(() => {
-                this.show = true;
-              })
+              this.$router.go(-1);
+              // evt.preventDefault();
+              // // Reset our form values
+              // this.form.firstName = '';
+              // this.form.lastName = '';
+              // this.form.email = '';
+              // this.form.phone ='';
+              // this.form.AlternatePhone ='';
+              // // Trick to reset/clear native browser form validation state
+              // this.show = false;
+              // this.$nextTick(() => {
+              //   this.show = true;
+              // })
             }
           },
           components: {
@@ -218,6 +268,10 @@
         >>> .btn-warning {
           background-color: #FF9A0D;
           color: #fff;
+        }
+        .isDefault{
+          display: block;
+          margin-bottom: 10px;
         }
       </style>
       

@@ -990,6 +990,8 @@
       .bookings-item-content >>> .el-row {
         font-size: 14px;
         line-height: 74px;
+        display: flex;
+        align-items: center;
         color: #000;
         min-height: 64px;
         border-bottom: 1px dashed #F2F6FB;

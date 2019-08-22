@@ -38,10 +38,10 @@
         data(){
             return{
                 navLists:[
-                    {"text":"Bus Routes","link":"MyOrders","src":"https://www.baidu.com"},
+                    // {"text":"Bus Routes","link":"MyOrders","src":"https://www.baidu.com"},
                     {"text":"Bus Stations","link":"MyBookings","src":"https://element.eleme.cn"},
                     {"text":"Bus Rental","link":"Login","src":"https://bootstrap-vue.js.org"},
-                    {"text":"Bus Hotel","link":"MyOrders","src":"https://lanhuapp.com"},
+                    {"text":"Hotel","link":"MyOrders","src":"https://lanhuapp.com"},
                     {"text":"Ticket Policy","link":"Register","src":"https://www.baidu.com"}
                 ],
                 changeBg:0,
@@ -74,7 +74,7 @@
                 this.$router.push({name: 'Register'});
             },
             logout(){
-                this.$confirm('是否确认退出？', '登出', {
+                this.$confirm('是否确认退出？', '退出', {
                     distinguishCancelAndClose: true,
                     confirmButtonText: '确认',
                     cancelButtonText: '取消'
@@ -97,9 +97,12 @@
 <style scoped>
 .header{
     height: 80px;
+    width: 1240px;
+    margin: 0 auto;
+    padding-left: 100px;
     display: flex;
     align-items: center;
-    padding: 0 150px 0 350px;
+    /* padding: 0 150px 0 350px; */
     cursor: pointer;
     background:rgba(255,255,255,1);
 }
@@ -124,7 +127,8 @@
 .show-name{
     height: 35px;
     line-height: 35px;
-    margin: 23px 20px 22px 150px;
+    margin-left: 150px;
+    /* margin: 23px 20px 22px 150px; */
     padding: 0 15px;
     display: flex;
     font-size:14px;   

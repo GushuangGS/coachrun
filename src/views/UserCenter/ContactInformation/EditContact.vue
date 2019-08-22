@@ -19,6 +19,7 @@
                     <b-form-input
                       id="input-00"
                       v-model="form.firstName"
+                      :state="showTip==true?validationName:''"
                     ></b-form-input>
                   </b-form-group>
                 </div>
@@ -31,6 +32,7 @@
                     <b-form-input
                       id="input-01"
                       v-model="form.lastName"
+                      :state="showTip==true?validationLastName:''"
                     ></b-form-input>
                   </b-form-group>
                 </div>
@@ -44,6 +46,7 @@
                 <b-form-input
                   id="input-3"
                   v-model="form.email"
+                  :state="showTip==true?validationEmail:''"
                 ></b-form-input>
               </b-form-group>
 
@@ -70,7 +73,12 @@
                     @update="onUpdateAgain"
                     />
                 </b-form-group>
-
+                <el-switch
+                  class="isDefault"
+                  v-model="showDefault"
+                  inactive-text="Default information："
+                  @change="selectDefault">
+              </el-switch>
               <b-button type="reset" variant="light">Cancel</b-button>
               <b-button type="submit" variant="warning">Save</b-button>
             </b-form>
@@ -101,13 +109,29 @@
         },
         show: true,
         results: {},
-        resultsAgain:{}
+        resultsAgain:{},
+        showDefault:true,
+        showTip:false,//默认不显示
+      }
+    },
+    computed:{
+      validationName(){
+        return this.form.firstName!='';
+      },
+      validationLastName(){
+        return this.form.lastName!='';
+      },
+      validationEmail(){
+        return this.form.email!='';
       }
     },
     created(){
       this.form = this.$store.state.contactInfo==""?this.$store.state.contactInfo:JSON.parse(localStorage.getItem("contactInfo"));
       this.form.phone = this.intStr(this.form.phone);
-      this.form.phone2 = this.intStr(this.form.phone2);
+      if(this.form.phone2){
+        this.form.phone2 = this.intStr(this.form.phone2);
+      }
+      this.showDefault = this.form.isDefault;
       console.log(this.form);
     },
     methods: {
@@ -116,42 +140,78 @@
       },
       onUpdateAgain(payload){
         this.resultsAgain = payload;
+        console.log(this.resultsAgain.formatInternational);
+        if(this.resultsAgain.formatInternational== undefined){
+          this.resultsAgain.formatInternational = '';
+        }
+        
       },
       onSubmit(evt) {
         evt.preventDefault();
-        if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.phone2!=''){
-            console.log(JSON.stringify(this.form));
-            this.$http.patch(`${this.$api.contactUpdate}/${this.form.aid}`,
-              {firstName:this.form.firstName,lastName:this.form.lastName,phone:this.results.formatInternational,email:this.form.email,phone2:this.resultsAgain.formatInternational,isDefault:this.form.isDefault},
-              {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-              .then((res)=>{
-                  console.log(res);
-                  this.$message({
-                    message: 'Editorial Success',
-                    type: 'success',
-                    showClose: true,
-                    center: true
-                  });
-                  //添加成功后，默认都设置为空
-                  this.form = {
-                    firstName:'',
-                    lastName:'',
-                    email:'',
-                    phone:'',
-                    phone2:''
-                  }
-              })
+        if(this.form.firstName=='' || this.form.lastName=='' || this.form.email=='' || this.form.phone==''){
+          this.showTip = true;
         }else{
-          this.$message({
-            message: 'Incomplete information',
-            type: 'warning',
-            showClose: true,
-            center: true
-          });
+          console.log(JSON.stringify(this.form));
+          this.$http.patch(`${this.$api.contactUpdate}/${this.form.aid}`,
+            {firstName:this.form.firstName,lastName:this.form.lastName,email:this.form.email,phone:this.results.formatInternational,phone2:this.resultsAgain.formatInternational,isDefault:this.showDefault},
+            {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+            .then((res)=>{
+                console.log(res);
+                this.$message({
+                  message: 'Editorial Success',
+                  type: 'success',
+                  showClose: true,
+                  center: true
+                });
+                //添加成功后，默认都设置为空
+                this.$router.push({name:'ContactList'});
+                this.form = {
+                  firstName:'',
+                  lastName:'',
+                  email:'',
+                  phone:'',
+                  phone2:''
+                }
+            })
         }
+        // if(this.form.firstName!='' && this.form.lastName!=''&&this.form.email!=''&&this.form.phone!=''&&this.form.phone2!=''){
+        //     console.log(JSON.stringify(this.form));
+        //     this.$http.patch(`${this.$api.contactUpdate}/${this.form.aid}`,
+        //       {firstName:this.form.firstName,lastName:this.form.lastName,phone:this.results.formatInternational,email:this.form.email,phone2:this.resultsAgain.formatInternational,isDefault:this.showDefault},
+        //       {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        //       .then((res)=>{
+        //           console.log(res);
+        //           this.$message({
+        //             message: 'Editorial Success',
+        //             type: 'success',
+        //             showClose: true,
+        //             center: true
+        //           });
+        //           //添加成功后，默认都设置为空
+        //           this.$router.push({name:'ContactList'});
+        //           this.form = {
+        //             firstName:'',
+        //             lastName:'',
+        //             email:'',
+        //             phone:'',
+        //             phone2:''
+        //           }
+        //       })
+        // }else{
+        //   this.$message({
+        //     message: 'Incomplete information',
+        //     type: 'warning',
+        //     showClose: true,
+        //     center: true
+        //   });
+        // }
       },
       intStr(val){
         return val.slice(val.indexOf(' ') + 1);
+      },
+      selectDefault(val){
+        this.showDefault = val;
+        console.log(val);
       },
       onReset(evt) {
         this.$router.go(-1);
@@ -229,5 +289,9 @@
   >>> .btn-warning {
     background-color: #FF9A0D;
     color: #fff;
+  }
+  .isDefault{
+    display: block;
+    margin-bottom: 10px;
   }
 </style>

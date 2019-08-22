@@ -7,7 +7,7 @@
                         <img src="@/assets/whitecoachrunlogo.png" alt="">
                     </div>
                 </el-col>
-                <el-col :span="5">
+                <el-col :span="4">
                     <div>
                         <p class="bot-title">ABOUT US</p>
                         <span class="about">CoachRun provides affordable inter-city bus 
@@ -15,16 +15,15 @@
                         </span>
                     </div>
                 </el-col>
-                <el-col :span="3">
+                <el-col :span="3"class="menu">
                     <div class="bot-link">
                         <p class="bot-title">MAIN MENU</p>
-                        <!-- <a href="">Home</a> -->
-                        <router-link :to="{name:'Login'}">Home</router-link>
-                        <a href="">Bus routes</a>
-                        <a href="">Bus Stations</a>
-                        <a href="">Bus Rental</a>
-                        <a href="">Hotel</a>
-                        <a href="">Ticket Policy</a>
+                        <!-- <router-link :to="{name:'Login'}">Home</router-link> -->
+                        <!-- <a href="">Bus routes</a> -->
+                        <a>Bus Stations</a>
+                        <a>Bus Rental</a>
+                        <a>Hotel</a>
+                        <a>Ticket Policy</a>
                     </div>
                 </el-col>
                 <el-col :span="5" class="contact">
@@ -35,7 +34,7 @@
                         <span>Email: support@coachrun.com</span>
                     </div>
                 </el-col>
-                <el-col :span="4">
+                <!-- <el-col :span="4">
                     <div>
                         <p class="bot-title">WE ACCEPT</p>
                         <div class="bot-imgs">
@@ -44,11 +43,11 @@
                             <img src="@/assets/mastercard.png" alt="">
                         </div>
                     </div>
-                </el-col>
+                </el-col> -->
             </el-row>         
         </div>
-        <div class="copy">
-            Copyright &nbsp;© 2019 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;www.coachrun.com powered by GotoBus
+        <div class="copy"> 
+            Copyright &nbsp;© 2019 &nbsp;&nbsp;&nbsp;www.coachrun.com.&nbsp;&nbsp;&nbsp;All rights reserved
         </div> 
     </div>
 </template>
@@ -76,10 +75,13 @@
 }
 .footer-top{
     height: 300px;
-    /* background: #00A2FF; */
-    padding: 51px 200px 71px 300px;
+    width: 1240px;
+    margin: 0 auto;
+    padding-top: 50px;
+    /* padding: 51px 200px 71px 300px; */
     display: flex;
     flex-direction: column;
+    /* justify-content: center; */
     font-size: 14px;
     color:rgba(255,255,255,1);
     line-height: 20px;
@@ -101,8 +103,11 @@
     text-decoration: none;
     color:rgba(255,255,255,1);
 }
+.menu{
+    margin-left: 100px;
+}
 .contact{
-    margin-left: 60px;
+    margin-left: 100px;
 }
 .bot-contact{
     display: flex;
