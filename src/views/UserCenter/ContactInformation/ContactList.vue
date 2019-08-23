@@ -19,9 +19,9 @@
                     label="Name"
                     min-width="200">
                     <template slot-scope="scope">
-                      <span>{{ scope.row.firstName + scope.row.lastName }}</span>
+                      <span>{{ scope.row.firstName}} {{scope.row.lastName }}</span>
                       &nbsp;
-                      <span v-if="scope.row.isDefault" class="default">[ Default ]</span>
+                      <span v-if="scope.row.isDefault" class="default">[Default]</span>
                     </template>
                   </el-table-column>
                   <el-table-column
@@ -46,10 +46,22 @@
                     <template slot-scope="scope">
                       <el-button @click="edit(scope.row)"  type="text" size="small">Edit</el-button>
                       <el-button @click="setDefault(scope.row)" type="text" size="small">Default</el-button>
-                      <el-button @click="clickdel(scope.row)" type="text" size="small">Delete</el-button>
+                      <el-button @click="clickdel(scope.row)" type="text" size="small">Remove</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
+                <div class="none-data" v-if="contactList.length==0">
+                  <img src="@/assets/contactinfo.png" alt="">
+                  <span>
+                      Contact Information allows you to save your frequent contact information. You can add multiple
+                      contacts in the system and save your time when placing an order. This information is for user 
+                      internal use only and not to be share to the public or any commercial use.
+                  </span>
+                </div>
+                
+              </div>
+              <div class="add-btn">
+                  <el-button class="add-info" @click="AddContact">+ Add new contact</el-button>
               </div>
             </div>
         </el-main>
@@ -118,6 +130,9 @@
                   console.log(res);
                   this.listInfo();
               })
+      },
+      AddContact(){
+        this.$router.push({name: 'AddContact'});
       }
     }
   }
@@ -134,8 +149,7 @@
     padding-left: 20px;
   }
   .container>h2 {
-    padding-left: 5px;
-    font-size: 20px;
+    font-size: 18px;
     font-weight: bold;
     line-height: 1;
     margin-top: 0;
@@ -161,5 +175,37 @@
   >>> .el-table__body td>div.cell>button:not(:last-child)>span {
     padding-right: 10px;
     border-right: 1px solid #979797;
+  }
+  >>> .el-table__empty-block{
+    display: none;
+  }
+  .none-data{
+    height: 65px;
+    background: #FAFAFA;
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .none-data>img{
+    width: 28px;
+    height: 27px;
+    margin-left: 12px;
+    margin-right: 20px;
+  }
+  .none-data>span{
+    font-size: 14px;
+    color:rgba(51,51,51,1);
+  }
+  .add-btn{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+  }
+  .add-info{
+    background: #FF9A0D;
+    color: #FFFFFF;
+    font-size: 14px;
   }
 </style>

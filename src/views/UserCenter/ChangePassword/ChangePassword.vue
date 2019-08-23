@@ -23,7 +23,7 @@
           <div class="form-wrapper" v-if="changeStatus !=0">
             <el-form  :label-position="labelPosition" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="150px">
               <el-form-item label="Password type:">
-                <el-select v-model="ruleForm.passwordType"  @change="selectGet" placeholder="">
+                <el-select v-model="ruleForm.passwordType"  @change="selectGet">
                   <el-option v-for="(passwordType, index) in passwordTypes" 
                       v-bind:key="index" 
                       :label="passwordType.label" 
@@ -99,7 +99,7 @@
         labelPosition: 'right',//表单位置
         passwordTypes: [{ label: 'Login', value: '1' }, { label: 'Excution', value: '2' }],
         ruleForm: {
-          passwordType: 'login',
+          passwordType: 'Login',
           currentPass: '',
           pass: '',
           checkPass: ''

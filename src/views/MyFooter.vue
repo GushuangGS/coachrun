@@ -2,7 +2,7 @@
     <div class="footer">
         <div class="footer-top">
             <el-row :gutter="20">
-                <el-col :span="4">
+                <el-col :span="4" class="footer-logo">
                     <div class="bot-logo">
                         <img src="@/assets/whitecoachrunlogo.png" alt="">
                     </div>
@@ -85,6 +85,9 @@
     font-size: 14px;
     color:rgba(255,255,255,1);
     line-height: 20px;
+}
+.footer-logo{
+    margin-left: 100px;
 }
 .bot-logo{
     margin-top: 50px;

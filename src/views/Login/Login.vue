@@ -9,10 +9,11 @@
             <el-form-item label="Password:" prop="password">
                 <el-input type="password" v-model="loginInfo.password"></el-input>
             </el-form-item>
-            <div class="forget-pass" @click="forgetPass">Forget password?</div>
+            <div class="forget-pass" @click="forgetPass">Forgot password?</div>
             <div class="check">
-                <input type="checkbox" v-model="item"> 
-                <span class="rem-me">Remember me</span>
+                <input id="chkAdmin" type="checkbox" v-model="item"> 
+                <label for="chkAdmin" class="rem-me">Remember me</label>
+                <!-- <span class="rem-me">Remember me</span> -->
             </div>
             <el-button type="primary" @click.native.prevent="login" class="login-btn">Log In</el-button>
        </el-form>
@@ -169,6 +170,7 @@
         font-size:14px;
         color:rgba(51,51,51,1);
         margin-left: 10px;
+        cursor: pointer;
     }
     .register{
         margin-top: 30px;

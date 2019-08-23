@@ -6,7 +6,7 @@
             </el-header>
         </el-container>
         <div class="content">
-            <h2>My Deals</h2>
+            <h2 class="deals-title">My Deals</h2>
             <div class="products">
                     <el-row :gutter="20">
                         <el-col :span="8" v-for="(listInfo,index) in dataList" :key="index">
@@ -74,8 +74,12 @@
     .content{
         padding-left: 40px;
         font-size: 18px;
+        margin-top: 20px;
     }
-    
+    .deals-title{
+        font-size: 18px;
+        font-weight: bold;
+    }
     >>> .el-row{
         display: flex;
         flex-wrap: wrap;

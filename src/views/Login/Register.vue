@@ -2,7 +2,7 @@
     <div class="register-bg">
         <div class="login">
            <h3 class="login-title">Register</h3>
-           <el-form :model="loginInfo" :rules="rules" ref="loginForm" label-width="90px">
+           <el-form :model="loginInfo" :rules="rules" ref="loginForm" label-width="110px">
                 <el-form-item prop="email" label="Email:">
                     <el-input v-model="loginInfo.email"></el-input>
                 </el-form-item> 

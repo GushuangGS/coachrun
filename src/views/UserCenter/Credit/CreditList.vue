@@ -23,12 +23,12 @@
               <div class="description">
                   {{getNum(info.cardNumber)}}
                 &nbsp;
-                <span v-show="info.isDefault == true">[ Default ]</span>
+                <span v-show="info.isDefault == true">[Default]</span>
               </div>
               <div class="operation">
                 <el-button type="text" size="small" @click="editCredit(info)">Edit</el-button>
                 <el-button v-show="info.isDefault != true" @click="setDefault(info)" type="text" size="small">Default</el-button>
-                <el-button type="text" size="small" @click="deleteCredit(info,index)">Delete</el-button>
+                <el-button type="text" size="small" @click="deleteCredit(info,index)">Remove</el-button>
               </div>
             </li>
             <!-- <li class="credit-list-item">
@@ -185,7 +185,7 @@
     align-items: flex-start;
   }
   .credits>h2 {
-    font-size: 20px;
+    font-size: 18px;
     line-height: 1;
     margin-top: 0;
   }
@@ -227,16 +227,16 @@
     min-width: 120px;
     margin-right: 30px;
     line-height: 38px;
-    font-size: 20px;
+    font-size: 18px;
   }
   .description {
     min-width: 150px;
     margin-right: 30px;
     line-height: 38px;
-    font-size: 20px;
+    font-size: 18px;
   }
   .description>span {
-    font-size: 15px;
+    font-size: 14px;
     color: #FF9A0D;
   }
   .operation {
@@ -253,7 +253,7 @@
     border-right: 1px solid #979797;
   }
   .add-credit {
-    margin-top: 30px;
+    margin-top: 13px;
   }
   .add-credit>h2.title {
     margin-top: 0;

@@ -294,4 +294,7 @@
     display: block;
     margin-bottom: 10px;
   }
+  >>> .el-switch__label *{
+    font-size: 16px;
+  }
 </style>

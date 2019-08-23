@@ -46,6 +46,7 @@
                         <b-form-input
                           id="input-00"
                           v-model="form.holderName"
+                          :state="showValid==true?validationHolderName:''"
                         ></b-form-input>
                         <!-- <b-form-invalid-feedback>
                           :state="nameState(form.holderName)"
@@ -66,10 +67,10 @@
                         <b-form-input
                           id="input-01"
                           v-model="form.cardNumber"
-                          v-on:focus="showTips"
-                          v-on:blur="hideTips"
-                          :state="showTip==true?validationNum:validationNum2"
+                          :state="showValid==true?validationNum:validationNum2"
                         ></b-form-input>
+                        <!-- v-on:focus="showTips"
+                          v-on:blur="hideTips" -->
                         <b-form-invalid-feedback>
                           {{cardNum}}
                         </b-form-invalid-feedback>
@@ -92,6 +93,7 @@
                           v-model="form.type"
                           :options="types"
                           required
+                          :state="showValid==true?validationType:''"
                           @change="selectType"
                         ></b-form-select>
                       </b-form-group>
@@ -151,6 +153,7 @@
                         <b-form-input
                           id="input-10"
                           v-model="form.CVV"
+                          :state="showValid==true?validationCvv:''"
                         ></b-form-input>
                         <!-- <b-form-invalid-feedback>
                             :state="nameState(form.CVV)"
@@ -172,6 +175,7 @@
                     <b-form-input
                       id="input-4"
                       v-model="form.street"
+                      :state="showValid==true?validationStreet:''"
                     ></b-form-input>
                     <!-- <b-form-invalid-feedback>
                         :state="nameState(form.street)"
@@ -187,6 +191,7 @@
                     <b-form-input
                       id="input-5"
                       v-model="form.city"
+                      :state="showValid==true?validationCity:''"
                     ></b-form-input>
                     <!-- <b-form-invalid-feedback>
                         :state="nameState(form.city)"
@@ -231,6 +236,7 @@
                         <b-form-input
                           id="input-61"
                           v-model="form.zipcode"
+                          :state="showValid==true?validationZipcode:''"
                         ></b-form-input>
                         <!-- <b-form-invalid-feedback>
                             :state="nameState(form.zipcode)"
@@ -249,13 +255,14 @@
                       v-model="form.country"
                       :options="countryOptions"
                       @change="selectCountry"
+                      :state="showValid==true?validationCountry:''"
                     ></b-form-select>
                   </b-form-group>
                 </div>
                 <el-switch
                   class="isDefault"
                   v-model="showDefault"
-                  inactive-text="Default payment method："
+                  inactive-text="Default payment method:"
                   @change="selectDefault">
                 </el-switch>
                 <div class="btn-wrapper">
@@ -287,7 +294,7 @@
           holderName: '',
           cardNumber: '',
           CVV: '',
-          type: 'null',
+          type: '',
           month: '01',
           year: '2019',
           street: '',
@@ -310,10 +317,32 @@
         countryOptions,
         statesOptions,
         selectNum:'',//选择数字
-        showDefault:true
+        showDefault:true,
+        showValid:false,//提示信息
       }
     },
     computed:{
+      validationHolderName(){
+        return this.form.holderName!='';
+      },
+      validationType(){
+        return this.form.type!='';
+      },
+      validationCvv(){
+        return this.form.CVV!='';
+      },
+      validationStreet(){
+        return this.form.street!='';
+      },
+      validationCity(){
+        return this.form.city!='';
+      },
+      validationZipcode(){
+        return this.form.zipcode!='';
+      },
+      validationCountry(){
+        return this.form.country!='';
+      },
       validationNum(){
         console.log(this.form.type)
         if(this.form.type == 'AmEx'){
@@ -394,7 +423,10 @@
         }else if(this.form.type == 'Master'){
           this.selectNum = 1;
         }
-        if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
+
+        if(this.form.holderName=='' || this.form.cardNumber==''|| this.form.type =='' ||this.form.CVV=='' ||this.form.street==''||this.form.city==''||this.form.zipcode==''||this.form.country==''){
+          this.showValid = true;
+        }else{
           evt.preventDefault();
           console.log(JSON.stringify(this.form));
           this.$http.post(this.$api.creditAdd,
@@ -415,46 +447,72 @@
               .then((res)=>{
                   console.log(res);
                   //添加成功后，默认都设置为空
-                  // this.form = {
-                  //   holderName: '',
-                  //   cardNumber: '',
-                  //   CVV: '',
-                  //   type: 'null',
-                  //   month: '01',
-                  //   year: '2019',
-                  //   street: '',
-                  //   city: '',
-                  //   state:'',
-                  //   zipcode:'',
-                  //   country:'us'
-                  // }
+                  this.form = {
+                    holderName: '',
+                    cardNumber: '',
+                    CVV: '',
+                    type: 'null',
+                    month: '01',
+                    year: '2019',
+                    street: '',
+                    city: '',
+                    state:'',
+                    zipcode:'',
+                    country:'us'
+                  }
                   this.$router.push({path: '/render/user/credit'});
-                  // this.$router.go(-1);
               })
-        }else{
-          this.$message({
-            message: 'Incomplete information',
-            type: 'warning',
-            showClose: true,
-            center: true
-          });
         }
+        
+
+        // if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
+        //   evt.preventDefault();
+        //   console.log(JSON.stringify(this.form));
+        //   this.$http.post(this.$api.creditAdd,
+        //       {nameOnCard:this.form.holderName,
+        //         cardNumber:this.form.cardNumber,
+        //         cardType:this.selectNum,
+        //         expireMonth:parseInt(this.form.month),
+        //         expireYear:parseInt(this.form.year),
+        //         xCardCode:this.form.CVV,
+        //         billingAddress:{
+        //           street:this.form.street,
+        //           city:this.form.city,
+        //           state:this.form.state,
+        //           zipcode:this.form.zipcode,
+        //           country:this.form.country},
+        //           isDefault:this.showDefault},
+        //         {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+        //       .then((res)=>{
+        //           console.log(res);
+        //           //添加成功后，默认都设置为空
+        //           // this.form = {
+        //           //   holderName: '',
+        //           //   cardNumber: '',
+        //           //   CVV: '',
+        //           //   type: 'null',
+        //           //   month: '01',
+        //           //   year: '2019',
+        //           //   street: '',
+        //           //   city: '',
+        //           //   state:'',
+        //           //   zipcode:'',
+        //           //   country:'us'
+        //           // }
+        //           this.$router.push({path: '/render/user/credit'});
+        //           // this.$router.go(-1);
+        //       })
+        // }else{
+        //   this.$message({
+        //     message: 'Incomplete information',
+        //     type: 'warning',
+        //     showClose: true,
+        //     center: true
+        //   });
+        // }
       },
       onReset(evt) {//清空
         this.$router.go(-1);
-        // this.form = {
-        //   holderName: '',
-        //   cardNumber: '',
-        //   CVV: '',
-        //   type: 'null',
-        //   month: '01',
-        //   year: '2019',
-        //   street: '',
-        //   city: '',
-        //   state:'',
-        //   zipcode:'',
-        //   country:'us'
-        // }
       }
     },
     components: {
@@ -587,5 +645,8 @@
   .isDefault{
     padding-left: 124px;
     padding-right: 124px;
+  }
+  >>> .el-switch__label *{
+    font-size: 16px;
   }
 </style>

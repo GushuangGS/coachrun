@@ -154,7 +154,7 @@
                 })
       },
       contactInfo(){
-        this.$router.push({name: 'AddContact'});
+        this.$router.push({name: 'ContactList'});
       },
       creditcard(){//跳转到信用卡页面
         this.$router.push({name: 'CreditList'});
@@ -259,6 +259,7 @@
   }
   .bookings-header>h4 {
     font-size: 18px;
+    font-weight: bold;
     margin-top: 0;
     margin-bottom: 0;
   }

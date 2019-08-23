@@ -44,6 +44,7 @@
                       <b-form-input
                         id="input-00"
                         v-model="form.holderName"
+                        :state="showValid==true?validationHolderName:''"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -56,12 +57,17 @@
                         <span class="necessary">* </span>
                         Card Number:
                       </div>
-                      <b-form-input
+                      <!-- <b-form-input
                         id="input-01"
                         v-model="form.cardNumber"
                         v-on:focus="showTips"
                         v-on:blur="hideTips"
                         :state="showTip==true?validationNum:validationNum2"
+                      ></b-form-input> -->
+                      <b-form-input
+                        id="input-01"
+                        v-model="form.cardNumber"
+                        :state="showValid==true?validationNum:validationNum2"
                       ></b-form-input>
                       <b-form-invalid-feedback>
                         {{cardNum}}
@@ -86,6 +92,7 @@
                         v-model="form.type"
                         :options="types"
                         @change="selectType"
+                        :state="showValid==true?validationType:''"
                       ></b-form-select>
                     </b-form-group>
                   </div>
@@ -142,6 +149,7 @@
                       <b-form-input
                         id="input-10"
                         v-model="form.CVV"
+                        :state="showValid==true?validationCvv:''"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -159,6 +167,7 @@
                   <b-form-input
                     id="input-4"
                     v-model="form.street"
+                    :state="showValid==true?validationStreet:''"
                   ></b-form-input>
                 </b-form-group>
 
@@ -170,6 +179,7 @@
                   <b-form-input
                     id="input-5"
                     v-model="form.city"
+                    :state="showValid==true?validationCity:''"
                   ></b-form-input>
                 </b-form-group>
                 <div class="row">
@@ -209,6 +219,7 @@
                       <b-form-input
                         id="input-61"
                         v-model="form.zipcode"
+                        :state="showValid==true?validationZipcode:''"
                       ></b-form-input>
                     </b-form-group>
                   </div>
@@ -223,6 +234,7 @@
                     v-model="form.country"
                     :options="countryOptions"
                     @change="selectCountry"
+                    :state="showValid==true?validationCountry:''"
                   ></b-form-select>
                 </b-form-group>
               </div>
@@ -281,10 +293,32 @@
         statesOptions,//城市选择
         chooseMonth:'',//选择月份
         selectNum:'',//选择数字
-        showDefault:true
+        showDefault:true,
+        showValid:false,//提示信息
       }
     },
     computed:{
+      validationHolderName(){
+        return this.form.holderName!='';
+      },
+      validationType(){
+        return this.form.type!='';
+      },
+      validationCvv(){
+        return this.form.CVV!='';
+      },
+      validationStreet(){
+        return this.form.street!='';
+      },
+      validationCity(){
+        return this.form.city!='';
+      },
+      validationZipcode(){
+        return this.form.zipcode!='';
+      },
+      validationCountry(){
+        return this.form.country!='';
+      },
       validationNum(){
         if(this.form.type == 'AmEx'){
           return this.form.cardNumber.length ==15;
@@ -380,19 +414,6 @@
       },
       onReset(evt) {
         this.$router.go(-1);
-        // this.form = {
-        //   holderName: '',
-        //   cardNumber: '',
-        //   CVV: '',
-        //   type: 'null',
-        //   month: '01',
-        //   year: '2019',
-        //   street: '',
-        //   city: '',
-        //   state:'null',
-        //   zipcode:'',
-        //   country:'us'
-        // }
       },
       save(){
         if(this.form.type == 'VISA'){
@@ -402,7 +423,10 @@
         }else if(this.form.type == 'Master'){
           this.selectNum = 1;
         }
-        if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
+
+        if(this.form.holderName=='' || this.form.cardNumber==''|| this.form.type =='' ||this.form.CVV=='' ||this.form.street==''||this.form.city==''||this.form.zipcode==''||this.form.country==''){
+          this.showValid = true;
+        }else{
           this.$http.patch(`${this.$api.creditUpdate}/${this.infos.ccid}`,
               {ccid:this.infos.ccid,
                 nameOnCard:this.form.holderName,
@@ -424,14 +448,38 @@
                   console.log(res);
                   this.$router.push({name:'CreditList'});
               })
-        }else{
-          this.$message({
-            message: 'Incomplete information',
-            type: 'warning',
-            showClose: true,
-            center: true
-          });
         }
+
+        // if(this.form.holderName!='' &&this.form.cardNumber!=''&&this.form.CVV!='' &&this.form.street!='' &&this.form.city!='' &&this.form.zipcode!=''){
+        //   this.$http.patch(`${this.$api.creditUpdate}/${this.infos.ccid}`,
+        //       {ccid:this.infos.ccid,
+        //         nameOnCard:this.form.holderName,
+        //         cardNumber:this.form.cardNumber,
+        //         cardType:this.selectNum,
+        //         expireMonth:this.form.month,
+        //         expireYear:this.form.year,
+        //         xCardCode:this.form.CVV,
+        //         isDefault:this.showDefault,
+        //         billingAddress:{
+        //           uid:'11',
+        //           street:this.form.street,
+        //           city:this.form.city,
+        //           state:this.form.state,
+        //           zipcode:this.form.zipcode,
+        //           country:this.form.country}},
+        //         {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        //       .then((res)=>{
+        //           console.log(res);
+        //           this.$router.push({name:'CreditList'});
+        //       })
+        // }else{
+        //   this.$message({
+        //     message: 'Incomplete information',
+        //     type: 'warning',
+        //     showClose: true,
+        //     center: true
+        //   });
+        // }
       }
     },
     components: {
@@ -564,5 +612,8 @@
   .isDefault{
     padding-left: 124px;
     padding-right: 124px;
+  }
+  >>> .el-switch__label *{
+    font-size: 16px;
   }
 </style>

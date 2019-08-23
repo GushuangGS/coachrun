@@ -35,7 +35,8 @@
   .success-box>img {
     width: 26px;
     height: 26px;
-    margin-right: 20px;
+    margin-right: 18px;
+    font-weight: bold;
   }
   .success-box>div>h2 {
     margin-top: 0;

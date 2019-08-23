@@ -240,7 +240,8 @@
     margin-top: 40px;
   }
   .detail>.table-title {
-    font-size: 20px;
+    font-size: 18px;
+    font-weight: bold;
     margin-top: 0;
     margin-bottom: 20px;
     line-height: 1;
@@ -270,12 +271,12 @@
   }
   .positive {
     color: #FF9D0D;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 24px;
   }
   .negtive {
     color: #0BA76E;
-    font-weight: bold;
+    /* font-weight: bold; */
     font-size: 24px;
   }
   .pending {
@@ -283,7 +284,8 @@
   }
   >>> .cell {
     position: relative;
-    font-size: 14px;
+    font-size: 16px;
+    text-align: center;
   }
   .text-pending {
     font-size: 14px;
@@ -300,5 +302,9 @@
   }
   .pagination-wrapper >>> .el-pagination.is-background .el-pager li:not(.disabled):not(.active):hover {
     color: #419EFF;
+  }
+  >>> .el-table__empty-text{
+    width: 100%;
+    text-align: left;
   }
 </style>

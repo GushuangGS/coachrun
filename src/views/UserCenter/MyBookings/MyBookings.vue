@@ -53,8 +53,8 @@
                             <div class="bookings-item">
                                 <div class="bookings-item-brief">
                                     <div>Order ID:&nbsp;&nbsp;<span>{{info.orderId}}</span></div>
-                                    <!-- <div>Purchase Date:&nbsp;&nbsp;<span>{{dateChange(info.saleDate)}}</span></div> -->
-                                    <div>Purchase Date:&nbsp;&nbsp;<span>{{info.saleDate}}</span></div>
+                                    <div>Purchase Date:&nbsp;&nbsp;<span>{{dateChange(info.saleDate)}}</span></div>
+                                    <!-- <div>Purchase Date:&nbsp;&nbsp;<span>{{info.saleDate}}</span></div> -->
                                 </div>
                                 <div class="bookings-item-brief">
                                     <div>Name:&nbsp;&nbsp;<span>{{info.customerName}}</span></div>
@@ -77,8 +77,8 @@
                                             {{item.pickupLocation.address.city}} {{timeChange(item.pickupLocation.time)}}
                                              ->  {{item.dropoffLocation.address.city}} {{timeChange(item.dropoffLocation.time)}}
                                       </span>
-                                      <div v-show="item.pickupLocation.nextDay==0" class="icon-night1"></div>
-                                      <div v-show="item.pickupLocation.nextDay==1" class="icon-night2"></div>
+                                      <div v-show="item.pickupLocation.nextDay==1" class="icon-night1"></div>
+                                      <div v-show="item.pickupLocation.nextDay==2" class="icon-night2"></div>
                                       <div class="bookings-disc bookings-disc-color2" v-show="item.serviceStatus==3">
                                           Canclled
                                       </div>
