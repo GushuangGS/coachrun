@@ -71,7 +71,7 @@
           <span class="item-name" v-show="deleteInfo.cardType==3">AmEx Card</span>
           <span class="item-name" v-show="deleteInfo.cardType==2">Visa Card</span>
           <span class="item-name" v-show="deleteInfo.cardType==1">Master Card</span>
-          <span class="item-detail">{{getNum(deleteInfo.ccid)}}</span>
+          <span class="item-detail">{{getNum(deleteInfo.cardNumber)}}</span>
         </div>
         <p>Are you sure you want to remove this credit card from your list? </p>
       </div>
@@ -147,7 +147,9 @@
       editCredit(info){//编辑更新信用卡
         console.log(info);
         this.$store.commit('creditInfo',info);
-        this.$router.push({name: 'EditCredit'});
+        this.$store.commit('creditName','edit');
+        this.$router.push({name: 'ReceiverCredit'});
+        // this.$router.push({name: 'EditCredit'});
       },
       setDefault(info){
         console.log(info);
@@ -160,7 +162,9 @@
               })
       },
       addCredit(){//添加信用卡
-        this.$router.push({name: 'AddCredit'});
+        this.$store.commit('creditName','add');
+        this.$router.push({name: 'ReceiverCredit'});
+        // this.$router.push({name: 'AddCredit'});
       },
       deleteCredit(info,index){//删除信用卡
         this.showDialogVisible = true;

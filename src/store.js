@@ -9,7 +9,9 @@ export default new Vuex.Store({
       creditInfo:{},
       isLogin:false,//默认没有登录
       loginName:sessionStorage.getItem('loginName') || '',
-      sendEmail:''
+      sendEmail:'',
+      contactName:'',
+      creditName:''
   },
   mutations: {
     contactInfo(state,data){//编辑
@@ -32,6 +34,14 @@ export default new Vuex.Store({
     },
     sendEmail(state,data){
       state.sendEmail = data;
+    },
+    contactName(state,data){//编辑或添加信息
+      state.contactName = data;
+      localStorage.setItem("contactName",data);
+    },
+    creditName(state,data){//编辑或添加信息
+      state.creditName = data;
+      localStorage.setItem("creditName",data);
     }
   },
   actions: {
@@ -46,6 +56,12 @@ export default new Vuex.Store({
     },
     updateSendEmail(context,data){
       context.commit('sendEmail',data);
+    },
+    updateContactName(context,data){
+      context.commit('contactName',data);
+    },
+    updateCreditName(context,data){
+      context.commit('creditName',data);
     }
   }
 })

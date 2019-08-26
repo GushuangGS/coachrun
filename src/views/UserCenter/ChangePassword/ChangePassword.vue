@@ -264,14 +264,14 @@
   }
   >>> .el-input {
     width: 190px;
-    height: 32px;
+    /* height: 32px; */
   }
   >>> .el-input>.el-input__inner {
     width: 190px;
-    height: 32px;
+    /* height: 32px; */
   }
   >>> .el-select .el-input__suffix {
-    margin-top: 5px;
+    /* margin-top: 5px; */
   }
   .failure-wrapper {
     display: flex;

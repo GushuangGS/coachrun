@@ -13,6 +13,8 @@ import myDealsRouter from './MyDeals/my-deals'
 // import passwordRetrievalRouter from './ResetPassword/password-retrieval'
 import myBookingsRouter from './MyBookings/my-bookings'
 
+import receiverContactRouter from './ContactInformation/receiver-contact'
+import receiverCreditRouter from './Credit/receiver-credit'
 
 const UserCenter = resolve => {
   import('@/views/UserCenter/UserCenter').then(module => {
@@ -40,7 +42,9 @@ const userCenterRouter = {
     myPointsRouter,
     myOrdersRouter,
     myDealsRouter,
-    myBookingsRouter
+    myBookingsRouter,
+    receiverContactRouter,
+    receiverCreditRouter
   ]
 }
 

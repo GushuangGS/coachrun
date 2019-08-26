@@ -103,10 +103,10 @@
       },
       clickdel(row){//删除
         // console.log(index);
-        this.$confirm('是否确认删除？', '删除', {
+        this.$confirm('Whether to confirm the deletion?', 'Delete', {
                     distinguishCancelAndClose: true,
-                    confirmButtonText: '确认',
-                    cancelButtonText: '取消'
+                    confirmButtonText: 'confirm remove',
+                    cancelButtonText: 'cancle'
                 }).then(() => {
                   this.$http.delete(`${this.$api.contactDelete}/${row.aid}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                       .then((res)=>{
@@ -117,8 +117,9 @@
       },
       edit(row){//编辑
         console.log(row);
-        // this.$router.push({name: 'EditContact',params:{contactId:row.aid}});
-        this.$router.push({name: 'EditContact'});
+        // this.$router.push({name: 'EditContact'});
+        this.$router.push({name: 'ReceiverContact'});
+        this.$store.commit('contactName','edit');
         this.$store.commit('contactInfo',row);
       },
       setDefault(row){
@@ -132,7 +133,9 @@
               })
       },
       AddContact(){
-        this.$router.push({name: 'AddContact'});
+        // this.$router.push({name: 'AddContact'});
+        this.$store.commit('contactName','add');
+        this.$router.push({name: 'ReceiverContact'});
       }
     }
   }
