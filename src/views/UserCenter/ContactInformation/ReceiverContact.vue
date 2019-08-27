@@ -121,6 +121,7 @@
                 return val.slice(val.indexOf(' ') + 1);
             },
             onUpdate(payload) {
+                console.log(payload)
                 this.results = payload;
             },
             onUpdateAgain(payload){
@@ -175,7 +176,7 @@
                                 console.log(res);
                                 if(res.data.code==200){
                                     this.$message({
-                                        message: 'Editorial Success',
+                                        message: 'Items saved successfully.',
                                         type: 'success',
                                         showClose: true,
                                         center: true
@@ -262,6 +263,9 @@
 >>> .field.vue-input-ui.has-value .field-label{
     top: -10px;
 }
+>>> .el-switch__label.is-active{
+    color: #303133;
+  }
 .btns{
     position: absolute;
     top: 405px;

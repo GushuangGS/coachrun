@@ -23,7 +23,6 @@
                 </div>
                 <div class="info-list">
                     <el-form :model="ruleForm" 
-                            status-icon 
                             :rules="rules" 
                             ref="ruleForm" 
                             label-width="100px" 
@@ -424,7 +423,7 @@
                                     console.log(res);
                                     if(res.data.code==200){
                                         this.$message({
-                                            message: 'Editorial Success',
+                                            message: 'Items saved successfully.',
                                             type: 'success',
                                             showClose: true,
                                             center: true
@@ -532,5 +531,8 @@
   .isDefault{
     margin-bottom: 15px;
     margin-top: 10px;
+  }
+  >>> .el-switch__label.is-active{
+    color: #303133;
   }
 </style>

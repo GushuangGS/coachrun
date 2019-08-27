@@ -19,11 +19,11 @@
                     <el-input v-model="ruleForm.email"></el-input>
                 </el-form-item>
             </el-form> -->
+            <div class="email">
+                <span class="email-discrib">Login Email:</span>
+                <input v-model="value" id="field" class="email-input" type="email">
+            </div>
             <form>
-                <div class="email">
-                    <span class="email-discrib">Login Email:</span>
-                    <input v-model="value" id="field" class="email-input" type="email">
-                </div>
                 <div id='recaptcha'
                     class="g-recaptcha"
                     data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
@@ -55,7 +55,6 @@
         console.log(token);
     }
     
-
     export default {
         name:'PasswordRetrieval',
         data() {
@@ -73,9 +72,9 @@
             // this.onload()
         },
         methods:{
-            // onSubmit(data) {
-            //     console.log(data);
-            // },
+            onSubmit(data) {
+                console.log(data);
+            },
             onload(){
                 // grecaptcha.execute();
                 // .then((token)=> {

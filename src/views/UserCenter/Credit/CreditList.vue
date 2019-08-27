@@ -22,7 +22,6 @@
               <div class="credit-name" v-show="info.cardType==1">Master Card</div>
               <div class="description">
                   {{getNum(info.cardNumber)}}
-                &nbsp;
                 <span v-show="info.isDefault == true">[Default]</span>
               </div>
               <div class="operation">
@@ -158,6 +157,12 @@
               {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               .then((res)=>{
                   console.log(res);
+                  this.$message({
+                      message: 'Saved successfully.',
+                      type: 'success',
+                      showClose: true,
+                      center: true
+                  });
                   this.creditList();
               })
       },
@@ -245,6 +250,7 @@
   .description>span {
     font-size: 14px;
     color: #FF9A0D;
+    margin-left: 22px;
   }
   .operation {
     line-height: 38px;

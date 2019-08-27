@@ -20,7 +20,6 @@
                     min-width="200">
                     <template slot-scope="scope">
                       <span>{{ scope.row.firstName}} {{scope.row.lastName }}</span>
-                      &nbsp;
                       <span v-if="scope.row.isDefault" class="default">[Default]</span>
                     </template>
                   </el-table-column>
@@ -61,7 +60,7 @@
                 
               </div>
               <div class="add-btn">
-                  <el-button class="add-info" @click="AddContact">+ Add new contact</el-button>
+                  <el-button class="add-info" @click="AddContact">+ Add a new contact person</el-button>
               </div>
             </div>
         </el-main>
@@ -103,14 +102,20 @@
       },
       clickdel(row){//删除
         // console.log(index);
-        this.$confirm('Whether to confirm the deletion?', 'Delete', {
+        this.$confirm('Are you sure to remove the contact person from your list?', 'Remove contact person:', {
                     distinguishCancelAndClose: true,
-                    confirmButtonText: 'confirm remove',
-                    cancelButtonText: 'cancle'
+                    confirmButtonText: 'Remove',
+                    cancelButtonText: 'Cancel '
                 }).then(() => {
                   this.$http.delete(`${this.$api.contactDelete}/${row.aid}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                       .then((res)=>{
                           console.log(res);
+                          this.$message({
+                            message: 'Deleted successfully.',
+                            type: 'success',
+                            showClose: true,
+                            center: true
+                          });
                           this.listInfo();
                       })
                 }).catch(() => {});
@@ -125,10 +130,16 @@
       setDefault(row){
         console.log(row);
         this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,
-              {isDefault:'true'},
+              {isDefault:true},
               {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               .then((res)=>{
                   console.log(res);
+                  this.$message({
+                      message: 'Saved successfully.',
+                      type: 'success',
+                      showClose: true,
+                      center: true
+                  });
                   this.listInfo();
               })
       },
@@ -170,6 +181,7 @@
   }
   span.default {
     color: #FF9A0D;
+    margin-left: 8px;
   }
   >>> .el-table__body td>div.cell>button>span {
     color: #29507D;
