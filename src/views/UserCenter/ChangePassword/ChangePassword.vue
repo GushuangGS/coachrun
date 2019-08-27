@@ -21,7 +21,7 @@
             </div>
           </div>
           <div class="form-wrapper" v-if="changeStatus !=0">
-            <el-form  :label-position="labelPosition" :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="150px">
+            <el-form  :label-position="labelPosition" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
               <el-form-item label="Password type:">
                 <el-select v-model="ruleForm.passwordType"  @change="selectGet">
                   <el-option v-for="(passwordType, index) in passwordTypes" 

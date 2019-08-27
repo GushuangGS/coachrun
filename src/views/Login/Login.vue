@@ -10,11 +10,10 @@
                 <el-input type="password" v-model="loginInfo.password"></el-input>
             </el-form-item>
             <div class="forget-pass" @click="forgetPass">Forgot password?</div>
-            <div class="check">
+            <!-- <div class="check">
                 <input id="chkAdmin" type="checkbox" v-model="item"> 
                 <label for="chkAdmin" class="rem-me">Remember me</label>
-                <!-- <span class="rem-me">Remember me</span> -->
-            </div>
+            </div> -->
             <el-button type="primary" @click.native.prevent="login" class="login-btn">Log In</el-button>
        </el-form>
        <div class="register">
@@ -45,7 +44,7 @@
         name:'Login',
         data(){
             return{
-                item:false,
+                // item:false,
                 loginInfo: {
                     email: '',
                     password: '',
@@ -68,20 +67,20 @@
                 this.$router.push({name: 'PasswordRetrieval'});
             },
             login(){
-                console.log(this.item);//true 则选择记住密码
+                // console.log(this.item);//true 则选择记住密码
                 this.$refs.loginForm.validate((valid)=>{
                     if (valid){
                         this.$http.post(this.$api.login,
                             { username: this.loginInfo.email, password:this.loginInfo.password})
                             .then((data) => {
                                 console.log(data);
-                                if (this.item == true) {
-                                    //传入账号名，密码，和保存天数3个参数
-                                    this.setCookie(this.loginInfo.email, this.loginInfo.password, 7);
-                                }else {
-                                    //清空Cookie
-                                    this.clearCookie();
-                                }
+                                // if (this.item == true) {
+                                //     //传入账号名，密码，和保存天数3个参数
+                                //     this.setCookie(this.loginInfo.email, this.loginInfo.password, 7);
+                                // }else {
+                                //     //清空Cookie
+                                //     this.clearCookie();
+                                // }
                                 sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token); 
                                 this.$router.push({name: 'MyOrders'});
                                 this.$store.commit('login'); 
@@ -162,6 +161,8 @@
         color:rgba(0,162,255,1);
         text-align: end;
         cursor: pointer;
+        margin-left: 260px;
+        width: 120px;
     }
     .check{
         display: flex;

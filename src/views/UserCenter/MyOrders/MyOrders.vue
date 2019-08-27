@@ -11,7 +11,7 @@
               <div class="left">
                 <img class="left-img" src="./img/touxiang.png">
                 <div class="account-points">
-                  <h4>Jordanauthor@hotmail.com</h4>
+                  <h4>{{dashDis.customerEmail}}</h4>
                   <p class="points">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
                 </div>
               </div>
