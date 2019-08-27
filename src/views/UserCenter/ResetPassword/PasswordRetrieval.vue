@@ -28,7 +28,6 @@
                     class="g-recaptcha"
                     data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
                     :data-callback="onSubmit"
-                    data-size="invisible"
                     >
                     <!-- data-size="invisible" -->
                 </div>
@@ -51,9 +50,9 @@
 </template>
 
 <script>
-    function onSubmit(token) {
-        console.log(token);
-    }
+    // function onSubmit(token) {
+    //     console.log(token);
+    // }
     
     export default {
         name:'PasswordRetrieval',
@@ -86,7 +85,7 @@
                 if (!this.value) {
                     alert("You must add text to the required field");
                 } else {
-                    grecaptcha.execute();
+                    // grecaptcha.execute();
                 }
             }
             // resetPass() {
