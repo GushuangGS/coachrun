@@ -19,11 +19,11 @@
                     <el-input v-model="ruleForm.email"></el-input>
                 </el-form-item>
             </el-form> -->
-            <div class="email">
-                <span class="email-discrib">Login Email:</span>
-                <input v-model="value" class="email-input" type="email">
-            </div>
             <form>
+                <div class="email">
+                    <span class="email-discrib">Login Email:</span>
+                    <input v-model="value" id="field" class="email-input" type="email">
+                </div>
                 <div id='recaptcha'
                     class="g-recaptcha"
                     data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
@@ -37,7 +37,9 @@
                 </el-button>
             </form>
             <!-- 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI -->
-            
+            <!-- <el-button id="submit" class="btn" v-show="sendAuthCode" @click="resetPass">
+                    Reset login password
+            </el-button> -->
             <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
                 Reset login password
             </el-button>
@@ -49,6 +51,11 @@
 </template>
 
 <script>
+    function onSubmit(token) {
+        console.log(token);
+    }
+    
+
     export default {
         name:'PasswordRetrieval',
         data() {
@@ -66,9 +73,9 @@
             // this.onload()
         },
         methods:{
-            onSubmit(data) {
-                console.log(data);
-            },
+            // onSubmit(data) {
+            //     console.log(data);
+            // },
             onload(){
                 // grecaptcha.execute();
                 // .then((token)=> {
