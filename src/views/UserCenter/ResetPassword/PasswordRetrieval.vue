@@ -48,9 +48,9 @@
 </template>
 
 <script>
-    function robotVerified(data){
-      console.log(data);
-    }
+    // function robotVerified(data){
+    //   console.log(data);
+    // }
     export default {
         name:'PasswordRetrieval',
         data() {
@@ -72,7 +72,7 @@
                 console.log(data);
             },
             onload(){
-                grecaptcha.execute()
+                // grecaptcha.execute();
                 // .then((token)=> {
                 //     console.log(token);
                 // })
