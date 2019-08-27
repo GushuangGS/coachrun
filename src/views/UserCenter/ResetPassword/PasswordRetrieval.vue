@@ -3,7 +3,7 @@
         <div class="wrap">
             <span class="title">Password Retrieval</span>
             <span class="discrib">
-                Forgot your password? Enter your 
+                Forgot your password? Enter your
                 email address for us to email you the 
                 instructions to reset your password.
             </span>
@@ -26,7 +26,7 @@
             <div id='recaptcha'
                 class="g-recaptcha"
                 data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
-                data-callback="onSubmit"
+                data-callback="robotVerified"
                 >
                 <!-- data-size="invisible" -->
             </div>
@@ -45,33 +45,32 @@
 </template>
 
 <script>
-    export default{
+    export default {
         name:'PasswordRetrieval',
-        data(){
+        data() {
             return{
                 ruleForm: {
                     email: ''
                 },
-                value:'',
-                sendAuthCode: true,/*布尔值，通过v-show控制显示‘获取按钮’还是‘倒计时’ */
-                auth_time: 0,/*倒计时 计数器*/
+                value: '',
+                sendAuthCode: true, //布尔值，通过v-show控制显示‘发送按钮’还是‘倒计时’ 
+                auth_time: 0, //倒计时 计数器
                 isClick:false
             }
         },
         created(){
-            this.onload();
+            this.onload()
         },
         methods:{
-            onSubmit(token) {
-                console.log(token);
-                // alert('thanks ' + this.value + token);
+            robotVerified(data) {
+                console.log(data);
             },
             onload(){
-                grecaptcha.execute('6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p').then(token=>{
-                    console.log(token);
-                })
+                // grecaptcha.execute().then((token)=> {
+                //     console.log(token);
+                // })
             },
-            resetPass(){
+            resetPass() {
                 event.preventDefault();
                 if (!this.value) {
                     this.$message({
@@ -79,12 +78,12 @@
                         type: 'warning',
                         showClose: true,
                         center: true
-                    });
+                    })
                 } else {
-                    // grecaptcha.execute();
+                    grecaptcha.execute()
                 }
                 //---------------------------------------------------------
-                if(this.value!=''){
+                if (this.value != ''){
                     this.$store.commit('sendEmail',this.value);
                     this.$router.push({name: 'RemindEmail'});
                     ///--------------------------
@@ -101,12 +100,11 @@
                     //-----------------------------
                     this.$http.post(this.$api.forgotPassword,
                         {email:this.value,token:'111'},
-                        {headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                        {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
                             .then((res)=>{
-                                console.log(res);
+                                console.log(res)
                             })
-                }
-                
+                }                
             }
         }
     }

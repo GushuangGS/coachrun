@@ -1,9 +1,9 @@
 <template>
     <div class="my-points">
       <el-container>
-        <el-header height="33px">
+        <!-- <el-header height="33px">
           <item-header :status="status" :headerInfo="headerInfo"></item-header>
-        </el-header>
+        </el-header> -->
         <el-main>
           <div class="content">
             <div class="brief">
@@ -165,6 +165,9 @@
 <style scoped>
   .my-points {
     flex: 1;
+  }
+  >>> .el-main {
+    padding-top: 0;
   }
   .content {
     padding-top: 4px;

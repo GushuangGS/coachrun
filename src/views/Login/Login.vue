@@ -51,8 +51,10 @@
                     password: '',
                 },
                 rules: {
-                    email: [{ required: true, trigger: 'blur' }],
-                    password: [{ required: true, trigger: 'blur' }],
+                    email: [{ required: true, trigger: 'blur' ,message: 'Enter your full email address.'},
+                            { type: 'email', message: 'Please enter the correct email address', trigger: ['blur', 'change']}],
+                    password: [{ required: true, trigger: 'blur' ,message: 'Please enter your password.'},
+                            { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }],
                 }
             }
         },

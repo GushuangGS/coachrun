@@ -77,16 +77,16 @@
                 },
                 rules: {
                     firstName: [
-                        { required: true, trigger: 'blur' }
+                        { required: true, trigger: 'blur' ,message: 'Please enter your first name.'}
                     ],
                     lastName: [
-                        { required: true, trigger: 'blur' }
+                        { required: true, trigger: 'blur' ,message: 'Please enter your last name.'}
                     ],
                     email: [
-                        { required: true, trigger: 'blur' }
+                        { required: true, trigger: 'blur' ,message: 'Please enter your full email address.'}
                     ],
                     phone: [
-                        { required: true, trigger: 'blur' }
+                        { required: true, trigger: 'blur' ,message: 'Please enter a phone number.'}
                     ]
                 },
                 showDefault:true,

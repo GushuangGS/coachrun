@@ -32,7 +32,11 @@
                         <el-row :gutter="20">
                             <el-col :span="12">
                                 <el-form-item label="Card Holder Name:" prop="holderName">
-                                    <div class="el-icon-warning" id="icon-tip"></div>
+                                    <el-tooltip placement="bottom" effect="light">
+                                        <div slot="content">Card Holder Name is<br>typically the name of the
+                                            <br> person on the front of the <br>credit card.</div>
+                                        <div class="el-icon-warning" id="icon-tip"></div>
+                                    </el-tooltip>
                                     <el-input v-model="ruleForm.holderName" autocomplete="off"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -81,7 +85,15 @@
                             </el-col>
                             <el-col :span="6">
                                 <el-form-item label="CVV:" prop="CVV">
-                                    <div class="el-icon-warning" id="icon-tip2"></div>
+                                    <el-tooltip placement="bottom" effect="light">
+                                        <div slot="content"> Flip your card over and look at the<br> signature
+                                             box. You should see either<br> the
+                                             entire 16-digit credit card number<br> or
+                                             just the last four digits followed by a<br> special
+                                             3-digit code. This 3-digit code<br> is
+                                             your Card Security Code.</div>
+                                        <div class="el-icon-warning" id="icon-tip2"></div>
+                                    </el-tooltip>
                                     <el-input v-model="ruleForm.CVV" autocomplete="off"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -110,7 +122,13 @@
                             </el-col>
                             <el-col :span="16">
                                 <el-form-item label="Zipcode:" prop="zipcode">
-                                    <div class="el-icon-warning" id="icon-tip3"></div>
+                                    <el-tooltip placement="bottom" effect="light">
+                                        <div slot="content">Some countries do not have zip <br> codes.
+                                             You can put '00000' instead of<br> a
+                                             number. And, you will be able to<br> complete
+                                             the booking without any<br> problem. </div>
+                                        <div class="el-icon-warning" id="icon-tip3"></div>
+                                    </el-tooltip>
                                     <el-input v-model="ruleForm.zipcode" autocomplete="off"></el-input>
                                 </el-form-item>
                             </el-col>
@@ -204,15 +222,15 @@
                     country:'us'
                 },
                 rules: {
-                    holderName: [{required: true, trigger: 'blur'}],
-                    cardNumber: [{required: true, trigger: 'blur',validator: checkCardNum }],
-                    type: [{required: true, trigger: 'blur' }],
+                    holderName: [{required: true, trigger: 'blur',message: 'Please enter holderName.'}],
+                    cardNumber: [{required: true, trigger: 'blur',validator: checkCardNum ,message: 'Please enter cardNumber.'}],
+                    type: [{required: true, trigger: 'blur' ,message: 'Please choose a type.'}],
                     month: [{required: true, trigger: 'blur' }],
-                    CVV: [{required: true, trigger: 'blur' }],
-                    street: [{required: true, trigger: 'blur' }],
-                    city: [{required: true, trigger: 'blur' }],
-                    zipcode: [{required: true, trigger: 'blur' }],
-                    country: [{required: true, trigger: 'blur' }]
+                    CVV: [{required: true, trigger: 'blur' ,message: 'Please enter CVV.'}],
+                    street: [{required: true, trigger: 'blur' ,message: 'Please enter street.'}],
+                    city: [{required: true, trigger: 'blur' ,message: 'Please enter city.'}],
+                    zipcode: [{required: true, trigger: 'blur' ,message: 'Please enter zipcode.'}],
+                    country: [{required: true, trigger: 'blur' ,message: 'Please enter Country.'}]
                 },
                 types:[
                     {value: '3',label: 'AmEx'},
@@ -348,14 +366,14 @@
                                     {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                                 .then((res)=>{
                                     console.log(res);
-                                    if(res.data.code==200){
+                                    if(res.data.code==200) {
                                         this.$message({
                                             message: 'Added successfully',
                                             type: 'success',
                                             showClose: true,
                                             center: true
-                                        });
-                                         //添加成功后，默认都设置为空
+                                        })
+                                        // 添加成功后，默认都设置为空
                                         this.ruleForm = {
                                             holderName: '',
                                             cardNumber: '',
@@ -365,9 +383,9 @@
                                             year: '2019',
                                             street: '',
                                             city: '',
-                                            state:'',
-                                            zipcode:'',
-                                            country:'us'
+                                            state: '',
+                                            zipcode: '',
+                                            country: 'us'
                                         }
                                         this.$router.push({path: '/render/user/credit'});
                                     }
@@ -388,20 +406,19 @@
                         if (valid){
                             console.log(JSON.stringify(this.ruleForm));
                             this.$http.patch(`${this.$api.creditUpdate}/${this.infos.ccid}`,
-                                {
-                                    nameOnCard:this.ruleForm.holderName,
-                                    cardNumber:this.ruleForm.cardNumber,
-                                    cardType:this.selectNum,
-                                    expireMonth:this.ruleForm.month,
-                                    expireYear:this.ruleForm.year,
-                                    xCardCode:this.ruleForm.CVV,
-                                    isDefault:this.showDefault,
+                                {nameOnCard: this.ruleForm.holderName,
+                                    cardNumber: this.ruleForm.cardNumber,
+                                    cardType: this.selectNum,
+                                    expireMonth: this.ruleForm.month, 
+                                    expireYear: this.ruleForm.year,
+                                    xCardCode: this.ruleForm.CVV,
+                                    isDefault: this.showDefault,
                                     billingAddress:{
-                                    street:this.ruleForm.street,
-                                    city:this.ruleForm.city,
-                                    state:this.ruleForm.state,
-                                    zipcode:this.ruleForm.zipcode,
-                                    country:this.ruleForm.country}},
+                                    street: this.ruleForm.street,
+                                    city: this.ruleForm.city,
+                                    state: this.ruleForm.state,
+                                    zipcode: this.ruleForm.zipcode,
+                                    country: this.ruleForm.country}},
                                     {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                                 .then((res)=>{
                                     console.log(res);

@@ -2,9 +2,9 @@
   <!-- contact -->
     <div class="contact-list">
       <el-container>
-        <el-header height="33px">
+        <!-- <el-header height="33px">
           <item-header :status="status" :headerInfo="headerInfo"></item-header>
-        </el-header>
+        </el-header> -->
         <el-main>
             <div class="container">
               <h2>Contact Information</h2>
@@ -146,7 +146,8 @@
     flex: 1;
   }
   >>> .el-main {
-    padding-top: 24px;
+    /* padding-top: 24px; */
+    padding-top: 0;
   }
   .container {
     padding-left: 20px;

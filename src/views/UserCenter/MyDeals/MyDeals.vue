@@ -1,25 +1,27 @@
 <template>
     <div class="my-deals">
-        <el-container>
+        <!-- <el-container>
             <el-header height="33px">
                 <item-header :status="status" :headerInfo="headerInfo"></item-header>
             </el-header>
-        </el-container>
-        <div class="content">
-            <h2 class="deals-title">My Deals</h2>
-            <div class="products">
-                    <el-row :gutter="20">
-                        <el-col :span="8" v-for="(listInfo,index) in dataList" :key="index">
-                            <un-available :listInfo="listInfo" v-if="listInfo.ususedDate && listInfo.isExpired==1"></un-available>
-                            <available :listInfo="listInfo" v-else=""></available>
-                        </el-col>
-                    </el-row>
+        </el-container> -->
+        <el-main>
+            <div class="content">
+                <div class="deals-title">My Deals</div>
+                <div class="products">
+                        <el-row :gutter="20">
+                            <el-col :span="8" v-for="(listInfo,index) in dataList" :key="index">
+                                <un-available :listInfo="listInfo" v-if="listInfo.ususedDate && listInfo.isExpired==1"></un-available>
+                                <available :listInfo="listInfo" v-else=""></available>
+                            </el-col>
+                        </el-row>
+                </div>
+                <div class="none-deals" v-if="dataList.length==0">
+                    <img class="none-deals-img" src="./img/nodata.png">
+                    <div class="none-deals-tips">Sorry, No deals avaliable!</div>
+                </div>
             </div>
-            <div class="none-deals" v-if="dataList.length==0">
-                <img class="none-deals-img" src="./img/nodata.png">
-                <div class="none-deals-tips">Sorry, No deals avaliable!</div>
-            </div>
-        </div>
+        </el-main>
     </div>
 </template>
 
@@ -71,10 +73,12 @@
     .my-deals {
         flex: 1;
     }
+    >>> .el-main {
+        padding-top: 0;
+    }
     .content{
         padding-left: 40px;
         font-size: 18px;
-        margin-top: 20px;
     }
     .deals-title{
         font-size: 18px;

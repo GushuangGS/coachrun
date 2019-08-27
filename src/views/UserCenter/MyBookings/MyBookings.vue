@@ -1,9 +1,9 @@
 <template>
         <div class="my-orders">
           <el-container>
-            <el-header height="33px">
+            <!-- <el-header height="33px">
               <item-header :status="status" :headerInfo="headerInfo"></item-header>
-            </el-header>
+            </el-header> -->
             <el-main>
               <div class="content">
                 <h2 class="welcome">My Bookings</h2>
@@ -814,6 +814,9 @@
     <style scoped>
       div.my-orders {
         flex: 1;
+      }
+      >>> .el-main {
+        padding-top: 0;
       }
       .content {
         margin-top: 10px;

@@ -63,10 +63,10 @@
                         password: '',
                     },
                     rules: {
-                        email: [{ required: true, trigger: 'blur' }],
-                        phone: [{ required: true, trigger: 'blur' }],
-                        password: [{ required: true, trigger: 'blur' },
-                        { min: 6, max: 12, message: 'Please enter value between 6 and 12 characters long', trigger: 'blur' }]
+                        email: [{ required: true, trigger: 'blur' ,message: 'Please enter your full email address.'}],
+                        phone: [{ required: true, trigger: 'blur' ,message: 'Please enter a phone number.'}],
+                        password: [{ required: true, trigger: 'blur',message: 'Please enter your password.' },
+                        { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }]
                     },
                     options: [
                         {value: '8088',label: 'United States'},

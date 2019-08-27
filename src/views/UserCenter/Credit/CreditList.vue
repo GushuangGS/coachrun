@@ -1,8 +1,8 @@
 <template>
   <div class="credit">
-    <el-header height="33px">
+    <!-- <el-header height="33px">
       <item-header :status="status" :headerInfo="headerInfo"></item-header>
-    </el-header>
+    </el-header> -->
     <el-main>
       <div class="content">
         <div class="success-box-wrapper" v-if="successBoxFlag">
@@ -179,6 +179,9 @@
 <style scoped>
   .credit {
     flex: 1;
+  }
+  >>> .el-main {
+    padding-top: 0;
   }
   .content {
     padding-left: 20px;
