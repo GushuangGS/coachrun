@@ -48,9 +48,6 @@
 </template>
 
 <script>
-    // function robotVerified(data){
-    //   console.log(data);
-    // }
     export default {
         name:'PasswordRetrieval',
         data() {
@@ -65,7 +62,7 @@
             }
         },
         created(){
-            this.onload()
+            // this.onload()
         },
         methods:{
             robotVerified(data) {
@@ -77,42 +74,50 @@
                 //     console.log(token);
                 // })
             },
-            resetPass() {
+            resetPass(event){
                 event.preventDefault();
                 if (!this.value) {
-                    this.$message({
-                        message: 'You must add text to the required field',
-                        type: 'warning',
-                        showClose: true,
-                        center: true
-                    })
+                    alert("You must add text to the required field");
                 } else {
-                    // grecaptcha.execute()
+                    grecaptcha.execute();
                 }
-                //---------------------------------------------------------
-                if (this.value != ''){
-                    this.$store.commit('sendEmail',this.value);
-                    this.$router.push({name: 'RemindEmail'});
-                    ///--------------------------
-                    this.sendAuthCode = false;
-                    //设置倒计时秒
-                    this.auth_time = 30;
-                    var auth_timetimer = setInterval(() => {
-                        this.auth_time--;
-                        if (this.auth_time <= 0) {
-                            this.sendAuthCode = true;
-                            clearInterval(auth_timetimer);
-                        }
-                    }, 1000);
-                    //-----------------------------
-                    this.$http.post(this.$api.forgotPassword,
-                        {email:this.value,token:'111'},
-                        {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
-                            .then((res)=>{
-                                console.log(res)
-                            })
-                }                
             }
+            // resetPass() {
+            //     event.preventDefault();
+            //     if (!this.value) {
+            //         this.$message({
+            //             message: 'You must add text to the required field',
+            //             type: 'warning',
+            //             showClose: true,
+            //             center: true
+            //         })
+            //     } else {
+            //         // grecaptcha.execute()
+            //     }
+            //     //---------------------------------------------------------
+            //     if (this.value != ''){
+            //         this.$store.commit('sendEmail',this.value);
+            //         this.$router.push({name: 'RemindEmail'});
+            //         ///--------------------------
+            //         this.sendAuthCode = false;
+            //         //设置倒计时秒
+            //         this.auth_time = 30;
+            //         var auth_timetimer = setInterval(() => {
+            //             this.auth_time--;
+            //             if (this.auth_time <= 0) {
+            //                 this.sendAuthCode = true;
+            //                 clearInterval(auth_timetimer);
+            //             }
+            //         }, 1000);
+            //         //-----------------------------
+            //         this.$http.post(this.$api.forgotPassword,
+            //             {email:this.value,token:'111'},
+            //             {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
+            //                 .then((res)=>{
+            //                     console.log(res)
+            //                 })
+            //     }                
+            // }
         }
     }
 
