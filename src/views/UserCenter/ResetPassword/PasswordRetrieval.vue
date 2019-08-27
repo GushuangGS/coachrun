@@ -59,12 +59,17 @@
             }
         },
         created(){
-
+            this.onload();
         },
         methods:{
             onSubmit(token) {
                 console.log(token);
                 // alert('thanks ' + this.value + token);
+            },
+            onload(){
+                grecaptcha.execute().then(token=>{
+                    console.log(token);
+                })
             },
             resetPass(){
                 event.preventDefault();
