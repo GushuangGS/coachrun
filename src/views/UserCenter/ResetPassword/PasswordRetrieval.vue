@@ -80,7 +80,7 @@
                         center: true
                     })
                 } else {
-                    grecaptcha.execute()
+                    // grecaptcha.execute()
                 }
                 //---------------------------------------------------------
                 if (this.value != ''){
