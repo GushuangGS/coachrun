@@ -27,16 +27,17 @@
                 <div id='recaptcha'
                     class="g-recaptcha"
                     data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
-                    data-callback="robotVerified"
+                    data-callback="onSubmit"
                     data-size="invisible"
                     >
                     <!-- data-size="invisible" -->
                 </div>
+                <el-button class="btn" v-show="sendAuthCode" @click="resetPass">
+                        Reset login password
+                </el-button>
             </form>
             <!-- 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI -->
-            <el-button class="btn" v-show="sendAuthCode" @click="resetPass">
-                    Reset login password
-            </el-button>
+            
             <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
                 Reset login password
             </el-button>
@@ -65,7 +66,7 @@
             // this.onload()
         },
         methods:{
-            robotVerified(data) {
+            onSubmit(data) {
                 console.log(data);
             },
             onload(){
