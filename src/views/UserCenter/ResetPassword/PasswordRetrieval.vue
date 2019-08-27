@@ -45,6 +45,9 @@
 </template>
 
 <script>
+    function robotVerified(data){
+      console.log(data);
+    }
     export default {
         name:'PasswordRetrieval',
         data() {
