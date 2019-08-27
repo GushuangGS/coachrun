@@ -27,7 +27,7 @@
                 <div id='recaptcha'
                     class="g-recaptcha"
                     data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
-                    data-callback="onSubmit"
+                    :data-callback="onSubmit"
                     data-size="invisible"
                     >
                     <!-- data-size="invisible" -->
