@@ -63,14 +63,20 @@
         },
         methods:{
             onSubmit(token) {
-                alert('thanks ' + this.value);
+                console.log(token);
+                // alert('thanks ' + this.value + token);
             },
             resetPass(){
                 event.preventDefault();
                 if (!this.value) {
-                    alert("You must add text to the required field");
+                    this.$message({
+                        message: 'You must add text to the required field',
+                        type: 'warning',
+                        showClose: true,
+                        center: true
+                    });
                 } else {
-                    grecaptcha.execute();
+                    // grecaptcha.execute();
                 }
                 //---------------------------------------------------------
                 if(this.value!=''){

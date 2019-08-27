@@ -143,15 +143,23 @@
                             {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                             .then((res)=>{
                                 console.log(res);
-                                //添加成功后，默认都设置为空
-                                this.form = {
-                                    firstName:'',
-                                    lastName:'',
-                                    email:'',
-                                    phone:'',
-                                    phone2:''
-                                }
-                                this.$router.push({name:'ContactList'});
+                                if(res.data.code==200){
+                                        this.$message({
+                                            message: 'Added successfully',
+                                            type: 'success',
+                                            showClose: true,
+                                            center: true
+                                        });
+                                        //添加成功后，默认都设置为空
+                                        this.form = {
+                                            firstName:'',
+                                            lastName:'',
+                                            email:'',
+                                            phone:'',
+                                            phone2:''
+                                        }
+                                        this.$router.push({name:'ContactList'});
+                                    }
                             })
                         } else {
                             return false;
@@ -165,20 +173,22 @@
                             {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                             .then((res)=>{
                                 console.log(res);
-                                this.$message({
-                                    message: 'Editorial Success',
-                                    type: 'success',
-                                    showClose: true,
-                                    center: true
-                                });
-                                //添加成功后，默认都设置为空
-                                this.$router.push({name:'ContactList'});
-                                this.form = {
-                                firstName:'',
-                                lastName:'',
-                                email:'',
-                                phone:'',
-                                phone2:''
+                                if(res.data.code==200){
+                                    this.$message({
+                                        message: 'Editorial Success',
+                                        type: 'success',
+                                        showClose: true,
+                                        center: true
+                                    });
+                                    //添加成功后，默认都设置为空
+                                    this.$router.push({name:'ContactList'});
+                                    this.form = {
+                                    firstName:'',
+                                    lastName:'',
+                                    email:'',
+                                    phone:'',
+                                    phone2:''
+                                    }
                                 }
                             })
                         } else {

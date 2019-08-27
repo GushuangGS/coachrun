@@ -348,21 +348,29 @@
                                     {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                                 .then((res)=>{
                                     console.log(res);
-                                    //添加成功后，默认都设置为空
-                                    this.ruleForm = {
-                                        holderName: '',
-                                        cardNumber: '',
-                                        CVV: '',
-                                        type: 'null',
-                                        month: '01',
-                                        year: '2019',
-                                        street: '',
-                                        city: '',
-                                        state:'',
-                                        zipcode:'',
-                                        country:'us'
+                                    if(res.data.code==200){
+                                        this.$message({
+                                            message: 'Added successfully',
+                                            type: 'success',
+                                            showClose: true,
+                                            center: true
+                                        });
+                                         //添加成功后，默认都设置为空
+                                        this.ruleForm = {
+                                            holderName: '',
+                                            cardNumber: '',
+                                            CVV: '',
+                                            type: 'null',
+                                            month: '01',
+                                            year: '2019',
+                                            street: '',
+                                            city: '',
+                                            state:'',
+                                            zipcode:'',
+                                            country:'us'
+                                        }
+                                        this.$router.push({path: '/render/user/credit'});
                                     }
-                                    this.$router.push({path: '/render/user/credit'});
                                 })
                         } else {
                             return false;
@@ -397,7 +405,15 @@
                                     {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                                 .then((res)=>{
                                     console.log(res);
-                                    this.$router.push({name:'CreditList'});
+                                    if(res.data.code==200){
+                                        this.$message({
+                                            message: 'Editorial Success',
+                                            type: 'success',
+                                            showClose: true,
+                                            center: true
+                                        });
+                                        this.$router.push({name:'CreditList'});
+                                    }
                                 })
                         }
                     })

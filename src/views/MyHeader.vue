@@ -74,10 +74,10 @@
                 this.$router.push({name: 'Register'});
             },
             logout(){
-                this.$confirm('是否确认退出？', '退出', {
+                this.$confirm('Whether to confirm the exit?', 'Logout', {
                     distinguishCancelAndClose: true,
-                    confirmButtonText: '确认',
-                    cancelButtonText: '取消'
+                    confirmButtonText: 'confirm',
+                    cancelButtonText: 'cancel'
                 }).then(() => {
                     this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                                 .then((data) => {
