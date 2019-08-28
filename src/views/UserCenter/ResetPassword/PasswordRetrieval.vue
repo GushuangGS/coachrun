@@ -23,26 +23,15 @@
                 <span class="email-discrib">Login Email:</span>
                 <input v-model="value" id="field" class="email-input" type="email">
             </div>
-            <!-- <form>
-                <div id='recaptcha'
-                    class="g-recaptcha"
-                    data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
-                    :data-callback="onSubmit"
-                    data-size="invisible"
-                    >
-                </div>
-                <el-button class="btn" v-show="sendAuthCode" @click="resetPass">
-                        Reset login password
-                </el-button>
-            </form> -->
             <vue-recaptcha 
                     ref="invisibleRecaptcha"
-                    sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p" 
+                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" 
                     :loadRecaptchaScript="true"
                     @verify="onVerify"
                     @expired="onExpired"
                     size="invisible">
             </vue-recaptcha>
+            <!-- 6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p -->
             <!-- 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI -->
             <el-button id="submit" class="btn" v-show="sendAuthCode" @click="resetPass">
                     Reset login password
@@ -86,9 +75,6 @@
             onExpired() {
                 console.log('Expired')
             },
-            onSubmit(data) {
-                console.log(data);
-            },
             getToken(){
                 this.$refs.invisibleRecaptcha.execute();
             },
@@ -104,13 +90,15 @@
                     }
                 }, 1000);
                 this.$http.post(this.$api.forgotPassword,
-                {email:this.value,token:this.verify},
-                {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
+                    {email:this.value,token:this.verify})
                     .then((res)=>{
                         console.log(res)
                         if(res.data.code == 200){
                             this.$store.commit('sendEmail',this.value);
                             this.$router.push({name: 'RemindEmail'});
+                        }else {
+                            this.sendAuthCode = true;
+                            clearInterval(auth_timetimer);
                         }
                     })
             },
@@ -127,42 +115,6 @@
                     this.getToken();
                 }
             }
-            // resetPass() {
-            //     event.preventDefault();
-            //     if (!this.value) {
-            //         this.$message({
-            //             message: 'You must add text to the required field',
-            //             type: 'warning',
-            //             showClose: true,
-            //             center: true
-            //         })
-            //     } else {
-            //         // grecaptcha.execute()
-            //     }
-            //     //---------------------------------------------------------
-            //     if (this.value != ''){
-            //         this.$store.commit('sendEmail',this.value);
-            //         this.$router.push({name: 'RemindEmail'});
-            //         ///--------------------------
-            //         this.sendAuthCode = false;
-            //         //设置倒计时秒
-            //         this.auth_time = 30;
-            //         var auth_timetimer = setInterval(() => {
-            //             this.auth_time--;
-            //             if (this.auth_time <= 0) {
-            //                 this.sendAuthCode = true;
-            //                 clearInterval(auth_timetimer);
-            //             }
-            //         }, 1000);
-            //         //-----------------------------
-            //         this.$http.post(this.$api.forgotPassword,
-            //             {email:this.value,token:'111'},
-            //             {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
-            //                 .then((res)=>{
-            //                     console.log(res)
-            //                 })
-            //     }                
-            // }
         }
     }
 
@@ -171,7 +123,8 @@
 <style scoped>
     .wrap-bg{
         width: 100%;
-        height: 100%;
+        /* height: 100%; */
+        min-height: 525px;
         background: #F5F5F5;
         margin-top: 20px;
         padding: 50px;
@@ -180,7 +133,7 @@
         margin: 50px auto;
         background:rgba(255,255,255,1);
         width: 380px;
-        height: 380px;
+        height: 280px;
         padding: 28px 0 0 40px;
     }
     .title{

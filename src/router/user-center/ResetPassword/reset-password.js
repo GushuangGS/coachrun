@@ -6,7 +6,7 @@ const ResetPassword = resolve => {
 
 const ResetPasswordRouter = {
   // path: '/app/member/account/resetPassword',
-  path: '/render/user/resetPassword',
+  path: '/render/user/reset-password',
   name: 'ResetPassword',
   component: ResetPassword,
   meta: {

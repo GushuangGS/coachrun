@@ -24,13 +24,13 @@
                             </el-form-item>
                             <el-form-item class="phone" label="Contact Phone:" prop="phone">
                                     <VuePhoneNumberInput v-model="ruleForm.phone" 
-                                    default-country-code="US" 
+                                    :default-country-code="countryFir" 
                                     @update="onUpdate"
                                     />
                             </el-form-item>
                             <el-form-item class="phone2" label="Alternate Phone:" prop="phone2">
                                     <VuePhoneNumberInput v-model="ruleForm.phone2" 
-                                    default-country-code="US" 
+                                    :default-country-code="countrySec" 
                                     @update="onUpdateAgain"
                                     />
                             </el-form-item>
@@ -55,6 +55,7 @@
 <script>
     import ItemHeader from '@/views/UserCenter/ItemHeader';
     import VuePhoneNumberInput from 'vue-phone-number-input';
+    import { parsePhoneNumberFromString } from 'libphonenumber-js'
     export default{
         components: {
             ItemHeader,
@@ -92,7 +93,11 @@
                 showDefault:true,
                 results: {},
                 resultsAgain:{},
-                whereName:''
+                whereName:'',
+                countryFir:'US',
+                countrySec:'US',
+                sendPhone1:'',
+                sendPhone2:''
             }
         },
         created(){
@@ -100,12 +105,20 @@
             console.log(this.$store.state.contactName);
             if(this.whereName=='edit'){
                 this.ruleForm = this.$store.state.contactInfo==""?this.$store.state.contactInfo:JSON.parse(localStorage.getItem("contactInfo"));
-                this.ruleForm.phone = this.intStr(this.ruleForm.phone);
+                console.log(this.ruleForm.phone)
+                const phoneNumber = parsePhoneNumberFromString(this.ruleForm.phone);
+                if(phoneNumber !== undefined){
+                    this.ruleForm.phone = phoneNumber.nationalNumber;
+                    this.countryFir = phoneNumber.country;
+                }
                 if(this.ruleForm.phone2){
-                    this.ruleForm.phone2 = this.intStr(this.ruleForm.phone2);
+                    const phoneNumber2 = parsePhoneNumberFromString(this.ruleForm.phone2);
+                    if(phoneNumber2 !== undefined){
+                        this.ruleForm.phone2 = phoneNumber2.nationalNumber;
+                        this.countrySec = phoneNumber2.country;
+                    }
                 }
                 this.showDefault = this.ruleForm.isDefault;
-                console.log(this.ruleForm);
             }else if(this.whereName=='add'){
                 this.ruleForm={
                     firstName: '',
@@ -121,15 +134,22 @@
                 return val.slice(val.indexOf(' ') + 1);
             },
             onUpdate(payload) {
-                console.log(payload)
                 this.results = payload;
+                if(payload.formatInternational !== undefined){
+                    const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
+                    this.sendPhone1 = "+"+ addPhoneFir.countryCallingCode+ " " + addPhoneFir.nationalNumber;
+                }
+                
             },
             onUpdateAgain(payload){
               this.resultsAgain = payload;
+              if(payload.formatInternational !== undefined){
+                const addPhoneSec = parsePhoneNumberFromString(payload.formatInternational);
+                this.sendPhone2 = "+"+ addPhoneSec.countryCallingCode+ " " + addPhoneSec.nationalNumber;
+              }
             },
             selectDefault(val){
               this.showDefault = val;
-              console.log(val);
             },
             goBack(){
                 this.$router.go(-1);
@@ -140,7 +160,7 @@
                         if (valid) {
                             this.$http.post(this.$api.contactAdd,
                             { firstName:this.ruleForm.firstName,lastName:this.ruleForm.lastName,
-                            phone:this.results.formatInternational,email:this.ruleForm.email,phone2:this.resultsAgain.formatInternational,isDefault:this.showDefault},
+                            phone:this.sendPhone1,email:this.ruleForm.email,phone2:this.sendPhone2,isDefault:this.showDefault},
                             {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                             .then((res)=>{
                                 console.log(res);
@@ -170,7 +190,7 @@
                     this.$refs[formName].validate((valid) => {
                         if (valid) {
                             this.$http.patch(`${this.$api.contactUpdate}/${this.ruleForm.aid}`,
-                            {firstName:this.ruleForm.firstName,lastName:this.ruleForm.lastName,email:this.ruleForm.email,phone:this.results.formatInternational,phone2:this.resultsAgain.formatInternational,isDefault:this.showDefault},
+                            {firstName:this.ruleForm.firstName,lastName:this.ruleForm.lastName,email:this.ruleForm.email,phone:this.sendPhone1,phone2:this.sendPhone2,isDefault:this.showDefault},
                             {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                             .then((res)=>{
                                 console.log(res);

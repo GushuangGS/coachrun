@@ -17,7 +17,6 @@ import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import 'font-awesome/css/font-awesome.min.css'
 import './common/css/index.css'
 
-
 Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
@@ -59,8 +58,6 @@ export function tryHideFullScreenLoading() {
   }
 }
 //http request 拦截器
-
-
 axios.interceptors.request.use(
   config => {
       var token = '';
@@ -93,7 +90,7 @@ axios.interceptors.response.use(
               querry:{redirect:router.currentRoute.fullPath}//从哪个页面跳转
           })
       }
-      tryHideFullScreenLoading()
+      tryHideFullScreenLoading();
       return response;
   },
   error => {

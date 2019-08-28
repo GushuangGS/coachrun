@@ -17,7 +17,7 @@
                         Service for further assistance.</p>
              </div>
         </div>
-        <span @click="back" class="back">Back to Home ></span>
+        <span @click="back" class="back">Back ></span>
     </div>
 </template>
 

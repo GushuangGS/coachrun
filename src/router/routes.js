@@ -46,7 +46,7 @@ const routes = [
     component:Register
   },
   {//发送邮箱
-    path: '/render/user/passwordRetrieval',
+    path: '/render/user/forgot-password',
     name: 'PasswordRetrieval',
     component: PasswordRetrieval,
     meta: {
@@ -54,7 +54,7 @@ const routes = [
     }
   },
   {//发送至邮箱提醒
-    path: '/render/user/remindEmail',
+    path: '/render/user/forgot-password/after',
     name: 'RemindEmail',
     component: RemindEmail,
     meta: {
@@ -62,7 +62,7 @@ const routes = [
     }
   },
   {//密码重置页
-    path: '/render/user/resetPassword',
+    path: '/render/user/reset-password',
     name: 'ResetPassword',
     component: ResetPassword,
     meta: {

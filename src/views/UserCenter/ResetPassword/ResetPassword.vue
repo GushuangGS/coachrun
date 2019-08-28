@@ -4,7 +4,7 @@
             <p class="title">Set a New Password</p>
             <div class="email">
                 <span class="emali-lab">Registered Email:</span>
-                <span class="email-name">selinaquzhou@gmail.com</span>
+                <span class="email-name">{{userEmail}}</span>
             </div>
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto">
                 <el-form-item prop="pass" label="New Password:">
@@ -70,15 +70,27 @@
                     checkPass: [
                         { required: true, validator: validatePass2, trigger: 'blur' }
                     ],
-                }
+                },
+                userEmail:'',
+                code:''
             }
         },
+        created(){
+            this.userEmail = this.getEmail("email");
+            this.code = this.getEmail("verificationCode");
+        },
         methods:{
+            getEmail(name){
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                    var r = window.location.search.substr(1).match(reg);
+                    if(r != null) return unescape(r[2]);
+                    return null;
+            },
             save(){
                 this.$refs.ruleForm.validate((valid) => {
                     if(valid){
                         this.$http.post(this.$api.resetPassword,
-                        {verificationCode:'1',password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
+                        {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
                             .then((res)=>{
                                 console.log(res);
                             })

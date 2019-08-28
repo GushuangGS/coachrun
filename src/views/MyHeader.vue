@@ -74,21 +74,15 @@
                 this.$router.push({name: 'Register'});
             },
             logout(){
-                this.$confirm('Whether to confirm the exit?', 'Logout', {
-                    distinguishCancelAndClose: true,
-                    confirmButtonText: 'confirm',
-                    cancelButtonText: 'cancel'
-                }).then(() => {
-                    this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
-                                .then((data) => {
-                                    console.log(data);
-                                    this.$router.push({name: 'Login'});
-                                    sessionStorage.removeItem("IvyCustomer_LoginToken");
-                                    sessionStorage.removeItem("loginName");
-                                    this.$store.commit('logout');
-                                    this.$store.commit('loginName','');
-                                });
-                });
+                this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                            .then((data) => {
+                                console.log(data);
+                                this.$router.push({name: 'Login'});
+                                sessionStorage.removeItem("IvyCustomer_LoginToken");
+                                sessionStorage.removeItem("loginName");
+                                this.$store.commit('logout');
+                                this.$store.commit('loginName','');
+                            });
             }
         }
     }
