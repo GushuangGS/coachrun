@@ -75,16 +75,11 @@ axios.interceptors.request.use(
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
       config.headers['X-Api-Key'] = btoa(apiKey);
-      // config.headers = {
-      //     'Content-Type':'application/json',
-      //     'X-Api-Key':btoa(apiKey),
-      //     // 'Authorization':`Bearer ${sessionStorage.getItem('token')}`
-      // }
       showFullScreenLoading();
       return config;
   },
   error => {
-      return Promise.reject(err);
+    return Promise.reject(err);
   }
 );
 //http response 拦截器
@@ -92,7 +87,7 @@ axios.interceptors.response.use(
   response => {
     // console.log(response);
       //当返回信息为未登录或者登录失效的时候重定向为登录页面
-      if(response.data.code == 'W_100004' || response.data.message == '用户未登录或登录超时，请登录！'){
+      if(response.data.code == '401'){
           router.push({
               path:"/render/user/login",
               querry:{redirect:router.currentRoute.fullPath}//从哪个页面跳转

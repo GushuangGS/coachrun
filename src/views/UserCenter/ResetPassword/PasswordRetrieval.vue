@@ -23,22 +23,23 @@
                 <span class="email-discrib">Login Email:</span>
                 <input v-model="value" id="field" class="email-input" type="email">
             </div>
-            <form>
+            <!-- <form>
                 <div id='recaptcha'
                     class="g-recaptcha"
                     data-sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p"
                     :data-callback="onSubmit"
+                    data-size="invisible"
                     >
-                    <!-- data-size="invisible" -->
                 </div>
                 <el-button class="btn" v-show="sendAuthCode" @click="resetPass">
                         Reset login password
                 </el-button>
-            </form>
+            </form> -->
+            <vue-recaptcha sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p" :loadRecaptchaScript="true"></vue-recaptcha>
             <!-- 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI -->
-            <!-- <el-button id="submit" class="btn" v-show="sendAuthCode" @click="resetPass">
+            <el-button id="submit" class="btn" v-show="sendAuthCode" @click="resetPass">
                     Reset login password
-            </el-button> -->
+            </el-button>
             <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
                 Reset login password
             </el-button>
@@ -53,9 +54,10 @@
     // function onSubmit(token) {
     //     console.log(token);
     // }
-    
+    import VueRecaptcha from 'vue-recaptcha';
     export default {
         name:'PasswordRetrieval',
+        components: { VueRecaptcha },
         data() {
             return{
                 ruleForm: {

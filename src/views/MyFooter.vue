@@ -47,7 +47,7 @@
             </el-row>         
         </div>
         <div class="copy"> 
-            Copyright &nbsp;© 2019 &nbsp;&nbsp;&nbsp;www.coachrun.com.&nbsp;&nbsp;&nbsp;All rights reserved
+            Copyright &nbsp;© {{year}} &nbsp;&nbsp;&nbsp;www.coachrun.com.&nbsp;&nbsp;&nbsp;All rights reserved
         </div> 
     </div>
 </template>
@@ -57,10 +57,12 @@
         name:'MyFooter',
         data(){
             return{
-
+                year:''
             }
         },
-        created(){},
+        created(){
+            this.year = new Date().getFullYear();
+        },
         methods:{
             
         }
