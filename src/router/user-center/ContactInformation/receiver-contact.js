@@ -6,7 +6,7 @@ const ReceiverContact = resolve => {
   
   const receiverContactRouter = {
     // path: '/app/member/account/addContact',
-    path: '/render/user/receiverContact',
+    path: '/render/member/contact-info-detail',
     name: 'ReceiverContact',
     component: ReceiverContact
   }

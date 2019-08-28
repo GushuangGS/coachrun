@@ -6,7 +6,7 @@ const MyDeals = resolve => {
 
 const myDealsRouter = {
   // path: '/app/member/account/deals',
-  path: '/render/user/deals',
+  path: '/render/member/user-deals',
   name: 'MyDeals',
   component: MyDeals,
   meta: {

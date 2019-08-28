@@ -147,7 +147,7 @@
         console.log(info);
         this.$store.commit('creditInfo',info);
         this.$store.commit('creditName','edit');
-        this.$router.push({name: 'ReceiverCredit'});
+        this.$router.push({name: 'ReceiverCredit',query:{id:info.aid}});
         // this.$router.push({name: 'EditCredit'});
       },
       setDefault(info){

@@ -5,7 +5,7 @@ const ReceiverCredit = resolve => {
   }
   
   const receiverCreditRouter = {
-    path: '/render/user/receiverCredit',
+    path: '/render/member/credit-card-detail',
     name: 'ReceiverCredit',
     component: ReceiverCredit
   }

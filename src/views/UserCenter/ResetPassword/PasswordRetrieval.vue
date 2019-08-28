@@ -37,7 +37,7 @@
             </form> -->
             <vue-recaptcha 
                     ref="invisibleRecaptcha"
-                    sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p" 
+                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" 
                     :loadRecaptchaScript="true"
                     @verify="onVerify"
                     @expired="onExpired"
@@ -47,9 +47,9 @@
             <el-button id="submit" class="btn" v-show="sendAuthCode" @click="resetPass">
                     Reset login password
             </el-button>
-            <!-- <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
-                Reset login password
-            </el-button> -->
+            <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
+                {{auth_time}} seconds countdown
+            </el-button>
             <!-- <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
                 {{auth_time}} seconds countdown
             </el-button> -->
@@ -58,9 +58,6 @@
 </template>
 
 <script>
-    // function onSubmit(token) {
-    //     console.log(token);
-    // }
     import VueRecaptcha from 'vue-recaptcha';
     export default {
         name:'PasswordRetrieval',
@@ -82,8 +79,8 @@
         },
         methods:{
             onVerify(response) {
-                this.verify = response;
-                // this.sendAuthCode = !this.sendAuthCode;
+                 this.verify = response;
+                 this.forgotPas();
                 console.log(response);
             },
             onExpired() {
@@ -91,6 +88,29 @@
             },
             onSubmit(data) {
                 console.log(data);
+            },
+            getToken(){
+                this.$refs.invisibleRecaptcha.execute();
+            },
+            forgotPas(){
+                this.sendAuthCode = false;
+                //设置倒计时秒
+                this.auth_time = 30;
+                var auth_timetimer = setInterval(() => {
+                    this.auth_time--;
+                    if (this.auth_time <= 0) {
+                        this.sendAuthCode = true;
+                        clearInterval(auth_timetimer);
+                    }
+                }, 1000);
+                this.$http.post(this.$api.forgotPassword,
+                {email:this.value,token:this.verify},
+                {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
+                    .then((res)=>{
+                        console.log(res)
+                        this.$store.commit('sendEmail',this.value);
+                        this.$router.push({name: 'RemindEmail'});
+                    })
             },
             resetPass(event){
                 event.preventDefault();
@@ -102,27 +122,7 @@
                         center: true
                     })
                 } else {
-                    this.$refs.invisibleRecaptcha.execute();
-                        // this.$store.commit('sendEmail',this.value);
-                        // this.$router.push({name: 'RemindEmail'});
-                        // ///--------------------------
-                        // this.sendAuthCode = false;
-                        // //设置倒计时秒
-                        // this.auth_time = 30;
-                        // var auth_timetimer = setInterval(() => {
-                        //     this.auth_time--;
-                        //     if (this.auth_time <= 0) {
-                        //         this.sendAuthCode = true;
-                        //         clearInterval(auth_timetimer);
-                        //     }
-                        // }, 1000);
-                        // this.$http.post(this.$api.forgotPassword,
-                        // {email:this.value,token:this.verify},
-                        // {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
-                        //     .then((res)=>{
-                        //         console.log(res)
-                        //     })
-                    
+                    this.getToken();
                 }
             }
             // resetPass() {

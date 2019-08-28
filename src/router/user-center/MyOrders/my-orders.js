@@ -6,7 +6,7 @@ const MyOrders = resolve => {
 
 const myOrderRouter = {
   // path: '/app/member/account/orders',
-  path: '/render/user/orders',
+  path: '/render/member/dashboard',
   name: 'MyOrders',
   component: MyOrders,
   meta: {

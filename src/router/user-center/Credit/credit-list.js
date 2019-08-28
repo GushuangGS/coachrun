@@ -6,7 +6,7 @@ const CreditList = resolve => {
 
 const creditListRouter = {
   // path: '/app/member/account/credit',
-  path: '/render/user/credit',
+  path: '/render/member/credit-card-list',
   name: 'CreditList',
   component: CreditList,
   meta: {

@@ -6,7 +6,7 @@ const ContactList = resolve => {
 
 const contactListRouter = {
   // path: '/app/member/account/contact',
-  path: '/render/user/contact',
+  path: '/render/member/contact-info-list',
   name: 'ContactList',
   component: ContactList,
   meta: {

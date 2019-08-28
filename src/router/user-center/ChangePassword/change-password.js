@@ -6,7 +6,7 @@ const ChangePassword = resolve => {
 
 const changePasswordRouter = {
   // path: '/app/member/account/password',
-  path: '/render/user/password',
+  path: '/render/member/change-password',
   name: 'ChangePassword',
   component: ChangePassword,
   meta: {
