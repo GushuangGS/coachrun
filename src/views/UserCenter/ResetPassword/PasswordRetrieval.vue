@@ -25,7 +25,7 @@
             </div>
             <vue-recaptcha 
                     ref="invisibleRecaptcha"
-                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" 
+                    sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p" 
                     :loadRecaptchaScript="true"
                     @verify="onVerify"
                     @expired="onExpired"
