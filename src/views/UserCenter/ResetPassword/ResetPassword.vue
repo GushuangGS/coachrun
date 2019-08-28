@@ -90,7 +90,8 @@
                 this.$refs.ruleForm.validate((valid) => {
                     if(valid){
                         this.$http.post(this.$api.resetPassword,
-                        {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
+                        {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass},
+                        {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                             .then((res)=>{
                                 console.log(res);
                             })
