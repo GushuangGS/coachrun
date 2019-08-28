@@ -37,7 +37,7 @@
             </form> -->
             <vue-recaptcha 
                     ref="invisibleRecaptcha"
-                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" 
+                    sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p" 
                     :loadRecaptchaScript="true"
                     @verify="onVerify"
                     @expired="onExpired"
@@ -108,8 +108,10 @@
                 {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
                     .then((res)=>{
                         console.log(res)
-                        this.$store.commit('sendEmail',this.value);
-                        this.$router.push({name: 'RemindEmail'});
+                        if(res.data.code == 200){
+                            this.$store.commit('sendEmail',this.value);
+                            this.$router.push({name: 'RemindEmail'});
+                        }
                     })
             },
             resetPass(event){
