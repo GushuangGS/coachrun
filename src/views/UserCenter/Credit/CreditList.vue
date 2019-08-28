@@ -59,7 +59,7 @@
       </div>
     </el-main>
     <el-dialog
-      title="Delete Credit Card"
+      title="Remove"
       :visible.sync="showDialogVisible"
       width="790px">
       <div class="delete-body">

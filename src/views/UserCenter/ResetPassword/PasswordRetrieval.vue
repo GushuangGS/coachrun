@@ -35,14 +35,21 @@
                         Reset login password
                 </el-button>
             </form> -->
-            <vue-recaptcha sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p" :loadRecaptchaScript="true"></vue-recaptcha>
+            <vue-recaptcha 
+                    ref="invisibleRecaptcha"
+                    sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" 
+                    :loadRecaptchaScript="true"
+                    @verify="onVerify"
+                    @expired="onExpired"
+                    size="invisible">
+            </vue-recaptcha>
             <!-- 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI -->
             <el-button id="submit" class="btn" v-show="sendAuthCode" @click="resetPass">
                     Reset login password
             </el-button>
-            <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
+            <!-- <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
                 Reset login password
-            </el-button>
+            </el-button> -->
             <!-- <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
                 {{auth_time}} seconds countdown
             </el-button> -->
@@ -66,28 +73,56 @@
                 value: '',
                 sendAuthCode: true, //布尔值，通过v-show控制显示‘发送按钮’还是‘倒计时’ 
                 auth_time: 0, //倒计时 计数器
-                isClick:false
+                isClick:false,
+                verify:''
             }
         },
         created(){
-            // this.onload()
+            
         },
         methods:{
+            onVerify(response) {
+                this.verify = response;
+                // this.sendAuthCode = !this.sendAuthCode;
+                console.log(response);
+            },
+            onExpired() {
+                console.log('Expired')
+            },
             onSubmit(data) {
                 console.log(data);
-            },
-            onload(){
-                // grecaptcha.execute();
-                // .then((token)=> {
-                //     console.log(token);
-                // })
             },
             resetPass(event){
                 event.preventDefault();
                 if (!this.value) {
-                    alert("You must add text to the required field");
+                    this.$message({
+                        message: 'You must add text to the required field',
+                        type: 'warning',
+                        showClose: true,
+                        center: true
+                    })
                 } else {
-                    // grecaptcha.execute();
+                    this.$refs.invisibleRecaptcha.execute();
+                        // this.$store.commit('sendEmail',this.value);
+                        // this.$router.push({name: 'RemindEmail'});
+                        // ///--------------------------
+                        // this.sendAuthCode = false;
+                        // //设置倒计时秒
+                        // this.auth_time = 30;
+                        // var auth_timetimer = setInterval(() => {
+                        //     this.auth_time--;
+                        //     if (this.auth_time <= 0) {
+                        //         this.sendAuthCode = true;
+                        //         clearInterval(auth_timetimer);
+                        //     }
+                        // }, 1000);
+                        // this.$http.post(this.$api.forgotPassword,
+                        // {email:this.value,token:this.verify},
+                        // {headers:{Authorization: `Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`} })
+                        //     .then((res)=>{
+                        //         console.log(res)
+                        //     })
+                    
                 }
             }
             // resetPass() {

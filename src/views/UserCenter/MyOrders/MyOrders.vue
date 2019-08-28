@@ -22,7 +22,7 @@
                 </div>
                 <div @click="creditcard">
                   <img class="right-img" src="./img/reschedule.png" alt="">
-                  <span class="right-span">View/Edit Creditcard</span>
+                  <span class="right-span">View/Edit Credit Card</span>
                 </div>
                 <div @click="changePass">
                     <img class="right-img" src="./img/password.png" alt="">

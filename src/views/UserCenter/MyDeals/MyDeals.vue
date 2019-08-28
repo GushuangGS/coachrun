@@ -18,7 +18,7 @@
                 </div>
                 <div class="none-deals" v-if="dataList.length==0">
                     <img class="none-deals-img" src="./img/nodata.png">
-                    <div class="none-deals-tips">Sorry, No deals avaliable!</div>
+                    <div class="none-deals-tips">Sorry, No deals available!</div>
                 </div>
             </div>
         </el-main>

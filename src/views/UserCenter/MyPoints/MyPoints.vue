@@ -8,7 +8,7 @@
           <div class="content">
             <div class="brief">
               <div class="brief-left">
-                <div class="brief-left-up">Avaliable Points</div>
+                <div class="brief-left-up">Available Points</div>
                 <div class="brief-left-middle">
                   <img src="./img/points.png">
                 </div>
