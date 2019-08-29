@@ -2,10 +2,11 @@
   <!-- 修改密码 -->
     <div class="change-password">
       <el-container>
-        <el-header height="33px">
+        <!-- <el-header height="33px">
           <item-header :status="changeStatus" :headerInfo="headerInfo"></item-header>
-        </el-header>
+        </el-header> -->
         <el-main class="content">
+          <div class="chapas-title">Change Password</div>
           <div class="info" v-if="changeStatus != 1">
             <div class="success-wrapper" v-if="changeStatus == 0">
               <success-box text="Your password has been reset successfully!"></success-box>
@@ -91,6 +92,7 @@
         }
       }
       return {
+        status: 0,
         headerInfo: [
           ['Change Password'],
           { description: 'Change Password', path: '/app/member/account/password',title:'My Account' }
@@ -161,6 +163,11 @@
     font-size: 16px;
     padding-top: 0;
     align-items: stretch;
+    margin-left: 20px;
+  }
+  .chapas-title{
+    font-size: 18px;
+    font-weight: bold;
   }
   .info {
     margin-top: 15px;

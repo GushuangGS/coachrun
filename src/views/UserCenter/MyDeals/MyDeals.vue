@@ -77,7 +77,7 @@
         padding-top: 0;
     }
     .content{
-        padding-left: 40px;
+        padding-left: 20px;
         font-size: 18px;
     }
     .deals-title{

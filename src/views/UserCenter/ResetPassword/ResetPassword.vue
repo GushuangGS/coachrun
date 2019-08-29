@@ -90,8 +90,7 @@
                 this.$refs.ruleForm.validate((valid) => {
                     if(valid){
                         this.$http.post(this.$api.resetPassword,
-                        {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass},
-                        {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                            {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
                             .then((res)=>{
                                 console.log(res);
                             })
@@ -135,7 +134,7 @@
     .email-name{
         color: #333333;
         font-size: 14px;
-        margin-left: 30px;
+        margin-left: 13px;
     }
     .login-btn{
         width: 200px;

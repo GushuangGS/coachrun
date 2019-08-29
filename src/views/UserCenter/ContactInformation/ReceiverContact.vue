@@ -12,8 +12,8 @@
                         ref="ruleForm" 
                         label-width="100px" 
                         class="demo-ruleForm"
-                        label-position="top">
-                            <el-form-item class="first-name" label="First Name:" prop="firstName">
+                        label-position="top"> 
+                            <!-- <el-form-item class="first-name" label="First Name:" prop="firstName">
                                 <el-input  v-model="ruleForm.firstName"></el-input>
                             </el-form-item>
                             <el-form-item class="last-name" label="Last Name:" prop="lastName">
@@ -43,7 +43,64 @@
                             <el-form-item class="btns">
                                 <el-button @click="goBack">Cancel</el-button>
                                 <el-button type="warning" @click="submitForm('ruleForm')">Save</el-button>
-                            </el-form-item>
+                            </el-form-item> -->
+                            <el-row :gutter="20">
+                                <el-col :span="12">
+                                    <el-form-item class="first-name" label="First Name:" prop="firstName">
+                                        <el-input  v-model="ruleForm.firstName"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                                <el-col :span="12">
+                                    <el-form-item class="last-name" label="Last Name:" prop="lastName">
+                                        <el-input  v-model="ruleForm.lastName"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="24">
+                                    <el-form-item class="email" label="Contact Email:" prop="email">
+                                        <el-input v-model.number="ruleForm.email"></el-input>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="24">
+                                    <el-form-item class="phone" label="Contact Phone:" prop="phone">
+                                        <VuePhoneNumberInput v-model="ruleForm.phone" 
+                                        :default-country-code="countryFir" 
+                                        @update="onUpdate"
+                                        />
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="24">
+                                    <el-form-item class="phone2" label="Alternate Phone:" prop="phone2">
+                                            <VuePhoneNumberInput v-model="ruleForm.phone2" 
+                                            :default-country-code="countrySec" 
+                                            @update="onUpdateAgain"
+                                            />
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="24">
+                                    <el-switch
+                                        class="isDefault"
+                                        v-model="showDefault"
+                                        inactive-text="Default information："
+                                        @change="selectDefault">
+                                    </el-switch>
+                                </el-col>
+                            </el-row>
+                            <el-row :gutter="20">
+                                <el-col :span="24">
+                                    <el-form-item class="btns">
+                                        <el-button @click="goBack">Cancel</el-button>
+                                        <el-button type="warning" @click="submitForm('ruleForm')">Save</el-button>
+                                    </el-form-item>
+                                </el-col>
+                            </el-row>
                         </el-form>
                     </div>
                 </div>
@@ -241,9 +298,9 @@
     width: 500px;
     height: 420px;
     font-size: 16px;
-    position:relative;
+    /* position:relative; */
 }
->>> .el-form-item__label{
+/* >>> .el-form-item__label{
     padding: 0;
 }
 .first-name,.last-name{
@@ -293,5 +350,27 @@
 .isDefault{
     position: absolute;
     top: 370px;
-}
+} */
+
+  >>> .country-selector.has-value .field-label{
+    top: -10px;
+  }
+  >>> .el-form-item__label{
+    padding: 0;
+  }
+  >>> .el-form-item {
+    margin-bottom: 12px;
+  }
+  >>> .country-selector-arrow{
+    top: 0;
+  }
+  >>> .field.vue-input-ui.has-value .field-label{
+    top: -10px;
+  }
+  >>> .el-switch__label.is-active{
+    color: #303133;
+  }
+  .btns{
+      margin-top: 15px;
+  }
 </style>
