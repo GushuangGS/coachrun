@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import MyHeader from '@/views/MyHeader'
-import MyFooter from '@/views/MyFooter'
+import MyHeader from '@/components/MyHeader'
+import MyFooter from '@/components/MyFooter'
 
 export default {
   name: 'app',

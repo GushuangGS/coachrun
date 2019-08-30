@@ -18,7 +18,7 @@
                             <el-collapse-item>
                                     <template slot="title">
                                             View promotion detail
-                                            <img class="down"src="./img/down.png" alt=""> 
+                                            <img class="down"src="@/assets/down.png" alt=""> 
                                        </template>
                                        <div>{{listInfo.description}}</div>
                                         <div>{{listInfo.serviceDateDescription}}</div>
@@ -32,8 +32,8 @@
             <div class="left-ridus"></div>
             <div class="right-ridus"></div>
             <div class="top-img">
-                <img  v-show="listInfo.usedDate ==''"  src="./img/used.png" alt="">
-                <img  v-show="listInfo.isExpired ==true"  src="./img/expired.png" alt="">
+                <img  v-show="listInfo.usedDate ==''"  src="@/assets/used.png" alt="">
+                <img  v-show="listInfo.isExpired ==true"  src="@/assets/expired.png" alt="">
             </div>
         </div>
     </template>

@@ -10,7 +10,7 @@
               <div class="brief-left">
                 <div class="brief-left-up">Available Points</div>
                 <div class="brief-left-middle">
-                  <img src="./img/points.png">
+                  <img src="@/assets/points.png">
                 </div>
                 <div class="brief-left-down">{{resData.availablePoints}}</div>
               </div>
@@ -100,7 +100,7 @@
 </template>
 
 <script>
-  import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import ItemHeader from '@/components/ItemHeader'
   export default {
     data() {
       return {

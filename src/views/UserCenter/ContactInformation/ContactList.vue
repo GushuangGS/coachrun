@@ -69,7 +69,7 @@
 </template>
 
 <script>
-  import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import ItemHeader from '@/components/ItemHeader'
   export default {
     data() {
       return {
@@ -91,14 +91,14 @@
     methods:{
       listInfo(){//获取数据列表
         this.$http.get(this.$api.contactList,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
-                .then((res)=>{
-                    console.log(res.data.data);
-                    if(res.data.data!=null || res.data.data!=undefined){
-                      this.contactList = res.data.data;
-                    }else{
-                      this.contactList = [];
-                    }
-                })
+            .then((res)=>{
+                console.log(res.data.data);
+                if(res.data.data!=null || res.data.data!=undefined){
+                  this.contactList = res.data.data;
+                }else{
+                  this.contactList = [];
+                }
+            })
       },
       clickdel(row){//删除
         // console.log(index);

@@ -11,14 +11,14 @@
               * A debit card with VISA, MasterCard or American Express logo can be accepted as a credit card.
             </div>
             <div class="img-wrapper">
-              <img src="./img/AmEx.png">
-              <img src="./img/mastercard.png">
-              <img src="./img/visa.png">
+              <img src="@/assets/AmEx.png">
+              <img src="@/assets/mastercard.png">
+              <img src="@/assets/visa.png">
             </div>
           </div>
           <div class="form-wrapper">
             <div class="info">
-              <img src="./img/safety.png">
+              <img src="@/assets/safety.png">
               <span>Your payment details are secure</span>
             </div>
             <b-form @reset="onReset">
@@ -257,7 +257,7 @@
 </template>
 
 <script>
-  import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import ItemHeader from '@/components/ItemHeader'
   import countryOptions from '@/configs/country.json'
   import statesOptions from '@/configs/states.json'
 

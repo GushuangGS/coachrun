@@ -13,9 +13,9 @@
           <ul class="credit-list">
             <li class="credit-list-item" v-for="(info,index) in creditInfo" :key="index">
               <div class="icon">
-                <img v-show="info.cardType==3" src="./img/AmEx.png">
-                <img v-show="info.cardType==2" src="./img/visa.png">
-                <img v-show="info.cardType==1" src="./img/mastercard.png">
+                <img v-show="info.cardType==3" src="@/assets/AmEx.png">
+                <img v-show="info.cardType==2" src="@/assets/visa.png">
+                <img v-show="info.cardType==1" src="@/assets/mastercard.png">
               </div>
               <div class="credit-name" v-show="info.cardType==3">AmEx Card</div>
               <div class="credit-name" v-show="info.cardType==2">Visa Card</div>
@@ -32,7 +32,7 @@
             </li>
             <!-- <li class="credit-list-item">
               <div class="icon">
-                <img src="./img/visa.png">
+                <img src="@/assets/visa.png">
               </div>
               <div class="credit-name">Visa Card</div>
               <div class="description">……1126
@@ -51,7 +51,7 @@
             <div class="detail">
               <div class="text">* A debit card with VISA, MasterCard or American Express logo can be accepted as a credit card.</div>
               <div class="img-wrapper">
-                <img src="./img/AmEx.png"><img src="./img/mastercard.png"><img src="./img/visa.png">
+                <img src="@/assets/AmEx.png"><img src="@/assets/mastercard.png"><img src="@/assets/visa.png">
               </div>
             </div>
             <el-button class="add-btn" @click="addCredit">Add a card</el-button>
@@ -64,9 +64,9 @@
       width="790px">
       <div class="delete-body">
         <div class="item">
-          <img class="item-img" v-show="deleteInfo.cardType==3" src="./img/AmEx.png">
-          <img class="item-img" v-show="deleteInfo.cardType==2" src="./img/visa.png">
-          <img class="item-img" v-show="deleteInfo.cardType==1" src="./img/mastercard.png">
+          <img class="item-img" v-show="deleteInfo.cardType==3" src="@/assets/AmEx.png">
+          <img class="item-img" v-show="deleteInfo.cardType==2" src="@/assets/visa.png">
+          <img class="item-img" v-show="deleteInfo.cardType==1" src="@/assets/mastercard.png">
           <span class="item-name" v-show="deleteInfo.cardType==3">AmEx Card</span>
           <span class="item-name" v-show="deleteInfo.cardType==2">Visa Card</span>
           <span class="item-name" v-show="deleteInfo.cardType==1">Master Card</span>
@@ -83,7 +83,7 @@
 </template>
 
 <script>
-  import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import ItemHeader from '@/components/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
   // import DeleteConfirm from '@/components/DeleteConfirm'
   export default {

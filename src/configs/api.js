@@ -24,7 +24,8 @@ export default {
     register:'/users/register',
     logout:'users/logout',
     //bookings
-    bookingList:'/users/identity/bookings',
+    // bookingList:'/users/identity/bookings',
+    bookingList:'/orders/list',    
     bookingDetail:'/orders/users/:userId/bookings/:orderId',
     bookingReclaim:'/orders/users/:userId/bookings/reclaim'
   };

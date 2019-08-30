@@ -14,7 +14,7 @@
             </div>
             <div class="failure-wrapper" v-if="changeStatus == 2">
               <div class="failure">
-                <img src="./img/sad.png" alt="failure">
+                <img src="@/assets/sad.png" alt="failure">
                 <div class="failure-content">
                   <p>Current password invalid!</p>
                 </div>
@@ -53,7 +53,7 @@
 
 <script>
   import VueCookie from 'vue-cookie';
-  import ItemHeader from '@/views/UserCenter/ItemHeader'
+  import ItemHeader from '@/components/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
 
   export default {

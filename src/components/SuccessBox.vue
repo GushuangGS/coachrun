@@ -1,6 +1,6 @@
 <template>
   <div class="success-box">
-    <img src="./img/success.png">
+    <img src="@/assets/success.png">
     <div>
       <h2>Succeed</h2>
       <p>{{text}}</p>

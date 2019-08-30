@@ -2,7 +2,7 @@
     <div class="wrap-box">
         <div class="wrap">
             <div class="send-img">
-                <img src="./img/message.png" alt="">
+                <img src="@/assets/message.png" alt="">
             </div>
             <div class="content">
                 <span class="title">Please Check Your Email Inbox</span>

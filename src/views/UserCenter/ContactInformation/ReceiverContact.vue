@@ -110,7 +110,7 @@
 </template>    
 
 <script>
-    import ItemHeader from '@/views/UserCenter/ItemHeader';
+    import ItemHeader from '@/components/ItemHeader';
     import VuePhoneNumberInput from 'vue-phone-number-input';
     import { parsePhoneNumberFromString } from 'libphonenumber-js'
     export default{

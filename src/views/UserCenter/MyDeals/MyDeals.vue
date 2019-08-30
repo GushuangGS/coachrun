@@ -17,7 +17,7 @@
                         </el-row>
                 </div>
                 <div class="none-deals" v-if="dataList.length==0">
-                    <img class="none-deals-img" src="./img/nodata.png">
+                    <img class="none-deals-img" src="@/assets/nodata.png">
                     <div class="none-deals-tips">Sorry, No deals available!</div>
                 </div>
             </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-    import ItemHeader from '@/views/UserCenter/ItemHeader'
+    import ItemHeader from '@/components/ItemHeader'
     import Available from '@/components/Available'
     import UnAvailable from '@/components/UnAvailable'
 

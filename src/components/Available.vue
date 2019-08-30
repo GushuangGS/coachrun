@@ -18,7 +18,7 @@
                         <el-collapse-item>
                                 <template slot="title">
                                      View promotion detail
-                                     <img class="down" src="./img/down.png" alt=""> 
+                                     <img class="down" src="@/assets/down.png" alt=""> 
                                 </template>
                             <div>{{listInfo.description}}</div>
                             <div>{{listInfo.serviceDateDescription}}</div>

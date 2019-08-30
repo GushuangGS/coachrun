@@ -34,15 +34,15 @@
            </div>
            <div class="bot-info">
                <div class="intro">
-                   <img class="intro-img" src="./img/offers.png" alt="">
+                   <img class="intro-img" src="@/assets/offers.png" alt="">
                    <span class="intro-info">Exclusive Offers</span>
                </div>
                <div class="intro">
-                    <img class="intro-img" src="./img/booking.png" alt="">
+                    <img class="intro-img" src="@/assets/booking.png" alt="">
                     <span class="intro-info">Manage Booking</span>
                 </div>
                 <div class="intro">
-                    <img class="intro-img" src="./img/chechkouts.png" alt="">
+                    <img class="intro-img" src="@/assets/chechkouts.png" alt="">
                     <span class="intro-info">Faster Checkouts</span>
                 </div>
            </div>

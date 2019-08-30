@@ -3,10 +3,10 @@ import App from './App.vue'
 // import router from './router/router'
 import {router} from './router/router'
 import store from './store'
-// import './plugins/element.js'
+// import './configs/element.js'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import locale from './plugins/en.js'
+import locale from './configs/en.js'
 import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import api from './configs/api'
@@ -15,7 +15,7 @@ import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 // 引入font-awesome图标字体
 import 'font-awesome/css/font-awesome.min.css'
-import './common/css/index.css'
+import './styles/css/index.css'
 
 Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });

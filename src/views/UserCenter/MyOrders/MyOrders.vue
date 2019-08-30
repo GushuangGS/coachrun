@@ -9,23 +9,23 @@
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
               <div class="left">
-                <img class="left-img" src="./img/touxiang.png">
+                <img class="left-img" src="@/assets/touxiang.png">
                 <div class="account-points">
-                  <h4>{{dashDis.customerEmail}}</h4>
+                  <h4>{{userEmail}}</h4>
                   <p class="points">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
                 </div>
               </div>
               <div class="right">
                 <div @click="contactInfo">
-                  <img class="right-img" src="./img/contact-edit.png" alt="">
+                  <img class="right-img" src="@/assets/contact-edit.png" alt="">
                   <span class="right-span">Manage Contact Info</span>
                 </div>
                 <div @click="creditcard">
-                  <img class="right-img" src="./img/reschedule.png" alt="">
+                  <img class="right-img" src="@/assets/reschedule.png" alt="">
                   <span class="right-span">View/Edit Credit Card</span>
                 </div>
                 <div @click="changePass">
-                    <img class="right-img" src="./img/password.png" alt="">
+                    <img class="right-img" src="@/assets/password.png" alt="">
                     <span class="right-span">Change My Password</span>
                 </div>
               </div>
@@ -114,8 +114,8 @@
 </template>
 
 <script>
-  import ItemHeader from '@/views/UserCenter/ItemHeader'
-  import OrderInfo from '@/views/UserCenter/OrderInfo'
+  import ItemHeader from '@/components/ItemHeader'
+  import OrderInfo from '@/components/OrderInfo'
 
   export default {
     name: 'MyOrders',
@@ -128,7 +128,8 @@
           { description: '', path: '' ,title:'Dashboard',title:'Dashboard'}
         ],
         dashInfo:[],//个人信息
-        dashDis:{}//所有信息
+        dashDis:{},
+        userEmail:''
       }
     },
     components: {
@@ -146,6 +147,7 @@
                   if(res.data.code == 200){
                     if(res.data.data!=null || res.data.data!=undefined){
                       this.dashDis = res.data.data;
+                      this.userEmail = res.data.data.user.email;
                       if(res.data.data.upcomingOrders!=null || res.data.data.upcomingOrders!=undefined){
                         this.dashInfo = res.data.data.upcomingOrders;
                       }
@@ -284,7 +286,7 @@
     padding-left: 3px;
     padding-right: 3px;
   }
-  >>> .el-collapse-item:not(:last-child) {
+  >>> .el-collapse-item{
     background-color: #F5F5F5;
     margin-bottom: 20px;
   }
