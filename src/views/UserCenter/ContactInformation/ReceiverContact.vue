@@ -67,7 +67,8 @@
                                 <el-col :span="24">
                                     <el-form-item class="phone" label="Contact Phone:" prop="phone">
                                         <VuePhoneNumberInput v-model="ruleForm.phone" 
-                                        :default-country-code="countryFir" 
+                                        :default-country-code="countryFir"
+                                        :error="canSave" 
                                         @update="onUpdate"
                                         />
                                     </el-form-item>
@@ -120,6 +121,26 @@
         },
         name: 'ReceiverContact',
         data(){
+            let validatePhone = (rule, value, callback) => {
+                if (value == '') {
+                    callback(new Error('Please enter a phone number.'));
+                }else{
+                    if(this.canSave==false){
+                        callback(new Error('Please enter a right phone number.'));
+                    }
+                    callback();
+                }
+            }
+            let validatePhone2 = (rule, value, callback) => {
+                if (value == '') {
+                    callback();
+                }else{
+                    if(this.canSave2==false){
+                        callback(new Error('Please enter a right phone number.'));
+                    }
+                    callback();
+                }
+            }
             return{
                 status: 1,
                 headerInfo: [
@@ -144,17 +165,20 @@
                         { required: true, trigger: 'blur' ,message: 'Please enter your full email address.'}
                     ],
                     phone: [
-                        { required: true, trigger: 'blur' ,message: 'Please enter a phone number.'}
+                        { required: true, trigger: 'blur',validator: validatePhone}
+                    ],
+                    phone2: [
+                        { validator: validatePhone2}
                     ]
                 },
                 showDefault:true,
-                results: {},
-                resultsAgain:{},
                 whereName:'',
                 countryFir:'US',
                 countrySec:'US',
                 sendPhone1:'',
-                sendPhone2:''
+                sendPhone2:'',
+                canSave:false,
+                canSave2:false,
             }
         },
         created(){
@@ -164,6 +188,7 @@
                 this.ruleForm = this.$store.state.contactInfo==""?this.$store.state.contactInfo:JSON.parse(localStorage.getItem("contactInfo"));
                 console.log(this.ruleForm.phone)
                 const phoneNumber = parsePhoneNumberFromString(this.ruleForm.phone);
+                console.log(phoneNumber);
                 if(phoneNumber !== undefined){
                     this.ruleForm.phone = phoneNumber.nationalNumber;
                     this.countryFir = phoneNumber.country;
@@ -191,7 +216,7 @@
                 return val.slice(val.indexOf(' ') + 1);
             },
             onUpdate(payload) {
-                this.results = payload;
+                this.canSave = payload.isValid;
                 if(payload.formatInternational !== undefined){
                     const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
                     this.sendPhone1 = "+"+ addPhoneFir.countryCallingCode+ " " + addPhoneFir.nationalNumber;
@@ -199,7 +224,7 @@
                 
             },
             onUpdateAgain(payload){
-              this.resultsAgain = payload;
+              this.canSave2 = payload.isValid;
               if(payload.formatInternational !== undefined){
                 const addPhoneSec = parsePhoneNumberFromString(payload.formatInternational);
                 this.sendPhone2 = "+"+ addPhoneSec.countryCallingCode+ " " + addPhoneSec.nationalNumber;
@@ -253,7 +278,7 @@
                                 console.log(res);
                                 if(res.data.code==200){
                                     this.$message({
-                                        message: 'Items saved successfully.',
+                                        message: 'Saved successfully.',
                                         type: 'success',
                                         showClose: true,
                                         center: true
@@ -373,4 +398,7 @@
   .btns{
       margin-top: 15px;
   }
+  .isDefault{
+    margin-top: 10px;
+  } 
 </style>
