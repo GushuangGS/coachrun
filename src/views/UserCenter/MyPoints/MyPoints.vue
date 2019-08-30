@@ -44,7 +44,7 @@
               <h2 class="table-title">Points Details</h2>
               <el-table
                 empty-text="Start earning your loyalty points today!"
-                :data="tableData.slice((currentPage-1)*pagesize,currentPage*pagesize)"
+                :data="tableData"
                 style="width: 100%;">
                 <el-table-column
                   label="Source"

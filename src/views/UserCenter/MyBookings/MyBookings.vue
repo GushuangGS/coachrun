@@ -728,7 +728,7 @@
         methods: {
           getCity(item){
             var firCity,endCity,firTime,endTime,routeLine;
-            if(item.passengers[0].options[0].value.isArrival!=undefined){
+            if(item.passengers[0].options[0].value!=undefined){
               firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
               endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
               firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;

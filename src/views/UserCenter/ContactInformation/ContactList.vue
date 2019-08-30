@@ -44,7 +44,7 @@
                     min-width="200">
                     <template slot-scope="scope">
                       <el-button @click="edit(scope.row)"  type="text" size="small">Edit</el-button>
-                      <el-button @click="setDefault(scope.row)" type="text" size="small">Default</el-button>
+                      <el-button @click="setDefault(scope.row)" v-show="scope.row.isDefault != true" type="text" size="small">Default</el-button>
                       <el-button @click="clickdel(scope.row)" type="text" size="small">Remove</el-button>
                     </template>
                   </el-table-column>
