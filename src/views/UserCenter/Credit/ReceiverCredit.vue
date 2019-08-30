@@ -48,7 +48,7 @@
                         <el-row :gutter="20">
                             <el-col :span="6">
                                 <el-form-item label="Type:" prop="type">
-                                    <el-select v-model="ruleForm.type">
+                                    <el-select v-model="ruleForm.type" @change="selectType">
                                         <el-option 
                                                 v-for="item in types"
                                                 :key="item.value"
@@ -134,7 +134,7 @@
                         </el-row>
                         <el-row :gutter="20">
                             <el-col :span="24">
-                                <el-form-item label="Country:" prop="country">
+                                <el-form-item label="Country/Region:" prop="country">
                                     <el-select v-model="ruleForm.country" style="width: 100%" @change="selectCountry">
                                         <el-option 
                                                 v-for="item in countryOptions"
@@ -188,12 +188,23 @@
                 if (value === '') {
                     callback(new Error('cardNumber is required'));
                 } else {
+                    console.log(this.ruleForm.type)
+                    if (this.ruleForm.type =='AmEx') {
+                        if(this.ruleForm.cardNumber.length!=15){
+                            callback(new Error('Your card number must be 15 characters long.'));
+                        }
+                        // console.log(this.ruleForm.cardNumber.length);
+                    }else if (this.ruleForm.type =='VISA' || this.ruleForm.type =='Master'){
+                        if(this.ruleForm.cardNumber.length!=16){
+                            callback(new Error('Your card number must be 16 characters long.'));
+                        }
+                    }
                     if (this.ruleForm.type =='3') {
                         if(this.ruleForm.cardNumber.length!=15){
                             callback(new Error('Your card number must be 15 characters long.'));
                         }
                         // console.log(this.ruleForm.cardNumber.length);
-                    }else if (this.ruleForm.type =='1' || this.ruleForm.type =='2'){
+                    }else if (this.ruleForm.type =='2' || this.ruleForm.type =='1'){
                         if(this.ruleForm.cardNumber.length!=16){
                             callback(new Error('Your card number must be 16 characters long.'));
                         }
@@ -222,7 +233,8 @@
                 },
                 rules: {
                     holderName: [{required: true, trigger: 'blur',message: 'Please enter holderName.'}],
-                    cardNumber: [{required: true, trigger: 'blur',validator: checkCardNum ,message: 'Please enter cardNumber.'}],
+                    cardNumber: [{required: true, trigger: 'blur',validator: checkCardNum }],
+                    // message: 'Please enter cardNumber.'
                     type: [{required: true, trigger: 'blur' ,message: 'Please choose a type.'}],
                     month: [{required: true, trigger: 'blur' }],
                     CVV: [{required: true, trigger: 'blur' ,message: 'Please enter CVV.'}],
@@ -386,7 +398,8 @@
                                             zipcode: '',
                                             country: 'us'
                                         }
-                                        this.$router.push({path: '/render/user/credit'});
+                                        this.$router.push({name:'CreditList'});
+                                        // this.$router.push({path: '/render/user/credit'});
                                     }
                                 })
                         } else {
@@ -423,7 +436,7 @@
                                     console.log(res);
                                     if(res.data.code==200){
                                         this.$message({
-                                            message: 'Items saved successfully.',
+                                            message: 'Saved successfully.',
                                             type: 'success',
                                             showClose: true,
                                             center: true

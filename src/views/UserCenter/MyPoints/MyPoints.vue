@@ -86,7 +86,7 @@
                 <el-pagination
                   background
                   layout="prev, pager, next"
-                  :total="tableData.length"
+                  :total="resData.pagination.totalCount"
                   @current-change="handleCurrentChange"
                   :page-size="pagesize"
                   :current-page="currentPage">
@@ -111,21 +111,7 @@
         ],
         currentPage:1, //初始页
         pagesize:20,    //每页的数据
-        tableData: [
-          // {
-          //   source: 'Booking ( Order JT23-600-3427 )',
-          //   points: { value: 7, isPending: false },
-          //   date: '2019-07-23 23:56:08'
-          // }, {
-          //   source: 'Booking ( Order JT23-600-3427 )',
-          //   points: { value: -12, isPending: false },
-          //   date: '2019-07-23 23:56:08'
-          // }, {
-          //   source: 'Booking ( Order JT23-600-3427 )',
-          //   points: { value: 7, isPending: true },
-          //   date: '2019-07-23 23:56:08'
-          // }
-        ],
+        tableData: [],
         resData:{}
       }
     },
@@ -151,7 +137,9 @@
                     if(res.data.data!=null || res.data.data!=undefined){
                       this.resData = res.data.data;
                       this.tableData = res.data.data.pagination.currentResults;
-                      this.pagesize = res.data.data.pagination.pageCount;
+                      // this.pagesize = res.data.data.pagination.pageCount;
+                      console.log((this.currentPage-1)*this.pagesize,this.currentPage*this.pagesize)
+                      console.log(this.tableData.slice((this.currentPage-1)*this.pagesize,this.currentPage*this.pagesize))
                     }else{
                       this.resData = {};
                     }
@@ -295,7 +283,8 @@
     color: #333;
     font-weight: normal;
     position: absolute;
-    right: 0;
+    /* right: 0; */
+    margin-left: 15px;
   }
   .pagination-wrapper {
     margin-top: 20px;

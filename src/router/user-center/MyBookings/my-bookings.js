@@ -6,7 +6,7 @@ const MyBookings = resolve => {
   
   const myBookingsRouter = {
     // path: '/app/member/account/bookings',
-    path: '/render/user/bookings',
+    path: '/render/user/account/bookings',
     name: 'MyBookings',
     component: MyBookings,
     meta: {
