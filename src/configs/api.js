@@ -1,30 +1,30 @@
 export default {
-    deals:'/promotions/identity/deals',//deals页面
+    deals:'/promotions/deals',//deals页面
     resetPassword:'/users/reset-password',//reset-password
-    changePassword:'/users/identity/change-password',//change-password
+    changePassword:'/users/change-password',//change-password
     forgotPassword:'/users/forgot-password',//forgot-password
     //credit
-    creditList:'/users/identity/credit-cards',//creditList
-    creditAdd:'/users/identity/credit-cards',//creditAdd
-    creditUpdate:'/users/identity/credit-cards',//creditUpdate
-    creditDetail:'/users/identity/credit-cards/:ccid',// get wait
-    creditDelete:'/users/identity/credit-cards',// creditDelete
+    creditList:'/users/credit-cards',//creditList
+    creditAdd:'/users/credit-cards',//creditAdd
+    creditUpdate:'/users/credit-cards',//creditUpdate
+    creditDetail:'/users/credit-cards/:ccid',// get wait
+    creditDelete:'/users/credit-cards',// creditDelete
     //contact-info
-    contactAdd:'/users/identity/contact-infos',//contactAdd
-    contactList:'/users/identity/contact-infos',//contactList
-    contactUpdate:'/users/identity/contact-infos',//contactUpdate
-    contactDetail:'/users/identity/contact-infos/:aid',//contactDetail  wait
-    contactDelete:'/users/identity/contact-infos',//contactDelete 
+    contactAdd:'/users/contact-infos',//contactAdd
+    contactList:'/users/contact-infos',//contactList
+    contactUpdate:'/users/contact-infos',//contactUpdate
+    contactDetail:'/users/contact-infos',//contactDetail  wait
+    contactDelete:'/users/contact-infos',//contactDelete 
     //dashboard
-    dashboard:'/users/identity/dashboard',//dashboard
+    dashboard:'/users/dashboard',//dashboard
     //viewPoint
-    viewPoint:'/users/identity/view-point',//viewPoint
+    viewPoint:'/users/view-point',//viewPoint
     // login
     login:'/users/login',
     register:'/users/register',
     logout:'users/logout',
     //bookings
-    // bookingList:'/users/identity/bookings',
+    // bookingList:'/users/bookings',
     bookingList:'/orders/list',    
     bookingDetail:'/orders/users/:userId/bookings/:orderId',
     bookingReclaim:'/orders/users/:userId/bookings/reclaim'

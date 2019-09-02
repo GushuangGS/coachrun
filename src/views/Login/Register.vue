@@ -26,7 +26,7 @@
                 <el-form-item label="Password:" prop="password">
                     <el-input type="password" v-model="loginInfo.password"></el-input>
                 </el-form-item>
-                <el-button type="primary" @click.native.prevent="register" class="login-btn">Create My Account</el-button>
+                <el-button @click.native.prevent="register" class="login-btn">Create My Account</el-button>
            </el-form>
            <div class="register">
                <span class="register-info">Already a member?</span>
@@ -56,6 +56,17 @@
             name:'Register',
             components: {VuePhoneNumberInput},
             data(){
+                let validatePas = (rule, value, callback) => {
+                    var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+                    if (value == '') {
+                        callback(new Error('Please enter your password.'));
+                    }else{
+                       if(!reg.test(value)){
+                            callback(new Error('Use 6-12 characters with a mix of letters, numbers & symbols.'));
+                       }
+                        callback();
+                    }
+                }
                 return{
                     loginInfo: {
                         email: '',
@@ -63,10 +74,12 @@
                         password: '',
                     },
                     rules: {
-                        email: [{ required: true, trigger: 'blur' ,message: 'Please enter your full email address.'}],
+                        email: [{ required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
+                        { type: 'email', message: 'Please enter the correct email address', trigger: ['blur', 'change']}],
                         phone: [{ required: true, trigger: 'blur' ,message: 'Please enter a phone number.'}],
-                        password: [{ required: true, trigger: 'blur',message: 'Please enter your password.' },
-                        { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }]
+                        // password: [{ required: true, trigger: 'blur',message: 'Please enter your password.' },
+                        // { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }]
+                        password: [{required: true, trigger: 'blur',validator: validatePas}]
                     },
                     options: [
                         {value: '8088',label: 'United States'},
@@ -118,7 +131,7 @@
         }
         .login{
             width: 448px;
-            height:522px;
+            height:532px;
             background:rgba(255,255,255,1);
             /* background: skyblue; */
             border-radius:2px;
@@ -127,6 +140,9 @@
         }
         .login-title{
             margin-left: 20px;
+        }
+        >>> .el-form-item{
+            /* margin-top: 35px; */
         }
         >>> .el-form-item__label{
             font-size: 16px;
@@ -150,11 +166,13 @@
             margin-left: 30px;
             font-size: 20px;
             margin-top: 20px;
+            background:rgba(254,179,71,1);
+            color:rgba(255,255,255,1);
         }
         .register{
             margin-top: 30px;
             text-align: center;
-            font-weight: 600;
+            /* font-weight: 600; */
         }
         .register-info{
             font-size:16px;
@@ -187,4 +205,7 @@
             color:rgba(102,102,102,1);
             margin-top: 10px;
         }
+        >>> .field.vue-input-ui{
+          left: 1px;
+      }
     </style>

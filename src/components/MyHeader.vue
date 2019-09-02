@@ -5,7 +5,8 @@
         </div>
         <ul class="header-title">
             <li v-for="(list,index) in navLists" :key="index">
-                <span :class="{ bgColor:changeBg == index}" @click="changeColor(index)">
+                <!-- <span :class="{ bgColor:changeBg == index}" @click="changeColor(index)"> -->
+                <span @click="changeColor(index)">
                     {{list.text}}
                 </span>
             </li>
@@ -19,13 +20,14 @@
             </span>
         </div>
         <div class="show-name" v-show="$store.state.isLogin">
-            <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span>
+            <!-- <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span> -->
+            <span class="user-name" @click="gotoMine">Hello, {{userName}}</span>
             <span class="logot" @click="logout">Logout</span>
         </div>
-        <div class="shopping-cart">
+        <div class="shopping-cart" @click="toShopping">
             <img src="@/assets/shoppingcart.png" alt="">
         </div>
-        <div class="live-chat">
+        <div class="live-chat" @click="toLive">
             <img src="@/assets/livechat.png" alt="">
         </div>
     </div>
@@ -39,13 +41,14 @@
             return{
                 navLists:[
                     // {"text":"Bus Routes","link":"MyOrders","src":"https://www.baidu.com"},
-                    {"text":"Bus Stations","link":"MyBookings","src":"https://element.eleme.cn"},
-                    {"text":"Bus Rental","link":"Login","src":"https://bootstrap-vue.js.org"},
-                    {"text":"Hotel","link":"MyOrders","src":"https://lanhuapp.com"},
-                    {"text":"Ticket Policy","link":"Register","src":"https://www.baidu.com"}
+                    {"text":"Bus Stations","src":"https://www.coachrun.com/bus-stations/"},
+                    {"text":"Bus Rental","src":"https://www.gotocharter.com"},
+                    {"text":"Hotel","src":"https://www.coachrun.com/hotel/"},
+                    {"text":"Ticket Policy","src":"https://www.coachrun.com/ticket-policy/"}
                 ],
                 changeBg:0,
-                userName:''
+                userName:'',
+                
             }
         },
         created(){
@@ -53,7 +56,10 @@
             if(name){
                 this.$store.commit('login');
             }
-        
+            this.userName = VueCookie.get('IvyCustomer_FirstName');
+            if(this.userName == null || this.userName== undefined){
+                this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+            }
         },
         methods:{
             toHome(){
@@ -62,7 +68,13 @@
             changeColor(index){
                 this.changeBg = index;
                 // this.$router.push({name: this.navLists[index].link});
-                // window.location.href = this.navLists[index].src;
+                window.location.href = this.navLists[index].src;
+            },
+            toShopping(){
+                window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
+            },
+            toLive(){
+                window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
             },
             gotoMine(){
                 // this.$router.push({name: 'MyOrders'});

@@ -9,12 +9,12 @@
             <el-form-item label="Password:" prop="password">
                 <el-input type="password" v-model="loginInfo.password"></el-input>
             </el-form-item>
-            <div class="forget-pass" @click="forgetPass">Forgot password?</div>
+            <div class="forget-pass" @click="forgetPass">Forgot Password?</div>
             <!-- <div class="check">
                 <input id="chkAdmin" type="checkbox" v-model="item"> 
                 <label for="chkAdmin" class="rem-me">Remember me</label>
             </div> -->
-            <el-button type="primary" @click.native.prevent="login" class="login-btn">Log In</el-button>
+            <el-button @click.native.prevent="login" class="login-btn">Log In</el-button>
        </el-form>
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
@@ -86,6 +86,7 @@
                                 this.$router.push({name: 'MyOrders'});
                                 this.$store.commit('login'); 
                                 this.$store.commit('loginName',data.data.data.user.email);
+                                this.$cookie.set('front-sessionId', data.data.data.user.id);
                             });
                     }
                 })
@@ -156,6 +157,8 @@
         margin-left: 30px;
         font-size: 20px;
         margin-top: 20px;
+        background:rgba(254,179,71,1);
+        color:rgba(255,255,255,1);
     }
     .forget-pass{
         font-size:14px;
@@ -179,7 +182,7 @@
     .register{
         margin-top: 30px;
         text-align: center;
-        font-weight: 600;
+        /* font-weight: 600; */
     }
     .register-info{
         font-size:16px;

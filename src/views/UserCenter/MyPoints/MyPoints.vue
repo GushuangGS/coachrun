@@ -263,12 +263,12 @@
   .positive {
     color: #FF9D0D;
     /* font-weight: bold; */
-    font-size: 24px;
+    font-size: 18px;
   }
   .negtive {
     color: #0BA76E;
     /* font-weight: bold; */
-    font-size: 24px;
+    font-size: 18px;
   }
   .pending {
     opacity: .5;

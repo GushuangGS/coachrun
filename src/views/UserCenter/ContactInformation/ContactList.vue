@@ -123,7 +123,7 @@
       edit(row){//编辑
         console.log(row);
         // this.$router.push({name: 'EditContact'});
-        this.$router.push({name: 'ReceiverContact',query:{id:row.aid}});
+        this.$router.push({name: 'ReceiverContact',query:{aid:row.aid}});
         this.$store.commit('contactName','edit');
         this.$store.commit('contactInfo',row);
       },
