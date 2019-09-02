@@ -60,6 +60,7 @@
             if(this.userName == null || this.userName== undefined){
                 this.userName = VueCookie.get('IvyCustomer_LoginEmail');
             }
+            console.log(this.userName);
         },
         methods:{
             toHome(){
