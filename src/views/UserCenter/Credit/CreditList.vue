@@ -145,9 +145,9 @@
       },
       editCredit(info){//编辑更新信用卡
         console.log(info);
-        this.$store.commit('creditInfo',info);
-        this.$store.commit('creditName','edit');
-        this.$router.push({name: 'ReceiverCredit',query:{id:info.aid}});
+        // this.$store.commit('creditInfo',info);
+        // this.$store.commit('creditName','edit');
+        this.$router.push({name: 'ReceiverCredit',query:{ccid:info.ccid}});
         // this.$router.push({name: 'EditCredit'});
       },
       setDefault(info){
@@ -158,7 +158,7 @@
               .then((res)=>{
                   console.log(res);
                   this.$message({
-                      message: 'Saved successfully.',
+                      message: 'Default card changed.',
                       type: 'success',
                       showClose: true,
                       center: true
@@ -167,7 +167,7 @@
               })
       },
       addCredit(){//添加信用卡
-        this.$store.commit('creditName','add');
+        // this.$store.commit('creditName','add');
         this.$router.push({name: 'ReceiverCredit'});
         // this.$router.push({name: 'AddCredit'});
       },
@@ -186,7 +186,7 @@
     flex: 1;
   }
   >>> .el-main {
-    padding-top: 0;
+    padding-top: 20px;
   }
   .content {
     padding-left: 20px;
@@ -296,7 +296,7 @@
     height: 30px;
     padding: 7px 0;
     line-height: 1;
-    font-size: 16px;
+    font-size: 14px;
     background-color: #FF9A0D;
     color: #fff;
   }
@@ -322,12 +322,24 @@
   }
   .delete-body>p {
     margin: 0;
-    font-size: 20px;
+    font-size: 18px;
+    color: #333333;
+  }
+  >>> .el-dialog{
+    background: none;
   }
   >>> .el-dialog__header{
     background: #F0F0F0;
     color: #333333;
     font-size: 16px;
     font-weight: bold;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  >>> .el-dialog__body{
+    background: #FFFFFF;
+  }
+  >>> .el-dialog__footer{
+    background: #FFFFFF;
   }
 </style>

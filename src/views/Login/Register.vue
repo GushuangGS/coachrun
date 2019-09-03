@@ -2,9 +2,9 @@
     <div class="register-bg">
         <div class="login">
            <h3 class="login-title">Register</h3>
-           <el-form :model="loginInfo" :rules="rules" ref="loginForm" label-width="110px">
-                <el-form-item prop="email" label="Email:">
-                    <el-input v-model="loginInfo.email"></el-input>
+           <el-form class="login-form" :model="loginInfo" :rules="rules" ref="loginForm" label-width="0px">
+                <el-form-item prop="email">
+                    <el-input class="email-register" v-model="loginInfo.email" placeholder="Email"></el-input>
                 </el-form-item> 
                 <!-- <el-form-item class="phone" prop="phone" label="Phone:">
                     <el-select class="select" v-model="selectLabel" @change="select">
@@ -15,7 +15,7 @@
                     </el-select>
                     <el-input class="phone-num" type="phone" v-model="loginInfo.phone"></el-input>
                 </el-form-item> -->
-                <el-form-item prop="phone" label="Phone:">
+                <el-form-item prop="phone">
                     <template>
                         <VuePhoneNumberInput v-model="loginInfo.phone" 
                         default-country-code="US" 
@@ -23,11 +23,12 @@
                         />
                     </template>
                 </el-form-item> 
-                <el-form-item label="Password:" prop="password">
-                    <el-input type="password" v-model="loginInfo.password"></el-input>
+                <el-form-item prop="password">
+                    <el-input class="password-register" type="password" v-model="loginInfo.password" placeholder="password"></el-input>
                 </el-form-item>
                 <el-button @click.native.prevent="register" class="login-btn">Create My Account</el-button>
            </el-form>
+           <div class="hr"></div>
            <div class="register">
                <span class="register-info">Already a member?</span>
                <span class="to-register" @click="gotoLogin">Log In</span>
@@ -57,7 +58,8 @@
             components: {VuePhoneNumberInput},
             data(){
                 let validatePas = (rule, value, callback) => {
-                    var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+                    // var reg = /^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{6,12}$/;
+                    var reg = /((?=.*\d)(?=.*\D)|(?=.*[a-zA-Z])(?=.*[^a-zA-Z]))(?!^.*[\u4E00-\u9FA5].*$)^\S{6,12}$/;
                     if (value == '') {
                         callback(new Error('Please enter your password.'));
                     }else{
@@ -122,6 +124,14 @@
     </script>
     
     <style scoped>
+        .hr{
+            width: 330px;
+            height: 1px;
+            background: #EFEFEF;
+            border: 0.5px solid #EFEFEF;
+            margin-top: 30px;
+            margin-left: 35px;
+        }
         .register-bg{
             width: 100%;
             height: 100%;
@@ -137,6 +147,10 @@
             border-radius:2px;
             margin: 0 auto;
             padding: 20px 30px 30px 30px;
+        }
+        .login-form{
+            width: 100%;
+            padding: 0 20px 0 20px;
         }
         .login-title{
             margin-left: 20px;
@@ -161,13 +175,13 @@
             width: 165px;
         }
         .login-btn{
-            width: 334px;
+            width: 100%;
             height: 56px;
-            margin-left: 30px;
             font-size: 20px;
             margin-top: 20px;
             background:rgba(254,179,71,1);
             color:rgba(255,255,255,1);
+            border: none;
         }
         .register{
             margin-top: 30px;
@@ -190,6 +204,7 @@
             display: flex;
             justify-content: space-between;
             margin-top: 30px;
+            padding: 0 20px 0 20px;
         }
         .intro{
             display: flex;
@@ -207,5 +222,13 @@
         }
         >>> .field.vue-input-ui{
           left: 1px;
-      }
+        }
+        >>> .field-input::-webkit-input-placeholder{
+            font-size: 16px;
+            color:rgba(102,102,102,1);
+        }
+        >>> .el-input__inner::-webkit-input-placeholder{
+            font-size: 16px;
+            color:rgba(102,102,102,1);
+        }
     </style>

@@ -10,7 +10,7 @@ const changePasswordRouter = {
   name: 'ChangePassword',
   component: ChangePassword,
   meta: {
-    keepAlive: true
+    // keepAlive: true
   }
 }
 

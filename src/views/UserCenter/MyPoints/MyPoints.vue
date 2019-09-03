@@ -165,7 +165,8 @@
     height: 200px;
     box-sizing: border-box;
     border: 1px solid #E9F1FA;
-    padding: 26px 90px;
+    /* padding: 26px 90px; */
+    padding: 26px 90px 26px 40px;
     display: flex;
     align-items: stretch;
   }
@@ -225,6 +226,7 @@
     line-height: 53px;
     text-align: center;
     cursor: pointer;
+    font-size: 14px;
   }
   .detail {
     margin-left: 10px;
@@ -298,5 +300,6 @@
   >>> .el-table__empty-text{
     width: 100%;
     text-align: left;
+    color: #333333;
   }
 </style>

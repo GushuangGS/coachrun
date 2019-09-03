@@ -657,7 +657,7 @@
                           </el-collapse-item> -->
                     </el-collapse>
                     <div class="no-bookings" v-if="bookingsList.length==0">
-                        No Bookings Found !
+                        No purchase records match your selection. Please adjust the time period for your search.
                     </div>
                   </div>
                   <div class="pagination-wrapper" v-show="false">
@@ -1081,7 +1081,9 @@
       line-height:18px;
       font-size: 16px;
       margin-top: 10px;
-      font-weight: bold;
+    }
+    >>> .el-range-editor--mini .el-range-separator{
+      width: 20px;
     }
     </style>
     

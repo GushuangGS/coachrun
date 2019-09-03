@@ -20,8 +20,8 @@
             </span>
         </div>
         <div class="show-name" v-show="$store.state.isLogin">
-            <!-- <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span> -->
-            <span class="user-name" @click="gotoMine">Hello, {{userName}}</span>
+            <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span>
+            <!-- <span class="user-name" @click="gotoMine">Hello, {{userName}}</span> -->
             <span class="logot" @click="logout">Logout</span>
         </div>
         <div class="shopping-cart" @click="toShopping">
@@ -53,14 +53,21 @@
         },
         created(){
             const name = sessionStorage.getItem('IvyCustomer_LoginToken');
+
             if(name){
                 this.$store.commit('login');
+                this.isLogin = this.$store.state.isLogin;
+                // this.$store.commit('loginName',name);
             }
-            this.userName = VueCookie.get('IvyCustomer_FirstName');
-            if(this.userName == null || this.userName== undefined){
-                this.userName = VueCookie.get('IvyCustomer_LoginEmail');
-            }
-            console.log(this.userName);
+
+            // if(name){
+            //     this.$store.commit('login');
+            // }
+            // this.userName = VueCookie.get('IvyCustomer_FirstName');
+            // if(this.userName == null || this.userName== undefined){
+            //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+            // }
+            // console.log(this.userName);
         },
         methods:{
             toHome(){

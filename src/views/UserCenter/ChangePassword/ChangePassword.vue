@@ -124,6 +124,9 @@
       selectGet(val){
         console.log(val);
         this.getVal = val;
+        this.ruleForm.currentPass = '';
+        this.ruleForm.pass = '';
+        this.ruleForm.checkPass = '';
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -135,14 +138,24 @@
               {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                   .then((res)=>{
                       console.log(res);
-                      this.changeStatus = 0;
-                      this.$cookie.set('password', this.ruleForm.pass);
+                      if(res.data.code==200){
+                        this.changeStatus = 0;
+                        // this.$cookie.set('password', this.ruleForm.pass);
+                      }else{
+                        this.changeStatus = 2;
+                      }
                   })
           }
         })
       },
       clickFinshed(){
         this.changeStatus = 1;
+        this.ruleForm= {
+          passwordType: 'Login',
+          currentPass: '',
+          pass: '',
+          checkPass: ''
+        }
       }
     },
     components: {
@@ -161,7 +174,7 @@
     display: flex;
     flex-direction: column;
     font-size: 16px;
-    padding-top: 0;
+    padding-top: 20px;
     align-items: stretch;
     margin-left: 20px;
   }
@@ -181,6 +194,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 20px;
   }
   >>> .el-form {
     width: 500px;
@@ -193,7 +207,7 @@
     border-radius: 4px;
     width: 72px;
     height: 30px;
-    font-size: 16px;
+    font-size: 14px;
     padding: 7px 16px;
     text-align: center;
   }

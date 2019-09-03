@@ -4,7 +4,7 @@
         <!-- <el-header height="33px">
           <item-header :notDefault="notDefault" :status="status" :headerInfo="headerInfo"></item-header>
         </el-header> -->
-        <!-- <el-main> -->
+        <el-main>
           <div class="content">
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
@@ -108,7 +108,7 @@
             </div>
             </div>
           </div>
-        <!-- </el-main> -->
+        </el-main>
       </el-container>
     </div>
 </template>
@@ -191,7 +191,7 @@
     height: 150px;
     padding-top: 28px;
     padding-bottom: 28px;
-    border: 1px solid #aaa;
+    /* border: 1px solid #aaa; */
     display: flex;
     cursor: pointer;
   }
@@ -207,11 +207,12 @@
     padding-left: 54px;
     padding-right: 54px;
     display: flex;
-    border-right: 2px solid #E8F1FF;
+    border-right: 4px solid #E8F1FF;
+    align-items: center;
   }
   .left-img{
-    width: 93px;
-    height: 93px;
+    width: 80px;
+    height: 80px;
     margin-right: 20px;
   }
   .points{
@@ -242,7 +243,8 @@
   .right-span{
     font-size: 14px;
     color: #666666;
-    margin-left: 10px;
+    margin-left: 15px;
+    font-weight: bold;
   }
   .divider {
     width: 978px;

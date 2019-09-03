@@ -74,7 +74,7 @@
         flex: 1;
     }
     >>> .el-main {
-        padding-top: 0;
+        padding-top: 20px;
     }
     .content{
         padding-left: 20px;

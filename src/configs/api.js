@@ -7,13 +7,13 @@ export default {
     creditList:'/users/credit-cards',//creditList
     creditAdd:'/users/credit-cards',//creditAdd
     creditUpdate:'/users/credit-cards',//creditUpdate
-    creditDetail:'/users/credit-cards/:ccid',// get wait
+    creditDetail:'/users/credit-cards',// get 
     creditDelete:'/users/credit-cards',// creditDelete
     //contact-info
     contactAdd:'/users/contact-infos',//contactAdd
     contactList:'/users/contact-infos',//contactList
     contactUpdate:'/users/contact-infos',//contactUpdate
-    contactDetail:'/users/contact-infos',//contactDetail  wait
+    contactDetail:'/users/contact-infos',//contactDetail  
     contactDelete:'/users/contact-infos',//contactDelete 
     //dashboard
     dashboard:'/users/dashboard',//dashboard

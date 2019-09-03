@@ -2,12 +2,12 @@
     <div class="login-bg">
     <div class="login">
        <h3 class="login-title">Log In</h3>
-       <el-form :model="loginInfo" :rules="rules" ref="loginForm" label-width="90px">
-            <el-form-item prop="email" label="Email:">
-                <el-input v-model="loginInfo.email"></el-input>
+       <el-form class="login-form" :model="loginInfo" :rules="rules" ref="loginForm" label-width="0px">
+            <el-form-item prop="email">
+                <el-input v-model="loginInfo.email" placeholder="Email"></el-input>
             </el-form-item> 
-            <el-form-item label="Password:" prop="password">
-                <el-input type="password" v-model="loginInfo.password"></el-input>
+            <el-form-item prop="password">
+                <el-input type="password" v-model="loginInfo.password" placeholder="password"></el-input>
             </el-form-item>
             <div class="forget-pass" @click="forgetPass">Forgot Password?</div>
             <!-- <div class="check">
@@ -16,6 +16,7 @@
             </div> -->
             <el-button @click.native.prevent="login" class="login-btn">Log In</el-button>
        </el-form>
+       <div class="hr"></div>
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
            <span class="to-register" @click="gotoRegister">Register Now</span>
@@ -129,12 +130,24 @@
 </script>
 
 <style scoped>
+    .hr{
+        width: 330px;
+        height: 1px;
+        background: #EFEFEF;
+        border: 0.5px solid #EFEFEF;
+        margin-top: 30px;
+        margin-left: 30px;
+    }
     .login-bg{
         width: 100%;
         height: 100%;
         background: #F5F5F5;
         margin-top: 20px;
         padding: 50px;
+    }
+    .login-form{
+        width: 100%;
+        padding: 0 20px 0 20px;
     }
     .login{
         width: 448px;
@@ -152,20 +165,20 @@
         font-size: 16px;
     }
     .login-btn{
-        width: 334px;
+        width: 100%;
         height: 56px;
-        margin-left: 30px;
         font-size: 20px;
         margin-top: 20px;
         background:rgba(254,179,71,1);
         color:rgba(255,255,255,1);
+        border: none;
     }
     .forget-pass{
         font-size:14px;
         color:rgba(0,162,255,1);
         text-align: end;
         cursor: pointer;
-        margin-left: 260px;
+        margin-left: 220px;
         width: 120px;
     }
     .check{
@@ -200,6 +213,7 @@
         display: flex;
         justify-content: space-between;
         margin-top: 30px;
+        padding: 0 20px 0 20px;
     }
     .intro{
         display: flex;
@@ -214,5 +228,9 @@
         font-size:12px;
         color:rgba(102,102,102,1);
         margin-top: 10px;
+    }
+    >>> .el-input__inner::-webkit-input-placeholder{
+        font-size: 16px;
+        color:rgba(102,102,102,1);
     }
 </style>

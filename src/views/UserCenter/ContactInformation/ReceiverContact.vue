@@ -59,7 +59,7 @@
                                 <el-row :gutter="20">
                                     <el-col :span="24">
                                         <el-form-item class="email" label="Contact Email:" prop="email">
-                                            <el-input v-model.number="ruleForm.email"></el-input>
+                                            <el-input v-model="ruleForm.email"></el-input>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
@@ -68,8 +68,8 @@
                                         <el-form-item class="phone" label="Contact Phone:" prop="phone">
                                             <VuePhoneNumberInput v-model="ruleForm.phone" 
                                             :default-country-code="countryFir"
-                                            :error="canSave" 
                                             @update="onUpdate"
+                                            ref="phone_number"
                                             />
                                         </el-form-item>
                                     </el-col>
@@ -80,6 +80,7 @@
                                                 <VuePhoneNumberInput v-model="ruleForm.phone2" 
                                                 :default-country-code="countrySec" 
                                                 @update="onUpdateAgain"
+                                                ref="phone2_number"
                                                 />
                                         </el-form-item>
                                     </el-col>
@@ -162,7 +163,8 @@
                             { required: true, trigger: 'blur' ,message: 'Please enter your last name.'}
                         ],
                         email: [
-                            { required: true, trigger: 'blur' ,message: 'Please enter your full email address.'}
+                            { required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
+                            { type: 'email', message: 'Please enter the correct email address', trigger: ['blur', 'change']}
                         ],
                         phone: [
                             { required: true, trigger: 'blur',validator: validatePhone}
@@ -183,45 +185,53 @@
                 }
             },
             created(){
-                console.log(this.$store.state.contactName)
-                this.whereName = this.$store.state.contactName!=""?this.$store.state.contactName:localStorage.getItem("contactName");
-                this.whereName = this.$store.state.contactName!=""?this.$store.state.contactName:'';
-                console.log(this.$store.state.contactName);
-                if(this.whereName=='edit'){
-                    this.ruleForm = this.$store.state.contactInfo==""?this.$store.state.contactInfo:JSON.parse(localStorage.getItem("contactInfo"));
-                    console.log(this.ruleForm.phone)
-                    const phoneNumber = parsePhoneNumberFromString(this.ruleForm.phone);
-                    console.log(phoneNumber);
-                    if(phoneNumber !== undefined){
-                        this.ruleForm.phone = phoneNumber.nationalNumber;
-                        this.countryFir = phoneNumber.country;
-                    }
-                    if(this.ruleForm.phone2){
-                        console.log(this.ruleForm.phone2)
-                        const phoneNumber2 = parsePhoneNumberFromString(this.ruleForm.phone2);
-                        console.log(phoneNumber2);
-                        if(phoneNumber2 !== undefined){
-                            this.ruleForm.phone2 = phoneNumber2.nationalNumber;
-                            this.countrySec = phoneNumber2.country;
-                        }
-                    }
-                    this.showDefault = this.ruleForm.isDefault;
-                }else if(this.whereName=='add'){
-                    this.ruleForm={
-                        firstName: '',
-                        lastName: '',
-                        email: '',
-                        phone:'',
-                        phone2:''
-                    }
+                console.log(this.$route.query.aid);
+                if(this.$route.query.aid==undefined){
+                    this.whereName = 'add';
+                }else{
+                    this.whereName = 'edit';
+                    this.getUserInfo();
                 }
+                console.log(this.whereName)
             },
             methods: {
-                getId(name){
+                getId(name){//aid
                     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
                     var r = window.location.search.substr(1).match(reg);
                     if(r != null) return unescape(r[2]);
                     return null;
+                },
+                getUserInfo(){//获取用户信息
+                    this.userId = this.getId("aid");
+                    console.log(this.userId);
+                    this.$http.get(`${this.$api.contactDetail}/${this.userId}`,
+                            {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                            .then((res)=>{
+                                if(res.data.code==200){
+                                    console.log(res);
+                                    this.ruleForm = res.data.data;
+                                    this.showDefault = this.ruleForm.isDefault;
+                                    const searchPhone1 = parsePhoneNumberFromString(this.ruleForm.phone);
+                                    console.log(searchPhone1)
+                                    if(searchPhone1 !==undefined){
+                                        this.countryFir = searchPhone1.country;
+                                        console.log(this.countryFir)
+                                        this.$refs.phone_number.countryCode = this.countryFir;
+                                        this.$refs.phone_number.phoneNumber = searchPhone1.nationalNumber;
+                                    }
+                                    console.log(this.ruleForm.phone2!='')
+                                    if(this.ruleForm.phone2!='' && this.ruleForm.phone2 !='null'){
+                                        const searchPhone2 = parsePhoneNumberFromString(this.ruleForm.phone2);
+                                        console.log(searchPhone2)
+                                        this.countrySec = searchPhone2.country;
+                                        console.log(this.countrySec)
+                                        this.$refs.phone2_number.countryCode = this.countrySec;
+                                        this.$refs.phone2_number.phoneNumber = searchPhone2.nationalNumber;
+                                    }else{
+                                        this.$refs.phone2_number.phoneNumber='';
+                                    }
+                                }
+                            })   
                 },
                 intStr(val){
                     return val.slice(val.indexOf(' ') + 1);
@@ -232,7 +242,6 @@
                         const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
                         this.sendPhone1 = "+"+ addPhoneFir.countryCallingCode+ " " + addPhoneFir.nationalNumber;
                     }
-                    
                 },
                 onUpdateAgain(payload){
                   this.canSave2 = payload.isValid;
@@ -325,12 +334,16 @@
     }
     >>> .el-main {
         padding-top: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+        height: 550px;
     }
     .content {
         background-color: #FCFCFC;
         padding-top: 30px;
         padding-left: 160px;
         padding-bottom: 30px;
+        height: 100%;
     }
     .form-wrapper {
         width: 500px;

@@ -49,8 +49,8 @@
                     </template>
                   </el-table-column>
                 </el-table>
-                <div class="none-data" v-if="contactList.length==0">
-                  <img src="@/assets/contactinfo.png" alt="">
+                <div class="none-data" v-show="contactList.length==0">
+                  <img class="nodate-img" style="width: 28px;height: 27px;margin-left: 12px;margin-right: 20px;" src="@/assets/contactinfo.png" alt="">
                   <span>
                       Contact Information allows you to save your frequent contact information. You can add multiple
                       contacts in the system and save your time when placing an order. This information is for user 
@@ -60,10 +60,21 @@
                 
               </div>
               <div class="add-btn">
-                  <el-button class="add-info" @click="AddContact">+ Add a new contact person</el-button>
+                  <el-button class="add-info" @click="AddContact">+ Add a new contact</el-button>
               </div>
             </div>
         </el-main>
+        <el-dialog
+          title="Remove Contact Information"
+          :visible.sync="showDialogVisible">
+          <div class="delete-body">
+            <p>Are you sure to remove the contact person from your list?</p>
+          </div>
+          <span slot="footer" class="dialog-footer">
+            <el-button @click="showDialogVisible = false">Cancel</el-button>
+            <el-button type="warning" @click="removeCredit">Confirm Remove</el-button>
+          </span>
+        </el-dialog>
       </el-container>
     </div>
 </template>
@@ -78,7 +89,9 @@
           [''],
           { description: 'Contact Information', path: '/app/member/account/contactlist',title:'My Account' }
         ],
-        contactList: []
+        contactList: [],
+        showDialogVisible:false,//弹窗默认消失
+        deleteInfo:'',//删除信用卡信息
       }
     },
     components: {
@@ -101,31 +114,46 @@
             })
       },
       clickdel(row){//删除
-        // console.log(index);
-        this.$confirm('Are you sure to remove the contact person from your list?', 'Remove contact person:', {
-                    distinguishCancelAndClose: true,
-                    confirmButtonText: 'Remove',
-                    cancelButtonText: 'Cancel '
-                }).then(() => {
-                  this.$http.delete(`${this.$api.contactDelete}/${row.aid}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-                      .then((res)=>{
-                          console.log(res);
-                          this.$message({
-                            message: 'Deleted successfully.',
-                            type: 'success',
-                            showClose: true,
-                            center: true
-                          });
-                          this.listInfo();
-                      })
-                }).catch(() => {});
+        this.showDialogVisible = true;
+        console.log(row);
+        this.deleteInfo = row;
+        // this.$confirm('Are you sure to remove the contact person from your list?', 'Remove contact person:', {
+        //             distinguishCancelAndClose: true,
+        //             confirmButtonText: 'Remove',
+        //             cancelButtonText: 'Cancel '
+        //         }).then(() => {
+        //           this.$http.delete(`${this.$api.contactDelete}/${row.aid}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        //               .then((res)=>{
+        //                   console.log(res);
+        //                   this.$message({
+        //                     message: 'Deleted successfully.',
+        //                     type: 'success',
+        //                     showClose: true,
+        //                     center: true
+        //                   });
+        //                   this.listInfo();
+        //               })
+        //         }).catch(() => {});
+      },
+      removeCredit(){
+        this.$http.delete(`${this.$api.contactDelete}/${this.deleteInfo.aid}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+          .then((res)=>{
+              console.log(res);
+              this.$message({
+                message: 'Deleted successfully.',
+                type: 'success',
+                showClose: true,
+                center: true
+              });
+              this.showDialogVisible = false;
+              this.listInfo();
+          })
       },
       edit(row){//编辑
         console.log(row);
-        // this.$router.push({name: 'EditContact'});
         this.$router.push({name: 'ReceiverContact',query:{aid:row.aid}});
-        this.$store.commit('contactName','edit');
-        this.$store.commit('contactInfo',row);
+        // this.$store.commit('contactName','edit');
+        // this.$store.commit('contactInfo',row);
       },
       setDefault(row){
         console.log(row);
@@ -135,7 +163,7 @@
               .then((res)=>{
                   console.log(res);
                   this.$message({
-                      message: 'Saved successfully.',
+                      message: 'Default contact changed.',
                       type: 'success',
                       showClose: true,
                       center: true
@@ -144,8 +172,7 @@
               })
       },
       AddContact(){
-        // this.$router.push({name: 'AddContact'});
-        this.$store.commit('contactName','add');
+        // this.$store.commit('contactName','add');
         this.$router.push({name: 'ReceiverContact'});
       }
     }
@@ -158,7 +185,7 @@
   }
   >>> .el-main {
     /* padding-top: 24px; */
-    padding-top: 0;
+    padding-top: 20px;
   }
   .container {
     padding-left: 20px;
@@ -203,7 +230,7 @@
     justify-content: center;
     align-items: center;
   }
-  .none-data>img{
+  .nodate-img{
     width: 28px;
     height: 27px;
     margin-left: 12px;
@@ -223,5 +250,22 @@
     background: #FF9A0D;
     color: #FFFFFF;
     font-size: 14px;
+  }
+  >>> .el-dialog{
+    background: none;
+  }
+  >>> .el-dialog__header{
+    background: #F0F0F0;
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+  }
+  >>> .el-dialog__body{
+    background: #FFFFFF;
+  }
+  >>> .el-dialog__footer{
+    background: #FFFFFF;
   }
 </style>
