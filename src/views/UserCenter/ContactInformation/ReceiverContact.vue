@@ -164,7 +164,7 @@
                         ],
                         email: [
                             { required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
-                            { type: 'email', message: 'Please enter the correct email address', trigger: ['blur', 'change']}
+                            { type: 'email', message: 'Please enter the correct email address', trigger: 'blur'}
                         ],
                         phone: [
                             { required: true, trigger: 'blur',validator: validatePhone}
@@ -352,7 +352,8 @@
     }
     
       >>> .country-selector.has-value .field-label{
-        top: -10px;
+        line-height: normal;
+        pointer-events: none;
       }
       >>> .el-form-item__label{
         padding: 0;

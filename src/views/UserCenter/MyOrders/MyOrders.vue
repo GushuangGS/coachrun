@@ -230,7 +230,8 @@
     font-weight:bold;
   }
   .account-brief>.right {
-    width: 489px;
+    /* width: 489px; */
+    width: 185px;
     display: flex;
     flex-direction: column;
     margin-left: 20px;

@@ -58,7 +58,7 @@
                 },
                 rules: {
                     email: [{ required: true, trigger: 'blur' ,message: 'Enter your full email address.'},
-                    { type: 'email', message: 'Please enter the correct email address', trigger: ['blur', 'change']}]
+                    { type: 'email', message: 'Please enter the correct email address', trigger: 'blur'}]
                 },
                 value: '',
                 sendAuthCode: true, //布尔值，通过v-show控制显示‘发送按钮’还是‘倒计时’ 

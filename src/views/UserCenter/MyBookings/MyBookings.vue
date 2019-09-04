@@ -8,7 +8,7 @@
               <div class="content">
                 <h2 class="welcome">My Bookings</h2>
                 <div class="order-time">
-                    <span class="dateTitle">Date:</span>
+                    <span class="dateTitle">Purchase Date:</span>
                     <el-select v-model="value" @change="select">
                       <el-option :value="value">
                           <template>
@@ -710,8 +710,7 @@
                     { name: "Last 90 days", value: 17 },
                     { name: "Today & Last 90 days", value: 18 },
                     { name: "Last 180 days", value: 19 },
-                    { name: "Today & Last 180 days", value: 20 },
-                    { name: "Today & Last 180 daysssssssss", value: 21 }],
+                    { name: "Today & Last 180 days", value: 20 }],
             value:'Today & Last 30 days',
             valueTime:'',
             bookingsList:[],
