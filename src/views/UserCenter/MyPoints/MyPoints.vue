@@ -45,6 +45,7 @@
               <el-table
                 empty-text="Start earning your loyalty points today!"
                 :data="tableData"
+                size="mini"
                 style="width: 100%;">
                 <el-table-column
                   label="Source"

@@ -213,7 +213,7 @@
         display: flex;
         justify-content: space-between;
         margin-top: 30px;
-        padding: 0 20px 0 20px;
+        padding: 0 25px 0 25px;
     }
     .intro{
         display: flex;
