@@ -24,7 +24,7 @@
                     </template>
                 </el-form-item> 
                 <el-form-item prop="password">
-                    <el-input class="password-register" type="password" v-model="loginInfo.password" placeholder="password"></el-input>
+                    <el-input class="password-register" type="password" v-model="loginInfo.password" placeholder="Password"></el-input>
                 </el-form-item>
                 <el-button @click.native.prevent="register" class="login-btn">Create My Account</el-button>
            </el-form>

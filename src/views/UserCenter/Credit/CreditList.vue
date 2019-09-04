@@ -59,7 +59,7 @@
       </div>
     </el-main>
     <el-dialog
-      title="Remove"
+      title="Remove Card"
       :visible.sync="showDialogVisible"
       width="790px">
       <div class="delete-body">
@@ -322,8 +322,8 @@
   }
   .delete-body>p {
     margin: 0;
-    font-size: 18px;
-    color: #333333;
+    font-size: 14px;
+    color: #666666;
   }
   >>> .el-dialog{
     background: none;

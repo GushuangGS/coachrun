@@ -7,7 +7,7 @@
                 <el-input v-model="loginInfo.email" placeholder="Email"></el-input>
             </el-form-item> 
             <el-form-item prop="password">
-                <el-input type="password" v-model="loginInfo.password" placeholder="password"></el-input>
+                <el-input type="password" v-model="loginInfo.password" placeholder="Password"></el-input>
             </el-form-item>
             <div class="forget-pass" @click="forgetPass">Forgot Password?</div>
             <!-- <div class="check">

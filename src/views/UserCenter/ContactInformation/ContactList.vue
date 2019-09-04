@@ -11,7 +11,8 @@
               <div class="table-wrapper">
                 <el-table
                   :data="contactList"
-                  style="width: 100%">
+                  style="width: 100%"
+                  size="mini">
                   <el-table-column
                     header-align="center"
                     align="center"
@@ -267,5 +268,8 @@
   }
   >>> .el-dialog__footer{
     background: #FFFFFF;
+  }
+  .delete-body{
+    color: #666666;
   }
 </style>

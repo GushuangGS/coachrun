@@ -336,7 +336,7 @@
         padding-top: 0;
         padding-left: 20px;
         padding-right: 20px;
-        height: 550px;
+        height: 570px;
     }
     .content {
         background-color: #FCFCFC;

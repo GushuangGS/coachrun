@@ -589,8 +589,8 @@
     .column-name {
         background-color: #E5EFFA;
         color: #274F7C;
-        height: 40px;
-        line-height: 40px;
+        height: 36px;
+        line-height: 36px;
       }
       .column-first {
         margin-left: 30px;

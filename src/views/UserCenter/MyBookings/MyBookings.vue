@@ -710,7 +710,8 @@
                     { name: "Last 90 days", value: 17 },
                     { name: "Today & Last 90 days", value: 18 },
                     { name: "Last 180 days", value: 19 },
-                    { name: "Today & Last 180 days", value: 20 }],
+                    { name: "Today & Last 180 days", value: 20 },
+                    { name: "Today & Last 180 daysssssssss", value: 21 }],
             value:'Today & Last 30 days',
             valueTime:'',
             bookingsList:[],
@@ -791,7 +792,7 @@
                         }
                     })
             console.log(value[0],value[1]);
-            this.value = value[0] +"---"+value[1];
+            this.value = value[0] +"--"+value[1];
           },
           dateChange(str){
             var week,mon,da,yea,newDate;
@@ -888,8 +889,8 @@
       .column-name {
         background-color: #E5EFFA;
         color: #274F7C;
-        height: 40px;
-        line-height: 40px;
+        height: 36px;
+        line-height: 36px;
       }
       .column-first {
         margin-left: 30px;
