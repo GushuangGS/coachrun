@@ -195,7 +195,7 @@
         .to-register{
             font-size:16px;         
             color:rgba(0,162,255,1);
-            margin-left: 25px;
+            margin-left: 10px;
             cursor: pointer;
         }
     
@@ -224,11 +224,11 @@
           left: 1px;
         }
         >>> .field-input::-webkit-input-placeholder{
-            font-size: 16px;
+            font-size: 14px;
             color:rgba(102,102,102,1);
         }
         >>> .el-input__inner::-webkit-input-placeholder{
-            font-size: 16px;
+            font-size: 14px;
             color:rgba(102,102,102,1);
         }
     </style>

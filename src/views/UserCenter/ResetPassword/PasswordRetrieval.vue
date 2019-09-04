@@ -7,22 +7,24 @@
                 email address for us to email you the 
                 instructions to reset your password.
             </span>
-            <!-- <el-form :model="ruleForm" ref="ruleForm" label-width="auto">
+            <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto">
                 <el-form-item
                     prop="email"
                     label="Login Email:"
-                    :rules="[
-                    { required: true, message: '请输入邮箱地址', trigger: 'blur' },
-                    { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-                    ]"
                 >
-                    <el-input v-model="ruleForm.email"></el-input>
+                    <el-input v-model="ruleForm.email" @input="focus"></el-input>
                 </el-form-item>
-            </el-form> -->
-            <div class="email">
+                <el-button id="submit" type="warning" class="btn" :disabled="canClick" v-show="sendAuthCode" @click="resetPass">
+                    Reset login password
+                </el-button>
+                <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
+                    {{auth_time}} seconds countdown
+                </el-button>
+            </el-form>
+            <!-- <div class="email">
                 <span class="email-discrib">Login Email:</span>
                 <input v-model="value" id="field" class="email-input" type="email">
-            </div>
+            </div> -->
             <vue-recaptcha 
                     ref="invisibleRecaptcha"
                     sitekey="6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p" 
@@ -33,15 +35,13 @@
             </vue-recaptcha>
             <!-- 6LcENLIUAAAAAFfPgVMwchP85uhnY0RaCqml6Y6p -->
             <!-- 6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI -->
-            <el-button id="submit" class="btn" v-show="sendAuthCode" @click="resetPass">
+            <!-- <el-button id="submit" class="btn" v-show="sendAuthCode" @click="resetPass">
                     Reset login password
             </el-button>
             <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
                 {{auth_time}} seconds countdown
-            </el-button>
-            <!-- <el-button class="btn2" type="info" plain disabled v-show="!sendAuthCode">
-                {{auth_time}} seconds countdown
             </el-button> -->
+            
         </div>
     </div>
 </template>
@@ -56,17 +56,31 @@
                 ruleForm: {
                     email: ''
                 },
+                rules: {
+                    email: [{ required: true, trigger: 'blur' ,message: 'Enter your full email address.'},
+                    { type: 'email', message: 'Please enter the correct email address', trigger: ['blur', 'change']}]
+                },
                 value: '',
                 sendAuthCode: true, //布尔值，通过v-show控制显示‘发送按钮’还是‘倒计时’ 
                 auth_time: 0, //倒计时 计数器
                 isClick:false,
-                verify:''
+                verify:'',
+                canClick:true
             }
         },
         created(){
             
         },
         methods:{
+            focus(){
+                this.$refs.ruleForm.validate((valid)=>{
+                    if (valid){
+                        this.canClick=false;
+                    }else{
+                        this.canClick=true;
+                    }
+                })
+            },
             onVerify(response) {
                  this.verify = response;
                  this.forgotPas();
@@ -102,18 +116,21 @@
                         }
                     })
             },
-            resetPass(event){
-                event.preventDefault();
-                if (!this.value) {
-                    this.$message({
-                        message: 'You must add text to the required field',
-                        type: 'warning',
-                        showClose: true,
-                        center: true
-                    })
-                } else {
-                    this.getToken();
-                }
+            // resetPass(event){
+            //     event.preventDefault();
+            //     if (!this.value) {
+            //         this.$message({
+            //             message: 'You must add text to the required field',
+            //             type: 'warning',
+            //             showClose: true,
+            //             center: true
+            //         })
+            //     } else {
+            //         this.getToken();
+            //     }
+            // }
+            resetPass(){
+                this.getToken();
             }
         }
     }
@@ -134,7 +151,7 @@
         background:rgba(255,255,255,1);
         width: 380px;
         height: 280px;
-        padding: 28px 0 0 40px;
+        padding: 28px 40px 0 40px;
     }
     .title{
         display: block;
@@ -165,23 +182,22 @@
     #recaptcha{
         margin-top: 20px;
     }
+    .form-rule{
+        margin-top: 15px;
+    }
     .btn{
-        width: 200px;
+        width: 60%;
         height: 48px;
-        color: #FFFFFF;
-        font-weight: bold;
+        margin-left: 20%;
         font-size: 14px;
-        background: rgba(255,154,13,0.6);
-        margin-top: 20px;
-        margin-left: 50px;
+        border: none;
     }
     .btn2{
-        width: 200px;
+        width: 60%;
         height: 48px;
-        font-weight: bold;
+        margin-left: 20%;
         font-size: 14px;
-        margin-top: 20px;
-        margin-left: 50px;
+        font-weight: bold;
     }
     >>> .el-form-item__label:before{
         display: none;

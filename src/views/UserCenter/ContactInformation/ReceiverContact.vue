@@ -336,14 +336,14 @@
         padding-top: 0;
         padding-left: 20px;
         padding-right: 20px;
-        height: 570px;
+        height: 620px;
     }
     .content {
         background-color: #FCFCFC;
         padding-top: 30px;
         padding-left: 160px;
         padding-bottom: 30px;
-        height: 100%;
+        height: 540px;
     }
     .form-wrapper {
         width: 500px;
