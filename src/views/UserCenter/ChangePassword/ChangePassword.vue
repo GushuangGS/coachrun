@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="form-wrapper" v-if="changeStatus !=0">
-            <el-form  :label-position="labelPosition" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
+            <el-form :show-message="showMessage" :label-position="labelPosition" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
               <el-form-item label="Password Type:">
                 <el-select v-model="ruleForm.passwordType"  @change="selectGet">
                   <el-option v-for="(passwordType, index) in passwordTypes" 
@@ -117,18 +117,33 @@
             {required: true, validator: validatePass3, trigger: 'blur' }
           ]
         },
-        getVal:'1'//默认选中值为login
+        getVal:'1',//默认选中值为login
+        showMessage:true
       }
     },
     methods: {
       selectGet(val){
+        // this.showMessage = false;
+        // this.rules = {};
         console.log(val);
         this.getVal = val;
         this.ruleForm.currentPass = '';
         this.ruleForm.pass = '';
         this.ruleForm.checkPass = '';
+        
       },
       submitForm(formName) {
+        // this.rules= {
+        //   currentPass: [
+        //     {required: true, validator: validatePass, trigger: 'blur' }
+        //   ],
+        //   pass: [
+        //     {required: true, validator: validatePass2, trigger: 'blur' }
+        //   ],
+        //   checkPass: [
+        //     {required: true, validator: validatePass3, trigger: 'blur' }
+        //   ]
+        // },
         this.$refs[formName].validate((valid) => {
           if(valid){
             console.log(this.ruleForm);

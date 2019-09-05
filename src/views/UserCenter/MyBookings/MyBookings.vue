@@ -36,7 +36,7 @@
                 </div>
                 <div class="add-guest">
                   <img src="@/assets/guestbookig.png" alt="">
-                  <span class="guets-tips">Do not see your booking here, find and <span class="guest-add">add guest bookings</span> that you purchase within last 100 days</span>
+                  <span class="guest-tips">Do not see your booking here, find and <span class="guest-add">add guest bookings</span> that you purchase within last 100 days</span>
                 </div>
                 <div class="recent-bookings">
                   <div class="bookings-list">
@@ -896,19 +896,21 @@
         border:1px solid rgba(255,204,50,1);
         display: flex;
         align-items: center;
+        margin-top: 30px;
       }
       .add-guest img{
         width: 17px;
         height: 22px;
         margin-left: 25px;
       }
-      .guets-tips{
+      .guest-tips{
         font-size: 13px;
         margin-left: 12px;
         color: #333333;
       }
-      .guets-add{
+      .guest-add{
         color: #FFA212;
+        cursor: pointer;
       }
       .recent-bookings {
         width: 978px;
