@@ -657,7 +657,7 @@
                             <!-- </ul>
                           </el-collapse-item> -->
                     </el-collapse>
-                    <div class="no-bookings" v-if="bookingsList.length!==0">
+                    <div class="no-bookings" v-if="bookingsList.length==0">
                         No purchase records match your selection. Please adjust the time period for your search.
                     </div>
                   </div>
