@@ -60,7 +60,7 @@
                                 </el-col>
                                 <el-col :span="6">
                                     <el-form-item label="Expiration:" prop="month">
-                                        <el-select v-model="ruleForm.month">
+                                        <el-select v-model="ruleForm.month" @change="expiration">
                                             <el-option 
                                                     v-for="item in months"
                                                     :key="item.value"
@@ -71,7 +71,7 @@
                                     </el-form-item>
                                 </el-col>
                                 <el-col :span="6">
-                                    <el-form-item label="years" prop="year">
+                                    <el-form-item label="Years" prop="year">
                                         <el-select v-model="ruleForm.year" @change="selectYear">
                                             <el-option 
                                                     v-for="item in years"
@@ -224,7 +224,7 @@
                         CVV: '',
                         type: '',
                         month: '',
-                        year: '2019',
+                        year: '',
                         street: '',
                         city: '',
                         state:'',
@@ -278,6 +278,7 @@
                 if(this.$route.query.ccid==undefined){
                     this.creditName = 'add';
                     this.expiration();
+                    this.selectYear();
                 }else{
                     this.creditName = 'edit';
                     this.getCreditInfo();
@@ -293,25 +294,39 @@
                 selectType(val){
                     console.log(val);
                 },
-                expiration(){//选择月份
+                expiration(val){//选择月份
                     var date=new Date;
                     var year=date.getFullYear(); 
                     var month=date.getMonth();
-                    this.months = this.months.splice(month,12-month);
-                    console.log(this.months);
-                    this.ruleForm.month = this.months[0].label;
+                    if(val == undefined){
+                        this.ruleForm.month = this.months[month].label;
+                    }
+                    if(parseInt(val)<=month && this.ruleForm.year<=year){
+                        this.ruleForm.year = year+1;
+                    }
                 },
                 selectYear(val){//选择年份
                     var date=new Date;
                     var year=date.getFullYear(); 
-                    var month=date.getMonth()+1;
-                    if(Number(val)>year){
-                        this.months = this.selectMonths.map(item => {
-                            return { value: item, label: item };
-                        });
+                    // var month=date.getMonth()+1;
+                    var month=date.getMonth();
+                    console.log(val)
+                    if(val == undefined){
+                        this.ruleForm.year = year;
                     }else{
-                        this.months = this.months.splice(month-1,13-month);
-                        this.ruleForm.month = this.months[0].label;
+                        if(Number(val)<=year && parseInt(this.ruleForm.month)<=month){
+                            this.ruleForm.month = this.months[month].label;
+                        }
+                        // if(Number(val)>year){
+                        //     this.months = this.selectMonths.map(item => {
+                        //         return { value: item, label: item };
+                        //     });
+                        // }else{
+                        //     if(parseInt(this.ruleForm.month)<=month){
+                        //         this.ruleForm.month = this.months[month].label;
+                        //     }
+                            
+                        // }
                     }
                 },
                 selectCountry(val){//选择国家

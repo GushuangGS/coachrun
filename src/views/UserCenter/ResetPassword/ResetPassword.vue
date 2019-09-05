@@ -6,13 +6,13 @@
                 <span class="emali-lab">Registered Email:</span>
                 <span class="email-name">{{userEmail}}</span>
             </div>
-            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto">
-                <el-form-item prop="pass" label="New Password:">
-                    <el-input type="password" v-model="ruleForm.pass" clearable>
+            <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" class="reset-form">
+                <el-form-item prop="pass">
+                    <el-input type="password" v-model="ruleForm.pass" clearable placeholder="New Password"> 
                     </el-input>
                 </el-form-item>
-                <el-form-item prop="checkPass" label="Re-type Password:">
-                    <el-input type="password" v-model="ruleForm.checkPass" clearable>
+                <el-form-item prop="checkPass">
+                    <el-input type="password" v-model="ruleForm.checkPass" clearable placeholder="Re-type Password">
                     </el-input>
                 </el-form-item>
                 <el-button type="primary" @click.native.prevent="save" class="login-btn">
@@ -25,28 +25,30 @@
 </template>
 
 <script>
-    //获取url地址里面的参数
-    // function getQueryString(name) {
-    //     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-    //     var r = window.location.search.substr(1).match(reg);
-    //     if(r != null) return unescape(r[2]);
-    //     return null;
-    // }
-    // var name = getQueryString("user_id");
-    
     export default{
         name:'ResetPassword',
         data(){
-            var validatePass = (rule, value, callback) => {
-                if (value === '') {
+            // var validatePass = (rule, value, callback) => {
+            //     if (value === '') {
+            //         callback(new Error('Please enter your password.'));
+            //     } else {
+            //         if (this.ruleForm.checkPass !== '') {
+            //             this.$refs.ruleForm.validateField('checkPass');
+            //         }
+            //         callback();
+            //     }
+            // };
+            var validatePass = (rule, value, callback)=>{
+                var reg = /((?=.*\d)(?=.*\D)|(?=.*[a-zA-Z])(?=.*[^a-zA-Z]))(?!^.*[\u4E00-\u9FA5].*$)^\S{6,12}$/;
+                if (value == '') {
                     callback(new Error('Please enter your password.'));
-                } else {
-                    if (this.ruleForm.checkPass !== '') {
-                        this.$refs.ruleForm.validateField('checkPass');
+                }else{
+                    if(!reg.test(value)){
+                        callback(new Error('Use 6-12 characters with a mix of letters, numbers & symbols.'));
                     }
                     callback();
                 }
-            };
+            }
 
             var validatePass2 = (rule, value, callback) => {
                 if (value === '') {
@@ -65,7 +67,7 @@
                 rules: {
                     pass: [
                         { required: true, validator: validatePass, trigger: 'blur' },
-                        { min: 6, max: 12, message: 'Please enter value between 6 and 12 characters long', trigger: 'blur' }
+                        // { min: 6, max: 12, message: 'Please enter value between 6 and 12 characters long', trigger: 'blur' }
                     ],
                     checkPass: [
                         { required: true, validator: validatePass2, trigger: 'blur' }
@@ -121,7 +123,10 @@
         color: #333333;
         font-size: 16px;
         font-weight: bold;
-        margin-left: 13px;
+        margin-left: 12px;
+    }
+    .reset-form{
+        padding: 0 13px 0 13px;
     }
     .email{
         margin-bottom: 10px;
@@ -144,6 +149,7 @@
         margin-top: 10px;
         margin-bottom: 20px;
         margin-left: 80px;
+        border: none;
     }
     >>> .el-form-item__label:before{
         display: none;

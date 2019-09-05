@@ -154,6 +154,7 @@
         }
         .login-title{
             margin-left: 20px;
+            font-size: 20px;
         }
         >>> .el-form-item{
             /* margin-top: 35px; */
@@ -189,11 +190,11 @@
             /* font-weight: 600; */
         }
         .register-info{
-            font-size:16px;
+            font-size:14px;
             color:rgba(51,51,51,1);
         }
         .to-register{
-            font-size:16px;         
+            font-size:14px;         
             color:rgba(0,162,255,1);
             margin-left: 10px;
             cursor: pointer;

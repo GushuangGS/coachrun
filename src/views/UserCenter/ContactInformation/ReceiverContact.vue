@@ -365,7 +365,7 @@
         top: 0;
       }
       >>> .field.vue-input-ui.has-value .field-label{
-        top: -10px;
+        /* top: -10px; */
       }
       >>> .el-switch__label.is-active{
         color: #303133;
@@ -378,5 +378,9 @@
       } 
       >>> .field.vue-input-ui{
           left: 1px;
+      }
+      >>> .field.vue-input-ui .field-label{
+        line-height: normal;
+        pointer-events: none;
       }
     </style>

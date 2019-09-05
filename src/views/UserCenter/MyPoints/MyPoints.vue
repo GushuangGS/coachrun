@@ -24,7 +24,7 @@
                   <p>{{resData.pendingPoints}}</p>
                 </div>
                 <div class="brief-right-item">
-                  <h4>Redeem</h4>
+                  <h4>Redeemed</h4>
                   <p>{{resData.consumptionPoints}}</p>
                 </div>
                 <div class="brief-right-item">
@@ -35,7 +35,7 @@
                   <h4>Other</h4>
                   <p>{{resData.otherPoints}}</p>
                 </div>
-                <div class="brief-right-item help">
+                <div class="brief-right-item help" @click="gotoPoints">
                   Points Help &nbsp;>>
                 </div>
               </div>
@@ -59,13 +59,11 @@
                       <span v-show="scope.row.rewardType==4">Photo Sharing</span>
                       <span v-show="scope.row.rewardType==5">Photo Likes</span>
                       <span v-show="scope.row.rewardType==6">Review</span>
-                      <span v-show="scope.row.orderCode">(Order {{scope.row.orderCode}})</span>
+                      <span v-show="scope.row.orderCode"> (Order {{scope.row.orderCode}})</span>
                     </template>
                 </el-table-column>
                 
                 <el-table-column
-                  align="center"
-                  header-align="center"
                   label="Points"
                   min-width="140px">
                   <template slot-scope="scope">
@@ -76,10 +74,9 @@
                   </template>
                 </el-table-column>
                 <el-table-column
-                  align="center"
-                  header-align="center"
                   prop="timestamp"
                   label="Date"
+                  header-align="left"
                   min-width="130px">
                 </el-table-column>
               </el-table>
@@ -124,6 +121,9 @@
       this.tableInfo(this.currentPage);
     },
     methods:{
+      gotoPoints(){
+        window.open('https://www.gotobus.com/points/pointshelp/', '_blank');
+      },
       handleCurrentChange: function(currentPage){
               this.currentPage = currentPage;
               console.log(this.currentPage)  //点击第几页

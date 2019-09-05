@@ -233,7 +233,7 @@
                                             <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Adult').length!=0">
                                               <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')" :key="index">
                                                   <span>Adult{{index+1}}: </span>
-                                                  <span>{{adult.name}}</span>
+                                                  <span>{{adult.name}} </span>
                                                   <span>(CN:{{adult.cn}})</span>
                                               </div>
                                             </div>
@@ -730,7 +730,7 @@
         methods: {
           getCity(item){
             var firCity,endCity,firTime,endTime,routeLine;
-            if(item.passengers[0].options[0].value!=undefined){
+            if(item.passengers[0].options[0].value.station.address!=undefined){
               firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
               endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
               firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
@@ -960,6 +960,7 @@
       ul.bookings-item-contents {
         padding-left: 0;
         list-style: none;
+        margin-top: 0;
         background-color: #F5F5F5;
       }
       li.bookings-item-content {
@@ -1084,6 +1085,18 @@
     }
     >>> .el-range-editor--mini .el-range-separator{
       width: 20px;
+    }
+    >>> .el-el-picker-panel .el-date-range-picker .el-popper-panel{
+
+    }
+    /* >>> .el-input--suffix .el-input__inner{
+      padding-right: 60px;
+    } */
+    </style>
+    <style>
+    .el-picker-panel{
+      top: 170px !important;
+      left: 405px !important;
     }
     </style>
     
