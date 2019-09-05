@@ -28,7 +28,7 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
 // axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
-axios.defaults.baseURL = 'http://testwww.gotobus.com/api';
+axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
 Vue.prototype.$api = api;
 
 // -------------------loading--------------------
