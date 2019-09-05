@@ -20,8 +20,8 @@
             </span>
         </div>
         <div class="show-name" v-show="$store.state.isLogin">
-            <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span>
-            <!-- <span class="user-name" @click="gotoMine">Hello, {{userName}}</span> -->
+            <!-- <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span> -->
+            <span class="user-name" @click="gotoMine">Hello, {{userName}}</span>
             <span class="logot" @click="logout">Logout</span>
         </div>
         <div class="shopping-cart" @click="toShopping">
@@ -48,7 +48,7 @@
                 ],
                 changeBg:0,
                 userName:'',
-                
+                userName2:'',
             }
         },
         created(){
@@ -63,11 +63,14 @@
             // if(name){
             //     this.$store.commit('login');
             // }
-            // this.userName = VueCookie.get('IvyCustomer_FirstName');
-            // if(this.userName == null || this.userName== undefined){
-            //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
-            // }
-            // console.log(this.userName);
+            
+            this.userName = VueCookie.get('IvyCustomer_FirstName');
+            this.userName2 = VueCookie.get('IvyCustomer_FirstName2');
+            console.log(this.userName,this.userName2);
+            if(this.userName == null || this.userName== undefined){
+                this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+            }
+            console.log(this.userName);
         },
         methods:{
             toHome(){

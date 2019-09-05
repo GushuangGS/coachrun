@@ -1124,8 +1124,8 @@
     </style>
     <style>
     .el-picker-panel{
-      /* top: 170px !important;
-      left: 405px !important; */
+      top: 170px !important;
+      left: 495px !important;
     }
     .el-select-dropdown__item{
       color: #333333;
