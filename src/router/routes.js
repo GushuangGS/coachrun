@@ -26,6 +26,13 @@ const ResetPassword = resolve => {
     resolve(module)
   })
 }
+
+const AddGuest = resolve => {
+  import('@/views/UserCenter/AddGuest/AddGuest').then(module => {
+    resolve(module)
+  })
+}
+
 const routes = [
   // {
   //   path: '/',
@@ -65,6 +72,14 @@ const routes = [
     path: '/render/user/reset-password',
     name: 'ResetPassword',
     component: ResetPassword,
+    meta: {
+      keepAlive: true
+    }
+  },
+  {//添加订单
+    path: '/render/user/guest-booking-reclaim',
+    name: 'ResetPassword',
+    component: AddGuest,
     meta: {
       keepAlive: true
     }

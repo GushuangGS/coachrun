@@ -21,7 +21,7 @@
         </div>
         <div class="show-name" v-show="$store.state.isLogin">
             <!-- <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span> -->
-            <span class="user-name" @click="gotoMine">Hello, {{getUserName}}</span>
+            <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
             <span class="logot" @click="logout">Logout</span>
         </div>
         <div class="shopping-cart" @click="toShopping">
