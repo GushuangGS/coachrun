@@ -21,7 +21,7 @@
         </div>
         <div class="show-name" v-show="$store.state.isLogin">
             <!-- <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span> -->
-            <span class="user-name" @click="gotoMine">Hello, {{userName}}</span>
+            <span class="user-name" @click="gotoMine">Hello, {{getUserName}}</span>
             <span class="logot" @click="logout">Logout</span>
         </div>
         <div class="shopping-cart" @click="toShopping">
@@ -47,8 +47,7 @@
                     {"text":"Ticket Policy","src":"https://www.coachrun.com/ticket-policy/"}
                 ],
                 changeBg:0,
-                userName:'',
-                userName2:'',
+                userName:''
             }
         },
         created(){
@@ -64,14 +63,23 @@
             //     this.$store.commit('login');
             // }
             
-            console.log(this.$store.state.userName);
-            this.userName = this.$store.state.userName==""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
-            if(this.userName == null || this.userName== undefined){
-                this.userName = VueCookie.get('IvyCustomer_LoginEmail');
-            }
-            console.log(this.userName);
+            // console.log(this.$store.state.userName);
+            // this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
+            // if(this.userName == null || this.userName== undefined){
+            //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+            // }
+            // console.log(this.userName);
         },
         methods:{
+            getUserName(){
+                console.log(this.$store.state.userName);
+                this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
+                if(this.userName == null || this.userName== undefined){
+                    this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+                }
+                console.log(this.userName);
+                 return this.userName;
+            },
             toHome(){
                 alert("go to home");
             },
