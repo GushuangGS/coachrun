@@ -240,4 +240,7 @@
             font-size: 14px;
             color:rgba(102,102,102,1);
         }
+        >>> .field.vue-input-ui .field-input{
+            cursor: default;
+        }
     </style>

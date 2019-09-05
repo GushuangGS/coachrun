@@ -11,6 +11,7 @@
                     <span class="dateTitle">Purchase Date:</span>
                     <el-select v-model="value" @change="select">
                       <el-option :value="value">
+                        <div @click.stop>
                           <template>
                             <el-date-picker
                               v-model="valueTime"
@@ -25,6 +26,7 @@
                               end-placeholder="End Date">
                             </el-date-picker>
                           </template>
+                        </div>
                       </el-option>
                       <el-option
                         v-for="item in options"
@@ -36,7 +38,7 @@
                 </div>
                 <div class="add-guest">
                   <img src="@/assets/guestbookig.png" alt="">
-                  <span class="guest-tips">Do not see your booking here, find and <span class="guest-add">add guest bookings</span> that you purchase within last 100 days</span>
+                  <span class="guest-tips">Do not see your booking here, find and <span @click="addGuest" class="guest-add">add guest bookings</span> that you purchase within last 100 days</span>
                 </div>
                 <div class="recent-bookings">
                   <div class="bookings-list">
@@ -854,6 +856,9 @@
             })
             return totalMoney;
           },
+          addGuest(){
+            this.$router.push({name: 'AddGuest'});
+          },
           resche(data){
             console.log(data.entityId);
             window.open(`http://testwww.coachrun.com/cgi-bin/order.cgi?a=order_detail&entry_id=${data.entityId}&action=reschedule`, '_blank');
@@ -911,6 +916,7 @@
       .guest-add{
         color: #FFA212;
         cursor: pointer;
+        font-weight: bold;
       }
       .recent-bookings {
         width: 978px;
@@ -1124,8 +1130,8 @@
     </style>
     <style>
     .el-picker-panel{
-      top: 170px !important;
-      left: 405px !important;
+      /* top: 170px !important;
+      left: 405px !important; */
     }
     .el-select-dropdown__item{
       color: #333333;

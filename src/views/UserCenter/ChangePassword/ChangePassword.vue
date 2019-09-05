@@ -24,12 +24,13 @@
           <div class="form-wrapper" v-if="changeStatus !=0">
             <el-form :show-message="showMessage" :label-position="labelPosition" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
               <el-form-item label="Password Type:">
-                <el-select v-model="ruleForm.passwordType"  @change="selectGet">
+                <!-- <el-select v-model="ruleForm.passwordType"  @change="selectGet">
                   <el-option v-for="(passwordType, index) in passwordTypes" 
                       v-bind:key="index" 
                       :label="passwordType.label" 
                       :value="passwordType.value">
-                  </el-option>
+                  </el-option> -->
+                  <div class="login-name">Login</div>
                 </el-select>
               </el-form-item>
               <el-form-item label="Current Password:" prop="currentPass">
@@ -262,6 +263,10 @@
     margin: 0;
     font-size: 17px;
   }*/
+  .login-name{
+    font-size: 14px;
+    color: #333333;
+  }
   .finished {
     font-size: 16px;
     background-color: #FF9A0D;

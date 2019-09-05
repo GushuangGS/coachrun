@@ -27,6 +27,9 @@ export default {
     // bookingList:'/users/bookings',
     bookingList:'/orders/list',    
     bookingDetail:'/orders/users/:userId/bookings/:orderId',
-    bookingReclaim:'/orders/users/:userId/bookings/reclaim'
+    bookingReclaim:'/orders/users/:userId/bookings/reclaim',
+    //guest-bookings
+    guestRequest:'users/guest-bookings/request-reclaim',
+    guestSubmit:'users/guest-bookings/submit-reclaim'
   };
   

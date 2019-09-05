@@ -72,12 +72,12 @@
         },
         methods:{
             getUserName(){
-                console.log(this.$store.state.userName);
+                // console.log(this.$store.state.userName);
                 this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
                 if(this.userName == null || this.userName== undefined){
                     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
                 }
-                console.log(this.userName);
+                // console.log(this.userName);
                  return this.userName;
             },
             toHome(){

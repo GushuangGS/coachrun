@@ -283,6 +283,10 @@
                     this.creditName = 'edit';
                     this.getCreditInfo();
                 }
+                    var date=new Date;
+                    var year=date.getFullYear(); 
+                    var month=date.getMonth();
+                console.log(date,year,month)
             },
             methods:{
                 getId(name){//ccid

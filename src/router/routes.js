@@ -78,7 +78,7 @@ const routes = [
   },
   {//添加订单
     path: '/render/user/guest-booking-reclaim',
-    name: 'ResetPassword',
+    name: 'AddGuest',
     component: AddGuest,
     meta: {
       keepAlive: true

@@ -387,4 +387,7 @@
         line-height: normal;
         pointer-events: none;
       }
+      >>> .field.vue-input-ui .field-input{
+          cursor: default;
+      }
     </style>

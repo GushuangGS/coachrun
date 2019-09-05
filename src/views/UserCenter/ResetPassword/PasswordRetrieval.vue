@@ -93,26 +93,36 @@
                 this.$refs.invisibleRecaptcha.execute();
             },
             forgotPas(){
-                this.sendAuthCode = false;
-                //设置倒计时秒
-                this.auth_time = 30;
-                var auth_timetimer = setInterval(() => {
-                    this.auth_time--;
-                    if (this.auth_time <= 0) {
-                        this.sendAuthCode = true;
-                        clearInterval(auth_timetimer);
-                    }
-                }, 1000);
+                // this.sendAuthCode = false;
+                // //设置倒计时秒
+                // this.auth_time = 30;
+                // var auth_timetimer = setInterval(() => {
+                //     this.auth_time--;
+                //     if (this.auth_time <= 0) {
+                //         this.sendAuthCode = true;
+                //         clearInterval(auth_timetimer);
+                //     }
+                // }, 1000);
                 this.$http.post(this.$api.forgotPassword,
-                    {email:this.value,token:this.verify})
+                    {email:this.ruleForm.email,token:this.verify})
                     .then((res)=>{
                         console.log(res)
                         if(res.data.code == 200){
-                            this.$store.commit('sendEmail',this.value);
+                            this.sendAuthCode = false;
+                            //设置倒计时秒
+                            this.auth_time = 30;
+                            var auth_timetimer = setInterval(() => {
+                                this.auth_time--;
+                                if (this.auth_time <= 0) {
+                                    this.sendAuthCode = true;
+                                    clearInterval(auth_timetimer);
+                                }
+                            }, 1000);
+                            this.$store.commit('sendEmail',this.ruleForm.email);
                             this.$router.push({name: 'RemindEmail'});
                         }else {
                             this.$message({
-                                message: data.data.msg,
+                                message: red.data.msg,
                                 type: 'warning',
                                 showClose: true,
                                 center: true
@@ -192,20 +202,36 @@
         margin-top: 15px;
     }
     .btn{
-        width: 60%;
+        width: 70%;
         height: 48px;
-        margin-left: 20%;
+        margin-left: 15%;
         font-size: 14px;
         border: none;
     }
     .btn2{
-        width: 60%;
+        width: 70%;
         height: 48px;
-        margin-left: 20%;
+        margin-left: 15%;
         font-size: 14px;
         font-weight: bold;
     }
     >>> .el-form-item__label:before{
         display: none;
+    }
+    >>> .el-form-item__label{
+        color: #333333;
+    }
+    >>> .el-input__inner{
+        color: #333333;
+        font-size: 14px;
+    }
+    
+    >>> .el-button--warning{
+        background-color: #FEB347;
+        color: #ffffff;
+    }
+    >>> .el-button--warning.is-disabled:hover{
+        background-color: #FEB347;
+        color: #ffffff;
     }
 </style>
