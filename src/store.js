@@ -9,6 +9,7 @@ export default new Vuex.Store({
       // creditInfo:{},
       isLogin:false,//默认没有登录
       loginName:sessionStorage.getItem('loginName') || '',
+      userName:'',
       sendEmail:'',
       // contactName:'',
       // creditName:''
@@ -32,6 +33,9 @@ export default new Vuex.Store({
       sessionStorage.setItem('loginName', data);
       state.loginName = data;
     },
+    userName(state,data){
+      state.userName = data;
+    },
     sendEmail(state,data){
       state.sendEmail = data;
     },
@@ -53,6 +57,9 @@ export default new Vuex.Store({
     // },
     updateLoginName(context,data){
       context.commit('loginName',data);
+    },
+    updateUserName(context,data){
+      context.commit('userName',data);
     },
     updateSendEmail(context,data){
       context.commit('sendEmail',data);

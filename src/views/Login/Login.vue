@@ -55,7 +55,8 @@
                             { type: 'email', message: 'Please enter the correct email address', trigger: 'blur'}],
                     password: [{ required: true, trigger: 'blur' ,message: 'Please enter your password.'},
                             { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }],
-                }
+                },
+                userId:''
             }
         },
         //页面加载调用获取cookie值
@@ -89,6 +90,12 @@
                                     this.$store.commit('login'); 
                                     this.$store.commit('loginName',data.data.data.user.email);
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
+
+                                    this.userId = VueCookie.get('IvyCustomer_FirstName');
+                                    if(this.userId == null || this.userId== undefined){
+                                        this.userId = VueCookie.get('IvyCustomer_LoginEmail');
+                                    }
+                                    this.$store.commit('userName',this.userId);
                                 }else{
                                     this.$message({
                                         message: data.data.msg,

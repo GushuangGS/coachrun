@@ -64,9 +64,7 @@
             //     this.$store.commit('login');
             // }
             
-            this.userName = VueCookie.get('IvyCustomer_FirstName');
-            this.userName2 = VueCookie.get('IvyCustomer_FirstName2');
-            console.log(this.userName,this.userName2);
+            this.userName = this.$store.state.userName==""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
             if(this.userName == null || this.userName== undefined){
                 this.userName = VueCookie.get('IvyCustomer_LoginEmail');
             }
