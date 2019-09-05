@@ -95,6 +95,14 @@
                             {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
                             .then((res)=>{
                                 console.log(res);
+                                if(red.data.code!=200){
+                                    this.$message({
+                                        message: data.data.msg,
+                                        type: 'warning',
+                                        showClose: true,
+                                        center: true
+                                    })
+                                }
                             })
                     }
                 });

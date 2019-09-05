@@ -111,6 +111,12 @@
                             this.$store.commit('sendEmail',this.value);
                             this.$router.push({name: 'RemindEmail'});
                         }else {
+                            this.$message({
+                                message: data.data.msg,
+                                type: 'warning',
+                                showClose: true,
+                                center: true
+                            })
                             this.sendAuthCode = true;
                             clearInterval(auth_timetimer);
                         }

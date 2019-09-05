@@ -302,5 +302,6 @@
     width: 100%;
     text-align: left;
     color: #333333;
+    font-size: 16px;
   }
 </style>

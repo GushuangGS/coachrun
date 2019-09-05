@@ -14,11 +14,12 @@
                           <template>
                             <el-date-picker
                               v-model="valueTime"
-                              size="mini"
+                              size="small"
                               type="daterange"
                               @change="selectTime"
                               value-format="yyyy-MM-dd"
                               format="yyyy-MM-dd"
+                              unlink-panels
                               range-separator="to"
                               start-placeholder="Start Date"
                               end-placeholder="End Date">
@@ -656,7 +657,7 @@
                             <!-- </ul>
                           </el-collapse-item> -->
                     </el-collapse>
-                    <div class="no-bookings" v-if="bookingsList.length==0">
+                    <div class="no-bookings" v-if="bookingsList.length!==0">
                         No purchase records match your selection. Please adjust the time period for your search.
                     </div>
                   </div>
@@ -1083,20 +1084,30 @@
       font-size: 16px;
       margin-top: 10px;
     }
-    >>> .el-range-editor--mini .el-range-separator{
+    >>> .el-range-editor--small .el-range-separator{
       width: 20px;
     }
-    >>> .el-el-picker-panel .el-date-range-picker .el-popper-panel{
-
+    >>> .el-input__inner{
+      font-size: 14px;
+      color: #333333;
     }
-    /* >>> .el-input--suffix .el-input__inner{
-      padding-right: 60px;
-    } */
     </style>
     <style>
     .el-picker-panel{
       top: 170px !important;
       left: 405px !important;
+    }
+    .el-select-dropdown__item{
+      color: #333333;
+    }
+    .el-range-editor--small .el-range-input{
+      font-size: 14px;
+    }
+    .el-date-editor .el-range-input{
+      color: #333333;
+    }
+    .el-date-editor .el-range-input::-webkit-input-placeholder { /* WebKit browsers */
+      color: #333333;
     }
     </style>
     

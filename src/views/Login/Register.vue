@@ -108,6 +108,14 @@
                                 { username: this.loginInfo.email,mobilePhone:this.results.formatInternational ,password:this.loginInfo.password,acceptNewsletter:'true'})
                                 .then((data) => {
                                     console.log(data);
+                                    if(data.data.code!=200){
+                                        this.$message({
+                                            message: data.data.msg,
+                                            type: 'warning',
+                                            showClose: true,
+                                            center: true
+                                        })
+                                    }
                                 });
                         }
                     })

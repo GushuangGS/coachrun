@@ -220,13 +220,17 @@
                                         this.$refs.phone_number.phoneNumber = searchPhone1.nationalNumber;
                                     }
                                     console.log(this.ruleForm.phone2!='')
-                                    if(this.ruleForm.phone2!='' && this.ruleForm.phone2 !='null'){
-                                        const searchPhone2 = parsePhoneNumberFromString(this.ruleForm.phone2);
-                                        console.log(searchPhone2)
-                                        this.countrySec = searchPhone2.country;
-                                        console.log(this.countrySec)
-                                        this.$refs.phone2_number.countryCode = this.countrySec;
-                                        this.$refs.phone2_number.phoneNumber = searchPhone2.nationalNumber;
+                                    if(this.ruleForm.phone2!=undefined){
+                                        if(this.ruleForm.phone2!='' && this.ruleForm.phone2 !='null'){
+                                            const searchPhone2 = parsePhoneNumberFromString(this.ruleForm.phone2);
+                                            console.log(searchPhone2)
+                                            this.countrySec = searchPhone2.country;
+                                            console.log(this.countrySec)
+                                            this.$refs.phone2_number.countryCode = this.countrySec;
+                                            this.$refs.phone2_number.phoneNumber = searchPhone2.nationalNumber;
+                                        }else{
+                                            this.$refs.phone2_number.phoneNumber='';
+                                        }
                                     }else{
                                         this.$refs.phone2_number.phoneNumber='';
                                     }

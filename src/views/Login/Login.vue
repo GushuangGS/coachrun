@@ -82,12 +82,21 @@
                                 //     //清空Cookie
                                 //     this.clearCookie();
                                 // }
-                                sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
-                                sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
-                                this.$router.push({name: 'MyOrders'});
-                                this.$store.commit('login'); 
-                                this.$store.commit('loginName',data.data.data.user.email);
-                                this.$cookie.set('front-sessionId', data.data.data.user.id);
+                                if(data.data.code==200){
+                                    sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                    sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
+                                    this.$router.push({name: 'MyOrders'});
+                                    this.$store.commit('login'); 
+                                    this.$store.commit('loginName',data.data.data.user.email);
+                                    this.$cookie.set('front-sessionId', data.data.data.user.id);
+                                }else{
+                                    this.$message({
+                                        message: data.data.msg,
+                                        type: 'warning',
+                                        showClose: true,
+                                        center: true
+                                    })
+                                }
                             });
                     }
                 })
