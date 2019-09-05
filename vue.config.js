@@ -8,7 +8,11 @@ module.exports = {
   pluginOptions: {
   },
   devServer: {
-    
+    proxy: {
+      '/api':{
+        target:"http://sandbox.gotobus.com"
+      }
+    }
   },
   configureWebpack: {
     plugins: [

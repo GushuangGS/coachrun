@@ -34,6 +34,10 @@
                       </el-option>
                     </el-select>
                 </div>
+                <div class="add-guest">
+                  <img src="@/assets/guestbookig.png" alt="">
+                  <span class="guets-tips">Do not see your booking here, find and <span class="guest-add">add guest bookings</span> that you purchase within last 100 days</span>
+                </div>
                 <div class="recent-bookings">
                   <div class="bookings-list">
                     <div class="column-name">
@@ -193,7 +197,7 @@
                               <div class="btns">
                                   <el-button @click="resche(item)" class="Reschedule">Reschedule</el-button>
                                   <el-button @click="eticket(item)" v-if="item.status==5" class="E-Ticket">E-Ticket</el-button>
-                                  <el-button @click="trackBus(item)" v-show="item.serviceStatus>0" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
+                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus>0" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                               </div>
                             </div>
                             <div class="actions" v-if="item.status==8">
@@ -781,18 +785,20 @@
               console.log(value);
           },
           selectTime(value){
-            this.$http.get(this.$api.bookingList,
-            {params:{startDate:value[0],endDate:value[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-                    .then((res)=>{
-                        console.log(res);
-                        if(res.data.data!=null || res.data.data!=undefined){
-                          this.bookingsList = res.data.data;
-                        }else{
-                          this.bookingsList = [];
-                        }
-                    })
-            console.log(value[0],value[1]);
-            this.value = value[0] +"--"+value[1];
+            if(value!=undefined){
+              this.$http.get(this.$api.bookingList,
+              {params:{startDate:value[0],endDate:value[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                      .then((res)=>{
+                          console.log(res);
+                          if(res.data.data!=null || res.data.data!=undefined){
+                            this.bookingsList = res.data.data;
+                          }else{
+                            this.bookingsList = [];
+                          }
+                      })
+              console.log(value[0],value[1]);
+              this.value = value[0] +"--"+value[1];
+            }
           },
           dateChange(str){
             var week,mon,da,yea,newDate;
@@ -844,7 +850,7 @@
             var totalMoney = 0;
             val.map((data)=>{
               totalMoney += data.paidAmount;
-              console.log(data.paidAmount)
+              // console.log(data.paidAmount)
             })
             return totalMoney;
           },
@@ -881,6 +887,28 @@
         font-size:16px;
         color:rgba(51,51,51,1);
         margin-right: 10px;
+      }
+      .add-guest{
+        width: 655px;
+        height: 59px;
+        background:rgba(255,252,243,1);
+        border-radius:4px;
+        border:1px solid rgba(255,204,50,1);
+        display: flex;
+        align-items: center;
+      }
+      .add-guest img{
+        width: 17px;
+        height: 22px;
+        margin-left: 25px;
+      }
+      .guets-tips{
+        font-size: 13px;
+        margin-left: 12px;
+        color: #333333;
+      }
+      .guets-add{
+        color: #FFA212;
       }
       .recent-bookings {
         width: 978px;
@@ -1094,8 +1122,8 @@
     </style>
     <style>
     .el-picker-panel{
-      top: 170px !important;
-      left: 405px !important;
+      /* top: 170px !important;
+      left: 405px !important; */
     }
     .el-select-dropdown__item{
       color: #333333;
