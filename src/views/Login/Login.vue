@@ -96,6 +96,8 @@
                                         this.userId = VueCookie.get('IvyCustomer_LoginEmail');
                                     }
                                     this.$store.commit('userName',this.userId);
+                                    console.log(this.$store.state.userName)
+                                    console.log(this.userId)
                                 }else{
                                     this.$message({
                                         message: data.data.msg,
