@@ -10,7 +10,7 @@
                 <div class="order-time">
                     <span class="dateTitle">Purchase Date:</span>
                     <!-- <el-select v-model="value" @change="select" ref='ff' :automatic-dropdown="true" @blur="fo"> -->
-                    <el-select v-model="value" @change="select" class="popper-class">
+                    <el-select v-model="value" @change="select">
                       <el-option :value="value">
                         <!-- <div @click.stop> -->
                           <template>
@@ -25,7 +25,6 @@
                               range-separator="to"
                               start-placeholder="Start Date"
                               end-placeholder="End Date"
-                              class="popper-class"
                               >
                             </el-date-picker>
                           </template>
@@ -1154,7 +1153,7 @@
     .el-picker-panel{
       top: 170px !important;
       /* left: 405px !important; */
-      left: 405px !important;
+      left: 690px !important;
     }
     .el-select-dropdown__item{
       color: #333333;

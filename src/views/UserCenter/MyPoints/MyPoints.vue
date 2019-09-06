@@ -49,7 +49,9 @@
                 style="width: 100%;">
                 <el-table-column
                   label="Source"
-                  min-width="160px">
+                  min-width="160px"
+                  header-align="center"
+                  align="center">
                   <!-- prop="orderCode" -->
                   <template slot-scope="scope">
                       <span v-show="scope.row.rewardType==0">Booking</span>
@@ -65,7 +67,9 @@
                 
                 <el-table-column
                   label="Points"
-                  min-width="140px">
+                  min-width="140px"
+                  header-align="center"
+                  align="center">
                   <template slot-scope="scope">
                       <span  :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0}">{{scope.row.rewardPoint}}</span>
                       <span v-if="scope.row.isPending==1" class="text-pending">Pending</span>
@@ -76,7 +80,8 @@
                 <el-table-column
                   prop="timestamp"
                   label="Date"
-                  header-align="left"
+                  header-align="center"
+                  align="center"
                   min-width="130px">
                 </el-table-column>
               </el-table>
@@ -279,7 +284,7 @@
   >>> .cell {
     position: relative;
     font-size: 16px;
-    text-align: center;
+    /* text-align: center; */
   }
   .text-pending {
     font-size: 14px;
