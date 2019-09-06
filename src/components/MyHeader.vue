@@ -107,11 +107,11 @@
                 this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                             .then((data) => {
                                 console.log(data);
-                                this.$router.push({name: 'Login'});
                                 sessionStorage.removeItem("IvyCustomer_LoginToken");
                                 sessionStorage.removeItem("loginName");
                                 this.$store.commit('logout');
                                 this.$store.commit('loginName','');
+                                this.$router.push({name: 'Login'});
                             });
             }
         }

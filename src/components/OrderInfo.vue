@@ -16,8 +16,8 @@
                         <img class="down" src="@/assets/up.png">
                         <div class="bookings-item">
                             <div class="bookings-item-brief">
-                                <div>Order ID:&nbsp;<span>{{info.orderId}}</span></div>
-                                <div>Purchase Date:&nbsp;<span>{{dateChange(info.saleDate)}}</span></div>
+                                <div>Order ID:&nbsp;<span>{{info.orderCode}}</span></div>
+                                <div>Purchase Date:&nbsp;<span>{{info.saleDate}} {{info.saleTime}}</span></div>
                                 
                             </div>
                             <div class="bookings-item-brief">
@@ -98,23 +98,24 @@
                                   <div class="details-icon1">
                                       <div>
                                           <span>Adult: </span>
-                                          <span>{{item.passengers.filter(name=>name.type=="Adult").length}},</span>
-                                          <span>Child: </span>
-                                          <span>{{item.passengers.filter(name=>name.type=="Child").length}}</span>
+                                          <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
+                                          <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
+                                          <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span>
                                       </div>
                                       <div v-if="item.passengers.filter(name=>name.type=='Adult').length!=0">
                                         <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')" :key="index">
                                             <span>Adult{{index+1}}: </span>
-                                            <span>{{adult.name}}</span>
-                                            <span>(CN:{{adult.cn}})</span>
+                                            <span>{{adult.name}} </span>
+                                            <span>(CN: {{adult.cn}})</span>
                                         </div>
                                       </div>
                                       <div v-if="item.passengers.filter(name=>name.type=='Child').length!=0">
                                         <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                             :key="index">
                                             <span>Child{{index+1}}: </span>
-                                            <span>{{Child.name}}</span>
-                                            <span>(Age:{{Child.age}})</span>
+                                            <span>{{Child.name}} </span>
+                                            <span v-if="Child.age!=undefined">(Age: {{Child.age}}) </span>
+                                            <span>(CN: {{Child.cn}})</span>
                                         </div>
                                       </div>
                                       <div v-if="item.passengers.filter(name=>name.type=='Infant').length!=0">
@@ -193,57 +194,58 @@
                                       <div>
                                           <span>Adult: </span>
                                           <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
-                                          ,&nbsp;<span>Child: </span>
-                                          <span>{{item.passengers.filter(name=>name.type=="Child").length}}</span>
+                                          <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
+                                          <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span>
                                       </div>
                                       <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Adult').length!=0">
                                         <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')" :key="index">
-                                            <span>Adult{{index+1}}: </span>&nbsp;
-                                            <span>{{adult.name}}</span>&nbsp;
-                                            <span>(CN:{{adult.cn}})</span>
+                                            <span>Adult{{index+1}}: </span>
+                                            <span>{{adult.name}} </span>
+                                            <span>(CN: {{adult.cn}})</span>
                                         </div>
                                       </div>
                                       <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Child').length!=0">
                                           <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                               :key="index">
-                                              <span>Child{{index+1}}: </span>&nbsp;
-                                              <span>{{Child.name}}</span>&nbsp;
-                                              <span>(Age:{{Child.age}})</span>
+                                              <span>Child{{index+1}}: </span>
+                                              <span>{{Child.name}} </span>
+                                              <span v-if="Child.age!=undefined">(Age: {{Child.age}}) </span>
+                                              <span>(CN: {{Child.cn}})</span>
                                           </div>
                                       </div>
                                       <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Infant').length!=0">
                                           <div v-for="(Infant,index) in item.passengers.filter(name=>name.type=='Infant')"
                                               :key="index">
-                                              <span>Infant{{index+1}}: </span>&nbsp;
-                                              <span>{{Infant.name}}</span>&nbsp;
+                                              <span>Infant{{index+1}}: </span>
+                                              <span>{{Infant.name}}</span>
                                           </div>
                                       </div>
                                       <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Senior').length!=0">
                                           <div v-for="(Senior,index) in item.passengers.filter(name=>name.type=='Senior')"
                                               :key="index">
-                                              <span>Senior{{index+1}}: </span>&nbsp;
-                                              <span>{{Senior.name}}</span>&nbsp;
+                                              <span>Senior{{index+1}}: </span>
+                                              <span>{{Senior.name}}</span>
                                           </div>
                                       </div>
                                       <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Junior').length!=0">
                                           <div v-for="(Junior,index) in item.passengers.filter(name=>name.type=='Junior')"
                                               :key="index">
-                                              <span>Junior{{index+1}}: </span>&nbsp;
-                                              <span>{{Junior.name}}</span>&nbsp;
+                                              <span>Junior{{index+1}}: </span>
+                                              <span>{{Junior.name}}</span>
                                           </div>
                                       </div>
                                       <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Student').length!=0">
                                           <div v-for="(Student,index) in item.passengers.filter(name=>name.type=='Student')"
                                               :key="index">
-                                              <span>Student{{index+1}}: </span>&nbsp;
-                                              <span>{{Student.name}}</span>&nbsp;
+                                              <span>Student{{index+1}}: </span>
+                                              <span>{{Student.name}}</span>
                                           </div>
                                       </div>
                                       <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Military').length!=0">
                                           <div v-for="(Military,index) in item.passengers.filter(name=>name.type=='Military')"
                                               :key="index">
-                                              <span>Military{{index+1}}: </span>&nbsp;
-                                              <span>{{Military.name}}</span>&nbsp;
+                                              <span>Military{{index+1}}: </span>
+                                              <span>{{Military.name}}</span>
                                           </div>
                                       </div>
                                   </div>
@@ -530,7 +532,7 @@
               if(mon == '10') mon='Oct'
               if(mon == '11') mon='Nov'
               if(mon == '12') mon='Dec'
-              return newDate = week+','+mon+' '+da+','+yea;
+              return newDate = week+','+' '+mon+' '+da+','+' '+yea;
             },
             getMyDay(date){//获取星期几
               var week;
@@ -623,15 +625,18 @@
         display: flex;
         align-items: center;
         line-height: 18px;
-        font-size: 16px;
+        font-size: 14px;
         margin-bottom: 10px;
         margin-top: 10px;
       }
       .total-points{
-          font-size: 15px;
+          font-size: 14px;
           color:rgba(51,51,51,1);
           /* margin-left: 100px; */
           line-height: 30px;
+      }
+      .total-money{
+        font-weight: bold;
       }
       .all-points{
           font-size: 16px;

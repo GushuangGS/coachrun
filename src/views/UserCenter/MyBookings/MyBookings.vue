@@ -62,8 +62,8 @@
                             <img class="down" src="@/assets/up.png">
                             <div class="bookings-item">
                                 <div class="bookings-item-brief">
-                                    <div>Order ID:&nbsp;<span>{{info.orderId}}</span></div>
-                                    <div>Purchase Date:&nbsp;<span>{{dateChange(info.saleDate)}}</span></div>
+                                    <div>Order ID:&nbsp;<span>{{info.orderCode}}</span></div>
+                                    <div>Purchase Date:&nbsp;<span>{{info.saleDate}} {{info.saleTime}}</span></div>
                                 </div>
                                 <div class="bookings-item-brief">
                                     <div>Name:&nbsp;<span>{{info.customerName}}</span></div>
@@ -139,16 +139,16 @@
                                       <div class="details-icon1">
                                           <div>
                                               <span>Adult: </span>
-                                              <span>{{item.passengers.filter(name=>name.type=="Adult").length}},</span>
-                                              <span>Child:</span>
-                                              <span>{{item.passengers.filter(name=>name.type=="Child").length}}</span>
+                                              <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
+                                              <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
+                                              <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span>
                                           </div>
                                           <div v-if="item.passengers.filter(name=>name.type=='Adult').length!=0">
                                             <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')"
                                                 :key="index">
                                                 <span>Adult{{index+1}}: </span>
-                                                <span>{{adult.name}}</span>
-                                                <span>(CN:{{adult.cn}})</span>
+                                                <span>{{adult.name}} </span>
+                                                <span>(CN: {{adult.cn}})</span>
                                             </div>
                                                 
                                           </div>
@@ -156,8 +156,9 @@
                                               <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                                   :key="index">
                                                   <span>Child{{index+1}}: </span>
-                                                  <span>{{Child.name}}</span>
-                                                  <span v-if="Child.age!=undefined">(Age:{{Child.age}})</span>
+                                                  <span>{{Child.name}} </span>
+                                                  <span v-if="Child.age!=undefined">(Age: {{Child.age}}) </span>
+                                                  <span>(CN: {{Child.cn}})</span>
                                               </div>                                                  
                                           </div>
                                           <div v-if="item.passengers.filter(name=>name.type=='Infant').length!=0">
@@ -236,23 +237,24 @@
                                         <div class="details-icon1">
                                             <div>
                                                 <span>Adult: </span>
-                                                <span>{{item.passengers.filter(name=>name.type=="Adult").length}},</span>
-                                                <span>Child: </span>
-                                                <span>{{item.passengers.filter(name=>name.type=="Child").length}}</span>
+                                                <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
+                                                <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
+                                                <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span>
                                             </div>
                                             <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Adult').length!=0">
                                               <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')" :key="index">
                                                   <span>Adult{{index+1}}: </span>
                                                   <span>{{adult.name}} </span>
-                                                  <span>(CN:{{adult.cn}})</span>
+                                                  <span>(CN: {{adult.cn}})</span>
                                               </div>
                                             </div>
                                             <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Child').length!=0">
                                                 <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                                     :key="index">
                                                     <span>Child{{index+1}}: </span>
-                                                    <span>{{Child.name}}</span>
-                                                    <span v-if="Child.age!=undefined">(Age:{{Child.age}})</span>
+                                                    <span>{{Child.name}} </span>
+                                                    <span v-if="Child.age!=undefined">(Age: {{Child.age}}) </span>
+                                                    <span>(CN: {{Child.cn}})</span>
                                                 </div>
                                             </div>
                                             <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Infant').length!=0">
@@ -737,7 +739,7 @@
         created(){
           
           this.orderList();
-          // console.log(this.str.substr(5,2));        
+          // console.log(this.str.substr(5,2));  
         },
         mounted(){
           
@@ -840,7 +842,7 @@
             if(mon == '10') mon='Oct'
             if(mon == '11') mon='Nov'
             if(mon == '12') mon='Dec'
-            return newDate = week+','+mon+' '+da+','+yea;
+            return newDate = week+','+' '+mon+' '+da+','+' '+yea;
           },
           getMyDay(date){//获取星期几
             var week;
@@ -969,7 +971,7 @@
         line-height: 30px;
       }
       .total-money{
-        font-size: 16px;
+        font-size: 14px;
         font-weight: bold;
       }
       .title-bookings{
@@ -980,7 +982,7 @@
         display: flex;
         align-items: center;
         line-height: 18px;
-        font-size: 16px;
+        font-size: 14px;
         margin-bottom: 10px;
         margin-top: 10px;
       }
@@ -1150,8 +1152,9 @@
     </style>
     <style>
     .el-picker-panel{
-      /* top: 170px !important;
-      left: 405px !important; */
+      top: 170px !important;
+      /* left: 405px !important; */
+      left: 405px !important;
     }
     .el-select-dropdown__item{
       color: #333333;

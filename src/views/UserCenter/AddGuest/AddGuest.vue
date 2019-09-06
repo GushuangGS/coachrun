@@ -57,7 +57,7 @@
                         code: ''
                     },
                     code: {
-                        code: [{ required: true }]
+                        code: [{ required: true ,message: 'Security code is required.' }] 
                     },
                     canClick:true,
                     codeClick:true,
