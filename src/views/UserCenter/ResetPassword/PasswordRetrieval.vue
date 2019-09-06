@@ -7,12 +7,12 @@
                 email address for us to email you the 
                 instructions to reset your password.
             </span>
-            <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto">
+            <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" :show-message="showErr" label-width="auto">
                 <el-form-item
                     prop="email"
                     label="Login Email:"
                 >
-                    <el-input v-model="ruleForm.email" @input="focus"></el-input>
+                    <el-input v-model="ruleForm.email" @input="focus" @blur="blurInput"></el-input>
                 </el-form-item>
                 <el-button id="submit" type="warning" class="btn" :disabled="canClick" v-show="sendAuthCode" @click="resetPass">
                     Reset login password
@@ -65,7 +65,8 @@
                 auth_time: 0, //倒计时 计数器
                 isClick:false,
                 verify:'',
-                canClick:true
+                canClick:true,
+                showErr:true
             }
         },
         created(){
@@ -73,6 +74,7 @@
         },
         methods:{
             focus(){
+                this.showErr = false;
                 this.$refs.ruleForm.validate((valid)=>{
                     if (valid){
                         this.canClick=false;
@@ -80,6 +82,9 @@
                         this.canClick=true;
                     }
                 })
+            },
+            blurInput(){
+                this.showErr = true;
             },
             onVerify(response) {
                  this.verify = response;
