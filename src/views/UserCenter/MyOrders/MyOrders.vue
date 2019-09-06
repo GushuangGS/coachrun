@@ -193,7 +193,7 @@
     padding-bottom: 28px;
     /* border: 1px solid #aaa; */
     display: flex;
-    cursor: pointer;
+    /* cursor: pointer; */
   }
   .account-brief::before, .account-brief::after {
     display: table;
@@ -271,7 +271,7 @@
   .bookings-header>span {
     font-size: 16px;
     color: #274F7C;
-    cursor: pointer;
+    /* cursor: pointer; */
   }
   .column-name {
     background-color: #E5EFFA;

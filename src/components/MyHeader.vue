@@ -95,7 +95,7 @@
                 window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
             },
             gotoMine(){
-                // this.$router.push({name: 'MyOrders'});
+                this.$router.push({name: 'MyOrders'});
             },
             login(){
                 this.$router.push({name: 'Login'});

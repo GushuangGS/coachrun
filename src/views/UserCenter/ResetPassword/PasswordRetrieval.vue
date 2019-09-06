@@ -122,7 +122,7 @@
                             this.$router.push({name: 'RemindEmail'});
                         }else {
                             this.$message({
-                                message: red.data.msg,
+                                message: res.data.msg,
                                 type: 'warning',
                                 showClose: true,
                                 center: true

@@ -17,6 +17,10 @@ import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 import 'font-awesome/css/font-awesome.min.css'
 import './styles/css/index.css'
 
+// import Clickoutside from 'element-ui/src/utils/clickoutside'
+
+// Vue.use(Clickoutside);
+
 Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);

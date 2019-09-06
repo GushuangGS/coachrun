@@ -9,9 +9,10 @@
                 <h2 class="welcome">My Bookings</h2>
                 <div class="order-time">
                     <span class="dateTitle">Purchase Date:</span>
-                    <el-select v-model="value" @change="select">
+                    <!-- <el-select v-model="value" @change="select" ref='ff' :automatic-dropdown="true" @blur="fo"> -->
+                    <el-select v-model="value" @change="select" class="popper-class">
                       <el-option :value="value">
-                        <div @click.stop>
+                        <!-- <div @click.stop> -->
                           <template>
                             <el-date-picker
                               v-model="valueTime"
@@ -23,10 +24,12 @@
                               unlink-panels
                               range-separator="to"
                               start-placeholder="Start Date"
-                              end-placeholder="End Date">
+                              end-placeholder="End Date"
+                              class="popper-class"
+                              >
                             </el-date-picker>
                           </template>
-                        </div>
+                        <!-- </div> -->
                       </el-option>
                       <el-option
                         v-for="item in options"
@@ -197,9 +200,9 @@
                                   </div>
                               </div>
                               <div class="btns">
-                                  <el-button @click="resche(item)" class="Reschedule">Reschedule</el-button>
+                                  <el-button v-if="showRes(item)" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                                   <el-button @click="eticket(item)" v-if="item.status==5" class="E-Ticket">E-Ticket</el-button>
-                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus>0" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
+                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus>0&&showRes(item)" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                               </div>
                             </div>
                             <div class="actions" v-if="item.status==8">
@@ -723,7 +726,8 @@
             bookingsList:[],
             // str:'2019-05-02',
             activeNames: [],
-            userId:''
+            userId:'',
+            visible: false
           }
         },
         components: {
@@ -731,10 +735,20 @@
         },
         name: 'MyBookings',
         created(){
+          
           this.orderList();
           // console.log(this.str.substr(5,2));        
         },
+        mounted(){
+          
+        },
         methods: {
+          // fo(){
+          //   this.$refs.ff.focus()
+          // },
+          // handleClose(){
+          //   this.visible = false;
+          // },
           getCity(item){
             var firCity,endCity,firTime,endTime,routeLine;
             if(item.passengers[0].options[0].value.station.address!=undefined){
@@ -747,6 +761,10 @@
             }else{
               return routeLine = item.product.name;
             }
+          },
+          showRes(item){
+            var nowDate = moment(new Date()).add('year',0).format("YYYY-MM-DD");
+            return moment(item.serviceDate).isAfter(nowDate);
           },
           getNextDay(item){
             var nextDay;
@@ -787,6 +805,8 @@
               console.log(value);
           },
           selectTime(value){
+            // this.$refs.ff.focus()
+            // console.log(1)
             if(value!=undefined){
               this.$http.get(this.$api.bookingList,
               {params:{startDate:value[0],endDate:value[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
@@ -1085,7 +1105,7 @@
         padding-top: 8px;
         padding-bottom: 8px;
         display: flex;
-        justify-content:space-between;
+        /* justify-content:space-between; */
         padding-right: 20px;
         padding-left: 30px;
         /* height: 180px; */

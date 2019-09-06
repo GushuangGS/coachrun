@@ -254,4 +254,7 @@
             background-color: #FEB347;
             color: #ffffff;
         }
+        >>> .el-form-item__label:before{
+            display: none;
+        }
     </style>

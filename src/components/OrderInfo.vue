@@ -156,9 +156,9 @@
                               </div>
                           </div>
                           <div class="btns">
-                              <el-button @click="resche(item)" class="Reschedule">Reschedule</el-button>
+                              <el-button v-if="showRes(item)" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                               <el-button @click="eticket(item)" v-if="item.status==5" class="E-Ticket">E-Ticket</el-button>
-                              <el-button @click="trackBus(item)" v-show="item.serviceStatus>0" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
+                              <el-button @click="trackBus(item)" v-show="item.serviceStatus>0&&showRes(item)" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                           </div>
                         </div>
                         <div class="actions" v-if="item.status==8">
@@ -492,7 +492,7 @@
         methods:{
             getCity(item){
               var firCity,endCity,firTime,endTime,routeLine;
-              if(item.passengers[0].options[0].value!=undefined){
+              if(item.passengers[0].options[0].value.station.address!=undefined){
                 firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.station.address.city;
                 endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.station.address.city;
                 firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.time;
@@ -502,6 +502,10 @@
               }else{
                 return routeLine = item.product.name;
               }
+            },
+            showRes(item){
+              var nowDate = moment(new Date()).add('year',0).format("YYYY-MM-DD");
+              return moment(item.serviceDate).isAfter(nowDate);
             },
             getNextDay(item){
               var nextDay;

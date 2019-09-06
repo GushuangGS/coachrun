@@ -274,7 +274,7 @@
                     return { value: item, label: item };
                 });
                 //判断编辑或添加
-                console.log(this.$route.query.ccid);
+                // console.log(this.$route.query.ccid);
                 if(this.$route.query.ccid==undefined){
                     this.creditName = 'add';
                     this.expiration();
@@ -283,10 +283,6 @@
                     this.creditName = 'edit';
                     this.getCreditInfo();
                 }
-                    var date=new Date;
-                    var year=date.getFullYear(); 
-                    var month=date.getMonth();
-                console.log(date,year,month)
             },
             methods:{
                 getId(name){//ccid
@@ -314,7 +310,7 @@
                     var year=date.getFullYear(); 
                     // var month=date.getMonth()+1;
                     var month=date.getMonth();
-                    console.log(val)
+                    // console.log(val)
                     if(val == undefined){
                         this.ruleForm.year = year;
                     }else{
