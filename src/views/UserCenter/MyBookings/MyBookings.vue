@@ -7,12 +7,10 @@
             <el-main>
               <div class="content">
                 <h2 class="welcome">My Bookings</h2>
-                <div class="order-time">
+                <!-- <div class="order-time">
                     <span class="dateTitle">Purchase Date:</span>
-                    <!-- <el-select v-model="value" @change="select" ref='ff' :automatic-dropdown="true" @blur="fo"> -->
                     <el-select v-model="value" @change="select">
                       <el-option :value="value">
-                        <!-- <div @click.stop> -->
                           <template>
                             <el-date-picker
                               v-model="valueTime"
@@ -28,7 +26,6 @@
                               >
                             </el-date-picker>
                           </template>
-                        <!-- </div> -->
                       </el-option>
                       <el-option
                         v-for="item in options"
@@ -37,7 +34,24 @@
                         :value="item.value">
                       </el-option>
                     </el-select>
+                </div> -->
+                <!--  -->
+                <div class="order-time">
+                  <span class="dateTitle">Purchase Date:</span>
+                  <el-date-picker
+                    v-model="value2"
+                    size="large"
+                    type="daterange"
+                    align="left"
+                    unlink-panels
+                    range-separator="to"
+                    start-placeholder="Start Date"
+                    end-placeholder="End Date"
+                    @change="selectOrder"
+                    :picker-options="pickerOptions">
+                  </el-date-picker>
                 </div>
+                <!--  -->
                 <div class="add-guest">
                   <img src="@/assets/guestbookig.png" alt="">
                   <span class="guest-tips">Do not see your booking here, find and <span @click="addGuest" class="guest-add">add guest bookings</span> that you purchase within last 100 days</span>
@@ -694,6 +708,123 @@
       export default {
         data() {
           return {
+            value2: '',
+            pickerOptions: {
+              shortcuts: [
+                {text: 'Today',
+                onClick(picker) {
+                  const end = moment().format('YYYY-MM-DD');
+                  picker.$emit('pick', [end, end]);
+                }}, 
+                {text: 'Yesterday',
+                onClick(picker) {
+                  const end = moment().day(0).format('YYYY-MM-DD');
+                  picker.$emit('pick', [end, end]);
+                }},
+                {text: 'Yesterday & Today',
+                onClick(picker) {
+                  const end = moment().format('YYYY-MM-DD');
+                  const start = moment().day(0).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'This Week (Sun - Today)',
+                onClick(picker) {
+                  const end = moment().format('YYYY-MM-DD')
+                  const start = moment().week(moment().week()).startOf('week').format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'This Week (Mon - Today)',
+                onClick(picker) {
+                  const end = moment().format('YYYY-MM-DD')
+                  const weekOfday = moment().format('E');//计算今天是这周第几天
+                  const start = moment().subtract(weekOfday-1, 'days').format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Last 7 days',
+                onClick(picker) {
+                  const end = moment().day(0).format('YYYY-MM-DD');
+                  const start = moment().day(-6).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Today & Last 7 days',
+                onClick(picker) {
+                  const end = moment().format('YYYY-MM-DD')
+                  const start = moment().day(-6).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Last Week (Sun - Sat)',
+                onClick(picker) {
+                  const end = moment().weekday(-1).format('YYYY-MM-DD');
+                  const start = moment().weekday(-7).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Last Week (Mon - Sun)',
+                onClick(picker) {
+                  const end = moment().weekday(0).format('YYYY-MM-DD');
+                  const start = moment().weekday(-6).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Last 14 days',
+                onClick(picker) {
+                  const end = moment().day(0).format('YYYY-MM-DD');
+                  const start = moment().day(-13).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Today & Last 14 days',
+                onClick(picker) {
+                  const end = moment().day(1).format('YYYY-MM-DD');
+                  const start = moment().day(-13).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'This Month',
+                onClick(picker) {
+                  const end = moment().format('YYYY-MM-DD')
+                  const start = moment().add('month', 0).format('YYYY-MM') + '-01';
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Last Month',
+                onClick(picker) {
+                  const start = moment().subtract('month', 1).format('YYYY-MM') + '-01';
+                  const end = moment(start).subtract('month', -1).add('days', -1).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Last 30 days',
+                onClick(picker) {
+                  const end = moment().day(0).format('YYYY-MM-DD');
+                  const start = moment().day(-29).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Today & Last 30 days',
+                onClick(picker) {
+                  const end = moment().day(1).format('YYYY-MM-DD');
+                  const start = moment().day(-29).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Last 90 days',
+                onClick(picker) {
+                  const end = moment().day(0).format('YYYY-MM-DD');
+                  const start = moment().day(-89).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Today & Last 90 days',
+                onClick(picker) {
+                  const end = moment().day(1).format('YYYY-MM-DD');
+                  const start = moment().day(-89).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Last 180 days',
+                onClick(picker) {
+                  const end = moment().day(0).format('YYYY-MM-DD');
+                  const start = moment().day(-179).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }},
+                {text: 'Today & Last 180 days',
+                onClick(picker) {
+                  const end = moment().day(1).format('YYYY-MM-DD');
+                  const start = moment().day(-179).format('YYYY-MM-DD');
+                  picker.$emit('pick', [start, end]);
+                }}]
+            },
             status: 0,
             headerInfo: [
               [''],
@@ -701,34 +832,32 @@
             ],
             currentPage:1, //初始页
             pagesize:10,    //每页的数据
-            options:[
-                    // { name: "Custom", value: 1 },
-                    { name: "Today", value: 2 },
-                    { name: "Yesterday", value: 3 },
-                    { name: "Yesterday & Today", value: 4 },
-                    { name: "This Week (Sun - Today)", value: 5 },
-                    { name: "This Week (Mon - Today)", value: 6 },
-                    { name: "Last 7 days", value: 7 },
-                    { name: "Today & Last 7 days", value: 8 },
-                    { name: "Last Week (Sun - Sat)", value: 9 },
-                    { name: "Last Week (Mon - Sun)", value: 10 },
-                    { name: "Last 14 days", value: 11 },
-                    { name: "Today & Last 14 days", value: 12 },
-                    { name: "This Month", value: 13 },
-                    { name: "Last Month", value: 14 },
-                    { name: "Last 30 days", value: 15 },
-                    { name: "Today & Last 30 days", value: 16 },
-                    { name: "Last 90 days", value: 17 },
-                    { name: "Today & Last 90 days", value: 18 },
-                    { name: "Last 180 days", value: 19 },
-                    { name: "Today & Last 180 days", value: 20 }],
+            // options:[
+            //         { name: "Today", value: 2 },
+            //         { name: "Yesterday", value: 3 },
+            //         { name: "Yesterday & Today", value: 4 },
+            //         { name: "This Week (Sun - Today)", value: 5 },
+            //         { name: "This Week (Mon - Today)", value: 6 },
+            //         { name: "Last 7 days", value: 7 },
+            //         { name: "Today & Last 7 days", value: 8 },
+            //         { name: "Last Week (Sun - Sat)", value: 9 },
+            //         { name: "Last Week (Mon - Sun)", value: 10 },
+            //         { name: "Last 14 days", value: 11 },
+            //         { name: "Today & Last 14 days", value: 12 },
+            //         { name: "This Month", value: 13 },
+            //         { name: "Last Month", value: 14 },
+            //         { name: "Last 30 days", value: 15 },
+            //         { name: "Today & Last 30 days", value: 16 },
+            //         { name: "Last 90 days", value: 17 },
+            //         { name: "Today & Last 90 days", value: 18 },
+            //         { name: "Last 180 days", value: 19 },
+            //         { name: "Today & Last 180 days", value: 20 }],
             value:'Today & Last 30 days',
             valueTime:'',
             bookingsList:[],
             // str:'2019-05-02',
             activeNames: [],
-            userId:'',
-            visible: false
+            userId:''
           }
         },
         components: {
@@ -736,19 +865,41 @@
         },
         name: 'MyBookings',
         created(){
-          
+          // console.log(this.getSelectTime(moment().weekday(-6)))
+          // console.log(moment().add('month', 0).format('YYYY-MM') + '-01')
+          // console.log(moment().format('YYYY-MM-DD'))
+          // console.log(moment().day(0).format('YYYY-MM-DD'))
           this.orderList();
           // console.log(this.str.substr(5,2));  
         },
-        mounted(){
-          
-        },
         methods: {
-          // fo(){
-          //   this.$refs.ff.focus()
-          // },
-          // handleClose(){
-          //   this.visible = false;
+          selectOrder(time){
+            console.log(time)
+            if(time!=null){
+              this.$http.get(this.$api.bookingList,
+              {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                      .then((res)=>{
+                          console.log(res);
+                          if(res.data.data!=null || res.data.data!=undefined){
+                            this.bookingsList = res.data.data;
+                          }else{
+                            this.bookingsList = [];
+                          }
+                      })
+            }else{
+              this.orderList();
+            }
+          },
+          // getSelectTime(time){
+          //   var datetime = new Date();  
+          //   datetime.setTime(time);  
+          //   var year = datetime.getFullYear();  
+          //   var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;  
+          //   var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();  
+          //   var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();  
+          //   var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();  
+          //   var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();  
+          //   return year + "-" + month + "-" + date;   
           // },
           getCity(item){
             var firCity,endCity,firTime,endTime,routeLine;
@@ -774,7 +925,7 @@
           },
           orderList(){
             this.userId = sessionStorage.getItem("userLogin_id");
-            console.log(this.userId)
+            // console.log(this.userId)
             this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                     .then((res)=>{
                         console.log(res);
@@ -805,24 +956,23 @@
                     })
               console.log(value);
           },
-          selectTime(value){
-            // this.$refs.ff.focus()
-            // console.log(1)
-            if(value!=undefined){
-              this.$http.get(this.$api.bookingList,
-              {params:{startDate:value[0],endDate:value[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-                      .then((res)=>{
-                          console.log(res);
-                          if(res.data.data!=null || res.data.data!=undefined){
-                            this.bookingsList = res.data.data;
-                          }else{
-                            this.bookingsList = [];
-                          }
-                      })
-              console.log(value[0],value[1]);
-              this.value = value[0] +"--"+value[1];
-            }
-          },
+          // selectTime(value){
+          //   console.log(value)
+          //   if(value!=undefined){
+          //     this.$http.get(this.$api.bookingList,
+          //     {params:{startDate:value[0],endDate:value[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+          //             .then((res)=>{
+          //                 console.log(res);
+          //                 if(res.data.data!=null || res.data.data!=undefined){
+          //                   this.bookingsList = res.data.data;
+          //                 }else{
+          //                   this.bookingsList = [];
+          //                 }
+          //             })
+          //     console.log(value[0],value[1]);
+          //     this.value = value[0] +"--"+value[1];
+          //   }
+          // },
           dateChange(str){
             var week,mon,da,yea,newDate;
             week = this.getMyDay(new Date(str));//星期几
@@ -1151,9 +1301,9 @@
     </style>
     <style>
     .el-picker-panel{
-      top: 170px !important;
+      /* top: 170px !important; */
       /* left: 405px !important; */
-      left: 690px !important;
+      /* left: 690px !important; */
     }
     .el-select-dropdown__item{
       color: #333333;
@@ -1166,6 +1316,16 @@
     }
     .el-date-editor .el-range-input::-webkit-input-placeholder { /* WebKit browsers */
       color: #333333;
+    }
+
+    .el-date-range-picker.has-sidebar{
+      width: 896px;
+    }
+    .el-picker-panel__sidebar{
+      width: 190px;
+    }
+    .el-picker-panel__sidebar+.el-picker-panel__body{
+      margin-left: 190px;
     }
     </style>
     

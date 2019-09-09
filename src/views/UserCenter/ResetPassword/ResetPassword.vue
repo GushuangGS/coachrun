@@ -2,10 +2,10 @@
     <div class="wrap">
         <div class="box">
             <p class="title">Set a New Password</p>
-            <div class="email">
+            <!-- <div class="email">
                 <span class="emali-lab">Registered Email:</span>
                 <span class="email-name">{{userEmail}}</span>
-            </div>
+            </div> -->
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="auto" class="reset-form">
                 <el-form-item prop="pass">
                     <el-input type="password" v-model="ruleForm.pass" clearable placeholder="New Password"> 
@@ -26,6 +26,7 @@
 
 <script>
     export default{
+        props:['userInfo'],
         name:'ResetPassword',
         data(){
             // var validatePass = (rule, value, callback) => {
@@ -78,8 +79,9 @@
             }
         },
         created(){
-            this.userEmail = this.getEmail("email");
-            this.code = this.getEmail("verificationCode");
+            this.code = this.userInfo[1].code;
+            // this.userEmail = this.getEmail("email");
+            // this.code = this.getEmail("verificationCode");
         },
         methods:{
             getEmail(name){
@@ -95,17 +97,22 @@
                             {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
                             .then((res)=>{
                                 console.log(res);
-                                if(red.data.code!=200){
+                                if(res.data.code!=200){
                                     this.$message({
-                                        message: data.data.msg,
+                                        message: res.data.msg,
                                         type: 'warning',
                                         showClose: true,
                                         center: true
                                     })
+                                }else{
+                                    this.$router.push({name: 'Login'});
                                 }
                             })
                     }
                 });
+            },
+            logIn(){
+
             }
         }
     }

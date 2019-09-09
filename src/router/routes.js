@@ -60,22 +60,22 @@ const routes = [
       keepAlive: true
     }
   },
-  {//发送至邮箱提醒
-    path: '/render/user/forgot-password/after',
-    name: 'RemindEmail',
-    component: RemindEmail,
-    meta: {
-      keepAlive: true
-    }
-  },
-  {//密码重置页
-    path: '/render/user/reset-password',
-    name: 'ResetPassword',
-    component: ResetPassword,
-    meta: {
-      keepAlive: true
-    }
-  },
+  // {//发送至邮箱提醒
+  //   path: '/render/user/forgot-password/after',
+  //   name: 'RemindEmail',
+  //   component: RemindEmail,
+  //   meta: {
+  //     keepAlive: true
+  //   }
+  // },
+  // {//密码重置页
+  //   path: '/render/user/reset-password',
+  //   name: 'ResetPassword',
+  //   component: ResetPassword,
+  //   meta: {
+  //     keepAlive: true
+  //   }
+  // },
   {//添加订单
     path: '/render/user/guest-booking-reclaim',
     name: 'AddGuest',

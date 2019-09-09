@@ -84,6 +84,7 @@
                     })
                 },
                 focusCode(){
+                    this.err = ''
                     this.$refs.ruleCode.validate((valid)=>{
                         if (valid){
                             this.codeClick=false;
@@ -122,7 +123,7 @@
                             if(res.data.code==200){
                                 
                             }else{
-                                this.err = 'Your Security Code is Incorrected.'
+                                this.err = 'Your Security Code is incorrect.'
                             }
                         })
                     
