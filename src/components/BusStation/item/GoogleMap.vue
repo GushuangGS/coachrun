@@ -24,6 +24,8 @@
         //需要显示的标记 markers
         let indexMap = undefined
         let icon = ''
+        let markerArr = []  //需要弹窗的marker对象数组
+        let infoWindow = []//msg数组
         for (let i = 0;i<this.positions.length;i++) {
           bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));
           let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
@@ -37,6 +39,13 @@
           } else {
             let marker = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
             marker.setMap(map)
+
+            let info = new google.maps.InfoWindow({
+              content:this.positions[i].name
+            })
+            google.maps.event.addListener(marker,"click",function (event) {
+              info.open(map,marker)
+            })
           }
         }
         map.fitBounds(bounds)
