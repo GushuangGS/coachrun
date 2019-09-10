@@ -32,6 +32,11 @@ const AddGuest = resolve => {
     resolve(module)
   })
 }
+const BusStation = resolve => {
+  import('@/views/BusStation').then(module=>{
+    resolve(module)
+  })
+}
 
 const routes = [
   // {
@@ -79,6 +84,14 @@ const routes = [
     component: AddGuest,
     meta: {
       keepAlive: true
+    }
+  },
+  {//bus-station
+    path:'/components/bus-stations',
+    name:'BusStation',
+    component:BusStation,
+    meta:{
+      keepAlive:true
     }
   },
   userCenterRouter
