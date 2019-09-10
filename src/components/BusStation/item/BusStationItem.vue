@@ -2,7 +2,8 @@
   <li class="box-item">
       <el-card class="box-card">
         <div class="clearfix">
-          <span class="card-title">{{CityName}}</span>
+          <span class="card-title">{{CityName}}
+          </span>
         </div>
         <ul class="content-list">
 <!--          <li v-for="(item,index) in data"-->

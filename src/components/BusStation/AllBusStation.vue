@@ -14,7 +14,7 @@
       height="538px"
       :before-close="closeDialog"
     >
-      <google-map-item ref="googlemap"></google-map-item>
+      <google-map-item ref="googlemap" :positions="positions" :index="index"></google-map-item>
 <!--      <component is="MapItem" ref="item"></component>-->
     </el-dialog>
   </el-container>
@@ -35,18 +35,8 @@
       return {
         title:'',
         dialogVisible: false,//对话框开关
-        // markers:{
-        //   type:Array
-        // },//标记
-        // position:{
-        //   lat:Number,
-        //   lng:Number,
-        //   msg:String
-        // },//有窗口标记
-        // centerPosition:{
-        //   lat:Number,
-        //   lng:Number
-        // }//地图中心坐标
+        positions:[],
+        index:0
       };
     },
     mounted(){
@@ -58,10 +48,12 @@
       //   this.position = position
       // },
       showMap(positions,index,cityName){
+        this.positions = positions
+        this.index = index
         this.dialogVisible=true
         this.title=cityName
         this.timer = setTimeout(()=>{
-          this.$refs.googlemap.initMap(positions,index)
+          this.$refs.googlemap.initMap()
         },0)
       },
       closeDialog(){
