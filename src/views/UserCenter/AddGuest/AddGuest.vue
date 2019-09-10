@@ -34,7 +34,7 @@
                 </el-form>
             </div>
             <div class="right-tips" v-show="showRight">
-                1 Order(s) has been added to your account! Please check <span class="right-tips-span">My Bookings.</span> 
+                1 Order(s) has been added to your account! Please check <span class="right-tips-span" @click="toBookings">My Bookings.</span> 
             </div>
             <div class="error-tips" v-show="showError">
                 Sorry, no purchase records under “haibara.yy@hotmail.com” within 100 days. 
@@ -130,12 +130,16 @@
                         .then((res)=>{
                             console.log(res);
                             if(res.data.code==200){
-                                this.$router.push({name: 'MyBookings'});
+                                this.showRight = true;
                             }else{
                                 this.err = 'Your security code is incorrect.'
+                                // this.showError = true;
                             }
                         })
                     
+                },
+                toBookings(){
+                    this.$router.push({name: 'MyBookings'});
                 }
             }
         }
