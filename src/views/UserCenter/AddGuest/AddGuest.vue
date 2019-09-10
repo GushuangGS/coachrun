@@ -101,8 +101,8 @@
                 },
                 sendEmail(){
                     this.$http.post(this.$api.guestRequest,
-                                {email:this.ruleForm.email},
-                                {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                                {email:this.ruleForm.email})
+                                // {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                         .then((res)=>{
                             console.log(res);
                             if(res.data.code==200){
@@ -128,8 +128,8 @@
                     console.log(this.ruleCode.code)
                     if(this.ruleCode.code == this.verCode){
                         this.$http.post(this.$api.guestSubmit,
-                                    {verificationCode:this.ruleCode.code},
-                                    {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                                    {verificationCode:this.ruleCode.code})
+                                    // {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                         .then((res)=>{
                             console.log(res);
                             if(res.data.code==200){

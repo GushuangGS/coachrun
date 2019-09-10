@@ -76,13 +76,6 @@
                             { username: this.loginInfo.email, password:this.loginInfo.password})
                             .then((data) => {
                                 console.log(data);
-                                // if (this.item == true) {
-                                //     //传入账号名，密码，和保存天数3个参数
-                                //     this.setCookie(this.loginInfo.email, this.loginInfo.password, 7);
-                                // }else {
-                                //     //清空Cookie
-                                //     this.clearCookie();
-                                // }
                                 if(data.data.code==200){
                                     sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                                     sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
