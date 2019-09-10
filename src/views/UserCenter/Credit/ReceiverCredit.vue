@@ -346,8 +346,8 @@
                 getCreditInfo(){
                     this.creditId = this.getId("ccid");
                     console.log(this.creditId);
-                    this.$http.get(`${this.$api.creditDetail}/${this.creditId}`,
-                        {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                    // this.$http.get(`${this.$api.creditDetail}/${this.creditId}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                    this.$http.get(`${this.$api.creditDetail}/${this.creditId}`)
                         .then((res)=>{
                             if(res.data.code==200){
                                 console.log(res);
@@ -404,8 +404,8 @@
                                         state:this.ruleForm.state,
                                         zipcode:this.ruleForm.zipcode,
                                         country:this.ruleForm.country},
-                                        isDefault:this.showDefault},
-                                        {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                                        isDefault:this.showDefault})
+                                        // {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                                     .then((res)=>{
                                         console.log(res);
                                         if(res.data.code==200) {
@@ -455,8 +455,8 @@
                                         city: this.ruleForm.city,
                                         state: this.ruleForm.state,
                                         zipcode: this.ruleForm.zipcode,
-                                        country: this.ruleForm.country}},
-                                        {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                                        country: this.ruleForm.country}})
+                                        // {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                                     .then((res)=>{
                                         console.log(res);
                                         if(res.data.code==200){

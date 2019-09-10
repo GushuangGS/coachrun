@@ -96,8 +96,24 @@
                                         this.userId = VueCookie.get('IvyCustomer_LoginEmail');
                                     }
                                     this.$store.commit('userName',this.userId);
-                                    console.log(this.$store.state.userName)
-                                    console.log(this.userId)
+                                    console.log(this.$store.state.userName);
+                                    console.log(this.userId);
+                                    // -------------------------------------------------------------------------
+                                    let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+                                    if(loginCookie == undefined) return
+                                        let token = loginCookie.split('+|+')[2]
+                                    if(!token){
+                                        this.$api.user.authorization({
+                                            'loginCookie':loginCookie
+                                            }).then( res => {
+                                                let token = res.data.token;
+                                                let newLoginCookie = `${loginCookie}+|+${token}`
+                                                VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
+                                                console.log(newLoginCookie);
+                                                console.log(res);
+                                            })
+                                    }
+
                                 }else{
                                     this.$message({
                                         message: data.data.msg,

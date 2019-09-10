@@ -204,8 +204,8 @@
                 getUserInfo(){//获取用户信息
                     this.userId = this.getId("aid");
                     console.log(this.userId);
-                    this.$http.get(`${this.$api.contactDetail}/${this.userId}`,
-                            {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                    // this.$http.get(`${this.$api.contactDetail}/${this.userId}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                    this.$http.get(`${this.$api.contactDetail}/${this.userId}`)
                             .then((res)=>{
                                 if(res.data.code==200){
                                     console.log(res);
@@ -268,8 +268,8 @@
                             if (valid) {
                                 this.$http.post(this.$api.contactAdd,
                                 { firstName:this.ruleForm.firstName,lastName:this.ruleForm.lastName,
-                                phone:this.sendPhone1,email:this.ruleForm.email,phone2:this.sendPhone2,isDefault:this.showDefault},
-                                {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                                // phone:this.sendPhone1,email:this.ruleForm.email,phone2:this.sendPhone2,isDefault:this.showDefault},{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                                phone:this.sendPhone1,email:this.ruleForm.email,phone2:this.sendPhone2,isDefault:this.showDefault})
                                 .then((res)=>{
                                     console.log(res);
                                     if(res.data.code==200){
@@ -299,8 +299,8 @@
                         this.$refs[formName].validate((valid) => {
                             if (valid) {
                                 this.$http.patch(`${this.$api.contactUpdate}/${this.ruleForm.aid}`,
-                                {firstName:this.ruleForm.firstName,lastName:this.ruleForm.lastName,email:this.ruleForm.email,phone:this.sendPhone1,phone2:this.sendPhone2,isDefault:this.showDefault},
-                                {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                                // {firstName:this.ruleForm.firstName,lastName:this.ruleForm.lastName,email:this.ruleForm.email,phone:this.sendPhone1,phone2:this.sendPhone2,isDefault:this.showDefault},{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                                {firstName:this.ruleForm.firstName,lastName:this.ruleForm.lastName,email:this.ruleForm.email,phone:this.sendPhone1,phone2:this.sendPhone2,isDefault:this.showDefault})
                                 .then((res)=>{
                                     console.log(res);
                                     if(res.data.code==200){

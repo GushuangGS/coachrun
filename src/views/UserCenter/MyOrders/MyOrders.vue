@@ -141,7 +141,8 @@
     },
     methods: {
       orderList(){
-        this.$http.get(this.$api.dashboard,{headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        // this.$http.get(this.$api.dashboard,{headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        this.$http.get(this.$api.dashboard)
                 .then((res)=>{
                   console.log(res);
                   if(res.data.code == 200){

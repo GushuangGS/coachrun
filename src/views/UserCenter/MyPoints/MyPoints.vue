@@ -136,8 +136,8 @@
       },
       tableInfo(num){
         this.$http.get(this.$api.viewPoint,
-                {params:{pageNo:num,pageSize:this.pagesize},
-                headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+                {params:{pageNo:num,pageSize:this.pagesize}})
+                // headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                 .then((res)=>{
                     console.log(res);
                     if(res.data.data!=null || res.data.data!=undefined){

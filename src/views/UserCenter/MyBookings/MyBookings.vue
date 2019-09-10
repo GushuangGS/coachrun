@@ -879,7 +879,8 @@
             console.log(time)
             if(time!=null){
               this.$http.get(this.$api.bookingList,
-              {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+              // {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+              {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId}})
                       .then((res)=>{
                           console.log(res);
                           if(res.data.data!=null || res.data.data!=undefined){
@@ -928,7 +929,8 @@
           orderList(){
             this.userId = sessionStorage.getItem("userLogin_id");
             // console.log(this.userId)
-            this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+            // this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+            this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId}})
                     .then((res)=>{
                         console.log(res);
                         if(res.data.data!=null || res.data.data!=undefined){
@@ -947,7 +949,8 @@
           },
           select(value) {//选择器选中的value
             this.$http.get(this.$api.bookingList,
-            {params:{dateRange:value,userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+            // {params:{dateRange:value,userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+            {params:{dateRange:value,userId:this.userId}})
                     .then((res)=>{
                         console.log(res);
                         if(res.data.data!=null || res.data.data!=undefined){

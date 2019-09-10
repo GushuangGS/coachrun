@@ -104,7 +104,8 @@
     },
     methods:{
       listInfo(){//获取数据列表
-        this.$http.get(this.$api.contactList,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+        // this.$http.get(this.$api.contactList,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+        this.$http.get(this.$api.contactList)
             .then((res)=>{
                 console.log(res.data.data);
                 if(res.data.data!=null || res.data.data!=undefined){
@@ -137,7 +138,8 @@
         //         }).catch(() => {});
       },
       removeCredit(){
-        this.$http.delete(`${this.$api.contactDelete}/${this.deleteInfo.aid}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        // this.$http.delete(`${this.$api.contactDelete}/${this.deleteInfo.aid}`,{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        this.$http.delete(`${this.$api.contactDelete}/${this.deleteInfo.aid}`)
           .then((res)=>{
               console.log(res);
               this.$message({
@@ -158,9 +160,8 @@
       },
       setDefault(row){
         console.log(row);
-        this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,
-              {isDefault:true},
-              {headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        // this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,{isDefault:true},{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
+        this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,{isDefault:true})
               .then((res)=>{
                   console.log(res);
                   this.$message({

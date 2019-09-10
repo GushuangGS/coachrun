@@ -94,12 +94,18 @@ export function tryHideFullScreenLoading() {
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
-      var token = '';
+      // var token = '';
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
+      let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+      let token = loginCookie.split('+|+')[2];
+      if(token==undefined){
+        token = sessionStorage.getItem('IvyCustomer_LoginToken');
+      }
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
       config.headers['X-Api-Key'] = btoa(apiKey);
+      config.headers['Authorization'] = token;
       showFullScreenLoading();
       return config;
   },

@@ -150,8 +150,8 @@
             console.log(this.ruleForm);
             console.log(this.getVal);
               this.$http.post(this.$api.changePassword,
-              {passwordType:this.getVal,password:this.ruleForm.currentPass,newPassword:this.ruleForm.pass,reNewPassword:this.ruleForm.checkPass},
-              {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+              // {passwordType:this.getVal,password:this.ruleForm.currentPass,newPassword:this.ruleForm.pass,reNewPassword:this.ruleForm.checkPass},{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+              {passwordType:this.getVal,password:this.ruleForm.currentPass,newPassword:this.ruleForm.pass,reNewPassword:this.ruleForm.checkPass})
                   .then((res)=>{
                       console.log(res);
                       if(res.data.code==200){
