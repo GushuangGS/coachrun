@@ -72,7 +72,7 @@
                         code: ''
                     },
                     code: {
-                        code: [{ required: true ,message: 'Security code is required.' }] 
+                        // code: [{ required: true ,message: 'Security code is required.' }] 
                     },
                     value: '',
                     sendAuthCode: true, //布尔值，通过v-show控制显示‘发送按钮’还是‘倒计时’ 
@@ -152,14 +152,19 @@
                     this.getToken();
                 },
                 focusCode(){
-                    this.err = ''
-                    this.$refs.ruleCode.validate((valid)=>{
-                        if (valid){
-                            this.codeClick=false;
-                        }else{
-                            this.codeClick=true;
-                        }
-                    })
+                    this.err = '';
+                    if(this.ruleCode.code){
+                        this.codeClick=false;
+                    }else{
+                        this.codeClick=true;
+                    }
+                    // this.$refs.ruleCode.validate((valid)=>{
+                    //     if (valid){
+                    //         this.codeClick=false;
+                    //     }else{
+                    //         this.codeClick=true;
+                    //     }
+                    // })
                 },
                 clickToPas(){
                     if(this.ruleCode.code == this.verCode){
