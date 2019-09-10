@@ -36,6 +36,25 @@ Vue.prototype.$http = axios;
 axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
 Vue.prototype.$api = api;
 
+
+const errorHandle = (status, msg) => {//code判断
+  // 状态码判断
+  switch (status) {
+      case 500:
+          tip(msg);
+          break;
+      case 401:
+          tip('登录过期，请重新登录');
+          sessionStorage.removeItem('IvyCustomer_LoginToken');
+          store.commit('loginSuccess', null);
+          setTimeout(() => {
+              router.replace({name: 'Login'});
+          }, 1000);
+          break;
+      default:
+  }
+}
+
 // -------------------loading--------------------
 let loading;//定义loading变量
 function startLoading() {//使用Element loading-start 方法
@@ -48,7 +67,6 @@ function startLoading() {//使用Element loading-start 方法
 function endLoading() {//使用Element loading-close 方法
   loading.close();
 }
-
 let needLoadingRequestCount = 0;
 export function showFullScreenLoading() {
     if (needLoadingRequestCount === 0) {
@@ -69,12 +87,6 @@ axios.interceptors.request.use(
       var token = '';
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
-
-      // if(typeof Cookies.get('user') === 'undefined'){
-      //     //此时为空
-      // }else {
-      //     token = JSON.parse(Cookies.get('user')).token
-      // }//注意使用的时候需要引入cookie方法，推荐js-cookie
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
       config.headers['X-Api-Key'] = btoa(apiKey);
@@ -90,13 +102,11 @@ axios.interceptors.response.use(
   response => {
     // console.log(response);
       //当返回信息为未登录或者登录失效的时候重定向为登录页面
-      if(response.data.code == '401'){
-          router.push({
-              path:"/render/user/login",
-              querry:{redirect:router.currentRoute.fullPath}//从哪个页面跳转
-          })
+      if(response.data.code == '200'){
+          tryHideFullScreenLoading();
+      }else{
+          errorHandle(response.data.code,response.data.msg);
       }
-      tryHideFullScreenLoading();
       return response;
   },
   error => {

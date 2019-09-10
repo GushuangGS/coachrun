@@ -7,7 +7,7 @@
                     email address for us to email you the 
                     instructions to reset your password.
                 </span>
-                <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" :show-message="false" label-width="auto">
+                <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" :show-message="false" label-width="110px">
                     <el-form-item
                         prop="email"
                         :label="labelName"
@@ -32,7 +32,7 @@
                 <div class="click-tip">
                     {{tips}}
                 </div>
-                <el-form class="code-rule" :model="ruleCode" :rules="code" ref="ruleCode" label-width="auto">
+                <el-form class="code-rule" :model="ruleCode" :rules="code" ref="ruleCode" label-width="110px">
                     <el-form-item
                         prop="code"
                         label="Security Code:"
@@ -282,9 +282,6 @@
             line-height: 59px;
             color: #333333;
             font-size: 14px;
-       }
-       .input-email{
-           margin-left: 12px;
        }
 
         >>> .el-input__inner{
