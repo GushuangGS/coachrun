@@ -66,7 +66,8 @@
                     tips:'Click “ Get Security Code” for us to send a security code to your booking email.',
                     showRight:false,
                     showError:false,
-                    err:''
+                    err:'',
+                    verCode:''
                 }
             },
             //页面加载调用获取cookie值
@@ -108,7 +109,7 @@
                                 this.sendAuthCode = false;
                                 this.tips = 'A security code was sent to your booking email.  This security code will expire after 30 minutes.';
                                 //设置倒计时秒
-                                this.auth_time = 10;
+                                this.auth_time = 30;
                                 var auth_timetimer = setInterval(() => {
                                     this.auth_time--;
                                     if (this.auth_time <= 0) {
@@ -117,6 +118,7 @@
                                         clearInterval(auth_timetimer);
                                     }
                                 }, 1000);
+                                this.verCode = res.data.data.verificationCode;
                             }else{
                                 
                             }
@@ -124,7 +126,8 @@
                 },
                 addBookings(){
                     console.log(this.ruleCode.code)
-                    this.$http.post(this.$api.guestSubmit,
+                    if(this.ruleCode.code == this.verCode){
+                        this.$http.post(this.$api.guestSubmit,
                                     {verificationCode:this.ruleCode.code},
                                     {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                         .then((res)=>{
@@ -132,11 +135,12 @@
                             if(res.data.code==200){
                                 this.showRight = true;
                             }else{
-                                this.err = 'Your security code is incorrect.'
-                                // this.showError = true;
+                                this.showError = true;
                             }
                         })
-                    
+                    }else{
+                        this.err = 'Your security code is incorrect.'
+                    }
                 },
                 toBookings(){
                     this.$router.push({name: 'MyBookings'});

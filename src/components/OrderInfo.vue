@@ -564,7 +564,7 @@
               var totalMoney = 0;
               val.map((data)=>{
                 totalMoney +=data.paidAmount;
-                console.log(data.paidAmount)
+                // console.log(data.paidAmount);
               })
               return totalMoney;
             },

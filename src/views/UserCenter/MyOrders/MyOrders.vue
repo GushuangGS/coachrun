@@ -104,7 +104,7 @@
                 </el-collapse>
               </div> -->
               <div class="no-bookings" v-if="dashInfo.length==0">
-                No Bookings Found !
+                No Bookings Found!
             </div>
             </div>
           </div>
