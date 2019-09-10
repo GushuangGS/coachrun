@@ -1322,10 +1322,10 @@
       width: 896px;
     }
     .el-picker-panel__sidebar{
-      width: 190px;
+      width: 195px;
     }
     .el-picker-panel__sidebar+.el-picker-panel__body{
-      margin-left: 190px;
+      margin-left: 195px;
     }
     </style>
     

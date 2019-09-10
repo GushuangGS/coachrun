@@ -81,15 +81,14 @@
                     verify:'',
                     canClick:true,
                     codeClick:true,
-                    tips:'Click “ Get Security Code” for us to send a security code to your registered email.',
+                    tips:'Click “ Get Security Code ” for us to send a security code to your login email.',
                     showRight:false,
                     showError:false,
                     err:'',
                     labelName:'Login Email:',
                     msg:[{ResetPassword:'ResetPassword'},
                         {code:''}],
-                    verCode:'',
-                    err:''
+                    verCode:''
                 }
             },
             created(){
@@ -123,18 +122,18 @@
                             console.log(res);
                             if(res.data.code == 200){
                                 this.sendAuthCode = false;
-                                this.tips = 'A security code was sent to your registered email.  This security code will expire after 30 minutes.';
+                                this.tips = 'A security code was sent to your login email.  This security code will expire after 30 minutes.';
                                 //设置倒计时秒
                                 this.auth_time = 30;
                                 var auth_timetimer = setInterval(() => {
                                     this.auth_time--;
                                     if (this.auth_time <= 0) {
                                         this.sendAuthCode = true;
-                                        this.tips = 'Click “ Get Security Code” for us to send a security code to your registered email.';
+                                        this.tips = 'Click “ Get Security Code ” for us to send a security code to your login email.';
                                         clearInterval(auth_timetimer);
                                     }
                                 }, 1000);
-                                this.verCode = res.data.verificationCode;
+                                this.verCode = res.data.data.verificationCode;
                                 // this.$store.commit('sendEmail',this.ruleForm.email);
                                 // this.$router.push({name: 'RemindEmail'});
                             }else {
@@ -168,7 +167,7 @@
                         this.msg[1].code = this.ruleCode.code;
                         this.$emit('ResPas',this.msg)
                     }else{
-                        this.err = 'Your Security Code is incorrect.'
+                        this.err = 'Your security code is incorrect.'
                     }
                     // this.$router.push({name: 'ResetPassword'});
                 }

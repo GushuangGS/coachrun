@@ -55,10 +55,7 @@ const routes = [
   {//发送邮箱
     path: '/render/user/forgot-password',
     name: 'PasswordRetrieval',
-    component: PasswordRetrieval,
-    meta: {
-      keepAlive: true
-    }
+    component: PasswordRetrieval
   },
   // {//发送至邮箱提醒
   //   path: '/render/user/forgot-password/after',

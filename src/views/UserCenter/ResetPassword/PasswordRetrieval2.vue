@@ -49,7 +49,7 @@
 <script>
     import VueRecaptcha from 'vue-recaptcha';
     export default {
-        name:'PasswordRetrieval',
+        name:'PasswordRetrieval2',
         components: { VueRecaptcha },
         data() {
             return{
