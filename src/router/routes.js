@@ -32,6 +32,11 @@ const AddGuest = resolve => {
     resolve(module)
   })
 }
+const BusStation = resolve => {
+  import('@/views/BusStation').then(module=>{
+    resolve(module)
+  })
+}
 
 const routes = [
   // {
@@ -77,6 +82,14 @@ const routes = [
     path: '/render/user/guest-booking-reclaim',
     name: 'AddGuest',
     component: AddGuest
+  },
+  {//bus-station
+    path:'/render/bus-station',
+    name:'BusStation',
+    component:BusStation,
+    meta:{
+      keepAlive:true
+    }
   },
   userCenterRouter
 ]

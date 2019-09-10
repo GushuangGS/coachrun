@@ -11,6 +11,9 @@ module.exports = {
     proxy: {
       '/api':{
         target:"http://sandbox.gotobus.com"
+      },
+      '/search':{
+        target: 'https://search.gotobus.com/search'
       }
     }
   },
