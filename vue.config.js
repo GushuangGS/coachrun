@@ -24,6 +24,6 @@ module.exports = {
         jQuery: 'jquery',
         'windows.jQuery': 'jquery'
       })
-    ]
-  }
+    ],
+  },
 }

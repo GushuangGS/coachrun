@@ -3,8 +3,18 @@
 </template>
 <script>
   export default {
+    props:{
+      positions:{
+        type:Array,
+        default:[]
+      },
+      index:{
+        type:Number,
+        default: 0
+      }
+    },
     methods:{
-      initMap(positions,index) {
+      initMap() {
         // const uluru = {lat: 36, lng: -97};
         var bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
         const map = new google.maps.Map(
@@ -13,10 +23,10 @@
 
         //需要显示的标记 markers
         let indexMap = undefined
-        for (let i = 0;i<positions.length;i++) {
-          bounds.extend(new google.maps.LatLng(positions[i].address.latitude,positions[i].address.longitude));
-          let pluru = {lat: positions[i].address.latitude, lng: positions[i].address.longitude}
-          if (i == index) {
+        for (let i = 0;i<this.positions.length;i++) {
+          bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));
+          let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
+          if (i == this.index) {
             indexMap = new google.maps.Marker({position: pluru, icon: '/img/icon_mark.png'});//标记
             indexMap.setMap(map)
           } else {
