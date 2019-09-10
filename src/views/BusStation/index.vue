@@ -8,8 +8,18 @@
   import BusSearchFrame from '@/components/BusStation/BusSearchFrame'
   import AllBusStation from '@/components/BusStation/AllBusStation'
   export default {
+    // data(){
+    //   return {
+    //     data:[]
+    //   }
+    // },
+    data(){
+      return{
+        data:[]
+      }
+    },
     created(){
-      this.$http({
+       this.$http({
         methods:'get',
         url:'http://sandbox.gotobus.com/api/components/bus-stations',
         headers:{
@@ -20,7 +30,7 @@
           'vendorId':'1350154',
           'status':'1'
         }
-      }).then(function (response) {
+      }).then(response => {
         if (response.data.code==200) {
           const data = response.data.data
           let mapData = {}
@@ -41,9 +51,7 @@
               mapgroup = []
             }
           }
-          return {data:mapData}
-        }else {
-          return  {data:{}}
+          this.data = mapData;
         }
       })
     },
@@ -78,7 +86,6 @@
   }
   .el-main {
     padding: 0px!important;
-    margin-top: 80px!important;
   }
   .section {
     margin:0 auto 80px;

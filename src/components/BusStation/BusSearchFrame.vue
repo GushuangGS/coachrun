@@ -120,7 +120,7 @@
     },
     data(){
       return {
-        depart_options: [],//出发城市列表b_cities
+        depart_options: b_cities,//出发城市列表b_cities
         depart_City: '',//查找的出发城市
         arrive_City: '',//选择的到达城市
         depart_date:'',//日期选择
@@ -148,7 +148,7 @@
     },
     computed : {
       arrive_options(){
-        // return g_bus[this.depart_City]//出发城市对应的到达城市
+        return g_bus[this.depart_City]//出发城市对应的到达城市
       },
       pssengerNum(){
         let adult = 'Adult'
@@ -164,13 +164,17 @@
       },
       arrive_City:function(){
         if (this.arrive_City&&this.depart_City){
-          this.$axios("https://search.gotobus.com/search/get-lowest-price-embed-json.do",{
+          console.log(this.depart_City,this.arrive_City)
+          this.$http({
+            method:'get',
+            url:"https://search.gotobus.com/search/get-lowest-price-embed-json.do",
             params:{
               vendorId:1350154,
               fromCity:this.depart_City,
               toCity:this.arrive_City,
             }
           }).then(res => {
+            console.log(res,'arrive_City')
             for (let key in res.data.Departure) {
               this.depart_datedef.push({
                 date:key,
@@ -288,6 +292,10 @@
   }
 </script>
 <style scoped>
+
+  .search-city {
+    display: flex;
+  }
   .search-frame {
     background-image: url("../../assets/bg.png");
   }

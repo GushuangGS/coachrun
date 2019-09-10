@@ -16,7 +16,7 @@
               class="content-item"
               @click="showMap(StationItem,index,CityName)"
           >
-            <i><img src="/img/location.png"></i>
+            <i><img src="../../../assets/location.png"></i>
             <p>{{item.name}}</p>
           </li>
         </ul>
@@ -120,7 +120,7 @@
           i {
             margin-right: 12px;
             font-size: 14px;
-            padding-top: 5px;
+            padding-top: 3px;
             color: #009FEA;
           }
           p {
@@ -128,6 +128,7 @@
             font-family:ArialMT;
             color:rgba(76,76,76,1);
             line-height:21px;
+            margin: 0px;
           }
         }
       }
