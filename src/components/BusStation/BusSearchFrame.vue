@@ -164,9 +164,7 @@
       },
       arrive_City:function(){
         if (this.arrive_City&&this.depart_City){
-          console.log(this.depart_City,this.arrive_City)
           this.$http({
-            method:'get',
             url:"https://search.gotobus.com/search/get-lowest-price-embed-json.do",
             params:{
               vendorId:1350154,
@@ -174,7 +172,6 @@
               toCity:this.arrive_City,
             }
           }).then(res => {
-            console.log(res,'arrive_City')
             for (let key in res.data.Departure) {
               this.depart_datedef.push({
                 date:key,
