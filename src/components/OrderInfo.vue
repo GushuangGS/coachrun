@@ -114,7 +114,7 @@
                                             :key="index">
                                             <span>Child{{index+1}}: </span>
                                             <span>{{Child.name}} </span>
-                                            <span v-if="Child.age!=undefined">(Age: {{Child.age}}) </span>
+                                            <span v-if="Child.age!=undefined && Child.age!=''">(Age: {{Child.age}}) </span>
                                             <span>(CN: {{Child.cn}})</span>
                                         </div>
                                       </div>
@@ -209,7 +209,7 @@
                                               :key="index">
                                               <span>Child{{index+1}}: </span>
                                               <span>{{Child.name}} </span>
-                                              <span v-if="Child.age!=undefined">(Age: {{Child.age}}) </span>
+                                              <span v-if="Child.age!=undefined && Child.age!=''">(Age: {{Child.age}}) </span>
                                               <span>(CN: {{Child.cn}})</span>
                                           </div>
                                       </div>

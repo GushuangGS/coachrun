@@ -57,7 +57,7 @@
                         code: ''
                     },
                     code: {
-                        code: [{ required: true ,message: 'Security code is required.' }] 
+                        // code: [{ required: true ,message: 'Security code is required.' }] 
                     },
                     canClick:true,
                     codeClick:true,
@@ -84,17 +84,24 @@
                     })
                 },
                 focusCode(){
-                    this.err = ''
-                    this.$refs.ruleCode.validate((valid)=>{
-                        if (valid){
-                            this.codeClick=false;
-                        }else{
-                            this.codeClick=true;
-                        }
-                    })
+                    this.err = '';
+                    if(this.ruleCode.code){
+                        this.codeClick=false;
+                    }else{
+                        this.codeClick=true;
+                    }
+                    // this.$refs.ruleCode.validate((valid)=>{
+                    //     if (valid){
+                    //         this.codeClick=false;
+                    //     }else{
+                    //         this.codeClick=true;
+                    //     }
+                    // })
                 },
                 sendEmail(){
-                    this.$http.post(this.$api.guestRequest,{email:this.ruleForm.email})
+                    this.$http.post(this.$api.guestRequest,
+                                {email:this.ruleForm.email},
+                                {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                         .then((res)=>{
                             console.log(res);
                             if(res.data.code==200){
@@ -117,13 +124,15 @@
                 },
                 addBookings(){
                     console.log(this.ruleCode.code)
-                    this.$http.post(this.$api.guestSubmit,{verificationCode:this.ruleCode.code})
+                    this.$http.post(this.$api.guestSubmit,
+                                    {verificationCode:this.ruleCode.code},
+                                    {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                         .then((res)=>{
                             console.log(res);
                             if(res.data.code==200){
-                                
+                                this.$router.push({name: 'MyBookings'});
                             }else{
-                                this.err = 'Your Security Code is incorrect.'
+                                this.err = 'Your security code is incorrect.'
                             }
                         })
                     
