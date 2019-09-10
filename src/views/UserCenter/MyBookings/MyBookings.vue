@@ -142,7 +142,7 @@
                                     <div class="right-details">
                                         <span class="details-icon2"  v-for="(label,index) in item.passengers[0].options" :key="index">
                                           <span v-show="label.type=='bus_stop'|| label.type=='string'">
-                                            {{label.type=="string"?label.value:`${timeChange(label.value.time)} ${label.value.station.name}`}}
+                                            {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
                                           </span>
                                         </span>
                                     </div>
@@ -240,7 +240,7 @@
                                       <div class="right-details">
                                           <span class="details-icon2"  v-for="(value,index) in item.passengers[0].options" :key="index">
                                             <span v-show="label.type=='bus_stop'|| label.type=='string'">
-                                              {{label.type=="string"?label.value:`${timeChange(label.value.time)} ${label.value.station.name}`}}
+                                              {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
                                             </span>
                                           </span>
                                       </div>
@@ -718,38 +718,40 @@
                 }}, 
                 {text: 'Yesterday',
                 onClick(picker) {
-                  const end = moment().day(0).format('YYYY-MM-DD');
+                  const end = moment().subtract(1, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [end, end]);
                 }},
                 {text: 'Yesterday & Today',
                 onClick(picker) {
                   const end = moment().format('YYYY-MM-DD');
-                  const start = moment().day(0).format('YYYY-MM-DD');
+                  const start = moment().subtract(1, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'This Week (Sun - Today)',
                 onClick(picker) {
                   const end = moment().format('YYYY-MM-DD')
-                  const start = moment().week(moment().week()).startOf('week').format('YYYY-MM-DD');
+                  // const start = moment().week(moment().week()).startOf('week').format('YYYY-MM-DD');
+                  const start = moment().day(0).format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'This Week (Mon - Today)',
                 onClick(picker) {
                   const end = moment().format('YYYY-MM-DD')
-                  const weekOfday = moment().format('E');//计算今天是这周第几天
-                  const start = moment().subtract(weekOfday-1, 'days').format('YYYY-MM-DD');
+                  // const weekOfday = moment().format('E');//计算今天是这周第几天
+                  // const start = moment().subtract(weekOfday-1, 'days').format('YYYY-MM-DD');
+                  const start = moment().day(1).format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Last 7 days',
                 onClick(picker) {
-                  const end = moment().day(0).format('YYYY-MM-DD');
-                  const start = moment().day(-6).format('YYYY-MM-DD');
+                  const end = moment().subtract(1, 'days').format('YYYY-MM-DD');
+                  const start = moment().subtract(7, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Today & Last 7 days',
                 onClick(picker) {
-                  const end = moment().format('YYYY-MM-DD')
-                  const start = moment().day(-6).format('YYYY-MM-DD');
+                  const end = moment().format('YYYY-MM-DD');
+                  const start = moment().subtract(7, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Last Week (Sun - Sat)',
@@ -766,19 +768,19 @@
                 }},
                 {text: 'Last 14 days',
                 onClick(picker) {
-                  const end = moment().day(0).format('YYYY-MM-DD');
-                  const start = moment().day(-13).format('YYYY-MM-DD');
+                  const end = moment().subtract(1, 'days').format('YYYY-MM-DD');
+                  const start = moment().subtract(14, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Today & Last 14 days',
                 onClick(picker) {
-                  const end = moment().day(1).format('YYYY-MM-DD');
-                  const start = moment().day(-13).format('YYYY-MM-DD');
+                  const end = moment().format('YYYY-MM-DD');
+                  const start = moment().subtract(14, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'This Month',
                 onClick(picker) {
-                  const end = moment().format('YYYY-MM-DD')
+                  const end = moment().format('YYYY-MM-DD');
                   const start = moment().add('month', 0).format('YYYY-MM') + '-01';
                   picker.$emit('pick', [start, end]);
                 }},
@@ -790,38 +792,38 @@
                 }},
                 {text: 'Last 30 days',
                 onClick(picker) {
-                  const end = moment().day(0).format('YYYY-MM-DD');
-                  const start = moment().day(-29).format('YYYY-MM-DD');
+                  const end = moment().subtract(1, 'days').format('YYYY-MM-DD');
+                  const start = moment().subtract(30, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Today & Last 30 days',
                 onClick(picker) {
-                  const end = moment().day(1).format('YYYY-MM-DD');
-                  const start = moment().day(-29).format('YYYY-MM-DD');
+                  const end = moment().format('YYYY-MM-DD');
+                  const start = moment().subtract(30, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Last 90 days',
                 onClick(picker) {
-                  const end = moment().day(0).format('YYYY-MM-DD');
-                  const start = moment().day(-89).format('YYYY-MM-DD');
+                  const end = moment().subtract(1, 'days').format('YYYY-MM-DD');
+                  const start = moment().subtract(90, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Today & Last 90 days',
                 onClick(picker) {
-                  const end = moment().day(1).format('YYYY-MM-DD');
-                  const start = moment().day(-89).format('YYYY-MM-DD');
+                  const end = moment().format('YYYY-MM-DD');
+                  const start = moment().subtract(90, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Last 180 days',
                 onClick(picker) {
-                  const end = moment().day(0).format('YYYY-MM-DD');
-                  const start = moment().day(-179).format('YYYY-MM-DD');
+                  const end = moment().subtract(1, 'days').format('YYYY-MM-DD');
+                  const start = moment().subtract(180, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'Today & Last 180 days',
                 onClick(picker) {
-                  const end = moment().day(1).format('YYYY-MM-DD');
-                  const start = moment().day(-179).format('YYYY-MM-DD');
+                  const end = moment().format('YYYY-MM-DD');
+                  const start = moment().subtract(180, 'days').format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }}]
             },
@@ -867,7 +869,7 @@
         created(){
           // console.log(this.getSelectTime(moment().weekday(-6)))
           // console.log(moment().add('month', 0).format('YYYY-MM') + '-01')
-          // console.log(moment().format('YYYY-MM-DD'))
+          // console.log(moment().day(0).format('YYYY-MM-DD'))
           // console.log(moment().day(0).format('YYYY-MM-DD'))
           this.orderList();
           // console.log(this.str.substr(5,2));  

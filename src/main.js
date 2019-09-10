@@ -36,6 +36,16 @@ Vue.prototype.$http = axios;
 axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
 Vue.prototype.$api = api;
 
+import { Message } from 'element-ui';
+
+const tip = msg =>{
+    Message({
+      message: msg,
+      type: 'warning',
+      showClose: true,
+      center: true
+    });
+}
 
 const errorHandle = (status, msg) => {//code判断
   // 状态码判断
@@ -103,17 +113,17 @@ axios.interceptors.response.use(
     // console.log(response);
       //当返回信息为未登录或者登录失效的时候重定向为登录页面
       if(response.data.code == '200'){
-          tryHideFullScreenLoading();
+          // tryHideFullScreenLoading();
       }else{
           errorHandle(response.data.code,response.data.msg);
       }
+      tryHideFullScreenLoading();
       return response;
   },
   error => {
       return Promise.reject(error);
   }
 )
-
 // ---------------------------------------
 
 new Vue({

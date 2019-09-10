@@ -88,7 +88,7 @@
                                 <div class="right-details">
                                   <span class="details-icon2"  v-for="(label,index) in item.passengers[0].options" :key="index">
                                       <span v-show="label.type=='bus_stop'|| label.type=='string'">
-                                          {{label.type=="string"?label.value:`${timeChange(label.value.time)} ${label.value.station.name}`}}
+                                          {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
                                         </span>
                                   </span>
                                 </div>
@@ -183,7 +183,7 @@
                                 <div class="right-details">
                                     <span class="details-icon2"  v-for="(label,index) in item.passengers[0].options" :key="index">
                                         <span v-show="label.type=='bus_stop'|| label.type=='string'">
-                                            {{label.type=="string"?label.value:`${timeChange(label.value.time)} ${label.value.station.name}`}}
+                                            {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
                                           </span>
                                     </span>
                                 </div>
@@ -766,7 +766,7 @@
         padding-top: 8px;
         padding-bottom: 8px;
         display: flex;
-        justify-content:space-between;
+        /* justify-content:space-between; */
         padding-right: 20px;
         padding-left: 30px;
         /* height: 180px; */
