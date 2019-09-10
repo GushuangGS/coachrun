@@ -81,10 +81,7 @@ const routes = [
   {//添加订单
     path: '/render/user/guest-booking-reclaim',
     name: 'AddGuest',
-    component: AddGuest,
-    meta: {
-      keepAlive: true
-    }
+    component: AddGuest
   },
   {//bus-station
     path:'/components/bus-stations',
