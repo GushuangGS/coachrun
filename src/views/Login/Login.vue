@@ -56,7 +56,8 @@
                     password: [{ required: true, trigger: 'blur' ,message: 'Please enter your password.'},
                             { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }],
                 },
-                userId:''
+                userId:'',
+                pageUrl:''
             }
         },
         //页面加载调用获取cookie值
@@ -68,6 +69,12 @@
             forgetPass(){
                 this.$router.push({name: 'PasswordRetrieval'});
             },
+            getId(name){//aid
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if(r != null) return unescape(r[2]);
+                return null;
+            },
             login(){
                 // console.log(this.item);//true 则选择记住密码
                 this.$refs.loginForm.validate((valid)=>{
@@ -77,21 +84,39 @@
                             .then((data) => {
                                 console.log(data);
                                 if(data.data.code==200){
-                                    sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
-                                    sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
-                                    this.$router.push({name: 'MyOrders'});
-                                    this.$store.commit('login'); 
+                                    // sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                    // sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
+
+                                    localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                    // this.$router.push({name: 'MyOrders'});
+                                    // this.$store.commit('login'); 
                                     this.$store.commit('loginName',data.data.data.user.email);
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
 
-                                    this.userId = VueCookie.get('IvyCustomer_FirstName');
-                                    if(this.userId == null || this.userId== undefined){
-                                        this.userId = VueCookie.get('IvyCustomer_LoginEmail');
-                                    }
-                                    this.$store.commit('userName',this.userId);
-                                    console.log(this.$store.state.userName);
-                                    console.log(this.userId);
+                                    // this.userId = VueCookie.get('IvyCustomer_FirstName');
+                                    // if(this.userId == null || this.userId== undefined){
+                                    //     this.userId = VueCookie.get('IvyCustomer_LoginEmail');
+                                    // }
+                                    // this.$store.commit('userName',this.userId);
+                                    // console.log(this.$store.state.userName);
+                                    // console.log(this.userId);
                                     // -------------------------------------------------------------------------
+
+                                    // let hostName = this.$route.query.redirect;  // 获取域名
+                                    // console.log(hostName);
+                                    // if(hostName==undefined){
+                                    //     this.$router.push({name: 'MyOrders'});
+                                    // }else{
+                                    //     window.location.href = hostName;
+                                    // }
+
+                                    this.pageUrl = this.getId("pageUrl");
+                                    if(this.pageUrl){
+                                        window.location.href = this.pageUrl;
+                                    }else{
+                                        this.$router.push({name: 'MyOrders'});
+                                    }
+                                    
                                     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
                                     if(loginCookie == undefined) return
                                         let token = loginCookie.split('+|+')[2]
@@ -107,14 +132,15 @@
                                             })
                                     }
 
-                                }else{
-                                    this.$message({
-                                        message: data.data.msg,
-                                        type: 'warning',
-                                        showClose: true,
-                                        center: true
-                                    })
                                 }
+                                // else{
+                                //     this.$message({
+                                //         message: data.data.msg,
+                                //         type: 'warning',
+                                //         showClose: true,
+                                //         center: true
+                                //     })
+                                // }
                             });
                     }
                 })

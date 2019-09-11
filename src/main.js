@@ -62,6 +62,7 @@ const errorHandle = (status, msg) => {//code判断
           store.commit('loginName','');
           // store.commit('loginSuccess', null);
           setTimeout(() => {
+              // router.replace({name: 'Login',query:{redirect: location.href}});
               router.replace({name: 'Login'});
           }, 1000);
           break;
@@ -105,7 +106,8 @@ axios.interceptors.request.use(
       let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
       let token = loginCookie.split('+|+')[2];
       if(token==undefined){
-        token = sessionStorage.getItem('IvyCustomer_LoginToken');
+        // token = sessionStorage.getItem('IvyCustomer_LoginToken');
+        token = localStorage.getItem('IvyCustomer_LoginToken');
       }
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
