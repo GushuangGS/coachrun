@@ -42,6 +42,7 @@
                     v-model="value2"
                     size="large"
                     type="daterange"
+                    :editable="false"
                     align="left"
                     unlink-panels
                     range-separator="to"
@@ -708,7 +709,7 @@
       import ItemHeader from '@/components/ItemHeader'
       export default {
         data() {
-
+          
           return {
             value2: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
             pickerOptions: {

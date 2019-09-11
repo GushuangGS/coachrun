@@ -21,7 +21,7 @@
                   </template>
                   <el-menu-item-group>
                     <el-menu-item index="/render/member/account/booking-list" :route="{name:'MyBookings'}">My Bookings</el-menu-item>
-                    <el-menu-item index="/render/member/account/contact-info-list" :route="{name:'ContactList'}">Contact Infomation</el-menu-item>
+                    <el-menu-item index="/render/member/account/contact-info-list" :route="{name:'ContactList'}">Contact Information</el-menu-item>
                     <el-menu-item index="/render/member/account/change-password" :route="{name:'ChangePassword'}">Change Password</el-menu-item>
                     <el-menu-item index="/render/member/account/credit-card-list" :route="{name:'CreditList'}">View/Edit Credit Card</el-menu-item>
                     <el-menu-item index="/render/member/account/view-point" :route="{name:'MyPoints'}">My Points</el-menu-item>

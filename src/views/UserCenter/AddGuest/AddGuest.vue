@@ -37,7 +37,7 @@
                 1 Order(s) has been added to your account! Please check <span class="right-tips-span" @click="toBookings">My Bookings.</span> 
             </div>
             <div class="error-tips" v-show="showError">
-                Sorry, no purchase records under “haibara.yy@hotmail.com” within 100 days. 
+                Sorry, no purchase records under “{{ruleForm.email}}” within 100 days. 
             </div>
         </div>
     </template>

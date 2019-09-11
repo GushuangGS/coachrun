@@ -70,11 +70,15 @@
         methods:{
             getUserName(){
                 // console.log(this.$store.state.userName);
-                this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
-                if(this.userName == null || this.userName== undefined){
-                    this.userName = VueCookie.get('IvyCustomer_LoginEmail');
-                }
+                // this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
+                // if(this.userName == null || this.userName== undefined){
+                //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+                // }
                 // console.log(this.userName);
+                this.userName = VueCookie.get('IvyCustomer_FirstName');
+                if(this.userName == null || this.userName== undefined){
+                    this.userName = VueCookie.get('IvyCustomer_LoginEmail')!=null?VueCookie.get('IvyCustomer_LoginEmail'):sessionStorage.getItem("loginName");
+                }
                  return this.userName;
             },
             skip(url){//页面跳转
