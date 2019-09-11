@@ -1,6 +1,6 @@
 <template>
   <el-container class="section">
-    <section-title title-name="All Bus Stations Avaliable On CoachRun"></section-title>
+    <section-title title-name="All Bus Stations Available On CoachRun"></section-title>
     <el-main>
       <ul class="station-list">
 <!--          <li is="BusStationItem" v-for="i in 12" @show="showMap"></li>-->
