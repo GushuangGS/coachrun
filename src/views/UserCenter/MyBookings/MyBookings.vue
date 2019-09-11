@@ -920,13 +920,17 @@
           // },
           getCity(item){
             var firCity,endCity,firTime,endTime,routeLine;
-            if(item.passengers[0].options[0].value.station.address!=undefined){
-              firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
-              endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
-              firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
-              endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
-              // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
-              return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+            if(item.passengers[0].options[0].value.station!=undefined){
+              if(item.passengers[0].options[0].value.station.address!=undefined){
+                firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
+                endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
+                firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
+                endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
+                // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
+                return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+              }else{
+                return routeLine = item.product.name;
+              }
             }else{
               return routeLine = item.product.name;
             }
