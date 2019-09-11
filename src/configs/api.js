@@ -1,35 +1,35 @@
 export default {
-    deals:'/promotions/deals',//deals页面
-    resetPassword:'/users/reset-password',//reset-password
-    changePassword:'/users/change-password',//change-password
-    forgotPassword:'/users/forgot-password',//forgot-password
+    deals:'api/promotions/deals',//deals页面
+    resetPassword:'api/users/reset-password',//reset-password
+    changePassword:'api/users/change-password',//change-password
+    forgotPassword:'api/users/forgot-password',//forgot-password
     //credit
-    creditList:'/users/credit-cards',//creditList
-    creditAdd:'/users/credit-cards',//creditAdd
-    creditUpdate:'/users/credit-cards',//creditUpdate
-    creditDetail:'/users/credit-cards',// get 
-    creditDelete:'/users/credit-cards',// creditDelete
+    creditList:'api/users/credit-cards',//creditList
+    creditAdd:'api/users/credit-cards',//creditAdd
+    creditUpdate:'api/users/credit-cards',//creditUpdate
+    creditDetail:'api/users/credit-cards',// get 
+    creditDelete:'api/users/credit-cards',// creditDelete
     //contact-info
-    contactAdd:'/users/contact-infos',//contactAdd
-    contactList:'/users/contact-infos',//contactList
-    contactUpdate:'/users/contact-infos',//contactUpdate
-    contactDetail:'/users/contact-infos',//contactDetail  
-    contactDelete:'/users/contact-infos',//contactDelete 
+    contactAdd:'api/users/contact-infos',//contactAdd
+    contactList:'api/users/contact-infos',//contactList
+    contactUpdate:'api/users/contact-infos',//contactUpdate
+    contactDetail:'api/users/contact-infos',//contactDetail  
+    contactDelete:'api/users/contact-infos',//contactDelete 
     //dashboard
-    dashboard:'/users/dashboard',//dashboard
+    dashboard:'api/users/dashboard',//dashboard
     //viewPoint
-    viewPoint:'/users/view-point',//viewPoint
+    viewPoint:'api/users/view-point',//viewPoint
     // login
-    login:'/users/login',
-    register:'/users/register',
-    logout:'users/logout',
+    login:'api/users/login',
+    register:'api/users/register',
+    logout:'api/users/logout',
     //bookings
     // bookingList:'/users/bookings',
-    bookingList:'/orders/list',    
-    bookingDetail:'/orders/users/:userId/bookings/:orderId',
-    bookingReclaim:'/orders/users/:userId/bookings/reclaim',
+    bookingList:'api/orders/list',    
+    bookingDetail:'api/orders/users/:userId/bookings/:orderId',
+    bookingReclaim:'api/orders/users/:userId/bookings/reclaim',
     //guest-bookings
-    guestRequest:'users/guest-bookings/request-reclaim',
-    guestSubmit:'users/guest-bookings/submit-reclaim'
+    guestRequest:'api/users/guest-bookings/request-reclaim',
+    guestSubmit:'api/users/guest-bookings/submit-reclaim'
   };
   

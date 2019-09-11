@@ -23,6 +23,9 @@ router.beforeEach((to,from,next)=>{
     // const token = sessionStorage.getItem('IvyCustomer_LoginToken');
     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
     let token = loginCookie.split('+|+')[2];
+    if(token==undefined){
+      token = sessionStorage.getItem('IvyCustomer_LoginToken');
+    }
     if(token){
       next();
     }else {//没有登录信息

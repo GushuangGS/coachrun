@@ -37,7 +37,8 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
 // axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
-axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
+// axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
+axios.defaults.baseURL = 'http://testwww.coachrun.com/';
 Vue.prototype.$api = api;
 
 import { Message } from 'element-ui';
@@ -101,7 +102,7 @@ export function tryHideFullScreenLoading() {
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
-    // console.log(config.url.indexOf('api')!=-1);
+      
       // var token = '';
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
@@ -112,6 +113,9 @@ axios.interceptors.request.use(
       }
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
+      console.log(config.url.indexOf('api')!=-1);
+      console.log(config);
+      console.log(config.url);
       if(config.url.indexOf('api')!=-1){
         config.headers['X-Api-Key'] = btoa(apiKey);
         config.headers['Authorization'] = token;
