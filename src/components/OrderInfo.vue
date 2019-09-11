@@ -13,7 +13,7 @@
                   <el-collapse-item v-for="(info,index) in ticket" :key="index" :name="index">
                     <template slot="title">
                       <div class="title-bookings">
-                        <img class="down" src="@/assets/up.png">
+                        <img class="down" :class="{'down-rot':getIndex(index)}" src="@/assets/up.png">
                         <div class="bookings-item">
                             <div class="bookings-item-brief">
                                 <div>Order ID:&nbsp;<span>{{info.orderCode}}</span></div>
@@ -492,15 +492,24 @@
         },
         name:'OrderInfo',
         methods:{
+            getIndex(index){
+              return this.activeNames.some(item=>{
+                return item == index;
+              })
+            },
             getCity(item){
               var firCity,endCity,firTime,endTime,routeLine;
-              if(item.passengers[0].options[0].value.station.address!=undefined){
-                firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.station.address.city;
-                endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.station.address.city;
-                firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.time;
-                endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.time;
-                // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
-                return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+              if(item.passengers[0].options[0].value.station!=undefined){
+                if(item.passengers[0].options[0].value.station.address!=undefined){
+                  firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.station.address.city;
+                  endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.station.address.city;
+                  firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.time;
+                  endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.time;
+                  // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
+                  return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+                }else{
+                  return routeLine = item.product.name;
+                }
               }else{
                 return routeLine = item.product.name;
               }
@@ -646,7 +655,12 @@
         width: 18px;
         height: 18px;
         margin-left: 20px;
-        transition: all .5s;
+        transform: rotate(180deg);
+        transition: transform .3s,-webkit-transform .3s;
+      }
+      .down-rot{
+        transform: rotate(0deg);
+        transition: transform .3s,-webkit-transform .3s;
       }
       .bookings-item{
         width: 700px;

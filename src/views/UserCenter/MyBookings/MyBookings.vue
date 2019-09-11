@@ -42,6 +42,7 @@
                     v-model="value2"
                     size="large"
                     type="daterange"
+                    :editable="false"
                     align="left"
                     unlink-panels
                     range-separator="to"
@@ -68,12 +69,12 @@
                         <el-col :span="3"><div>Order Status</div></el-col>
                       </el-row>
                     </div>
-                    <el-collapse v-model="activeNames" v-if="bookingsList.length>0" @click="changeRot">
+                    <el-collapse v-model="activeNames" v-if="bookingsList.length>0">
 
                       <el-collapse-item v-for="(info,index) in bookingsList" :key="index"  :name="index">
                         <template slot="title">
                           <div class="title-bookings">
-                            <img class="down" src="@/assets/up.png">
+                            <img class="down" :class="{'down-rot':getIndex(index)}" src="@/assets/up.png">
                             <div class="bookings-item">
                                 <div class="bookings-item-brief">
                                     <div>Order ID:&nbsp;<span>{{info.orderCode}}</span></div>
@@ -708,8 +709,9 @@
       import ItemHeader from '@/components/ItemHeader'
       export default {
         data() {
+          
           return {
-            value2: '',
+            value2: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
             pickerOptions: {
               disabledDate(time){
                 return time.getTime() > new Date(new Date().toLocaleDateString()).getTime();
@@ -864,7 +866,7 @@
             // str:'2019-05-02',
             activeNames: [],
             userId:'',
-            timeDefaultShow:'',
+            timeDefaultShow:''
           }
         },
         components: {
@@ -884,11 +886,10 @@
           this.timeDefaultShow.setMonth(new Date().getMonth() - 1);
         },
         methods: {
-          changeRot(){
-            console.log('111')
-          },
-          handleChange(val) {
-            console.log(val);
+          getIndex(index){
+            return this.activeNames.some(item=>{
+              return item == index;
+            })
           },
           selectOrder(time){
             // console.log(time)
@@ -921,13 +922,17 @@
           // },
           getCity(item){
             var firCity,endCity,firTime,endTime,routeLine;
-            if(item.passengers[0].options[0].value.station.address!=undefined){
-              firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
-              endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
-              firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
-              endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
-              // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
-              return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+            if(item.passengers[0].options[0].value.station!=undefined){
+              if(item.passengers[0].options[0].value.station.address!=undefined){
+                firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
+                endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
+                firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
+                endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
+                // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
+                return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+              }else{
+                return routeLine = item.product.name;
+              }
             }else{
               return routeLine = item.product.name;
             }
@@ -1161,6 +1166,11 @@
         margin-left: 20px;
         /* transition: all .5s; */
         transform: rotate(180deg);
+        transition: transform .3s,-webkit-transform .3s;
+      }
+      .down-rot{
+        transform: rotate(0deg);
+        transition: transform .3s,-webkit-transform .3s;
       }
       .bookings-item{
         width: 700px;
@@ -1321,7 +1331,7 @@
     }
 
     >>> .el-icon-arrow-right:before{
-      /* content: ''; */
+      content: '';
     }
     </style>
     <style>
