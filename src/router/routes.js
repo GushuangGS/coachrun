@@ -84,7 +84,7 @@ const routes = [
     component: AddGuest
   },
   {//bus-station
-    path:'/render/bus-stations',
+    path:'/bus-stations',
     name:'BusStation',
     component:BusStation,
     meta:{

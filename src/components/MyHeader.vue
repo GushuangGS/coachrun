@@ -18,7 +18,7 @@
             <span class="login" @click="login">
                 Login
             </span>|
-            <span class="register" @click="register">
+            <span class="register" @click="login">
                 Register
             </span>
           </div>
@@ -28,10 +28,12 @@
           </div>
           <div class="header-icon">
             <div class="shopping-cart">
-              <img src="@/assets/shoppingcart.png" alt="" @click="skip('https://www.coachrun.com/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
+              <img src="@/assets/shoppingcart.png" alt="" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
             </div>
             <div class="live-chat">
-              <img src="@/assets/livechat.png" alt="" @click="skip('')">
+              <a href="javascript:void(window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">
+                <img src="@/assets/livechat.png">
+              </a>
             </div>
           </div>
         </div>
@@ -46,7 +48,7 @@
         data(){
             return{
                 navLists:[
-                    {"text":"Bus Stations","link":"stations","src":"https://www.coachrun.com/bus-stations/"},
+                    {"text":"Bus Stations","link":"stations","src":"/bus-stations"},
                     {"text":"Bus Rental","link":"Login","src":"https://www.gotocharter.com"},
                     {"text":"Hotel","link":"MyOrders","src":"https://www.coachrun.com/hotel/"},
                     {"text":"Ticket Policy","link":"Register","src":"https://www.coachrun.com/ticket-policy/"}
@@ -88,9 +90,6 @@
             },
             login(){
                 this.$router.push({name: 'Login'});
-            },
-            register(){
-                this.$router.push({name: 'Register'});
             },
             logout(){
                 this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})

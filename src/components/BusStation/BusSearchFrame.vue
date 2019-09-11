@@ -93,6 +93,7 @@
         :data="depart_datedef"
         :prop="prop"
         @pick = "datePickDepart"
+        :disabled-date = "disabledDate"
       ></ele-calendar>
     </el-popover>
     <el-popover
@@ -106,6 +107,7 @@
         :data="arrval_datedef"
         :prop="prop"
         @pick = "datePickReturn"
+        :disabled-date = "disabledDate"
       ></ele-calendar>
     </el-popover>
   </div>
@@ -132,6 +134,7 @@
         arrval_datedef:[],//到达价格
         dep_min_price:undefined,//最低价格
         ret_min_price:undefined,
+        eletoday:moment(Date.now()).format("YYYY-MM-DD"),//今日日期格式化
         prop:'date' //对应日期字段名
       }
     },
@@ -197,10 +200,12 @@
       }
     },
     methods:{
-      // onSubmit(){
-      //   console.log(this)
-      // },
-
+      disabledDate (today) {
+        let day = moment(today).format("YYYY-MM-DD")
+        if (this.eletoday.replace(/-/g,"\/")>day.replace(/-/g,"\/")) {
+          return true
+        }
+      },
       onSubmit(){
         if (this.return_date){
           window.location.href = `https://www.coachrun.com/search/bus.do?nm=1350154&st=1350154&is_roundtrip=1&bus_from=${this.depart_City}&bus_to=${this.arrive_City}&filter_date=${this.depart_date}&return_date=${this.return_date}&adult_num=${this.adultsNum}&child_num=${this.childrenNum}`
@@ -372,7 +377,7 @@
     height:17px;
     font-size:14px;
     font-family:ArialMT;
-    color:rgba(51,51,51,1);
+    /*color:rgba(51,51,51,1);*/
     line-height:18px;
   }
   >>> .search-table .el-icon-arrow-up:before {
