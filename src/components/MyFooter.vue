@@ -16,13 +16,8 @@
                 </el-col>
                 <el-col :span="5">
                     <div class="bot-link">
-<<<<<<< HEAD
                         <p class="bot-title">Main Menu</p>
                         <a href="https://www.coachrun.com/bus-stations/">Bus Stations</a>
-=======
-                        <p class="bot-title">MAIN MENU</p>
-                        <a href="/bus-stations/">Bus Stations</a>
->>>>>>> ea223deedd51abd4efb9c2a06ee1e283f6767d44
                         <a href="https://www.gotocharter.com">Bus Rental</a>
                         <a href="https://www.coachrun.com/hotel/">Hotel</a>
                         <a href="https://www.coachrun.com/ticket-policy/">Ticket Policy</a>
