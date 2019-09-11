@@ -787,4 +787,7 @@
       .line-none{
         text-decoration: line-through;
       }
+      >>> .el-icon-arrow-right:before{
+        content: '';
+      }
 </style>

@@ -52,6 +52,7 @@
 </template>
     
     <script>
+        import VueCookie from 'vue-cookie';
         import VuePhoneNumberInput from 'vue-phone-number-input'
         export default{
             name:'Register',
@@ -101,24 +102,57 @@
                     console.log(payload);
                 },
                 register(){
-                    console.log(this.selectValue);
                     this.$refs.loginForm.validate((valid)=>{
                         if (valid){
                             this.$http.post(this.$api.register,
                                 { username: this.loginInfo.email,mobilePhone:this.results.formatInternational ,password:this.loginInfo.password,acceptNewsletter:'true'})
                                 .then((data) => {
                                     console.log(data);
-                                    if(data.data.code!=200){
-                                        this.$message({
-                                            message: data.data.msg,
-                                            type: 'warning',
-                                            showClose: true,
-                                            center: true
-                                        })
+                                    if(data.data.code == 200){
+                                        this.logIn();
                                     }
                                 });
                         }
                     })
+                },
+                logIn(){
+                    this.$http.post(this.$api.login,
+                            { username: this.loginInfo.email, password:this.loginInfo.password})
+                            .then((data) => {
+                                console.log(data);
+                                if(data.data.code==200){
+                                    sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                    sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
+                                    this.$router.push({name: 'MyOrders'});
+                                    this.$store.commit('login'); 
+                                    this.$store.commit('loginName',data.data.data.user.email);
+                                    this.$cookie.set('front-sessionId', data.data.data.user.id);
+
+                                    this.userId = VueCookie.get('IvyCustomer_FirstName');
+                                    if(this.userId == null || this.userId== undefined){
+                                        this.userId = VueCookie.get('IvyCustomer_LoginEmail');
+                                    }
+                                    this.$store.commit('userName',this.userId);
+                                    console.log(this.$store.state.userName);
+                                    console.log(this.userId);
+                                    // -------------------------------------------------------------------------
+                                    let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+                                    if(loginCookie == undefined) return
+                                        let token = loginCookie.split('+|+')[2]
+                                    if(!token){
+                                        this.$api.user.authorization({
+                                            'loginCookie':loginCookie
+                                            }).then( res => {
+                                                let token = res.data.token;
+                                                let newLoginCookie = `${loginCookie}+|+${token}`
+                                                VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
+                                                console.log(newLoginCookie);
+                                                console.log(res);
+                                            })
+                                    }
+
+                                }
+                            });
                 },
                 select(value) {//选择器选中的value
                     this.selectValue = value;

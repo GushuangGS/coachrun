@@ -48,6 +48,7 @@
                     start-placeholder="Start Date"
                     end-placeholder="End Date"
                     @change="selectOrder"
+                    :default-value="timeDefaultShow"
                     :picker-options="pickerOptions">
                   </el-date-picker>
                 </div>
@@ -67,7 +68,7 @@
                         <el-col :span="3"><div>Order Status</div></el-col>
                       </el-row>
                     </div>
-                    <el-collapse v-model="activeNames" v-if="bookingsList.length>0">
+                    <el-collapse v-model="activeNames" v-if="bookingsList.length>0" @click="changeRot">
 
                       <el-collapse-item v-for="(info,index) in bookingsList" :key="index"  :name="index">
                         <template slot="title">
@@ -710,6 +711,9 @@
           return {
             value2: '',
             pickerOptions: {
+              disabledDate(time){
+                return time.getTime() > new Date(new Date().toLocaleDateString()).getTime();
+              },
               shortcuts: [
                 {text: 'Today',
                 onClick(picker) {
@@ -859,7 +863,8 @@
             bookingsList:[],
             // str:'2019-05-02',
             activeNames: [],
-            userId:''
+            userId:'',
+            timeDefaultShow:'',
           }
         },
         components: {
@@ -874,15 +879,25 @@
           this.orderList();
           // console.log(this.str.substr(5,2));  
         },
+        mounted(){
+          this.timeDefaultShow = new Date();
+          this.timeDefaultShow.setMonth(new Date().getMonth() - 1);
+        },
         methods: {
+          changeRot(){
+            console.log('111')
+          },
+          handleChange(val) {
+            console.log(val);
+          },
           selectOrder(time){
-            console.log(time)
+            // console.log(time)
             if(time!=null){
               this.$http.get(this.$api.bookingList,
               // {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId}})
                       .then((res)=>{
-                          console.log(res);
+                          // console.log(res);
                           if(res.data.data!=null || res.data.data!=undefined){
                             this.bookingsList = res.data.data;
                           }else{
@@ -1144,7 +1159,8 @@
         width: 18px;
         height: 18px;
         margin-left: 20px;
-        transition: all .5s;
+        /* transition: all .5s; */
+        transform: rotate(180deg);
       }
       .bookings-item{
         width: 700px;
@@ -1302,6 +1318,10 @@
     >>> .el-input__inner{
       font-size: 14px;
       color: #333333;
+    }
+
+    >>> .el-icon-arrow-right:before{
+      /* content: ''; */
     }
     </style>
     <style>

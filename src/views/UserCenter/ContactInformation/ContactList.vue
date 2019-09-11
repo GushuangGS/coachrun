@@ -61,7 +61,7 @@
                 
               </div>
               <div class="add-btn">
-                  <el-button class="add-info" @click="AddContact">+ Add a new contact</el-button>
+                  <el-button class="add-info" @click="AddContact">Add a new contact</el-button>
               </div>
             </div>
         </el-main>

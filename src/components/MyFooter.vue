@@ -9,15 +9,15 @@
                 </el-col>
                 <el-col :span="8">
                     <div>
-                        <p class="bot-title">ABOUT US</p>
+                        <p class="bot-title">About Us</p>
                         <span class="about">CoachRun provides affordable inter-city bus services on the East Coast, Florida and the West Coast.
                         </span>
                     </div>
                 </el-col>
                 <el-col :span="5">
                     <div class="bot-link">
-                        <p class="bot-title">MAIN MENU</p>
-                        <a href="/bus-stations/">Bus Stations</a>
+                        <p class="bot-title">Main Menu</p>
+                        <a href="https://www.coachrun.com/bus-stations/">Bus Stations</a>
                         <a href="https://www.gotocharter.com">Bus Rental</a>
                         <a href="https://www.coachrun.com/hotel/">Hotel</a>
                         <a href="https://www.coachrun.com/ticket-policy/">Ticket Policy</a>
@@ -25,7 +25,7 @@
                 </el-col>
                 <el-col :span="5">
                     <div class="bot-contact">
-                        <p class="bot-title">CONTACT</p>
+                        <p class="bot-title">Contact</p>
                         <span>Phone: 617-681-0820</span>
                         <span>Email: support@coachrun.com</span>
                     </div>

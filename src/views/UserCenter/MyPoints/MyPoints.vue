@@ -271,19 +271,19 @@
   .positive {
     color: #FF9D0D;
     /* font-weight: bold; */
-    font-size: 18px;
+    font-size: 16px;
   }
   .negtive {
     color: #0BA76E;
     /* font-weight: bold; */
-    font-size: 18px;
+    font-size: 16px;
   }
   .pending {
     opacity: .5;
   }
   >>> .cell {
     position: relative;
-    font-size: 16px;
+    font-size: 14px;
     /* text-align: center; */
   }
   .text-pending {

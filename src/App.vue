@@ -23,7 +23,7 @@ export default {
 </script>
 
 <style>
-@import "./styles/fonts/css/a.css";
+/* @import "./styles/fonts/css/a.css"; */
 body{
     padding: 0;
     margin: 0;
