@@ -13,6 +13,9 @@ import api from './configs/api'
 import VueCookie from 'vue-cookie';
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
+
+import eleCalendar from 'ele-calendar'
+import 'ele-calendar/dist/vue-calendar.css' //引入css
 // 引入font-awesome图标字体
 import 'font-awesome/css/font-awesome.min.css'
 import './styles/css/index.css'
@@ -26,6 +29,7 @@ Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
 Vue.use(VuePhoneNumberInput);
+Vue.use(eleCalendar);
 
 Vue.config.productionTip = false;
 
@@ -56,6 +60,9 @@ const errorHandle = (status, msg) => {//code判断
       case 401:
           tip('登录过期，请重新登录');
           sessionStorage.removeItem('IvyCustomer_LoginToken');
+          sessionStorage.removeItem("loginName");
+          this.$store.commit('logout');
+          this.$store.commit('loginName','');
           store.commit('loginSuccess', null);
           setTimeout(() => {
               router.replace({name: 'Login'});
@@ -94,6 +101,7 @@ export function tryHideFullScreenLoading() {
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
+    // console.log(config.url.indexOf('api')!=-1);
       // var token = '';
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
@@ -104,8 +112,10 @@ axios.interceptors.request.use(
       }
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
-      config.headers['X-Api-Key'] = btoa(apiKey);
-      config.headers['Authorization'] = token;
+      if(config.url.indexOf('api')!=-1){
+        config.headers['X-Api-Key'] = btoa(apiKey);
+        config.headers['Authorization'] = token;
+      }
       showFullScreenLoading();
       return config;
   },

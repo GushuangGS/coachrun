@@ -21,7 +21,8 @@ router.beforeEach((to,from,next)=>{
     // const display = VueCookie.get('display');
     // const display = sessionStorage.getItem('display');
     // const token = sessionStorage.getItem('IvyCustomer_LoginToken');
-    const token = VueCookie.get('IvyCustomer_LoginToken');
+    let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+    let token = loginCookie.split('+|+')[2];
     if(token){
       next();
     }else {//没有登录信息
