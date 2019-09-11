@@ -237,6 +237,7 @@
     flex-direction: column;
     margin-left: 20px;
     justify-content: space-between;
+    cursor: pointer;
   }
   .right-img{
     width: 18px;

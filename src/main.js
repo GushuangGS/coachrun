@@ -21,10 +21,6 @@ import 'font-awesome/css/font-awesome.min.css'
 import './styles/css/index.css'
 
 
-// import Clickoutside from 'element-ui/src/utils/clickoutside'
-
-// Vue.use(Clickoutside);
-
 Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
@@ -59,12 +55,12 @@ const errorHandle = (status, msg) => {//code判断
           tip(msg);
           break;
       case 401:
-          tip('登录过期，请重新登录');
+          tip('Your login has expired. Please log in again to continue.');
           sessionStorage.removeItem('IvyCustomer_LoginToken');
           sessionStorage.removeItem("loginName");
-          this.$store.commit('logout');
-          this.$store.commit('loginName','');
-          store.commit('loginSuccess', null);
+          store.commit('logout');
+          store.commit('loginName','');
+          // store.commit('loginSuccess', null);
           setTimeout(() => {
               router.replace({name: 'Login'});
           }, 1000);
@@ -113,9 +109,9 @@ axios.interceptors.request.use(
       }
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
-      console.log(config.url.indexOf('api')!=-1);
-      console.log(config);
-      console.log(config.url);
+      // console.log(config.url.indexOf('api')!=-1);
+      // console.log(config);
+      // console.log(config.url);
       if(config.url.indexOf('api')!=-1){
         config.headers['X-Api-Key'] = btoa(apiKey);
         config.headers['Authorization'] = token;

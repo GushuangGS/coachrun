@@ -103,5 +103,6 @@
     .none-deals-tips{
         font-size: 16px;
         margin-top: 20px;
+        color: #333333;
     }
 </style>

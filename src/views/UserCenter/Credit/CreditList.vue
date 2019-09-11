@@ -273,7 +273,7 @@
     margin-top: 0;
     margin-bottom: 20px;
     line-height: 1;
-    font-size: 20px;
+    font-size: 16px;
     font-weight: bold;
   }
   .add-credit>div.detail {
@@ -283,6 +283,8 @@
   .add-credit>div.detail>.text {
     flex: 2.2;
     margin-right: 30px;
+    font-size: 16px;
+    color: #333333;
   }
   .add-credit>div.detail>.img-wrapper {
     flex: 1;
