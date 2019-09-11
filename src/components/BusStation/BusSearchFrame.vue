@@ -7,7 +7,7 @@
             <div class="search-city flex">
               <div class="departure-city city_passenger">
                 <i class="el-icon-location-outline"></i>
-                <el-select v-model="depart_City" filterable placeholder="From">
+                <el-select v-model="depart_City" filterable placeholder="From" @change="getArrOptions">
                   <el-option
                     v-for="(item,index) in depart_options"
                     :key="index"
@@ -77,7 +77,7 @@
           </el-form>
         </div>
         <div class="track-bus-btn">
-          <el-button class="iconfont icon-bus">Track Bus Status</el-button>
+          <el-button class="iconfont icon-bus" @click="returnBus">Track Bus Status</el-button>
         </div>
       </div>
     </div>
@@ -122,7 +122,7 @@
     },
     data(){
       return {
-        depart_options: b_cities,//出发城市列表b_cities
+        depart_options: [],//出发城市列表b_cities
         depart_City: '',//查找的出发城市
         arrive_City: '',//选择的到达城市
         depart_date:'',//日期选择
@@ -134,6 +134,7 @@
         arrval_datedef:[],//到达价格
         dep_min_price:undefined,//最低价格
         ret_min_price:undefined,
+        arrive_options:[],//出发城市对应的到达城市列表
         eletoday:moment(Date.now()).format("YYYY-MM-DD"),//今日日期格式化
         prop:'date' //对应日期字段名
       }
@@ -147,12 +148,11 @@
       // this.depart_options = data
     },
     mounted(){
-      console.log()
+      this.timer = setTimeout(()=>{
+        this.depart_options = b_cities
+      },0)
     },
     computed : {
-      arrive_options(){
-        return g_bus[this.depart_City]//出发城市对应的到达城市
-      },
       pssengerNum(){
         let adult = 'Adult'
         let child = 'Child'
@@ -163,7 +163,9 @@
     },
     watch:{
       depart_City:function () {
-        this.arrive_City = ''
+        if (this.arrive_City!=''&&g_bus[this.depart_City].indexOf(this.arrive_City)==-1){
+          this.arrive_City = ''
+        }
       },
       arrive_City:function(){
         if (this.arrive_City&&this.depart_City){
@@ -200,6 +202,12 @@
       }
     },
     methods:{
+      returnBus(){
+        window.location.href="https://www.coachrun.com/track-bus-status/"
+      },
+      getArrOptions () {
+        this.arrive_options = g_bus[this.depart_City]//出发城市对应的到达城市
+      },
       disabledDate (today) {
         let day = moment(today).format("YYYY-MM-DD")
         if (this.eletoday.replace(/-/g,"\/")>day.replace(/-/g,"\/")) {
@@ -234,7 +242,7 @@
       },
       getCityBack(){
         const temp = this.depart_City
-        if (this.getSearchData(temp).arrive_city) {
+        if (b_cities.indexOf(this.arrive_City)!=-1&&g_bus[this.arrive_City].indexOf(temp)!=-1) {
           this.depart_City = this.arrive_City
           this.arrive_City = temp
         }
@@ -242,7 +250,7 @@
       depRenderContent(h,parmas) {
         const loop = data =>{
           return(
-            data.defvalue.value?(data.defvalue.value.price==this.min_price?
+            data.defvalue.value?(data.defvalue.value.price==this.dep_min_price?
               (<div>
                   <div>{data.defvalue.text}</div>
                   <span class="font-green">${data.defvalue.value.price}</span>
@@ -422,10 +430,12 @@
   }
   >>> .city_passenger .el-select .el-input .el-input__inner {
     padding-left: 37px;
+    padding-right: 51px;
     width: 100%;
   }
   >>> .arrive-city .el-select .el-input .el-input__inner {
     padding-left: 47px;
+    width: 240px;
   }
   >>> .city_passenger .el-select .el-input span.el-input__suffix {
     right: 27px;
