@@ -708,8 +708,9 @@
       import ItemHeader from '@/components/ItemHeader'
       export default {
         data() {
+
           return {
-            value2: '',
+            value2: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
             pickerOptions: {
               disabledDate(time){
                 return time.getTime() > new Date(new Date().toLocaleDateString()).getTime();
