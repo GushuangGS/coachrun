@@ -68,12 +68,12 @@
                         <el-col :span="3"><div>Order Status</div></el-col>
                       </el-row>
                     </div>
-                    <el-collapse v-model="activeNames" v-if="bookingsList.length>0" @click="changeRot">
+                    <el-collapse v-model="activeNames" v-if="bookingsList.length>0">
 
                       <el-collapse-item v-for="(info,index) in bookingsList" :key="index"  :name="index">
                         <template slot="title">
                           <div class="title-bookings">
-                            <img class="down" src="@/assets/up.png">
+                            <img class="down" :class="{'down-rot':getIndex(index)}" src="@/assets/up.png">
                             <div class="bookings-item">
                                 <div class="bookings-item-brief">
                                     <div>Order ID:&nbsp;<span>{{info.orderCode}}</span></div>
@@ -864,7 +864,7 @@
             // str:'2019-05-02',
             activeNames: [],
             userId:'',
-            timeDefaultShow:'',
+            timeDefaultShow:''
           }
         },
         components: {
@@ -884,11 +884,10 @@
           this.timeDefaultShow.setMonth(new Date().getMonth() - 1);
         },
         methods: {
-          changeRot(){
-            console.log('111')
-          },
-          handleChange(val) {
-            console.log(val);
+          getIndex(index){
+            return this.activeNames.some(item=>{
+              return item == index;
+            })
           },
           selectOrder(time){
             // console.log(time)
@@ -1161,6 +1160,11 @@
         margin-left: 20px;
         /* transition: all .5s; */
         transform: rotate(180deg);
+        transition: transform .3s,-webkit-transform .3s;
+      }
+      .down-rot{
+        transform: rotate(0deg);
+        transition: transform .3s,-webkit-transform .3s;
       }
       .bookings-item{
         width: 700px;
@@ -1321,7 +1325,7 @@
     }
 
     >>> .el-icon-arrow-right:before{
-      /* content: ''; */
+      content: '';
     }
     </style>
     <style>
