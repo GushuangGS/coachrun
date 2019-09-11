@@ -94,6 +94,7 @@
         :prop="prop"
         @pick = "datePickDepart"
         :disabled-date = "disabledDate"
+        lang="en"
       ></ele-calendar>
     </el-popover>
     <el-popover
@@ -108,6 +109,7 @@
         :prop="prop"
         @pick = "datePickReturn"
         :disabled-date = "disabledDate"
+        lang="en"
       ></ele-calendar>
     </el-popover>
   </div>
@@ -138,14 +140,6 @@
         eletoday:moment(Date.now()).format("YYYY-MM-DD"),//今日日期格式化
         prop:'date' //对应日期字段名
       }
-    },
-    created(){
-      // let data = []
-      // for (let i in g_bus) {
-      //   console.log(i,g_bus,3)
-      //   data.push(i)
-      // }
-      // this.depart_options = data
     },
     mounted(){
       this.timer = setTimeout(()=>{
@@ -180,13 +174,15 @@
             for (let key in res.data.Departure) {
               this.depart_datedef.push({
                 date:key,
-                price:res.data.Departure[key]
+                price:res.data.Departure[key],
+                cid:key+""+res.data.Departure[key]
               })
             }
             for (let key in res.data.Return) {
               this.arrval_datedef.push({
                 date:key,
-                price:res.data.Return[key]
+                price:res.data.Return[key],
+                cid:key+""+res.data.Departure[key]
               })
             }
             this.dep_min_price = res.data.DepartureLowest
@@ -208,7 +204,7 @@
       getArrOptions () {
         this.arrive_options = g_bus[this.depart_City]//出发城市对应的到达城市
       },
-      disabledDate (today) {
+      disabledDate (today) {//日历日期禁用
         let day = moment(today).format("YYYY-MM-DD")
         if (this.eletoday.replace(/-/g,"\/")>day.replace(/-/g,"\/")) {
           return true
@@ -241,6 +237,8 @@
         this.$refs.return.$refs.popper.hidden = true
       },
       getCityBack(){
+        this.dep_min_price = undefined
+        this.ret_min_price = undefined
         const temp = this.depart_City
         if (b_cities.indexOf(this.arrive_City)!=-1&&g_bus[this.arrive_City].indexOf(temp)!=-1) {
           this.depart_City = this.arrive_City
@@ -248,7 +246,9 @@
         }
       },
       depRenderContent(h,parmas) {
+        console.log('112233')
         const loop = data =>{
+          data.defvalue.value?console.log(data):'0'
           return(
             data.defvalue.value?(data.defvalue.value.price==this.dep_min_price?
               (<div>
@@ -302,7 +302,9 @@
   }
 </script>
 <style scoped>
-
+  .icon-bus {
+    font-size: 14px;
+  }
   .search-city {
     display: flex;
   }
@@ -359,11 +361,8 @@
     font-size:14px;
     font-family:Arial-BoldMT;
     font-weight:normal;
-    color:rgba(59,59,59,1);
+    color:#606266;
     line-height:14px;
-  }
-  >>> .icon-bus {
-    font-size: 14px;
   }
   >>> .change-passenger .el-input__suffix {
     right: 3px!important;
