@@ -62,16 +62,22 @@
             }
         },
         created(){
-            const name = localStorage.getItem('IvyCustomer_LoginToken');
-            if(name){
-              this.loginSuc = true;
-            }
+            // const name = localStorage.getItem('IvyCustomer_LoginToken');
+            // if(name){
+            //   this.loginSuc = true;
+            // }
 
             // if(name){
             //     this.$store.commit('login');
             //     this.isLogin = this.$store.state.isLogin;
             //     // this.$store.commit('loginName',name);
             // }
+        },
+        mounted(){
+          const name = localStorage.getItem('IvyCustomer_LoginToken');
+            if(name){
+              this.loginSuc = true;
+            }
         },
         methods:{
             getUserName(){
@@ -102,7 +108,7 @@
                 this.$router.push({name: 'Login'});
             },
             logout(){
-                this.$http.delete(this.$api.logout)
+                this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                     .then((data) => {
                         console.log(data);
                         // sessionStorage.removeItem("IvyCustomer_LoginToken");
