@@ -707,6 +707,7 @@
     <script>
       import moment from "moment"
       import ItemHeader from '@/components/ItemHeader'
+      import VueCookie from 'vue-cookie';
       export default {
         data() {
           
@@ -947,7 +948,8 @@
             return nextDay;
           },
           orderList(){
-            this.userId = sessionStorage.getItem("userLogin_id");
+            // this.userId = sessionStorage.getItem("userLogin_id");
+            this.userId = VueCookie.get("front-sessionId");
             // console.log(this.userId)
             // this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
             this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId}})

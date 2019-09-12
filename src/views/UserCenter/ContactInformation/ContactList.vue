@@ -51,7 +51,9 @@
                   </el-table-column>
                 </el-table>
                 <div class="none-data" v-show="contactList.length==0">
-                  <img class="nodate-img" style="width: 28px;height: 27px;margin-left: 12px;margin-right: 20px;" src="@/assets/contactinfo.png" alt="">
+                  <div style="width: 28px;height: 27px;margin-left: 12px;margin-right: 20px;">
+                      <img class="nodate-img" style="" src="@/assets/contactinfo.png" alt="">
+                  </div>
                   <span>
                       Contact Information allows you to save your frequent contact information. You can add multiple
                       contacts in the system and save your time when placing an order. This information is for user 
