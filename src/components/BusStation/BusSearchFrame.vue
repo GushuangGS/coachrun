@@ -171,6 +171,8 @@
               toCity:this.arrive_City,
             }
           }).then(res => {
+            this.depart_datedef = []
+            this.arrval_datedef = []
             for (let key in res.data.Departure) {
               this.depart_datedef.push({
                 date:key,
