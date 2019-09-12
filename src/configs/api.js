@@ -30,6 +30,8 @@ export default {
     bookingReclaim:'api/orders/users/:userId/bookings/reclaim',
     //guest-bookings
     guestRequest:'api/users/guest-bookings/request-reclaim',
-    guestSubmit:'api/users/guest-bookings/submit-reclaim'
+    guestSubmit:'api/users/guest-bookings/submit-reclaim',
+    //authorization
+    authorization:'api/users/authorization'
   };
   

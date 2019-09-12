@@ -60,9 +60,7 @@ const errorHandle = (status, msg) => {//code判断
           sessionStorage.removeItem("loginName");
           store.commit('logout');
           store.commit('loginName','');
-          // store.commit('loginSuccess', null);
           setTimeout(() => {
-              // router.replace({name: 'Login',query:{redirect: location.href}});
               router.replace({name: 'Login'});
           }, 1000);
           break;
@@ -105,15 +103,16 @@ axios.interceptors.request.use(
       // let apiKey = "1:0:0:1";
       let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
       let token = loginCookie.split('+|+')[2];
+      console.log(token)
       if(token==undefined){
-        // token = sessionStorage.getItem('IvyCustomer_LoginToken');
         token = localStorage.getItem('IvyCustomer_LoginToken');
       }
+      console.log(token);
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
-      // console.log(config.url.indexOf('api')!=-1);
+      // console.log(config.url.indexOf('login')==-1);
       // console.log(config);
-      // console.log(config.url);
+      // console.log(typeof config.url);
       if(config.url.indexOf('api')!=-1){
         config.headers['X-Api-Key'] = btoa(apiKey);
         config.headers['Authorization'] = token;

@@ -88,9 +88,11 @@
                                     // sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
 
                                     localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                    localStorage.setItem("loginName", data.data.data.user.email);
                                     // this.$router.push({name: 'MyOrders'});
-                                    // this.$store.commit('login'); 
+                                    this.$store.commit('login'); 
                                     this.$store.commit('loginName',data.data.data.user.email);
+
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
 
                                     // this.userId = VueCookie.get('IvyCustomer_FirstName');
@@ -100,15 +102,6 @@
                                     // this.$store.commit('userName',this.userId);
                                     // console.log(this.$store.state.userName);
                                     // console.log(this.userId);
-                                    // -------------------------------------------------------------------------
-
-                                    // let hostName = this.$route.query.redirect;  // 获取域名
-                                    // console.log(hostName);
-                                    // if(hostName==undefined){
-                                    //     this.$router.push({name: 'MyOrders'});
-                                    // }else{
-                                    //     window.location.href = hostName;
-                                    // }
 
                                     this.pageUrl = this.getId("pageUrl");
                                     if(this.pageUrl){
@@ -121,9 +114,10 @@
                                     if(loginCookie == undefined) return
                                         let token = loginCookie.split('+|+')[2]
                                     if(!token){
-                                        this.$api.user.authorization({
-                                            'loginCookie':loginCookie
-                                            }).then( res => {
+                                        // this.$api.user.authorization({
+                                        //     'loginCookie':loginCookie})
+                                        this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
+                                            .then( res => {
                                                 let token = res.data.token;
                                                 let newLoginCookie = `${loginCookie}+|+${token}`
                                                 VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);

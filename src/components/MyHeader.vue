@@ -15,7 +15,7 @@
         </div>
         <div class="header-right">
           <!-- <div class="login-register" v-show="!$store.state.isLogin"> -->
-          <div class="login-register" v-show="!loginSuc">
+          <div class="login-register" v-if="!loginSuc">
             <span class="login" @click="login">
                 Login
             </span>|
@@ -24,7 +24,7 @@
             </span>
           </div>
           <!-- <div class="show-name" v-show="$store.state.isLogin"> -->
-          <div class="show-name" v-show="loginSuc">
+          <div class="show-name" v-if="loginSuc">
             <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
             <span class="logout" @click="logout">Logout</span>
           </div>
@@ -55,51 +55,36 @@
                     {"text":"Hotel","link":"MyOrders","src":"https://www.coachrun.com/hotel/"},
                     {"text":"Ticket Policy","link":"Register","src":"https://www.coachrun.com/ticket-policy/"}
                 ],
-                changeBg:0,
                 userName:'',
+                name:'',
                 loginSuc:false
-                // changeBg:this.$route.name
             }
         },
         created(){
-            // const name = localStorage.getItem('IvyCustomer_LoginToken');
-            // if(name){
-            //   this.loginSuc = true;
-            // }
+            this.name = localStorage.getItem('IvyCustomer_LoginToken');
+            if(this.name){
+              // this.loginSuc = true;
+              this.$store.commit('login');
+              this.loginSuc = this.$store.state.isLogin;
+            }
 
             // if(name){
             //     this.$store.commit('login');
             //     this.isLogin = this.$store.state.isLogin;
             //     // this.$store.commit('loginName',name);
             // }
-        },
-        mounted(){
-          const name = localStorage.getItem('IvyCustomer_LoginToken');
-            if(name){
-              this.loginSuc = true;
-            }
+            // console.log(this.getUserName())
         },
         methods:{
             getUserName(){
-                // console.log(this.$store.state.userName);
-                // this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
-                // if(this.userName == null || this.userName== undefined){
-                //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
-                // }
-                // console.log(this.userName);
                 this.userName = VueCookie.get('IvyCustomer_FirstName');
                 if(this.userName == null || this.userName== undefined){
-                    this.userName = VueCookie.get('IvyCustomer_LoginEmail')!=null?VueCookie.get('IvyCustomer_LoginEmail'):sessionStorage.getItem("loginName");
+                    this.userName = VueCookie.get('IvyCustomer_LoginEmail')!=null?VueCookie.get('IvyCustomer_LoginEmail'):localStorage.getItem("loginName");
                 }
                  return this.userName;
             },
             skip(url){//页面跳转
               window.location.href = url
-            },
-            changeColor(link){
-              this.changeBg = link;
-                // this.$router.push({name: this.navLists[index].link});
-                // window.location.href = this.navLists[index].src;
             },
             gotoMine(){
                 this.$router.push({name: 'MyOrders'});
@@ -108,19 +93,30 @@
                 this.$router.push({name: 'Login'});
             },
             logout(){
-                this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                // this.$http.post(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                this.$http.delete(this.$api.logout)
                     .then((data) => {
                         console.log(data);
                         // sessionStorage.removeItem("IvyCustomer_LoginToken");
                         // sessionStorage.removeItem("loginName");
                         localStorage.removeItem("IvyCustomer_LoginToken");
-                        // this.$store.commit('logout');
+                        VueCookie.delete('IvyCustomer_LoginCookie');
+                        this.$store.commit('logout');
                         this.loginSuc = false;
                         this.$store.commit('loginName','');
                         this.$router.push({name: 'Login'});
                     });
             }
-        }
+        },
+        // watch:{
+        //   name(){
+        //     console.log(this.$store.state.isLogin)
+        //     this.name = localStorage.getItem('IvyCustomer_LoginToken');
+        //     if(this.name){
+        //       this.loginSuc = true
+        //     }
+        //   }
+        // }
     }
 </script>
 <style scoped>
