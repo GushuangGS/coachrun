@@ -24,7 +24,8 @@ router.beforeEach((to,from,next)=>{
     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
     let token = loginCookie.split('+|+')[2];
     if(token==undefined){
-      token = sessionStorage.getItem('IvyCustomer_LoginToken');
+      // token = sessionStorage.getItem('IvyCustomer_LoginToken');
+      token = localStorage.getItem('IvyCustomer_LoginToken');
     }
     if(token){
       next();

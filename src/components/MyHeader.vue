@@ -14,7 +14,8 @@
           </ul>
         </div>
         <div class="header-right">
-          <div class="login-register" v-show="!$store.state.isLogin">
+          <!-- <div class="login-register" v-show="!$store.state.isLogin"> -->
+          <div class="login-register" v-show="!loginSuc">
             <span class="login" @click="login">
                 Login
             </span>|
@@ -22,7 +23,8 @@
                 Register
             </span>
           </div>
-          <div class="show-name" v-show="$store.state.isLogin">
+          <!-- <div class="show-name" v-show="$store.state.isLogin"> -->
+          <div class="show-name" v-show="loginSuc">
             <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
             <span class="logout" @click="logout">Logout</span>
           </div>
@@ -54,17 +56,27 @@
                     {"text":"Ticket Policy","link":"Register","src":"https://www.coachrun.com/ticket-policy/"}
                 ],
                 changeBg:0,
-                userName:''
+                userName:'',
+                loginSuc:false
                 // changeBg:this.$route.name
             }
         },
         created(){
-            const name = sessionStorage.getItem('IvyCustomer_LoginToken');
+            // const name = localStorage.getItem('IvyCustomer_LoginToken');
+            // if(name){
+            //   this.loginSuc = true;
+            // }
 
+            // if(name){
+            //     this.$store.commit('login');
+            //     this.isLogin = this.$store.state.isLogin;
+            //     // this.$store.commit('loginName',name);
+            // }
+        },
+        mounted(){
+          const name = localStorage.getItem('IvyCustomer_LoginToken');
             if(name){
-                this.$store.commit('login');
-                this.isLogin = this.$store.state.isLogin;
-                // this.$store.commit('loginName',name);
+              this.loginSuc = true;
             }
         },
         methods:{
@@ -99,9 +111,11 @@
                 this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                     .then((data) => {
                         console.log(data);
-                        sessionStorage.removeItem("IvyCustomer_LoginToken");
-                        sessionStorage.removeItem("loginName");
-                        this.$store.commit('logout');
+                        // sessionStorage.removeItem("IvyCustomer_LoginToken");
+                        // sessionStorage.removeItem("loginName");
+                        localStorage.removeItem("IvyCustomer_LoginToken");
+                        // this.$store.commit('logout');
+                        this.loginSuc = false;
                         this.$store.commit('loginName','');
                         this.$router.push({name: 'Login'});
                     });
