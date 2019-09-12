@@ -87,14 +87,6 @@
                                     // sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                                     // sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
 
-                                    localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
-                                    localStorage.setItem("loginName", data.data.data.user.email);
-                                    // this.$router.push({name: 'MyOrders'});
-                                    this.$store.commit('login'); 
-                                    this.$store.commit('loginName',data.data.data.user.email);
-
-                                    this.$cookie.set('front-sessionId', data.data.data.user.id);
-
                                     // this.userId = VueCookie.get('IvyCustomer_FirstName');
                                     // if(this.userId == null || this.userId== undefined){
                                     //     this.userId = VueCookie.get('IvyCustomer_LoginEmail');
@@ -125,6 +117,12 @@
                                                 console.log(res);
                                             })
                                     }
+                                    localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                    localStorage.setItem("loginName", data.data.data.user.email);
+                                    // this.$router.push({name: 'MyOrders'});
+                                    // this.$store.commit('loginName',data.data.data.user.email);
+                                    this.$cookie.set('front-sessionId', data.data.data.user.id);
+                                    this.$store.commit('login'); 
 
                                 }
                                 // else{

@@ -103,11 +103,11 @@ axios.interceptors.request.use(
       // let apiKey = "1:0:0:1";
       let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
       let token = loginCookie.split('+|+')[2];
-      console.log(token)
+      // console.log(token)
       if(token==undefined){
         token = localStorage.getItem('IvyCustomer_LoginToken');
       }
-      console.log(token);
+      // console.log(token);
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
       // console.log(config.url.indexOf('login')==-1);

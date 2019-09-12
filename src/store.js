@@ -8,7 +8,7 @@ export default new Vuex.Store({
       // contactInfo:{},
       // creditInfo:{},
       isLogin:false,//默认没有登录
-      loginName:sessionStorage.getItem('loginName') || '',
+      loginName:localStorage.getItem('loginName') || '',
       userName:'',
       sendEmail:'',
       // contactName:'',
@@ -25,12 +25,13 @@ export default new Vuex.Store({
     // },
     login(state){
       state.isLogin = true;
+      console.log(state)
     },
     logout(state){
       state.isLogin = false;
     },
     loginName(state,data){
-      sessionStorage.setItem('loginName', data);
+      localStorage.setItem('loginName', data);
       state.loginName = data;
     },
     userName(state,data){
