@@ -128,9 +128,11 @@
         this.$http.delete(`${this.$api.creditDelete}/${this.deleteInfo.ccid}`,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
               .then((res)=>{
                   console.log(res);
-                  this.showDialogVisible = false;
-                  this.successBoxFlag = true;
-                  this.creditInfo.splice(this.deleteIndex,1);
+                  if(res.data.code == 200){
+                    this.showDialogVisible = false;
+                    this.successBoxFlag = true;
+                    this.creditInfo.splice(this.deleteIndex,1);
+                  }
               })
       },
       creditList(){//信用卡列表
@@ -138,10 +140,12 @@
         this.$http.get(this.$api.creditList)
               .then((res)=>{
                   console.log(res);
-                  if(res.data.data!=null || res.data.data!=undefined){
-                    this.creditInfo = res.data.data;
-                  }else{
-                    this.bookingsList = [];
+                  if(res.data.code == 200){
+                    if(res.data.data!=null || res.data.data!=undefined){
+                      this.creditInfo = res.data.data;
+                    }else{
+                      this.bookingsList = [];
+                    }
                   }
               })
       },
@@ -158,13 +162,15 @@
         this.$http.patch(`${this.$api.creditUpdate}/${info.ccid}`,{isDefault:true})
               .then((res)=>{
                   console.log(res);
-                  this.$message({
-                      message: 'Default card changed.',
-                      type: 'success',
-                      showClose: true,
-                      center: true
-                  });
-                  this.creditList();
+                  if(res.data.code == 200){
+                    this.$message({
+                        message: 'Default card changed.',
+                        type: 'success',
+                        showClose: true,
+                        center: true
+                    });
+                    this.creditList();
+                  }
               })
       },
       addCredit(){//添加信用卡

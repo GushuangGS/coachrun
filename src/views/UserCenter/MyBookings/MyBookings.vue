@@ -899,11 +899,13 @@
               // {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
               {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId}})
                       .then((res)=>{
-                          // console.log(res);
-                          if(res.data.data!=null || res.data.data!=undefined){
-                            this.bookingsList = res.data.data;
-                          }else{
-                            this.bookingsList = [];
+                          console.log(res);
+                          if(res.data.code == 200){
+                            if(res.data.data!=null || res.data.data!=undefined){
+                              this.bookingsList = res.data.data;
+                            }else{
+                              this.bookingsList = [];
+                            } 
                           }
                       })
             }else{
@@ -955,13 +957,15 @@
             this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId}})
                     .then((res)=>{
                         console.log(res);
-                        if(res.data.data!=null || res.data.data!=undefined){
-                          this.bookingsList = res.data.data;
-                        }else{
-                          this.bookingsList = [];
-                        }
-                        for(var i = 0; i < this.bookingsList.length; i++) {
-                          this.activeNames.push(i);
+                        if(res.data.code == 200){
+                          if(res.data.data!=null || res.data.data!=undefined){
+                            this.bookingsList = res.data.data;
+                          }else{
+                            this.bookingsList = [];
+                          }
+                          for(var i = 0; i < this.bookingsList.length; i++) {
+                            this.activeNames.push(i);
+                          }
                         }
                     })
           },
@@ -969,20 +973,19 @@
               this.currentPage = currentPage;
               console.log(this.currentPage)  //点击第几页
           },
-          select(value) {//选择器选中的value
-            this.$http.get(this.$api.bookingList,
-            // {params:{dateRange:value,userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-            {params:{dateRange:value,userId:this.userId}})
-                    .then((res)=>{
-                        console.log(res);
-                        if(res.data.data!=null || res.data.data!=undefined){
-                          this.bookingsList = res.data.data;
-                        }else{
-                          this.bookingsList = [];
-                        }
-                    })
-              console.log(value);
-          },
+          // select(value) {//选择器选中的value
+          //   this.$http.get(this.$api.bookingList,
+          //   {params:{dateRange:value,userId:this.userId}})
+          //           .then((res)=>{
+          //               console.log(res);
+          //               if(res.data.data!=null || res.data.data!=undefined){
+          //                 this.bookingsList = res.data.data;
+          //               }else{
+          //                 this.bookingsList = [];
+          //               }
+          //           })
+          //     console.log(value);
+          // },
           // selectTime(value){
           //   console.log(value)
           //   if(value!=undefined){

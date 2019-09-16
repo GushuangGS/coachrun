@@ -109,11 +109,13 @@
         // this.$http.get(this.$api.contactList,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
         this.$http.get(this.$api.contactList)
             .then((res)=>{
-                console.log(res.data.data);
-                if(res.data.data!=null || res.data.data!=undefined){
-                  this.contactList = res.data.data;
-                }else{
-                  this.contactList = [];
+                console.log(res);
+                if(res.data.code == 200){
+                  if(res.data.data!=null || res.data.data!=undefined){
+                    this.contactList = res.data.data;
+                  }else{
+                    this.contactList = [];
+                  }
                 }
             })
       },
@@ -144,14 +146,16 @@
         this.$http.delete(`${this.$api.contactDelete}/${this.deleteInfo.aid}`)
           .then((res)=>{
               console.log(res);
-              this.$message({
-                message: 'Deleted successfully.',
-                type: 'success',
-                showClose: true,
-                center: true
-              });
-              this.showDialogVisible = false;
-              this.listInfo();
+              if(res.data.code == 200){
+                this.$message({
+                  message: 'Deleted successfully.',
+                  type: 'success',
+                  showClose: true,
+                  center: true
+                });
+                this.showDialogVisible = false;
+                this.listInfo();
+              }
           })
       },
       edit(row){//编辑
@@ -166,13 +170,15 @@
         this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,{isDefault:true})
               .then((res)=>{
                   console.log(res);
-                  this.$message({
-                      message: 'Default contact changed.',
-                      type: 'success',
-                      showClose: true,
-                      center: true
-                  });
-                  this.listInfo();
+                  if(res.data.code == 200){
+                    this.$message({
+                        message: 'Default contact changed.',
+                        type: 'success',
+                        showClose: true,
+                        center: true
+                    });
+                    this.listInfo();
+                  }
               })
       },
       AddContact(){

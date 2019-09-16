@@ -101,16 +101,16 @@
             },
             logout(){
                 // this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
-                // this.$http.delete(this.$api.logout)
-                //     .then((data) => {
-                //         console.log(data);
-                //         localStorage.removeItem("IvyCustomer_LoginToken");
-                //         localStorage.removeItem("loginName");
-                //         VueCookie.delete('IvyCustomer_LoginCookie');
-                //         this.$store.commit('logout');
-                //         this.$store.commit('loginName','');
-                //         this.$router.push({name: 'Login'});
-                //     });
+                this.$http.delete(this.$api.logout)
+                    .then((data) => {
+                        console.log(data);
+                        localStorage.removeItem("IvyCustomer_LoginToken");
+                        localStorage.removeItem("loginName");
+                        VueCookie.delete('IvyCustomer_LoginCookie');
+                        this.$store.commit('logout');
+                        this.$store.commit('loginName','');
+                        this.$router.push({name: 'Login'});
+                    });
             }
         }
     }

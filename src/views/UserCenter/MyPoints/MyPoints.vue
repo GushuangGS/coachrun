@@ -140,14 +140,16 @@
                 // headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
                 .then((res)=>{
                     console.log(res);
-                    if(res.data.data!=null || res.data.data!=undefined){
-                      this.resData = res.data.data;
-                      this.tableData = res.data.data.pagination.currentResults;
-                      // this.pagesize = res.data.data.pagination.pageCount;
-                      console.log((this.currentPage-1)*this.pagesize,this.currentPage*this.pagesize)
-                      console.log(this.tableData.slice((this.currentPage-1)*this.pagesize,this.currentPage*this.pagesize))
-                    }else{
-                      this.resData = {};
+                    if(res.data.code == 200){
+                      if(res.data.data!=null || res.data.data!=undefined){
+                        this.resData = res.data.data;
+                        this.tableData = res.data.data.pagination.currentResults;
+                        // this.pagesize = res.data.data.pagination.pageCount;
+                        console.log((this.currentPage-1)*this.pagesize,this.currentPage*this.pagesize)
+                        console.log(this.tableData.slice((this.currentPage-1)*this.pagesize,this.currentPage*this.pagesize))
+                      }else{
+                        this.resData = {};
+                      }
                     }
                 })
       }

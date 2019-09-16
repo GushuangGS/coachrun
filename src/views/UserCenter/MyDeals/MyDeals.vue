@@ -56,12 +56,13 @@
             this.$http.get(this.$api.deals)
                 .then((res)=>{
                     console.log(res);
-                    if(res.data.data!=null || res.data.data!=undefined){
-                        this.dataList = res.data.data;
-                    }else{
-                        this.dataList = [];
+                    if(res.data.code == 200){
+                        if(res.data.data!=null || res.data.data!=undefined){
+                            this.dataList = res.data.data;
+                        }else{
+                            this.dataList = [];
+                        }
                     }
-                    
                 })
         }
     }
