@@ -40,13 +40,11 @@
         data(){
             return{
                 navLists:[
-                    // {"text":"Bus Routes","link":"MyOrders","src":"https://www.baidu.com"},
-                    {"text":"Bus Stations","src":"https://www.coachrun.com/bus-stations/"},
+                    {"text":"Bus Stations","src":"/bus-stations"},
                     {"text":"Bus Rental","src":"https://www.gotocharter.com"},
                     {"text":"Hotel","src":"https://www.coachrun.com/hotel/"},
                     {"text":"Ticket Policy","src":"https://www.coachrun.com/ticket-policy/"}
                 ],
-                changeBg:0,
                 userName:''
             }
         },
@@ -73,13 +71,11 @@
                     this.userName = VueCookie.get('IvyCustomer_LoginEmail')!=null?VueCookie.get('IvyCustomer_LoginEmail'):localStorage.getItem("loginName");
                 }
                  return this.userName;
-                
             },
             skip(url){
                 window.location.href = url;
             },
             changeColor(index){
-                this.changeBg = index;
                 // this.$router.push({name: this.navLists[index].link});
                 window.location.href = this.navLists[index].src;
             },
@@ -87,7 +83,6 @@
                 window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
             },
             toLive(){
-                // window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
                 window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes',"_blank");
             },
             gotoMine(){
@@ -108,7 +103,6 @@
                         localStorage.removeItem("loginName");
                         VueCookie.delete('IvyCustomer_LoginCookie');
                         this.$store.commit('logout');
-                        // this.$store.commit('loginName','');
                         this.$router.push({name: 'Login'});
                     });
             }
@@ -189,7 +183,9 @@ margin-left: 5px;
     white-space: nowrap;
     margin-left: 40px;
     text-align: center;
-    font-weight: bold;
+    font-size:16px;
+    font-family:ArialMT;
+    color:rgba(35,35,35,1);
 }
 .header-title li a{
     text-decoration: none;

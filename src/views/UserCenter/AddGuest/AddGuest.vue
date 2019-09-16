@@ -119,8 +119,6 @@
                                     }
                                 }, 1000);
                                 this.verCode = res.data.data.verificationCode;
-                            }else{
-                                
                             }
                         })
                 },
