@@ -108,7 +108,7 @@
                         localStorage.removeItem("loginName");
                         VueCookie.delete('IvyCustomer_LoginCookie');
                         this.$store.commit('logout');
-                        this.$store.commit('loginName','');
+                        // this.$store.commit('loginName','');
                         this.$router.push({name: 'Login'});
                     });
             }
