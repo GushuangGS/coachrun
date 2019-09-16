@@ -255,6 +255,9 @@
             color: #666666;
             margin-left: 106px;
        }
+       .red{
+           color: red;
+       }
        .code-rule{
            margin-top: 30px;
        }
