@@ -88,7 +88,7 @@
             },
             toLive(){
                 // window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
-                window.open='http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes';
+                window.location.href='http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes';
             },
             gotoMine(){
                 this.$router.push({name: 'MyOrders'});
@@ -101,16 +101,16 @@
             },
             logout(){
                 // this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
-                this.$http.delete(this.$api.logout)
-                    .then((data) => {
-                        console.log(data);
-                        localStorage.removeItem("IvyCustomer_LoginToken");
-                        localStorage.removeItem("loginName");
-                        VueCookie.delete('IvyCustomer_LoginCookie');
-                        this.$store.commit('logout');
-                        this.$store.commit('loginName','');
-                        this.$router.push({name: 'Login'});
-                    });
+                // this.$http.delete(this.$api.logout)
+                //     .then((data) => {
+                //         console.log(data);
+                //         localStorage.removeItem("IvyCustomer_LoginToken");
+                //         localStorage.removeItem("loginName");
+                //         VueCookie.delete('IvyCustomer_LoginCookie');
+                //         this.$store.commit('logout');
+                //         this.$store.commit('loginName','');
+                //         this.$router.push({name: 'Login'});
+                //     });
             }
         }
     }
