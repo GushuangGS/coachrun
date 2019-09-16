@@ -883,7 +883,7 @@
           // console.log(this.str.substr(5,2));  
 
           // var nowDa = moment().format('YYYY-MM-DD HH:mm:ss');
-          console.log(moment().format('YYYY-MM-DD HH:mm'))
+          // console.log(moment().format('YYYY-MM-DD HH:mm'))
           // console.log(moment('2019-9-16 16:14:15').isAfter(nowDa))
         },
         mounted(){

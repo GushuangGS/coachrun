@@ -186,7 +186,7 @@
             data(){
                 var checkCardNum = (rule, value, callback) => {
                     if (value === '') {
-                        callback(new Error('cardNumber is required'));
+                        callback(new Error('Card number is required.'));
                     } else {
                         console.log(this.ruleForm.type)
                         if (this.ruleForm.type =='AmEx') {
@@ -232,7 +232,7 @@
                         country:'us'
                     },
                     rules: {
-                        holderName: [{required: true, trigger: 'blur',message: 'Please enter holderName.'}],
+                        holderName: [{required: true, trigger: 'blur',message: 'Please enter holder name.'}],
                         cardNumber: [{required: true, trigger: 'blur',validator: checkCardNum }],
                         // message: 'Please enter cardNumber.'
                         type: [{required: true, trigger: 'blur' ,message: 'Please choose a type.'}],

@@ -253,7 +253,7 @@
             width: 225px;
             font-size: 12px;
             color: #666666;
-            margin-left: 106px;
+            margin-left: 112px;
        }
        .red{
            color: red;

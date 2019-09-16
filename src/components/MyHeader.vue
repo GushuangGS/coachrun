@@ -1,6 +1,6 @@
 <template>
     <div class="header">
-        <div class="logo" @click="skip('https://www.coachrun.com/')">
+        <div class="logo" @click="skip('http://testwww.coachrun.com/')">
             <img src="@/assets/coachrunlogo.png" alt="">
         </div>
         <ul class="header-title">
@@ -154,6 +154,7 @@
     color: #009FEA;
 }
 .user-name{
+    color: #009fea;
     white-space: nowrap;
 }
 .logot{
