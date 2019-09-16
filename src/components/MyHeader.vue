@@ -1,94 +1,87 @@
-<template>
-    <div class="header">
-        <div class="logo" @click="skip('https://www.coachrun.com/')">
+ <template>
+    <el-header style="height: 80px;">
+      <el-container>
+        <div class="header-left">
+          <div class="logo" @click="skip('https://www.coachrun.com/')">
             <img src="@/assets/coachrunlogo.png" alt="">
-        </div>
-        <ul class="header-title">
-            <li v-for="(list,index) in navLists" :key="index">
-                <!-- <span :class="{ bgColor:changeBg == index}" @click="changeColor(index)"> -->
-                <span @click="changeColor(index)">
-                    {{list.text}}
-                </span>
+          </div>
+          <ul class="title">
+            <li v-for="(item,index) in navLists" :key="index">
+              <a :href="item.src">
+                {{item.text}}
+              </a>
             </li>
-        </ul>
-        <div class="login-register" v-show="!$store.state.isLogin">
+          </ul>
+        </div>
+        <div class="header-right">
+          <div class="login-register" v-if="!$store.state.isLogin">
             <span class="login" @click="login">
                 Login
             </span>|
-            <span class="register" @click="register">
+            <span class="register" @click="login">
                 Register
             </span>
-        </div>
-        <div class="show-name" v-show="$store.state.isLogin">
-            <!-- <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span> -->
+          </div>
+          <div class="show-name" v-if="$store.state.isLogin">
             <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
-            <span class="logot" @click="logout">Logout</span>
+            <span class="logout" @click="logout">Logout</span>
+          </div>
+          <div class="header-icon">
+            <div class="shopping-cart">
+              <img src="@/assets/shoppingcart.png" alt="" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
+            </div>
+            <div class="live-chat">
+              <a href="javascript:void(window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">
+                <img src="@/assets/livechat.png">
+              </a>
+            </div>
+          </div>
         </div>
-        <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
-            <img src="@/assets/shoppingcart.png" alt="">
-        </div>
-        <div class="live-chat" @click="toLive">
-            <img src="@/assets/livechat.png" alt="">
-        </div>
-    </div>
+      </el-container>
+    </el-header>
 </template>
 
 <script>
-     import VueCookie from 'vue-cookie';
+    import VueCookie from 'vue-cookie';
     export default{
         name:'MyHeader',
         data(){
             return{
                 navLists:[
-                    // {"text":"Bus Routes","link":"MyOrders","src":"https://www.baidu.com"},
-                    {"text":"Bus Stations","src":"https://www.coachrun.com/bus-stations/"},
-                    {"text":"Bus Rental","src":"https://www.gotocharter.com"},
-                    {"text":"Hotel","src":"https://www.coachrun.com/hotel/"},
-                    {"text":"Ticket Policy","src":"https://www.coachrun.com/ticket-policy/"}
+                    {"text":"Bus Stations","link":"stations","src":"/bus-stations"},
+                    {"text":"Bus Rental","link":"Login","src":"https://www.gotocharter.com"},
+                    {"text":"Hotel","link":"MyOrders","src":"https://www.coachrun.com/hotel/"},
+                    {"text":"Ticket Policy","link":"Register","src":"https://www.coachrun.com/ticket-policy/"}
                 ],
-                changeBg:0,
-                userName:''
+                userName:'',
+                name:''
             }
         },
         created(){
-            const name = localStorage.getItem('IvyCustomer_LoginToken');
 
+            const name = localStorage.getItem('IvyCustomer_LoginToken');
             if(name){
                 this.$store.commit('login');
                 this.isLogin = this.$store.state.isLogin;
-                // this.$store.commit('loginName',name);
             }
+
+            // if(name){
+            //     this.$store.commit('login');
+            //     this.isLogin = this.$store.state.isLogin;
+            //     // this.$store.commit('loginName',name);
+            // }
+            // console.log(this.getUserName())
         },
         methods:{
             getUserName(){
-                // console.log(this.$store.state.userName);
-                // this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
-                // if(this.userName == null || this.userName== undefined){
-                //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
-                // }
-                // // console.log(this.userName);
-                //  return this.userName;
                 this.userName = VueCookie.get('IvyCustomer_FirstName');
                 if(this.userName == null || this.userName== undefined){
                     this.userName = VueCookie.get('IvyCustomer_LoginEmail')!=null?VueCookie.get('IvyCustomer_LoginEmail'):localStorage.getItem("loginName");
                 }
                  return this.userName;
-                
             },
-            skip(url){
-                window.location.href = url;
-            },
-            changeColor(index){
-                this.changeBg = index;
-                // this.$router.push({name: this.navLists[index].link});
-                window.location.href = this.navLists[index].src;
-            },
-            toShopping(){
-                window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
-            },
-            toLive(){
-                // window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
-                window.location.href='http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes';
+            skip(url){//页面跳转
+              window.location.href = url
             },
             gotoMine(){
                 this.$router.push({name: 'MyOrders'});
@@ -96,77 +89,106 @@
             login(){
                 this.$router.push({name: 'Login'});
             },
-            register(){
-                this.$router.push({name: 'Register'});
-            },
             logout(){
-                // this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
-                // this.$http.delete(this.$api.logout)
-                //     .then((data) => {
-                //         console.log(data);
-                //         localStorage.removeItem("IvyCustomer_LoginToken");
-                //         localStorage.removeItem("loginName");
-                //         VueCookie.delete('IvyCustomer_LoginCookie');
-                //         this.$store.commit('logout');
-                //         this.$store.commit('loginName','');
-                //         this.$router.push({name: 'Login'});
-                //     });
+                // this.$http.post(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                this.$http.delete(this.$api.logout)
+                    .then((data) => {
+                        console.log(data);
+                        localStorage.removeItem("IvyCustomer_LoginToken");
+                        VueCookie.delete('IvyCustomer_LoginCookie');
+                        this.$store.commit('logout');
+                        console.log(this.$store.state.isLogin)
+                        this.$store.commit('loginName','');
+                        this.$router.push({name: 'Login'});
+                    });
             }
         }
     }
 </script>
-
 <style scoped>
-.header{
+  .el-container {
+    word-spacing: normal;
+    flex-direction: row;
+  }
+  .el-header {
+    /* position: fixed; */
+    width: 100%;
+    z-index: 9999;
     height: 80px;
-    width: 1240px;
     margin: 0 auto;
-    padding-left: 100px;
+    padding: 0px;
+    background: white;
+    /* box-shadow: 0 1px 4px 0 rgba(0,0,0,.25);
+    -moz-box-box-shadow: 0 1px 4px 0 rgba(0,0,0,.25);
+    -webkit-box-box-shadow: 0 1px 4px 0 rgba(0,0,0,.25); */
+  }
+  .el-header .el-container {
+    padding: 15px 10px;
+    margin: 0 auto;
+    height: 100%;
+    width: 1170px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .header-left {
     display: flex;
     align-items: center;
-    /* padding: 0 150px 0 350px; */
-    cursor: pointer;
-    background:rgba(255,255,255,1);
-}
+  }
+  .title{
+        margin-left: 30px;
+        padding: 15px;
+  }
+  .title a{
+    font-size:16px;
+        font-family:ArialMT;
+        color:rgba(35,35,35,1);
+        line-height:20px;
+        display: block;
+        height: 20px;
+  }
+  .header-right {
+    display: flex;
+    align-items: center;
+  }
+  .header-icon {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+    }
 .logo{
     width: 132px;
     height: 26px;
+    cursor: pointer;
+    /* margin-top: 27px; */
 }
 .right-menu{
     display: flex;
 }
 .login-register{
+    cursor: pointer;
     height: 35px;
-    line-height: 35px;
-    margin-left: 230px;
+    line-height: 33px;
     padding: 0 15px;
     border:1px solid rgba(219,219,219,1);
     display: flex;
-    font-size:14px;   
-    border-radius:4px;      
-    color:rgba(51,51,51,1);
-}
-.show-name{
-    height: 35px;
-    line-height: 35px;
-    margin-left: 150px;
-    /* margin: 23px 20px 22px 150px; */
-    padding: 0 15px;
-    display: flex;
-    font-size:14px;   
+    font-size:14px;
+    border-radius:4px;
     color:rgba(51,51,51,1);
 }
 .bgColor{
-    color: #009FEA;
+    color: #009FEA!important;
 }
 .user-name{
-    white-space: nowrap;
+  white-space: nowrap;
+  color:rgba(0,159,234,1);
+  cursor: pointer;
 }
-.logot{
-    margin-left: 20px;
+.logout{
+    margin-left: 10px;
     font-size:14px;
     color:rgba(0,159,234,1);
     font-weight: 600;
+  cursor: pointer;
 }
 .login{
     margin-right: 5px;
@@ -180,20 +202,26 @@ margin-left: 5px;
 .live-chat{
     margin-left: 28px;
 }
-.header-title{
+.shopping-cart,.live-chat{
+    /* margin-top: 32px; */
+}
+.title{
     display: flex;
     align-items: center;
-    margin: 0;
+    margin: 0px;
 }
-.header-title li{
+.title li{
     white-space: nowrap;
     margin-left: 40px;
     text-align: center;
     font-weight: bold;
 }
-.header-title li a{
-    text-decoration: none;
-    color:rgba(35,35,35,1);
-    font-weight: bold;
+.title li a{
+  text-decoration: none;
+  color:rgba(35,35,35,1);
+  font-weight: normal;
+}
+.nav {
+  font-weight: bold;
 }
 </style>
