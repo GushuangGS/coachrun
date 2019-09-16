@@ -17,7 +17,7 @@
                         </el-button>
                     </el-form-item>
                 </el-form>
-                <div class="click-tip">
+                <div class="click-tip" :class="{red:showRed==true}">
                     {{tips}}
                 </div>
                 <el-form class="code-rule" :model="ruleCode" :rules="code" ref="ruleCode" label-width="auto">
@@ -67,7 +67,8 @@
                     showRight:false,
                     showError:false,
                     err:'',
-                    verCode:''
+                    verCode:'',
+                    showRed:false
                 }
             },
             //页面加载调用获取cookie值
@@ -107,6 +108,7 @@
                             console.log(res);
                             if(res.data.code==200){
                                 this.sendAuthCode = false;
+                                this.showRed = true;
                                 this.tips = 'A security code was sent to your booking email.  This security code will expire after 30 minutes.';
                                 //设置倒计时秒
                                 this.auth_time = 30;
@@ -114,6 +116,7 @@
                                     this.auth_time--;
                                     if (this.auth_time <= 0) {
                                         this.sendAuthCode = true;
+                                        this.showRed = false;
                                         this.tips = 'Click “ Get Security Code” for us to send a security code to your booking email.';
                                         clearInterval(auth_timetimer);
                                     }
@@ -235,6 +238,9 @@
             font-size: 12px;
             color: #666666;
             margin-left: 106px;
+       }
+       .red{
+           color: red;
        }
        .code-rule{
            margin-top: 30px;
