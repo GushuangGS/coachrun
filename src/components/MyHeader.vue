@@ -100,7 +100,8 @@
                 this.$router.push({name: 'Register'});
             },
             logout(){
-                this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                // this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+                this.$http.delete(this.$api.logout)
                     .then((data) => {
                         console.log(data);
                         localStorage.removeItem("IvyCustomer_LoginToken");
