@@ -113,9 +113,9 @@
 <style scoped>
 .header{
     height: 80px;
-    width: 1240px;
+    width: 1170px;
     margin: 0 auto;
-    padding-left: 100px;
+    /* padding-left: 100px; */
     display: flex;
     align-items: center;
     /* padding: 0 150px 0 350px; */
@@ -186,11 +186,11 @@ margin-left: 5px;
     text-align: center;
     font-size:16px;
     font-family:ArialMT;
-    color:rgba(35,35,35,1);
+    color: #232323;
 }
 .header-title li a{
     text-decoration: none;
-    color:rgba(35,35,35,1);
+    color: #232323;
     font-weight: bold;
 }
 </style>
