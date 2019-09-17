@@ -34,7 +34,7 @@
             <div class="recent-bookings">
               <div class="bookings-header">
                 <h4>Upcoming Trips</h4>
-                <span  @click="myBookings">See All Bookings ></span>
+                <span class="go-to-bookings" @click="myBookings">See All Bookings ></span>
               </div>
               <order-info :ticket="dashInfo"></order-info>
               <!-- <div class="bookings-list">
@@ -180,6 +180,9 @@
     /* margin-top: 10px; */
     padding-left: 20px;
     min-height: 850px;
+  }
+  .go-to-bookings{
+    cursor: pointer;
   }
   .content>h2 {
     margin-top: 0;

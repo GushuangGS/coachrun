@@ -708,6 +708,8 @@
       import moment from "moment"
       import ItemHeader from '@/components/ItemHeader'
       import VueCookie from 'vue-cookie';
+      import {websiteDomain} from "../../../configs/siteConfig"
+
       export default {
         data() {
           
@@ -885,6 +887,7 @@
           // var nowDa = moment().format('YYYY-MM-DD HH:mm:ss');
           // console.log(moment().format('YYYY-MM-DD HH:mm'))
           // console.log(moment('2019-9-16 16:14:15').isAfter(nowDa))
+          // console.log(websiteDomain)
         },
         mounted(){
           this.timeDefaultShow = new Date();
@@ -1069,10 +1072,13 @@
             window.open(`http://testwww.coachrun.com/cgi-bin/order.cgi?a=order_detail&entry_id=${data.entityId}&action=reschedule`, '_blank');
           },
           eticket(data){
-            window.open(`http://testwww.coachrun.com/cgi-bin/ce.cgi?a=view_confirmation&eid=${data.entityId}`, '_blank');
+            // window.open(`http://testwww.coachrun.com/cgi-bin/ce.cgi?a=view_confirmation&eid=${data.entityId}`, '_blank');
+            let url = `${websiteDomain('ce')}?a=view_confirmation&eid=${data.entityId}`;
+            window.open(url, '_blank');
           },
           trackBus(data){
             console.log(data)
+            console.log(websiteDomain)
             window.open(`https://testwww.coachrun.com/app/do/track-bus/detail?pid=${data.product.id}&departureDate=${data.serviceDate}&scheduleId=${data.product.code}`, '_blank');
           }
         }
@@ -1332,24 +1338,29 @@
       font-size: 16px;
       margin-top: 10px;
     }
+    .rack-Bus-Status{
+        background-color: #FF9A0D;
+        color: #ffffff;
+        border:none;
+    }
     >>> .el-range-editor--small .el-range-separator{
       width: 20px;
     }
     >>> .el-input__inner{
       font-size: 14px;
       color: #333333;
+      cursor: pointer;
     }
 
     >>> .el-icon-arrow-right:before{
       content: '';
     }
+    >>> .el-button{
+        height: 30px;
+        padding: 7px 8px;
+      }
     </style>
     <style>
-    .el-picker-panel{
-      /* top: 170px !important; */
-      /* left: 405px !important; */
-      /* left: 690px !important; */
-    }
     .el-select-dropdown__item{
       color: #333333;
     }
@@ -1372,20 +1383,5 @@
     .el-picker-panel__sidebar+.el-picker-panel__body{
       margin-left: 195px;
     }
-    >>> .el-button--warning{
-        background-color: #FF9A0D;
-        color: #ffffff;
-    }
-    </style>
-    <style>
-      .el-button--warning{
-          background-color: #FF9A0D;
-          color: #ffffff;
-          border:none;
-      }
-      .el-button{
-        height: 30px;
-        padding: 7px 8px;
-      }
     </style>
     

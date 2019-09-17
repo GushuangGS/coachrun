@@ -42,7 +42,7 @@
                     align="center"
                     header-align="center"
                     label="Actions"
-                    min-width="200">
+                    min-width="220">
                     <template slot-scope="scope">
                       <el-button @click="edit(scope.row)"  type="text" size="small">Edit</el-button>
                       <el-button @click="setDefault(scope.row)" v-show="scope.row.isDefault != true" type="text" size="small">Default</el-button>
@@ -52,7 +52,7 @@
                 </el-table>
                 <div class="none-data" v-show="contactList.length==0">
                   <div style="width: 28px;height: 27px;margin-left: 12px;margin-right: 20px;">
-                      <img class="nodate-img" style="" src="@/assets/contactinfo.png" alt="">
+                      <img class="nodate-img" src="@/assets/contactinfo.png" alt="">
                   </div>
                   <span>
                       Contact Information allows you to save your frequent contact information. You can add multiple
@@ -283,9 +283,12 @@
     color: #666666;
   }
   >>> .el-button{
-    padding: 7px 10px;
+    padding: 7px 5px;
     height: 30px;
     /* border: none; */
+  }
+  .el-button+.el-button{
+    margin-left: 0;
   }
   .remove-btn{
     background: #FF9A0D;

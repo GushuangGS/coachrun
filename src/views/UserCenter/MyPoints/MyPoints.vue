@@ -32,7 +32,7 @@
                   <p>{{resData.reviewPoints}}</p>
                 </div>
                 <div class="brief-right-item">
-                  <h4>Other</h4>
+                  <h4>Others</h4>
                   <p>{{resData.otherPoints}}</p>
                 </div>
                 <div class="brief-right-item help" @click="gotoPoints">
