@@ -1082,6 +1082,7 @@
     <style scoped>
       div.my-orders {
         flex: 1;
+        min-height: 850px;
       }
       >>> .el-main {
         padding-top: 0;
@@ -1371,5 +1372,20 @@
     .el-picker-panel__sidebar+.el-picker-panel__body{
       margin-left: 195px;
     }
+    >>> .el-button--warning{
+        background-color: #FF9A0D;
+        color: #ffffff;
+    }
+    </style>
+    <style>
+      .el-button--warning{
+          background-color: #FF9A0D;
+          color: #ffffff;
+          border:none;
+      }
+      .el-button{
+        height: 30px;
+        padding: 7px 8px;
+      }
     </style>
     

@@ -158,7 +158,7 @@
                             </el-row>
                             <el-row>
                                 <el-col :span="24">
-                                    <el-button @click="goBack">Cancel</el-button>
+                                    <el-button class="cancel-btn" @click="goBack">Cancel</el-button>
                                     <el-button class="save-btn" @click.native.prevent="submitForm('ruleForm')">Save</el-button>
                                 </el-col>
                             </el-row>
@@ -566,8 +566,16 @@
       .card-address{
         font-size:14px;
       }
+      .cancel-btn{
+          width: 72px;
+          height: 30px;
+          padding: 7px 10px;
+      }
       .save-btn{
-        background:rgba(254,179,71,1);
+          width: 72px;
+          height: 30px;
+          padding: 7px 10px;
+        background:#FF9A0D;
         color:rgba(255,255,255,1);
         border: none;
       }

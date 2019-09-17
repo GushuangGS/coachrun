@@ -804,4 +804,12 @@
       >>> .el-icon-arrow-right:before{
         content: '';
       }
+      >>> .el-button--warning{
+          background-color: #FF9A0D;
+          color: #ffffff;
+      }
+      >>> .el-button{
+        height: 30px;
+        padding: 7px 8px;
+      }
 </style>

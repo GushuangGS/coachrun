@@ -314,7 +314,7 @@
             color: #FFFFFF;
        }
        >>> .el-button--warning{
-            background-color: #FEB347;
+            background-color: #FF9A0D;
             color: #ffffff;
         }
         >>> .el-button--warning.is-disabled:hover{

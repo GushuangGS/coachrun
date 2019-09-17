@@ -179,6 +179,7 @@
   .content {
     /* margin-top: 10px; */
     padding-left: 20px;
+    min-height: 850px;
   }
   .content>h2 {
     margin-top: 0;

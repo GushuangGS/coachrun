@@ -75,7 +75,7 @@
           </div>
           <span slot="footer" class="dialog-footer">
             <el-button @click="showDialogVisible = false">Cancel</el-button>
-            <el-button type="warning" @click="removeCredit">Confirm Remove</el-button>
+            <el-button class="remove-btn" type="warning" @click="removeCredit">Confirm Remove</el-button>
           </span>
         </el-dialog>
       </el-container>
@@ -260,6 +260,7 @@
     background: #FF9A0D;
     color: #FFFFFF;
     font-size: 14px;
+    border: none;
   }
   >>> .el-dialog{
     background: none;
@@ -280,5 +281,16 @@
   }
   .delete-body{
     color: #666666;
+  }
+  >>> .el-button{
+    padding: 7px 10px;
+    height: 30px;
+    /* border: none; */
+  }
+  .remove-btn{
+    background: #FF9A0D;
+    color: #FFFFFF;
+    font-size: 14px;
+    border: none;
   }
 </style>

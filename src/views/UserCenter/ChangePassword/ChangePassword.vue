@@ -226,6 +226,7 @@
     font-size: 14px;
     padding: 7px 16px;
     text-align: center;
+    border: none;
   }
   .failure {
     display: flex;
