@@ -708,7 +708,7 @@
       import moment from "moment"
       import ItemHeader from '@/components/ItemHeader'
       import VueCookie from 'vue-cookie';
-      import {websiteDomain} from "../../../configs/siteConfig"
+      // import {websiteDomain} from "../../../configs/siteConfig"
 
       export default {
         data() {
@@ -887,7 +887,6 @@
           // var nowDa = moment().format('YYYY-MM-DD HH:mm:ss');
           // console.log(moment().format('YYYY-MM-DD HH:mm'))
           // console.log(moment('2019-9-16 16:14:15').isAfter(nowDa))
-          // console.log(websiteDomain)
         },
         mounted(){
           this.timeDefaultShow = new Date();
@@ -1072,13 +1071,12 @@
             window.open(`http://testwww.coachrun.com/cgi-bin/order.cgi?a=order_detail&entry_id=${data.entityId}&action=reschedule`, '_blank');
           },
           eticket(data){
-            // window.open(`http://testwww.coachrun.com/cgi-bin/ce.cgi?a=view_confirmation&eid=${data.entityId}`, '_blank');
-            let url = `${websiteDomain('ce')}?a=view_confirmation&eid=${data.entityId}`;
+            window.open(`http://testwww.coachrun.com/cgi-bin/ce.cgi?a=view_confirmation&eid=${data.entityId}`, '_blank');
+            // let url = `${websiteDomain('ce')}?a=view_confirmation&eid=${data.entityId}`;
             window.open(url, '_blank');
           },
           trackBus(data){
             console.log(data)
-            console.log(websiteDomain)
             window.open(`https://testwww.coachrun.com/app/do/track-bus/detail?pid=${data.product.id}&departureDate=${data.serviceDate}&scheduleId=${data.product.code}`, '_blank');
           }
         }

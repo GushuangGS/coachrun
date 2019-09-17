@@ -612,6 +612,9 @@
         display: flex;
         align-items: center;
       }
+      >>> .el-collapse{
+        border: none;
+      }
       >>> .el-collapse-item {
         padding-left: 3px;
         padding-right: 3px;

@@ -76,7 +76,7 @@
                                 </el-row>
                                 <el-row :gutter="20">
                                     <el-col :span="24">
-                                        <el-form-item class="phone2" label="Alternate Phone:" prop="phone2">
+                                        <el-form-item class="phone2" label="Alternative Phone:" prop="phone2">
                                                 <VuePhoneNumberInput v-model="ruleForm.phone2" 
                                                 :default-country-code="countrySec" 
                                                 @update="onUpdateAgain"
