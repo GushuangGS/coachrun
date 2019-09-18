@@ -35,8 +35,8 @@ Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
 // axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
 
-// axios.defaults.baseURL = 'http://testwww.coachrun.com/';
-axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
+axios.defaults.baseURL = 'http://testwww.coachrun.com/';
+// axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
 Vue.prototype.$api = api;
 
 import { Message } from 'element-ui';

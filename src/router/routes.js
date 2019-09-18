@@ -79,7 +79,7 @@ const routes = [
   //   }
   // },
   {//添加订单
-    path: '/render/member/account/guest-booking-reclaim',
+    path: '/render/user/guest-booking-reclaim',
     name: 'AddGuest',
     component: AddGuest
   },
