@@ -8,7 +8,6 @@
     <my-footer></my-footer>
   </div>
 </template>
-<script src="https://maps.googleapis.com/maps/api/js?v=3&key=AIzaSyD08dDbUoxkc2oP-UDrAcVe_KwplfAveIs"></script>
 <script>
 import MyHeader from '@/components/MyHeader'
 import MyFooter from '@/components/MyFooter'
