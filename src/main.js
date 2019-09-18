@@ -112,7 +112,7 @@ axios.interceptors.request.use(
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
       // console.log(config.url.indexOf('login')==-1);
-      console.log(token);
+      // console.log(token);
       // console.log(typeof config.url);
       if(config.url.indexOf('api')!=-1){
         config.headers['X-Api-Key'] = btoa(apiKey);

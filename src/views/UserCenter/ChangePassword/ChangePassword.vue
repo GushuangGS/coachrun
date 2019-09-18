@@ -22,7 +22,7 @@
             </div>
           </div>
           <div class="form-wrapper" v-if="changeStatus !=0">
-            <el-form :show-message="showMessage" :label-position="labelPosition" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="150px">
+            <el-form :show-message="showMessage" :label-position="labelPosition" :model="ruleForm" :rules="rules" ref="ruleForm" label-width="180px">
               <el-form-item label="Password Type:">
                 <!-- <el-select v-model="ruleForm.passwordType"  @change="selectGet">
                   <el-option v-for="(passwordType, index) in passwordTypes" 
@@ -39,7 +39,7 @@
               <el-form-item label="New Password:" prop="pass">
                 <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="Confirm Password:" prop="checkPass">
+              <el-form-item label="Reenter New Password:" prop="checkPass">
                 <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item>
