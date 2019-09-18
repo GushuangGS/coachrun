@@ -7,7 +7,7 @@ import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import locale from './configs/en.js'
-import BootstrapVue from 'bootstrap-vue'
+// import BootstrapVue from 'bootstrap-vue'
 import axios from 'axios'
 import api from './configs/api'
 import VueCookie from 'vue-cookie';
@@ -21,7 +21,7 @@ import 'font-awesome/css/font-awesome.min.css'
 import './styles/css/index.css'
 
 
-Vue.use(BootstrapVue);
+// Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
 Vue.use(VuePhoneNumberInput);
@@ -35,8 +35,8 @@ Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
 // axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
 
-axios.defaults.baseURL = 'http://testwww.coachrun.com/';
-// axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
+// axios.defaults.baseURL = 'http://testwww.coachrun.com/';
+axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
 Vue.prototype.$api = api;
 
 import { Message } from 'element-ui';

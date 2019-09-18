@@ -60,10 +60,6 @@
                 pageUrl:''
             }
         },
-        //页面加载调用获取cookie值
-        mounted() {
-            this.getCookie();
-        },
         methods:{
             //忘记密码
             forgetPass(){
@@ -84,17 +80,6 @@
                             .then((data) => {
                                 console.log(data);
                                 if(data.data.code==200){
-                                    // sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
-                                    // sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
-
-                                    // this.userId = VueCookie.get('IvyCustomer_FirstName');
-                                    // if(this.userId == null || this.userId== undefined){
-                                    //     this.userId = VueCookie.get('IvyCustomer_LoginEmail');
-                                    // }
-                                    // this.$store.commit('userName',this.userId);
-                                    // console.log(this.$store.state.userName);
-                                    // console.log(this.userId);
-
                                     this.pageUrl = this.getId("pageUrl");
                                     if(this.pageUrl){
                                         window.location.href = this.pageUrl;
@@ -120,56 +105,16 @@
                                     
                                     localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                                     localStorage.setItem("loginName", data.data.data.user.email);
-                                    // this.$router.push({name: 'MyOrders'});
-                                    // this.$store.commit('loginName',data.data.data.user.email);
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
                                     this.$store.commit('login'); 
 
                                 }
-                                // else{
-                                //     this.$message({
-                                //         message: data.data.msg,
-                                //         type: 'warning',
-                                //         showClose: true,
-                                //         center: true
-                                //     })
-                                // }
                             });
                     }
                 })
             },
             gotoRegister(){
                 this.$router.push({name: 'Register'});
-            },
-            //设置cookie
-            setCookie(c_name, c_pwd, exdays) {
-                var exdate = new Date(); //获取时间
-                exdate.setTime(exdate.getTime() + 24 * 60 * 60 * 1000 * exdays); //保存的天数
-                //字符串拼接cookie
-                window.document.cookie = "email" + "=" + c_name + ";path=/;expires=" + exdate.toGMTString();
-                window.document.cookie = "password" + "=" + c_pwd + ";path=/;expires=" + exdate.toGMTString();
-            },
-            //读取cookie
-            getCookie: function() {
-                if (document.cookie.length > 0) {
-                    var arr = document.cookie.split('; '); //这里显示的格式需要切割一下自己可输出看下
-                    for (var i = 0; i < arr.length; i++) {
-                        var arr2 = arr[i].split('='); //再次切割
-                        //判断查找相对应的值
-                        if (arr2[0] == 'email') {
-                            //  console.log(arr2[1])
-                            this.loginInfo.email = arr2[1]; //保存到保存数据的地方
-                        } else if (arr2[0] == 'password') {
-                            // console.log(arr2[1])
-                            this.loginInfo.password = arr2[1];
-                        }
-                    }
-                    this.checked = true;
-                }
-            },
-            //清除cookie
-            clearCookie: function() {
-                this.setCookie("", "", -1); //修改2值都为空，天数为负1天
             }
         }
     }

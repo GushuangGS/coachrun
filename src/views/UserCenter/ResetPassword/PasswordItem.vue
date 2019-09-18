@@ -7,14 +7,14 @@
                     email address for us to email you the 
                     instructions to reset your password.
                 </span>
-                <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" :show-message="false" label-width="110px">
+                <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" :show-message="false" label-width="120px">
                     <el-form-item
                         prop="email"
                         :label="labelName"
                     >
                         <el-input class="input-email" v-model="ruleForm.email" @input="focus"></el-input>
                         <el-button id="submit" size="mini" type="primary" class="btn" :disabled="canClick" v-show="sendAuthCode" @click="resetPass">
-                            Get Security Code
+                            Get Verfication Code
                         </el-button>
                         <el-button class="btn2" size="mini" type="primary" plain disabled v-show="!sendAuthCode">
                             ({{auth_time}}s Expires) 
@@ -32,10 +32,10 @@
                 <div class="click-tip" :class="{red:showRed==true}">
                     {{tips}}
                 </div>
-                <el-form class="code-rule" :model="ruleCode" :rules="code" ref="ruleCode" label-width="110px">
+                <el-form class="code-rule" :model="ruleCode" :rules="code" ref="ruleCode" label-width="120px">
                     <el-form-item
                         prop="code"
-                        label="Security Code:"
+                        label="Verfication Code:"
                         :error="err"
                     >
                         <el-input v-model="ruleCode.code" @input="focusCode"></el-input>
@@ -81,7 +81,7 @@
                     verify:'',
                     canClick:true,
                     codeClick:true,
-                    tips:'Click “ Get Security Code ” for us to send a security code to your login email.',
+                    tips:'Click “ Get Verfication Code ” for us to send a code to your login email.',
                     showRight:false,
                     showError:false,
                     err:'',
@@ -124,7 +124,7 @@
                             if(res.data.code == 200){
                                 this.sendAuthCode = false;
                                 this.showRed = true;
-                                this.tips = 'A security code was sent to your login email.  This security code will expire after 30 minutes.';
+                                this.tips = 'A verfication code was sent to your login email.  This verfication code will expire after 30 minutes.';
                                 //设置倒计时秒
                                 this.auth_time = 30;
                                 var auth_timetimer = setInterval(() => {
@@ -132,7 +132,7 @@
                                     if (this.auth_time <= 0) {
                                         this.sendAuthCode = true;
                                         this.showRed = false;
-                                        this.tips = 'Click “ Get Security Code ” for us to send a security code to your login email.';
+                                        this.tips = 'Click “ Get Verfication Code ” for us to send a code to your login email.';
                                         clearInterval(auth_timetimer);
                                     }
                                 }, 1000);
@@ -175,7 +175,7 @@
                         this.msg[1].code = this.ruleCode.code;
                         this.$emit('ResPas',this.msg)
                     }else{
-                        this.err = 'Your security code is incorrect.'
+                        this.err = 'Your verfication code is incorrect.'
                     }
                     // this.$router.push({name: 'ResetPassword'});
                 }
@@ -253,7 +253,7 @@
             width: 225px;
             font-size: 12px;
             color: #666666;
-            margin-left: 112px;
+            margin-left: 120px;
        }
        .red{
            color: red;
