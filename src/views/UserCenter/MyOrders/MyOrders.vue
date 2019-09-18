@@ -16,16 +16,19 @@
                 </div>
               </div>
               <div class="right">
-                <div @click="contactInfo">
-                  <img class="right-img" src="@/assets/contact-edit.png" alt="">
+                <div @click="contactInfo" class="img-span">
+                  <!-- <img class="right-img" src="@/assets/contact-edit.png" alt=""> -->
+                  <img class="right-img" src="@/assets/personInfo.png" alt="">
                   <span class="right-span">Manage Contact Info</span>
                 </div>
-                <div @click="creditcard">
-                  <img class="right-img" src="@/assets/reschedule.png" alt="">
+                <div @click="creditcard" class="img-span">
+                  <!-- <img class="right-img" src="@/assets/reschedule.png" alt=""> -->
+                  <img class="right-img" src="@/assets/createCard.png" alt="">
                   <span class="right-span">View/Edit Credit Card</span>
                 </div>
-                <div @click="changePass">
-                    <img class="right-img" src="@/assets/password.png" alt="">
+                <div @click="changePass" class="img-span">
+                    <!-- <img class="right-img" src="@/assets/password.png" alt=""> -->
+                    <img class="right-img" src="@/assets/changePas.png" alt="">
                     <span class="right-span">Change My Password</span>
                 </div>
               </div>
@@ -239,13 +242,16 @@
     width: 185px;
     display: flex;
     flex-direction: column;
-    margin-left: 20px;
+    margin-left: 40px;
     justify-content: space-between;
     cursor: pointer;
   }
+  .img-span{
+    display: flex;
+  }
   .right-img{
-    width: 18px;
-    height: 18px;
+    width: 16px;
+    height: 16px;
   }
   .right-span{
     font-size: 14px;
