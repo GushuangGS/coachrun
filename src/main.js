@@ -34,7 +34,9 @@ Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
 // axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
 // axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
-axios.defaults.baseURL = 'http://testwww.coachrun.com/';
+
+// axios.defaults.baseURL = 'http://testwww.coachrun.com/';
+axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
 Vue.prototype.$api = api;
 
 import { Message } from 'element-ui';
@@ -59,7 +61,6 @@ const errorHandle = (status, msg) => {//code判断
           localStorage.removeItem('IvyCustomer_LoginToken');
           localStorage.removeItem("loginName");
           store.commit('logout');
-          store.commit('loginName','');
           setTimeout(() => {
               router.replace({name: 'Login'});
           }, 1000);
@@ -111,7 +112,7 @@ axios.interceptors.request.use(
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
       // console.log(config.url.indexOf('login')==-1);
-      // console.log(config);
+      console.log(token);
       // console.log(typeof config.url);
       if(config.url.indexOf('api')!=-1){
         config.headers['X-Api-Key'] = btoa(apiKey);

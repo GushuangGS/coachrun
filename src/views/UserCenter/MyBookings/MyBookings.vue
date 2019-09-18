@@ -708,7 +708,7 @@
       import moment from "moment"
       import ItemHeader from '@/components/ItemHeader'
       import VueCookie from 'vue-cookie';
-      // import {websiteDomain} from "../../../configs/siteConfig"
+      import {websiteDomain} from "../../../configs/siteConfig"
 
       export default {
         data() {
@@ -738,16 +738,13 @@
                 }},
                 {text: 'This Week (Sun - Today)',
                 onClick(picker) {
-                  const end = moment().format('YYYY-MM-DD')
-                  // const start = moment().week(moment().week()).startOf('week').format('YYYY-MM-DD');
+                  const end = moment().format('YYYY-MM-DD');
                   const start = moment().day(0).format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
                 {text: 'This Week (Mon - Today)',
                 onClick(picker) {
                   const end = moment().format('YYYY-MM-DD')
-                  // const weekOfday = moment().format('E');//计算今天是这周第几天
-                  // const start = moment().subtract(weekOfday-1, 'days').format('YYYY-MM-DD');
                   const start = moment().day(1).format('YYYY-MM-DD');
                   picker.$emit('pick', [start, end]);
                 }},
@@ -1067,17 +1064,19 @@
             this.$router.push({name: 'AddGuest'});
           },
           resche(data){
-            console.log(data.entityId);
-            window.open(`http://testwww.coachrun.com/cgi-bin/order.cgi?a=order_detail&entry_id=${data.entityId}&action=reschedule`, '_blank');
+            let url = `${websiteDomain('order')}?a=order_detail&action=reschedule&entry_id=${data.entityId}&is_policy=1`;
+            window.open(url, '_blank');
+            // window.open(`http://testwww.coachrun.com/cgi-bin/order.cgi?a=order_detail&entry_id=${data.entityId}&action=reschedule`, '_blank');
           },
           eticket(data){
-            window.open(`http://testwww.coachrun.com/cgi-bin/ce.cgi?a=view_confirmation&eid=${data.entityId}`, '_blank');
-            // let url = `${websiteDomain('ce')}?a=view_confirmation&eid=${data.entityId}`;
+            // window.open(`http://testwww.coachrun.com/cgi-bin/ce.cgi?a=view_confirmation&eid=${data.entityId}`, '_blank');
+            let url = `${websiteDomain('ce')}?a=view_confirmation&eid=${data.entityId}`;
             window.open(url, '_blank');
           },
           trackBus(data){
-            console.log(data)
-            window.open(`https://testwww.coachrun.com/app/do/track-bus/detail?pid=${data.product.id}&departureDate=${data.serviceDate}&scheduleId=${data.product.code}`, '_blank');
+            let url = `${process.env.VUE_APP_WEBSITE_DOMAIN}/app/do/track-bus/detail?pid=${data.product.id}&departureDate=${data.serviceDate}&scheduleId=${data.product.code}`;
+            window.open(url, '_blank');
+            // window.open(`https://testwww.coachrun.com/app/do/track-bus/detail?pid=${data.product.id}&departureDate=${data.serviceDate}&scheduleId=${data.product.code}`, '_blank');
           }
         }
       }

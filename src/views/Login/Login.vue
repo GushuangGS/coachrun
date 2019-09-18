@@ -105,18 +105,19 @@
                                     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
                                     if(loginCookie == undefined) return
                                         let token = loginCookie.split('+|+')[2]
-                                    if(!token){
-                                        // this.$api.user.authorization({
-                                        //     'loginCookie':loginCookie})
-                                        this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
-                                            .then( res => {
-                                                let token = res.data.token;
-                                                let newLoginCookie = `${loginCookie}+|+${token}`
-                                                VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
-                                                console.log(newLoginCookie);
-                                                console.log(res);
-                                            })
+                                    if (process.env.NODE_ENV === 'production'){
+                                        if(!token){
+                                            this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
+                                                .then( res => {
+                                                    let token = res.data.token;
+                                                    let newLoginCookie = `${loginCookie}+|+${token}`
+                                                    VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
+                                                    console.log(newLoginCookie);
+                                                    console.log(res);
+                                                })
+                                        }
                                     }
+                                    
                                     localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                                     localStorage.setItem("loginName", data.data.data.user.email);
                                     // this.$router.push({name: 'MyOrders'});
