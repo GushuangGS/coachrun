@@ -11,7 +11,7 @@
                 </span>
             </li>
         </ul>
-        <div class="login-register" v-show="!$store.state.isLogin">
+        <div class="login-register" v-if="!$store.state.isLogin">
             <span class="login" @click="login">
                 Login
             </span>|
@@ -19,7 +19,7 @@
                 Register
             </span>
         </div>
-        <div class="show-name" v-show="$store.state.isLogin">
+        <div class="show-name" v-if="$store.state.isLogin">
             <!-- <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span> -->
             <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
             <span class="logot" @click="logout">Logout</span>

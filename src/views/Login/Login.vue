@@ -60,6 +60,11 @@
                 pageUrl:''
             }
         },
+        created(){
+            if(this.$route.path.indexOf('logout')!=-1){
+                this.logout();
+            }
+        },
         methods:{
             //忘记密码
             forgetPass(){
@@ -70,6 +75,16 @@
                 var r = window.location.search.substr(1).match(reg);
                 if(r != null) return unescape(r[2]);
                 return null;
+            },
+            logout(){
+                this.$http.delete(this.$api.logout)
+                    .then((data) => {
+                        console.log(data);
+                        localStorage.removeItem("IvyCustomer_LoginToken");
+                        localStorage.removeItem("loginName");
+                        VueCookie.delete('IvyCustomer_LoginCookie');
+                        this.$store.commit('logout');
+                    });
             },
             login(){
                 // console.log(this.item);//true 则选择记住密码

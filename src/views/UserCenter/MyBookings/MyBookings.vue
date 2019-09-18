@@ -98,7 +98,7 @@
                             <el-row>
                               <el-col :span="11">
                                   <div class="column-first">
-                                      <span class="country-tip">
+                                      <span class="country-tip" :class="{gray:!showRes(item)}">
                                         {{getCity(item)}}
                                       </span>
                                       <div v-show="getNextDay(item)==1" class="icon-night1"></div>
@@ -111,14 +111,14 @@
                                       </div>
                                     </div>
                                 </el-col>
-                              <el-col :span="4"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col>
-                              <el-col :span="3"><div>{{item.passengers.length}}</div></el-col>
-                              <el-col :span="3"><div class="money">${{item.paidAmount}}</div></el-col>
+                              <el-col :span="4" :class="{gray:!showRes(item)}"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col>
+                              <el-col :span="3" :class="{gray:!showRes(item)}"><div>{{item.passengers.length}}</div></el-col>
+                              <el-col :span="3"><div class="money" :class="{gray:!showRes(item)}">${{item.paidAmount}}</div></el-col>
                               <el-col :span="3">
-                                <div v-if="item.status==5" class="order-status">
+                                <div v-if="item.status==5" class="order-status" :class="{gray:!showRes(item)}">
                                   Confirmed
                                 </div>
-                                <div v-if="item.status==8" class="order-status2">
+                                <div v-if="item.status==8" class="order-status2" :class="{gray:!showRes(item)}">
                                     Cancelled
                                   </div>
                               </el-col>
@@ -126,23 +126,23 @@
                             <div class="actions" v-if="item.status==5">
                               <div class="order-details">
                                   <div>
-                                      <span class="details-left">Itinerary ID:</span>
-                                      <span class="details-icon1">{{item.entityCode}}</span>
+                                      <span class="details-left" :class="{gray:!showRes(item)}">Itinerary ID:</span>
+                                      <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.entityCode}}</span>
                                   </div>
                                   <div>
-                                      <span class="details-left">Schedule ID:</span>
-                                      <span class="details-icon1">{{item.product.code}}</span>
+                                      <span class="details-left" :class="{gray:!showRes(item)}">Schedule ID:</span>
+                                      <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.product.code}}</span>
                                   </div>
                                   <div class="details-options">
                                     <div class="left-details">
-                                        <span class="details-left"  v-for="(label,index) in item.passengers[0].options" :key="index">
+                                        <span class="details-left"  v-for="(label,index) in item.passengers[0].options" :key="index" :class="{gray:!showRes(item)}">
                                           <span v-show="label.type=='bus_stop'|| label.type=='string'">
                                             {{label.name}}:
                                           </span>
                                         </span>
                                     </div>
                                     <div class="right-details">
-                                        <span class="details-icon2"  v-for="(label,index) in item.passengers[0].options" :key="index">
+                                        <span class="details-icon2"  v-for="(label,index) in item.passengers[0].options" :key="index" :class="{gray:!showRes(item)}">
                                           <span v-show="label.type=='bus_stop'|| label.type=='string'">
                                             {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
                                           </span>
@@ -150,8 +150,8 @@
                                     </div>
                                   </div>
                                   <div class="details-info">
-                                      <span class="details-left">Passengers:</span>
-                                      <div class="details-icon1">
+                                      <span class="details-left" :class="{gray:!showRes(item)}">Passengers:</span>
+                                      <div class="details-icon1" :class="{gray:!showRes(item)}">
                                           <div>
                                               <span>Adult: </span>
                                               <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
@@ -1321,40 +1321,43 @@
       }
 
       .pagination-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        margin-top: 15px;
-    }
-    .line-none{
-      text-decoration: line-through;
-    }
-    .no-bookings{
-      color:rgba(51,51,51,1); 
-      line-height:18px;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    .rack-Bus-Status{
-        background-color: #FF9A0D;
-        color: #ffffff;
-        border:none;
-    }
-    >>> .el-range-editor--small .el-range-separator{
-      width: 20px;
-    }
-    >>> .el-input__inner{
-      font-size: 14px;
-      color: #333333;
-      cursor: pointer;
-    }
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          margin-top: 15px;
+      }
+      .line-none{
+        text-decoration: line-through;
+      }
+      .no-bookings{
+        color:rgba(51,51,51,1); 
+        line-height:18px;
+        font-size: 16px;
+        margin-top: 10px;
+      }
+      .rack-Bus-Status{
+          background-color: #FF9A0D;
+          color: #ffffff;
+          border:none;
+      }
+      >>> .el-range-editor--small .el-range-separator{
+        width: 20px;
+      }
+      >>> .el-input__inner{
+        font-size: 14px;
+        color: #333333;
+        cursor: pointer;
+      }
 
-    >>> .el-icon-arrow-right:before{
-      content: '';
-    }
-    >>> .el-button{
+      >>> .el-icon-arrow-right:before{
+        content: '';
+      }
+      >>> .el-button{
         height: 30px;
         padding: 7px 8px;
+      }
+      .gray{
+        color: #999999 !important;
       }
     </style>
     <style>

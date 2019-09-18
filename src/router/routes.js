@@ -5,6 +5,11 @@ const Login = resolve => {//登陆页面
     resolve(module)
   })
 }
+const Logout = resolve => {//退出登陆
+  import('@/views/Login/Login').then(module => {
+    resolve(module)
+  })
+}
 const Register = resolve => {//注册页面
   import('@/views/Login/Register').then(module => {
     resolve(module)
@@ -51,6 +56,11 @@ const routes = [
     path:'/render/user/login',
     name:'Login',
     component:Login
+  },
+  {//退出
+    path:'/render/user/logout',
+    name:'Logout',
+    component:Logout
   },
   {//注册
     path:'/render/user/register',

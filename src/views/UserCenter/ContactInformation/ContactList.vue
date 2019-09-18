@@ -15,7 +15,7 @@
                   size="mini">
                   <el-table-column
                     header-align="center"
-                    align="center"
+                    align="left"
                     prop="name"
                     label="Name"
                     min-width="200">
@@ -39,7 +39,7 @@
                     min-width="150">
                   </el-table-column>
                   <el-table-column
-                    align="center"
+                    align="right"
                     header-align="center"
                     label="Actions"
                     min-width="220">
