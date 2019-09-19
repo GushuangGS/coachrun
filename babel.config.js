@@ -5,20 +5,18 @@
 //   plugins.push("transform-remove-console")
 // }
 
-// let transformRemoveConsolePlugin = []
-// if (process.env.NODE_ENV !== 'development') {
-//   transformRemoveConsolePlugin = ['transform-remove-console']
-// }
-
-const plugins = ["@vue/babel-plugin-transform-vue-jsx"]
+let transformRemoveConsolePlugin = []
 if (process.env.NODE_ENV !== 'development') {
-  plugins.push('transform-remove-console')
+  transformRemoveConsolePlugin = ['transform-remove-console']
 }
+
 module.exports = {
   presets: [
     '@vue/app'
   ],
-  plugins: plugins
+  plugins: [
+    ...transformRemoveConsolePlugin
+  ]
   // plugins: [
   //   [
   //     "component",
