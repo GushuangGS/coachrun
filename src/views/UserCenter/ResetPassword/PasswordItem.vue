@@ -27,7 +27,8 @@
                         :loadRecaptchaScript="true"
                         @verify="onVerify"
                         @expired="onExpired"
-                        size="invisible">
+                        size="invisible"
+                        :recaptchaHost="host">
                 </vue-recaptcha>
                 <div class="click-tip" :class="{red:showRed==true}">
                     {{tips}}
@@ -89,7 +90,8 @@
                     msg:[{ResetPassword:'ResetPassword'},
                         {code:''}],
                     verCode:'',
-                    showRed:false
+                    showRed:false,
+                    host:'www.recaptcha.net'
                 }
             },
             created(){

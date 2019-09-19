@@ -1,5 +1,7 @@
 const webpack = require('webpack')
 
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
 module.exports = {
   // 项目部署的基础路径
   publicPath:'/vue/',
@@ -17,13 +19,38 @@ module.exports = {
       }
     }
   },
-  configureWebpack: {
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'windows.jQuery': 'jquery'
-      })
-    ],
-  },
+  configureWebpack: (config) => {
+    if (process.env.NODE_ENV !== 'development'){
+      config.plugins.push(
+        new webpack.ProvidePlugin({
+          $: 'jquery',
+          jQuery: 'jquery',
+          'windows.jQuery': 'jquery'
+        })
+      );
+      config.plugins.push(
+        new UglifyJsPlugin({
+          uglifyOptions: {
+            compress: {
+              warnings: false,
+              drop_debugger: true, // console
+              drop_console: true
+              // pure_funcs:['console.log'] // 移除console
+            },
+          },
+          sourceMap: false,
+          parallel: true,
+        })
+      );
+    }
+  }
+  // configureWebpack: {
+  //   plugins: [
+  //     new webpack.ProvidePlugin({
+  //       $: 'jquery',
+  //       jQuery: 'jquery',
+  //       'windows.jQuery': 'jquery'
+  //     })
+  //   ],
+  // },
 }

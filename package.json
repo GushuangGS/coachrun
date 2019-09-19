@@ -20,6 +20,7 @@
     "libphonenumber-js": "^1.7.22",
     "moment": "^2.24.0",
     "qs": "^6.7.0",
+    "uglifyjs-webpack-plugin": "^2.2.0",
     "vue": "^2.6.10",
     "vue-cookie": "^1.1.4",
     "vue-phone-number-input": "^0.2.0",
