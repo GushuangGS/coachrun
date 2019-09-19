@@ -23,6 +23,7 @@ import './styles/css/index.css'
 
 // Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
+// Vue.use({ locale });
 Vue.use(VueCookie);
 Vue.use(VuePhoneNumberInput);
 Vue.use(eleCalendar);
