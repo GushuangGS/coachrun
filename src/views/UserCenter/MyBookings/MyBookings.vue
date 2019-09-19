@@ -216,9 +216,12 @@
                                   </div>
                               </div>
                               <div class="btns">
-                                  <el-button v-if="showRes(item)" @click="resche(item)" class="Reschedule">Reschedule</el-button>
+                                  <!-- <el-button v-if="showRes(item)" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                                   <el-button @click="eticket(item)" v-if="item.status==5" class="E-Ticket">E-Ticket</el-button>
-                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus>0&&showRes(item)" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
+                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus>0&&showRes(item)" type="warning" class="rack-Bus-Status">Track Bus Status</el-button> -->
+                                  <el-button v-if="!(item.status==8&&showRes(item))" @click="resche(item)" class="Reschedule">Reschedule</el-button>
+                                  <el-button @click="eticket(item)" v-if="item.status!=8" class="E-Ticket">E-Ticket</el-button>
+                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                               </div>
                             </div>
                             <div class="actions" v-if="item.status==8">
@@ -935,7 +938,7 @@
                 firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
                 endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
                 // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
-                return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+                return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
               }else{
                 return routeLine = item.product.name;
               }
