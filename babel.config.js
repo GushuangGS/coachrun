@@ -5,23 +5,28 @@
 //   plugins.push("transform-remove-console")
 // }
 
-let transformRemoveConsolePlugin = []
-if (process.env.NODE_ENV !== 'development') {
-  transformRemoveConsolePlugin = ['transform-remove-console']
-}
+// let transformRemoveConsolePlugin = []
+// if (process.env.NODE_ENV !== 'development') {
+//   transformRemoveConsolePlugin = ['transform-remove-console']
+// }
 
+const plugins = []
+if (process.env.NODE_ENV !== 'development') {
+  plugins.push('transform-remove-console')
+}
 module.exports = {
   presets: [
     '@vue/app'
   ],
-  plugins: [
-    [
-      "component",
-      {
-        "libraryName": "element-ui",
-        "styleLibraryName": "theme-chalk"
-      }
-    ],
-    transformRemoveConsolePlugin
-  ]
+  plugins
+  // plugins: [
+  //   [
+  //     "component",
+  //     {
+  //       "libraryName": "element-ui",
+  //       "styleLibraryName": "theme-chalk"
+  //     }
+  //   ],
+  //   transformRemoveConsolePlugin
+  // ]
 }
