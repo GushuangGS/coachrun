@@ -13,7 +13,6 @@ import api from './configs/api'
 import VueCookie from 'vue-cookie';
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
-import babelRemoveConsole  from 'babel-plugin-transform-remove-console'
 
 import eleCalendar from 'ele-calendar'
 import 'ele-calendar/dist/vue-calendar.css' //引入css
@@ -21,7 +20,6 @@ import 'ele-calendar/dist/vue-calendar.css' //引入css
 import 'font-awesome/css/font-awesome.min.css'
 import './styles/css/index.css'
 
-Vue.use(babelRemoveConsole)
 // Vue.use(BootstrapVue);
 Vue.use(ElementUI,{ locale });
 // Vue.use({ locale });
