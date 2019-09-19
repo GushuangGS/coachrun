@@ -1,6 +1,6 @@
 const webpack = require('webpack')
 
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
   // 项目部署的基础路径
@@ -28,20 +28,20 @@ module.exports = {
           'windows.jQuery': 'jquery'
         })
       );
-      config.plugins.push(
-        new UglifyJsPlugin({
-          uglifyOptions: {
-            compress: {
-              warnings: false,
-              drop_debugger: true, // console
-              drop_console: true
-              // pure_funcs:['console.log'] // 移除console
-            },
-          },
-          sourceMap: false,
-          parallel: true,
-        })
-      );
+      // config.plugins.push(
+      //   new UglifyJsPlugin({
+      //     uglifyOptions: {
+      //       compress: {
+      //         warnings: false,
+      //         drop_debugger: true, // console
+      //         drop_console: true
+      //         // pure_funcs:['console.log'] // 移除console
+      //       },
+      //     },
+      //     sourceMap: false,
+      //     parallel: true,
+      //   })
+      // );
     }
   }
   // configureWebpack: {
