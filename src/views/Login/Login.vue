@@ -85,7 +85,7 @@
                             localStorage.removeItem("loginName");
                             VueCookie.delete('IvyCustomer_LoginCookie');
                             this.$store.commit('logout');
-                        }else{
+                        }else if(data.data.code==500){
                             this.$message({
                                 message: data.data.msg,
                                 type: 'warning',
