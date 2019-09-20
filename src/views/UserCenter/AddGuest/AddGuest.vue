@@ -37,7 +37,7 @@
                 1 Order(s) has been added to your account! Please check <span class="right-tips-span" @click="toBookings">My Bookings.</span> 
             </div>
             <div class="error-tips" v-show="showError">
-                Sorry, no purchase records under “{{ruleForm.email}}” within 100 days. 
+                Sorry, no purchase records under “{{inputEmail}}” within 100 days. 
             </div>
         </div>
     </template>
@@ -68,7 +68,8 @@
                     showError:false,
                     err:'',
                     verCode:'',
-                    showRed:false
+                    showRed:false,
+                    inputEmail:''
                 }
             },
             //页面加载调用获取cookie值
@@ -122,6 +123,7 @@
                                     }
                                 }, 1000);
                                 this.verCode = res.data.data.verificationCode;
+                                this.inputEmail = this.ruleForm.email;
                             }
                         })
                 },
@@ -132,6 +134,8 @@
                                     {verificationCode:this.ruleCode.code})
                                     // {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                         .then((res)=>{
+                            this.ruleForm.email='';
+                            this.ruleCode.code = '';
                             console.log(res);
                             if(res.data.code==200){
                                 this.showRight = true;

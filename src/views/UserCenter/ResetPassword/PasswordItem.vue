@@ -141,6 +141,12 @@
                                 this.verCode = res.data.data.verificationCode;
                                 // this.$store.commit('sendEmail',this.ruleForm.email);
                                 // this.$router.push({name: 'RemindEmail'});
+                            }else{
+                                this.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    center: true
+                                });
                             }
                         })
                 },

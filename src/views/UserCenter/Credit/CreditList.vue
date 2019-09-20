@@ -132,6 +132,12 @@
                     this.showDialogVisible = false;
                     this.successBoxFlag = true;
                     this.creditInfo.splice(this.deleteIndex,1);
+                  }else{
+                    this.$message({
+                        message: res.data.msg,
+                        type: 'warning',
+                        center: true
+                    });
                   }
               })
       },
@@ -170,6 +176,12 @@
                         center: true
                     });
                     this.creditList();
+                  }else{
+                    this.$message({
+                        message: res.data.msg,
+                        type: 'warning',
+                        center: true
+                    });
                   }
               })
       },
@@ -357,5 +369,10 @@
     color: #FFFFFF;
     border: none;
     height: 40px;
+  }
+  >>> .el-button{
+    padding: 7px 5px;
+    height: 30px;
+    /* border: none; */
   }
 </style>

@@ -80,10 +80,19 @@
                 this.$http.delete(this.$api.logout)
                     .then((data) => {
                         console.log(data);
-                        localStorage.removeItem("IvyCustomer_LoginToken");
-                        localStorage.removeItem("loginName");
-                        VueCookie.delete('IvyCustomer_LoginCookie');
-                        this.$store.commit('logout');
+                        if(data.data.code==200){
+                            localStorage.removeItem("IvyCustomer_LoginToken");
+                            localStorage.removeItem("loginName");
+                            VueCookie.delete('IvyCustomer_LoginCookie');
+                            this.$store.commit('logout');
+                        }else{
+                            this.$message({
+                                message: data.data.msg,
+                                type: 'warning',
+                                center: true
+                            });
+                        }
+                        
                     });
             },
             login(){
@@ -124,6 +133,12 @@
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
                                     this.$store.commit('login'); 
 
+                                }else{
+                                    this.$message({
+                                        message: data.data.msg,
+                                        type: 'warning',
+                                        center: true
+                                    });
                                 }
                             });
                     }

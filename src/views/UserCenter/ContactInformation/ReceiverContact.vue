@@ -241,6 +241,7 @@
                     return val.slice(val.indexOf(' ') + 1);
                 },
                 onUpdate(payload) {
+                    console.log(payload);
                     this.canSave = payload.isValid;
                     if(payload.formatInternational !== undefined){
                         const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
@@ -273,22 +274,27 @@
                                 .then((res)=>{
                                     console.log(res);
                                     if(res.data.code==200){
-                                            this.$message({
-                                                message: 'Added successfully',
-                                                type: 'success',
-                                                showClose: true,
-                                                center: true
-                                            });
-                                            //添加成功后，默认都设置为空
-                                            this.form = {
-                                                firstName:'',
-                                                lastName:'',
-                                                email:'',
-                                                phone:'',
-                                                phone2:''
-                                            }
-                                            this.$router.push({name:'ContactList'});
+                                        this.$message({
+                                            message: 'Added successfully',
+                                            type: 'success',
+                                            center: true
+                                        });
+                                        //添加成功后，默认都设置为空
+                                        this.form = {
+                                            firstName:'',
+                                            lastName:'',
+                                            email:'',
+                                            phone:'',
+                                            phone2:''
                                         }
+                                        this.$router.push({name:'ContactList'});
+                                    }else{
+                                        this.$message({
+                                            message: res.data.msg,
+                                            type: 'warning',
+                                            center: true
+                                        });
+                                    }
                                 })
                             } else {
                                 return false;
@@ -319,6 +325,12 @@
                                         phone:'',
                                         phone2:''
                                         }
+                                    }else{
+                                        this.$message({
+                                            message: data.data.msg,
+                                            type: 'warning',
+                                            center: true
+                                        });
                                     }
                                 })
                             } else {

@@ -412,7 +412,6 @@
                                             this.$message({
                                                 message: 'Added successfully',
                                                 type: 'success',
-                                                showClose: true,
                                                 center: true
                                             })
                                             // 添加成功后，默认都设置为空
@@ -431,6 +430,12 @@
                                             }
                                             this.$router.push({name:'CreditList'});
                                             // this.$router.push({path: '/render/user/credit'});
+                                        }else{
+                                            this.$message({
+                                                message: res.data.msg,
+                                                type: 'warning',
+                                                center: true
+                                            });
                                         }
                                     })
                             } else {
@@ -463,10 +468,15 @@
                                             this.$message({
                                                 message: 'Saved successfully.',
                                                 type: 'success',
-                                                showClose: true,
                                                 center: true
                                             });
                                             this.$router.push({name:'CreditList'});
+                                        }else{
+                                            this.$message({
+                                                message: res.data.msg,
+                                                type: 'warning',
+                                                center: true
+                                            });
                                         }
                                     })
                             }

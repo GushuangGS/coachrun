@@ -54,7 +54,7 @@ const errorHandle = (status, msg) => {//code判断
   // 状态码判断
   switch (status) {
       case 500:
-          tip(msg);
+          // tip(msg);
           break;
       case 401:
           tip('Your login has expired. Please log in again to continue.');

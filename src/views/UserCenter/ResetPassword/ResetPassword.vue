@@ -101,7 +101,6 @@
                                     this.$message({
                                         message: res.data.msg,
                                         type: 'warning',
-                                        showClose: true,
                                         center: true
                                     })
                                 }else{

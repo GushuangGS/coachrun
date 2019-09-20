@@ -99,14 +99,23 @@
                 this.$http.delete(this.$api.logout)
                     .then((data) => {
                         console.log(data);
-                        if (process.env.NODE_ENV === 'development'){
-                            localStorage.removeItem("IvyCustomer_LoginToken");
-                            localStorage.removeItem("loginName");
+                        if(data.data.code==200){
+                            if (process.env.NODE_ENV === 'development'){
+                                localStorage.removeItem("IvyCustomer_LoginToken");
+                                localStorage.removeItem("loginName");
+                            }
+                            VueCookie.delete('IvyCustomer_LoginCookie');
+                            VueCookie.delete('front-sessionId');
+                            this.$store.commit('logout');
+                            this.$router.push({name: 'Login'});
+                        }else{
+                            this.$message({
+                                message: data.data.msg,
+                                type: 'warning',
+                                center: true
+                            });
                         }
-                        VueCookie.delete('IvyCustomer_LoginCookie');
-                        VueCookie.delete('front-sessionId');
-                        this.$store.commit('logout');
-                        this.$router.push({name: 'Login'});
+                        
                     });
             }
         }

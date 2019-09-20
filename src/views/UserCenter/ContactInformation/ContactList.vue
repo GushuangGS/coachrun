@@ -69,7 +69,8 @@
         </el-main>
         <el-dialog
           title="Remove Contact Information"
-          :visible.sync="showDialogVisible">
+          :visible.sync="showDialogVisible"
+          width="790px">
           <div class="delete-body">
             <p>Are you sure to remove the contact person from your list?</p>
           </div>
@@ -150,11 +151,16 @@
                 this.$message({
                   message: 'Deleted successfully.',
                   type: 'success',
-                  showClose: true,
                   center: true
                 });
                 this.showDialogVisible = false;
                 this.listInfo();
+              }else{
+                this.$message({
+                    message: res.data.msg,
+                    type: 'warning',
+                    center: true
+                });
               }
           })
       },
@@ -174,10 +180,15 @@
                     this.$message({
                         message: 'Default contact changed.',
                         type: 'success',
-                        showClose: true,
                         center: true
                     });
                     this.listInfo();
+                  }else{
+                    this.$message({
+                        message: res.data.msg,
+                        type: 'warning',
+                        center: true
+                    });
                   }
               })
       },
@@ -288,7 +299,7 @@
     /* border: none; */
   }
   .el-button+.el-button{
-    margin-left: 0;
+    margin-left: 10px;
   }
   .remove-btn{
     background: #FF9A0D;

@@ -33,7 +33,7 @@
                   <div class="login-name">Login</div>
                 </el-select>
               </el-form-item>
-              <el-form-item label="Current Password:" prop="currentPass">
+              <el-form-item label="Current Password:" prop="currentPass" :error="err">
                 <el-input type="password" v-model="ruleForm.currentPass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item label="New Password:" prop="pass">
@@ -119,7 +119,8 @@
           ]
         },
         getVal:'1',//默认选中值为login
-        showMessage:true
+        showMessage:true,
+        err:''
       }
     },
     methods: {
@@ -158,7 +159,8 @@
                         this.changeStatus = 0;
                         // this.$cookie.set('password', this.ruleForm.pass);
                       }else{
-                        this.changeStatus = 2;
+                        this.err = 'Current password invalid!'
+                        // this.changeStatus = 2;
                       }
                   })
           }

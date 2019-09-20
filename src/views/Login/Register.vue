@@ -70,6 +70,16 @@
                         callback();
                     }
                 }
+                let validatePhone = (rule, value, callback) => {
+                    if (value == '') {
+                        callback(new Error('Please enter a phone number.'));
+                    }else{
+                        if(this.canSave==false){
+                            callback(new Error('Please enter a right phone number.'));
+                        }
+                        callback();
+                    }
+                }
                 return{
                     loginInfo: {
                         email: '',
@@ -79,7 +89,10 @@
                     rules: {
                         email: [{ required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
                         { type: 'email', message: 'Please enter the correct email address', trigger: 'blur'}],
-                        phone: [{ required: true, trigger: 'blur' ,message: 'Please enter a phone number.'}],
+                        // phone: [{ required: true, trigger: 'blur' ,message: 'Please enter a phone number.'}],
+                        phone: [
+                            { required: true, trigger: 'blur',validator: validatePhone}
+                        ],
                         // password: [{ required: true, trigger: 'blur',message: 'Please enter your password.' },
                         // { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }]
                         password: [{required: true, trigger: 'blur',validator: validatePas}]
@@ -93,11 +106,14 @@
                     selectValue: '999',//赋值选中国家的值
                     selectLabel:'USA',//默认为一个国家
                     yourValue:'',
-                    results: {}
+                    results: {},
+                    canSave:false,
                 }
             },
             methods:{
                 onUpdate(payload) {
+                    console.log(payload);
+                    this.canSave = payload.isValid;
                     this.results = payload;
                     console.log(payload);
                 },
@@ -110,47 +126,52 @@
                                     console.log(data);
                                     if(data.data.code == 200){
                                         this.logIn();
+                                    }else{
+                                        this.$message({
+                                            message: data.data.msg,
+                                            type: 'warning',
+                                            center: true
+                                        });
                                     }
                                 });
                         }
                     })
                 },
                 logIn(){
+                    console.log(this.loginInfo.email,this.loginInfo.password)
                     this.$http.post(this.$api.login,
                             { username: this.loginInfo.email, password:this.loginInfo.password})
                             .then((data) => {
                                 console.log(data);
                                 if(data.data.code==200){
-                                    sessionStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
-                                    sessionStorage.setItem("userLogin_id", data.data.data.user.id); 
-                                    this.$router.push({name: 'MyOrders'});
-                                    this.$store.commit('login'); 
-                                    this.$store.commit('loginName',data.data.data.user.email);
-                                    this.$cookie.set('front-sessionId', data.data.data.user.id);
-
-                                    this.userId = VueCookie.get('IvyCustomer_FirstName');
-                                    if(this.userId == null || this.userId== undefined){
-                                        this.userId = VueCookie.get('IvyCustomer_LoginEmail');
-                                    }
-                                    this.$store.commit('userName',this.userId);
-                                    console.log(this.$store.state.userName);
-                                    console.log(this.userId);
-                                    // -------------------------------------------------------------------------
                                     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
                                     if(loginCookie == undefined) return
                                         let token = loginCookie.split('+|+')[2]
-                                    if(!token){
-                                        this.$api.user.authorization({
-                                            'loginCookie':loginCookie
-                                            }).then( res => {
-                                                let token = res.data.token;
-                                                let newLoginCookie = `${loginCookie}+|+${token}`
-                                                VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
-                                                console.log(newLoginCookie);
-                                                console.log(res);
-                                            })
+                                    if (process.env.NODE_ENV === 'production'){
+                                        if(!token){
+                                            this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
+                                                .then( res => {
+                                                    let token = res.data.token;
+                                                    let newLoginCookie = `${loginCookie}+|+${token}`
+                                                    VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
+                                                    console.log(newLoginCookie);
+                                                    console.log(res);
+                                                })
+                                        }
                                     }
-
+                                    if (process.env.NODE_ENV === 'development'){
+                                        localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                        localStorage.setItem("loginName", data.data.data.user.email);
+                                    }
+                                    this.$cookie.set('front-sessionId', data.data.data.user.id);
+                                    this.$store.commit('login'); 
+                                    this.$router.push({name: 'MyOrders'});
+                                }else{
+                                    this.$message({
+                                        message: data.data.msg,
+                                        type: 'warning',
+                                        center: true
+                                    });
                                 }
                             });
                 },
