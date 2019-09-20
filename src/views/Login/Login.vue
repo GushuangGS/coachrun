@@ -77,7 +77,15 @@
                 return null;
             },
             logout(){
-                this.$http.delete(this.$api.logout)
+                let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+                let token = loginCookie.split('+|+')[2];
+                // console.log(token)
+                if(token==undefined){
+                    token = localStorage.getItem('IvyCustomer_LoginToken');
+                }
+                console.log(token);
+                // if(token!=null){
+                    this.$http.delete(this.$api.logout)
                     .then((data) => {
                         console.log(data);
                         if(data.data.code==200){
@@ -94,6 +102,7 @@
                         }
                         
                     });
+                // }
             },
             login(){
                 // console.log(this.item);//true 则选择记住密码
