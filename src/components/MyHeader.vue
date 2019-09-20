@@ -99,9 +99,12 @@
                 this.$http.delete(this.$api.logout)
                     .then((data) => {
                         console.log(data);
-                        localStorage.removeItem("IvyCustomer_LoginToken");
-                        localStorage.removeItem("loginName");
+                        if (process.env.NODE_ENV === 'development'){
+                            localStorage.removeItem("IvyCustomer_LoginToken");
+                            localStorage.removeItem("loginName");
+                        }
                         VueCookie.delete('IvyCustomer_LoginCookie');
+                        VueCookie.delete('front-sessionId');
                         this.$store.commit('logout');
                         this.$router.push({name: 'Login'});
                     });

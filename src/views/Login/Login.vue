@@ -117,9 +117,10 @@
                                                 })
                                         }
                                     }
-                                    
-                                    localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
-                                    localStorage.setItem("loginName", data.data.data.user.email);
+                                    if (process.env.NODE_ENV === 'development'){
+                                        localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                        localStorage.setItem("loginName", data.data.data.user.email);
+                                    }
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
                                     this.$store.commit('login'); 
 
