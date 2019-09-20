@@ -134,7 +134,6 @@
                                     {verificationCode:this.ruleCode.code})
                                     // {headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
                         .then((res)=>{
-                            this.ruleForm.email='';
                             this.ruleCode.code = '';
                             console.log(res);
                             if(res.data.code==200){

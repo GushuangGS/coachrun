@@ -38,4 +38,10 @@ body{
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
 }
+.el-message.is-center{
+  top: 120px !important;
+}
+.el-message__closeBtn{
+  right: 8px;
+}
 </style>
