@@ -52,12 +52,15 @@
             }
 
             var validatePass2 = (rule, value, callback) => {
+                var reg = /((?=.*\d)(?=.*\D)|(?=.*[a-zA-Z])(?=.*[^a-zA-Z]))(?!^.*[\u4E00-\u9FA5].*$)^\S{6,12}$/;
                 if (value === '') {
                     callback(new Error('Please enter your password again.'));
-                } else if (value !== this.ruleForm.pass) {
-                    callback(new Error('The password must be the same.'));
                 } else {
-                    callback();
+                    if(!reg.test(value)){
+                        callback(new Error('Use 6-12 characters with a mix of letters, numbers & symbols.'));
+                    }else if(value !== this.ruleForm.pass){
+                        callback(new Error('The password must be the same.'));
+                    }
                 }
             };
             return{

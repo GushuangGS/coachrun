@@ -142,7 +142,7 @@
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
                                     this.$store.commit('login'); 
 
-                                }else{
+                                }else if(data.data.code==500){
                                     this.$message({
                                         message: data.data.msg,
                                         type: 'warning',

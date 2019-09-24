@@ -85,6 +85,9 @@
                             this.canClick=true;
                         }
                     })
+                    if(this.ruleForm.email==''){
+                        this.showError = false;
+                    }
                 },
                 focusCode(){
                     this.err = '';
@@ -124,6 +127,12 @@
                                 }, 1000);
                                 this.verCode = res.data.data.verificationCode;
                                 this.inputEmail = this.ruleForm.email;
+                            }else{
+                                this.$message({
+                                    message: res.data.msg,
+                                    type: 'warning',
+                                    center: true
+                                });
                             }
                         })
                 },
