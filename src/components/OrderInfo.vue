@@ -41,12 +41,8 @@
                                   <span class="country-tip">
                                       {{getCity(item)}}
                                     </span>
-                                  <!-- <span>
-                                    {{item.pickupLocation.address.city}} {{timeChange(item.pickupLocation.time)}} 
-                                    ->  {{item.dropoffLocation.address.city}} {{timeChange(item.dropoffLocation.time)}}
-                                  </span> -->
-                                  <div v-if="getNextDay(item)==1" class="icon-night1"></div>
-                                  <div v-if="getNextDay(item)==2" class="icon-night2"></div>
+                                  <div v-if="getNext1Day(item)" class="icon-night1"></div>
+                                  <div v-if="getNext2Day(item)" class="icon-night2"></div>
                                   <div class="bookings-disc bookings-disc-color2" v-show="item.serviceStatus==3">
                                     Canclled
                                   </div>
@@ -77,39 +73,42 @@
                                   <span class="details-left">Schedule ID:</span>
                                   <span class="details-icon1">{{item.product.code}}</span>
                               </div>
-                              <div class="details-options">
+                              <div class="details-options" v-if="hasPassengers(item)">
                                 <div class="left-details">
-                                  <span class="details-left"  v-for="(label,index) in item.passengers[0].options" :key="index">
-                                      <span v-show="label.type=='bus_stop'|| label.type=='string'">
-                                          {{label.name}}:
-                                        </span>
-                                  </span>
+                                    <span class="details-left" v-for="(label,index) in item.passengers[0].options" :key="index">
+                                        <span v-show="label.type=='bus_stop'|| label.type=='string'">
+                                            {{label.name}}:
+                                          </span>
+                                    </span>
                                 </div>
                                 <div class="right-details">
-                                  <span class="details-icon2"  v-for="(label,index) in item.passengers[0].options" :key="index">
-                                      <span v-show="label.type=='bus_stop'|| label.type=='string'">
-                                          {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
-                                        </span>
-                                  </span>
+                                    <span class="details-icon2"  v-for="(label,index) in item.passengers[0].options" :key="index">
+                                        <span v-show="label.type=='bus_stop'|| label.type=='string'">
+                                            {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
+                                          </span>
+                                    </span>
                                 </div>
                               </div>
                               <div class="details-info">
                                   <span class="details-left">Passengers:</span>
                                   <div class="details-icon1">
                                       <div>
-                                          <span>Adult: </span>
+                                          {{getpeopleNumber(item)}}
+                                          <!-- <span>Adult: </span>
                                           <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
                                           <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
-                                          <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span>
+                                          <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span> -->
                                       </div>
-                                      <div v-if="item.passengers.filter(name=>name.type=='Adult').length!=0">
+                                      <!-- <div v-if="item.passengers.filter(name=>name.type=='Adult').length!=0"> -->
+                                      <div v-if="filterPeopleType('Adult')">
                                         <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')" :key="index">
                                             <span>Adult{{index+1}}: </span>
                                             <span>{{adult.name}} </span>
                                             <span>(CN: {{adult.cn}})</span>
                                         </div>
                                       </div>
-                                      <div v-if="item.passengers.filter(name=>name.type=='Child').length!=0">
+                                      <!-- <div v-if="item.passengers.filter(name=>name.type=='Child').length!=0"> -->
+                                        <div v-if="filterPeopleType('Child')">
                                         <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                             :key="index">
                                             <span>Child{{index+1}}: </span>
@@ -118,48 +117,58 @@
                                             <span>(CN: {{Child.cn}})</span>
                                         </div>
                                       </div>
-                                      <div v-if="item.passengers.filter(name=>name.type=='Infant').length!=0">
+                                      <!-- <div v-if="item.passengers.filter(name=>name.type=='Infant').length!=0"> -->
+                                        <div v-if="filterPeopleType('Infant')">
                                         <div v-for="(Infant,index) in item.passengers.filter(name=>name.type=='Infant')"
                                             :key="index">
                                             <span>Infant{{index+1}}: </span>
                                             <span>{{Infant.name}}</span>
+                                            <span>(CN: {{Infant.cn}})</span>
                                         </div>
                                       </div>
-                                      <div v-if="item.passengers.filter(name=>name.type=='Senior').length!=0">
+                                      <!-- <div v-if="item.passengers.filter(name=>name.type=='Senior').length!=0"> -->
+                                        <div v-if="filterPeopleType('Senior')">
                                         <div v-for="(Senior,index) in item.passengers.filter(name=>name.type=='Senior')"
                                             :key="index">
                                             <span>Senior{{index+1}}: </span>
                                             <span>{{Senior.name}}</span>
+                                            <span>(CN: {{Senior.cn}})</span>
                                         </div>
                                       </div>
-                                      <div v-if="item.passengers.filter(name=>name.type=='Junior').length!=0">
+                                      <!-- <div v-if="item.passengers.filter(name=>name.type=='Junior').length!=0"> -->
+                                        <div v-if="filterPeopleType('Junior')">
                                         <div v-for="(Junior,index) in item.passengers.filter(name=>name.type=='Junior')"
                                             :key="index">
                                             <span>Junior{{index+1}}: </span>
                                             <span>{{Junior.name}}</span>
+                                            <span>(CN: {{Junior.cn}})</span>
                                         </div>
                                       </div>
-                                      <div v-if="item.passengers.filter(name=>name.type=='Student').length!=0">
+                                      <!-- <div v-if="item.passengers.filter(name=>name.type=='Student').length!=0"> -->
+                                        <div v-if="filterPeopleType('Student')">
                                         <div v-for="(Student,index) in item.passengers.filter(name=>name.type=='Student')"
                                             :key="index">
                                             <span>Student{{index+1}}: </span>
                                             <span>{{Student.name}}</span>
+                                            <span>(CN: {{Student.cn}})</span>
                                         </div>
                                       </div>
-                                      <div v-if="item.passengers.filter(name=>name.type=='Military').length!=0">
+                                      <!-- <div v-if="item.passengers.filter(name=>name.type=='Military').length!=0"> -->
+                                        <div v-if="filterPeopleType('Military')">
                                         <div v-for="(Military,index) in item.passengers.filter(name=>name.type=='Military')"
                                             :key="index">
                                             <span>Military{{index+1}}: </span>
                                             <span>{{Military.name}}</span>
+                                            <span>(CN: {{Military.cn}})</span>
                                         </div>
                                       </div>
                                   </div>
                               </div>
                           </div>
                           <div class="btns">
-                              <el-button v-if="showRes(item)" @click="resche(item)" class="Reschedule">Reschedule</el-button>
-                              <el-button @click="eticket(item)" v-if="item.status==5" class="E-Ticket">E-Ticket</el-button>
-                              <el-button @click="trackBus(item)" v-show="item.serviceStatus>0&&showRes(item)" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
+                              <el-button v-if="!(item.status==8&&showRes(item))" @click="resche(item)" class="Reschedule">Reschedule</el-button>
+                              <el-button @click="eticket(item)" v-if="item.status!=8" class="E-Ticket">E-Ticket</el-button>
+                              <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                           </div>
                         </div>
                         <div class="actions" v-if="item.status==8">
@@ -172,7 +181,7 @@
                                   <span class="details-left">Schedule ID:</span>
                                   <span class="details-icon1">{{item.product.code}}</span>
                               </div>
-                              <div class="details-options">
+                              <div class="details-options" v-if="hasPassengers(item)">
                                 <div class="left-details">
                                     <span class="details-left"  v-for="(label,index) in item.passengers[0].options" :key="index">
                                         <span v-show="label.type=='bus_stop'|| label.type=='string'">
@@ -192,19 +201,22 @@
                                   <span class="details-left">Passengers:</span>
                                   <div class="details-icon1">
                                       <div>
-                                          <span>Adult: </span>
+                                          {{getpeopleNumber(item)}}
+                                          <!-- <span>Adult: </span>
                                           <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
                                           <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
-                                          <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span>
+                                          <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span> -->
                                       </div>
-                                      <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Adult').length!=0">
+                                      <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Adult').length!=0"> -->
+                                    <div class="line-none" v-if="filterPeopleType('Adult')">
                                         <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')" :key="index">
                                             <span>Adult{{index+1}}: </span>
                                             <span>{{adult.name}} </span>
                                             <span>(CN: {{adult.cn}})</span>
                                         </div>
                                       </div>
-                                      <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Child').length!=0">
+                                      <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Child').length!=0"> -->
+                                      <div class="line-none" v-if="filterPeopleType('Child')">
                                           <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                               :key="index">
                                               <span>Child{{index+1}}: </span>
@@ -213,39 +225,49 @@
                                               <span>(CN: {{Child.cn}})</span>
                                           </div>
                                       </div>
-                                      <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Infant').length!=0">
+                                      <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Infant').length!=0"> -->
+                                      <div class="line-none" v-if="filterPeopleType('Infant')">
                                           <div v-for="(Infant,index) in item.passengers.filter(name=>name.type=='Infant')"
                                               :key="index">
                                               <span>Infant{{index+1}}: </span>
                                               <span>{{Infant.name}}</span>
+                                              <span>(CN: {{Infant.cn}})</span>
                                           </div>
                                       </div>
-                                      <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Senior').length!=0">
+                                      <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Senior').length!=0"> -->
+                                      <div class="line-none" v-if="filterPeopleType('Senior')">
                                           <div v-for="(Senior,index) in item.passengers.filter(name=>name.type=='Senior')"
                                               :key="index">
                                               <span>Senior{{index+1}}: </span>
                                               <span>{{Senior.name}}</span>
+                                              <span>(CN: {{Senior.cn}})</span>
                                           </div>
                                       </div>
-                                      <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Junior').length!=0">
+                                      <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Junior').length!=0"> -->
+                                      <div class="line-none" v-if="filterPeopleType('Junior')">
                                           <div v-for="(Junior,index) in item.passengers.filter(name=>name.type=='Junior')"
                                               :key="index">
                                               <span>Junior{{index+1}}: </span>
                                               <span>{{Junior.name}}</span>
+                                              <span>(CN: {{Junior.cn}})</span>
                                           </div>
                                       </div>
-                                      <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Student').length!=0">
+                                      <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Student').length!=0"> -->
+                                      <div class="line-none" v-if="filterPeopleType('Student')">
                                           <div v-for="(Student,index) in item.passengers.filter(name=>name.type=='Student')"
                                               :key="index">
                                               <span>Student{{index+1}}: </span>
                                               <span>{{Student.name}}</span>
+                                              <span>(CN: {{Student.cn}})</span>
                                           </div>
                                       </div>
-                                      <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Military').length!=0">
+                                      <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Military').length!=0"> -->
+                                      <div class="line-none" v-if="filterPeopleType('Military')">
                                           <div v-for="(Military,index) in item.passengers.filter(name=>name.type=='Military')"
                                               :key="index">
                                               <span>Military{{index+1}}: </span>
                                               <span>{{Military.name}}</span>
+                                              <span>(CN: {{Military.cn}})</span>
                                           </div>
                                       </div>
                                   </div>
@@ -487,11 +509,67 @@
         props:['ticket'],
         data(){
             return{
-              activeNames: []
+              activeNames: [],
+              selectedItinerary: null,
+              allTicket:[]
             }
         },
         name:'OrderInfo',
+        computed:{
+          options(){
+            for(const tickets  of this.allTicket){
+                for(const itinerary of tickets.entities){
+                  this.selectedItinerary = itinerary;
+                  if(this.selectedItinerary.passengers && this.selectedItinerary.passengers.length){
+                      return this.selectedItinerary.passengers[0].options;
+                  }
+                  return null;
+                }
+            }
+          }
+        },
         methods:{
+            getpeopleNumber(itinerary) {
+              if(!this.options) return 
+              let peopleTypes = [
+                "Adult",
+                "Child",
+                "Infant",
+                "Senior",
+                "Junior",
+                "Student",
+                "Military"
+              ];
+              let peopleNumberArray = [];
+              for (const peopleType of peopleTypes) {
+                let count = 0;
+                for (const passenger of itinerary.passengers) {
+                  if (passenger.type == peopleType) {
+                    count++;
+                  }
+                }
+                if (count > 0) {
+                  peopleNumberArray.push(`${peopleType} ${count}`);
+                }
+              }
+              return peopleNumberArray.join(", ");
+            },
+            hasPassengers(item){
+              if(item.passengers.length!=0){
+                return true;
+              }else{
+                return false;
+              }
+            },
+            filterPeopleType(peopleType) {
+              if(!this.options) return 
+              for (const passenger of this.selectedItinerary.passengers) {
+                if (passenger.type === peopleType) {
+                  return true;
+                }
+              }
+              return false;
+            },
             getIndex(index){
               return this.activeNames.some(item=>{
                 return item == index;
@@ -499,14 +577,18 @@
             },
             getCity(item){
               var firCity,endCity,firTime,endTime,routeLine;
-              if(item.passengers[0].options[0].value.station!=undefined){
-                if(item.passengers[0].options[0].value.station.address!=undefined){
-                  firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.station.address.city;
-                  endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.station.address.city;
-                  firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.time;
-                  endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.time;
-                  // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
-                  return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+              if(item.passengers.length!=0){
+                if(item.passengers[0].options[0].value.station!=undefined){
+                  if(item.passengers[0].options[0].value.station.address!=undefined){
+                    firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.station.address.city;
+                    endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.station.address.city;
+                    firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.time;
+                    endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.time;
+                    // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
+                    return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+                  }else{
+                    return routeLine = item.product.name;
+                  }
                 }else{
                   return routeLine = item.product.name;
                 }
@@ -518,10 +600,27 @@
               var nowDate = moment(new Date()).add('year',0).format("YYYY-MM-DD");
               return moment(item.serviceDate).isAfter(nowDate);
             },
-            getNextDay(item){
+            getNext1Day(item){
               var nextDay;
-              nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
-              return nextDay;
+              if(item.passengers.length!=0){
+                nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
+                if(nextDay == 1){
+                  return true;
+                }
+              }else{
+                return false;
+              }
+            },
+            getNext2Day(item){
+              var nextDay;
+              if(item.passengers.length!=0){
+                nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
+                if(nextDay == 2){
+                  return true;
+                }
+              }else{
+                return false;
+              }
             },
             dateChange(str){
               var week,mon,da,yea,newDate;
@@ -591,6 +690,7 @@
         watch:{
           "ticket":function fn(){
             console.log(this.ticket);
+            this.allTicket = this.ticket;
             for(var i = 0; i < this.ticket.length; i++) {
               this.activeNames.push(i);
             }
@@ -744,6 +844,7 @@
         color: #274F7C;
         white-space: nowrap;
         font-weight: normal;
+        min-width: 513px;
       }
       .details-info{
           display: flex;

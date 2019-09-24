@@ -46,8 +46,7 @@ const tip = msg =>{
       message: msg,
       type: 'warning',
       showClose:true,
-      center: true,
-      duration:0
+      center: true
     });
 }
 
