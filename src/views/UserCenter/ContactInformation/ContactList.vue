@@ -7,7 +7,7 @@
         </el-header> -->
         <el-main>
             <div class="container">
-              <h2>Contact Information</h2>
+              <h2>My Contact Information</h2>
               <div class="table-wrapper">
                 <el-table
                   :data="contactList"

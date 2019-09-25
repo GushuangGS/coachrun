@@ -184,9 +184,6 @@
     padding-left: 20px;
     min-height: 850px;
   }
-  .go-to-bookings{
-    cursor: pointer;
-  }
   .content>h2 {
     margin-top: 0;
     font-size: 24px;
@@ -281,9 +278,9 @@
     margin-bottom: 0;
   }
   .bookings-header>span {
-    font-size: 16px;
+    font-size: 14px;
     color: #274F7C;
-    /* cursor: pointer; */
+    cursor: pointer;
   }
   .column-name {
     background-color: #E5EFFA;

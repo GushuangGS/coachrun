@@ -188,7 +188,7 @@
             width: 100%;
             height: 100%;
             background: #F5F5F5;
-            margin-top: 20px;
+            /* margin-top: 20px; */
             padding: 50px;
         }
         .wrap{

@@ -1,34 +1,40 @@
 <template>
     <div class="header">
-        <div class="logo" @click="skip('http://testwww.coachrun.com/')">
-            <img src="@/assets/coachrunlogo.png" alt="">
+        <div class="header-left">
+            <div class="logo" @click="skip('http://testwww.coachrun.com/')">
+                <img src="@/assets/coachrunlogo.png" alt="">
+            </div>
+            <ul class="header-title">
+                <li v-for="(list,index) in navLists" :key="index">
+                    <!-- <span :class="{ bgColor:changeBg == index}" @click="changeColor(index)"> -->
+                    <span @click="changeColor(index)">
+                        {{list.text}}
+                    </span>
+                </li>
+            </ul>
         </div>
-        <ul class="header-title">
-            <li v-for="(list,index) in navLists" :key="index">
-                <!-- <span :class="{ bgColor:changeBg == index}" @click="changeColor(index)"> -->
-                <span @click="changeColor(index)">
-                    {{list.text}}
+
+        <div class="header-right">
+            <div class="login-register" v-if="!$store.state.isLogin">
+                <span class="login" @click="login">
+                    Login
+                </span>|
+                <span class="register" @click="register">
+                    Register
                 </span>
-            </li>
-        </ul>
-        <div class="login-register" v-if="!$store.state.isLogin">
-            <span class="login" @click="login">
-                Login
-            </span>|
-            <span class="register" @click="register">
-                Register
-            </span>
-        </div>
-        <div class="show-name" v-if="$store.state.isLogin">
-            <!-- <span class="user-name" @click="gotoMine">Hello, {{$store.state.loginName}}</span> -->
-            <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
-            <span class="logot" @click="logout">Logout</span>
-        </div>
-        <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
-            <img src="@/assets/shoppingcart.png" alt="">
-        </div>
-        <div class="live-chat" @click="toLive">
-            <img src="@/assets/livechat.png" alt="">
+            </div>
+            <div class="show-name" v-if="$store.state.isLogin">
+                <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
+                <span class="logot" @click="logout">Logout</span>
+            </div>
+            <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
+                <!-- <img src="@/assets/shoppingcart.png" alt=""> -->
+                <i class="icon-basket"></i>
+            </div>
+            <div class="live-chat" @click="toLive">
+                <!-- <img src="@/assets/livechat.png" alt=""> -->
+                <i class="icon-chat"></i>
+            </div>
         </div>
     </div>
 </template>
@@ -123,16 +129,26 @@
 </script>
 
 <style scoped>
+.header-left{
+    display: flex;
+    align-items: baseline;
+    margin-top: 5px;
+}
+.header-right{
+    display: flex;
+    align-items: center;
+}
+
 .header{
     height: 80px;
     width: 1170px;
     margin: 0 auto;
-    /* padding-left: 100px; */
     display: flex;
     align-items: center;
-    /* padding: 0 150px 0 350px; */
     cursor: pointer;
     background:rgba(255,255,255,1);
+    padding: 15px 0;
+    justify-content: space-between;
 }
 .logo{
     width: 132px;
@@ -142,9 +158,8 @@
     display: flex;
 }
 .login-register{
-    height: 35px;
-    line-height: 35px;
-    margin-left: 230px;
+    height: 34px;
+    line-height: 34px;
     padding: 0 15px;
     border:1px solid rgba(219,219,219,1);
     display: flex;
@@ -153,10 +168,9 @@
     color:rgba(51,51,51,1);
 }
 .show-name{
-    height: 35px;
-    line-height: 35px;
+    height: 34px;
+    line-height: 34px;
     margin-left: 150px;
-    /* margin: 23px 20px 22px 150px; */
     padding: 0 15px;
     display: flex;
     font-size:14px;   
@@ -174,6 +188,9 @@
     font-size:14px;
     color:rgba(0,159,234,1);
     font-weight: 600;
+    border: 1px solid;
+    padding: 0 15px;
+    border-radius: 4px;
 }
 .login{
     margin-right: 5px;
@@ -182,23 +199,30 @@
 margin-left: 5px;
 }
 .shopping-cart{
-    margin-left:30px;
+    margin-left:20px;
+    font-size: 18px;
 }
 .live-chat{
-    margin-left: 28px;
+    margin-left: 35px;
+    font-size: 18px;
 }
 .header-title{
     display: flex;
     align-items: center;
     margin: 0;
+    padding-left: 30px;
 }
 .header-title li{
     white-space: nowrap;
-    margin-left: 40px;
+    margin-left: 30px;
     text-align: center;
     font-size:16px;
     font-family:ArialMT;
     color: #232323;
+    padding: 15px;
+}
+.header-title li:first-child{
+    margin-left: 0;
 }
 .header-title li a{
     text-decoration: none;
