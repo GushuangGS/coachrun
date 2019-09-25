@@ -20,6 +20,7 @@
                         <VuePhoneNumberInput v-model="loginInfo.phone" 
                         default-country-code="US" 
                         @update="onUpdate"
+                        clearable="true"
                         />
                     </template>
                 </el-form-item> 
@@ -298,5 +299,13 @@
         }
         >>> .field.vue-input-ui .field-input{
             cursor: default;
+        }
+        >>> .field.vue-input-ui .field-clear>span[data-v-4039a700]:not(.field-clear__effect){
+            top: -1px;
+            left: 1px;
+        }
+        >>> .field.vue-input-ui .field-clear__effect[data-v-4039a700]{
+            width: 25px;
+            border-radius: 50%;
         }
     </style>

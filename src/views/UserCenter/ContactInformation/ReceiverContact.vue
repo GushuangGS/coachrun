@@ -70,6 +70,7 @@
                                             :default-country-code="countryFir"
                                             @update="onUpdate"
                                             ref="phone_number"
+                                            clearable="true"
                                             />
                                         </el-form-item>
                                     </el-col>
@@ -81,6 +82,7 @@
                                                 :default-country-code="countrySec" 
                                                 @update="onUpdateAgain"
                                                 ref="phone2_number"
+                                                clearable="true"
                                                 />
                                         </el-form-item>
                                     </el-col>
@@ -415,4 +417,12 @@
       >>> .field.vue-input-ui .field-input{
           cursor: default;
       }
+      >>> .field.vue-input-ui .field-clear>span[data-v-4039a700]:not(.field-clear__effect){
+            top: -1px;
+            left: 1px;
+        }
+        >>> .field.vue-input-ui .field-clear__effect[data-v-4039a700]{
+            width: 25px;
+            border-radius: 50%;
+        }
     </style>
