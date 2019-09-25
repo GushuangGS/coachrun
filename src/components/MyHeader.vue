@@ -132,7 +132,7 @@
 .header-left{
     display: flex;
     align-items: baseline;
-    margin-top: 5px;
+    margin-top: 8px;
 }
 .header-right{
     display: flex;
@@ -158,7 +158,7 @@
     display: flex;
 }
 .login-register{
-    height: 34px;
+    height: 36px;
     line-height: 34px;
     padding: 0 15px;
     border:1px solid rgba(219,219,219,1);
@@ -171,7 +171,7 @@
     height: 34px;
     line-height: 34px;
     margin-left: 150px;
-    padding: 0 15px;
+    padding: 0 0 0 15px;
     display: flex;
     font-size:14px;   
     color:rgba(51,51,51,1);
@@ -199,11 +199,11 @@
 margin-left: 5px;
 }
 .shopping-cart{
-    margin-left:20px;
+    margin-left:30px;
     font-size: 18px;
 }
 .live-chat{
-    margin-left: 35px;
+    margin-left: 28px;
     font-size: 18px;
 }
 .header-title{
