@@ -7,7 +7,7 @@
               <el-menu
                 :default-active="$route.path"
                 class="el-menu-vertical-demo"
-                text-color="#6F6F6F"
+                text-color="#333"
                 active-text-color="#E38E16"
                 :default-openeds="openeds"
                 router
@@ -64,7 +64,6 @@ export default {
     background: #F1F1F1;
   }
   >>> .el-menu-item-group__title{
-    /* background: #F1F1F1; */
     display: none;
   }
   >>> .el-submenu{
@@ -72,5 +71,6 @@ export default {
   }
   >>> .el-menu-item-group>ul>li{
     background: #FBFBFB;
+    color: #666666 !important;
   }
 </style>
