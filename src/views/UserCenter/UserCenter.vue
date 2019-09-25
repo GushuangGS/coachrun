@@ -19,7 +19,7 @@
                   <template slot="title">
                     <span>My Account</span>
                   </template>
-                  <el-menu-item-group>
+                  <el-menu-item-group text-color="#666666">
                     <el-menu-item index="/render/member/account/booking-list" :route="{name:'MyBookings'}">My Bookings</el-menu-item>
                     <el-menu-item index="/render/member/account/deals" :route="{name:'MyDeals'}">My Deals</el-menu-item>
                     <el-menu-item index="/render/member/account/view-point" :route="{name:'MyPoints'}">My Points</el-menu-item>
@@ -72,5 +72,11 @@ export default {
   >>> .el-menu-item-group>ul>li{
     background: #FBFBFB;
     color: #666666 !important;
+  }
+  .el-menu-item.is-active {
+    color: #E38E16 !important;
+  }
+  .el-menu-item:hover{
+      color: #E38E16 !important;
   }
 </style>
