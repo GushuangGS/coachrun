@@ -225,7 +225,7 @@
     font-size: 16px;
   }
   >>> .el-table__body td>div.cell{
-    font-size: 15px;
+    font-size: 14px;
   }
   span.default {
     color: #FF9A0D;
@@ -234,7 +234,7 @@
   >>> .el-table__body td>div.cell>button>span {
     color: #29507D;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
   }
   >>> .el-table__body td>div.cell>button:not(:last-child)>span {
     padding-right: 10px;

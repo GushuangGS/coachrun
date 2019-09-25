@@ -258,13 +258,13 @@
     min-width: 120px;
     margin-right: 30px;
     line-height: 38px;
-    font-size: 18px;
+    font-size: 14px;
   }
   .description {
     min-width: 150px;
     margin-right: 30px;
     line-height: 38px;
-    font-size: 18px;
+    font-size: 14px;
   }
   .description>span {
     font-size: 14px;
@@ -273,12 +273,12 @@
   }
   .operation {
     line-height: 38px;
-    font-size: 16px;
+    font-size: 14px;
   }
   .operation >>> button>span {
     color: #29507D;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 14px;
   }
   .operation >>> button:not(:last-child)>span {
     padding-right: 10px;

@@ -49,7 +49,7 @@
   .title {
     padding-left: 30px;
     line-height: 33px;
-    font-size: 17px;
+    font-size: 16px;
     color: #002E63;
     font-family: Arial;
     font-weight: bold;

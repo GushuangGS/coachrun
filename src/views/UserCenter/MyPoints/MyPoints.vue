@@ -45,7 +45,7 @@
               <el-table
                 empty-text="Start earning your loyalty points today!"
                 :data="tableData"
-                size="mini"
+                size="small"
                 style="width: 100%;">
                 <el-table-column
                   label="Source"
@@ -259,7 +259,7 @@
     font-size: 18px;
   }
   >>> .el-table_1_column_1 {
-    font-size: 16px;
+    font-size: 14px;
     color: #333;
   }
   >>> .el-table_1_column_2 {
@@ -267,26 +267,29 @@
     font-weight: bold;
   }
   >>> .el-table_1_column_3 {
-    font-size: 16px;
+    font-size: 14px;
     color: #999;
   }
   .positive {
     color: #FF9D0D;
     /* font-weight: bold; */
-    font-size: 16px;
+    font-size: 14px;
   }
   .negtive {
     color: #0BA76E;
     /* font-weight: bold; */
-    font-size: 16px;
+    font-size: 14px;
   }
   .pending {
     opacity: .5;
   }
   >>> .cell {
     position: relative;
-    font-size: 14px;
+    
     /* text-align: center; */
+  }
+  >>> .el-table th>.cell{
+    font-size: 16px;
   }
   .text-pending {
     font-size: 14px;
