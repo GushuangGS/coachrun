@@ -57,7 +57,7 @@
                 <!--  -->
                 <div class="add-guest">
                   <img src="@/assets/guestbookig.png" alt="">
-                  <span class="guest-tips">Do not see your booking here, find and <span @click="addGuest" class="guest-add">add guest bookings</span> that you purchase within last 100 days</span>
+                  <span class="guest-tips">Do not see your booking here, find and <span @click="addGuest" class="guest-add">add guest bookings</span> that you purchase within last 100 days.</span>
                 </div>
                 <div class="recent-bookings">
                   <div class="bookings-list">

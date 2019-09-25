@@ -60,21 +60,26 @@
   export default {
     data() {
       let validatePass = (rule, value, callback) => {
+        var reg = /((?=.*\d)(?=.*\D)|(?=.*[a-zA-Z])(?=.*[^a-zA-Z]))(?!^.*[\u4E00-\u9FA5].*$)^\S{6,12}$/;
         if (value == '') {
-          callback(new Error('Please enter current password'));
+          callback(new Error('Please enter current password.'));
+        }else{
+          if(!reg.test(value)){
+              callback(new Error('Please enter a valid password.'));
+          }
+          callback();
         }
-        callback()
       }
       let validatePass2 = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('Please enter new password'));
+          callback(new Error('Please enter new password.'));
         } else {
           // 判断密码的格式是否符合要求
-          let reg = /^[\w]{6,12}$/
+          let reg = /((?=.*\d)(?=.*\D)|(?=.*[a-zA-Z])(?=.*[^a-zA-Z]))(?!^.*[\u4E00-\u9FA5].*$)^\S{6,12}$/;
           if (value.match(reg)) {
             callback()
           } else {
-            callback(new Error('Please enter value between 6 and 12 characters long'))
+            callback(new Error('Use 6-12 characters with a mix of letters, numbers & symbols.'))
           }
           // 判断两次输入密码不一致
           if (this.ruleForm.checkPass !== '') {
@@ -85,9 +90,9 @@
       }
       let validatePass3 = (rule, value, callback) => {
         if (value === '') {
-          callback(new Error('Please enter password again'))
+          callback(new Error('Please enter password again.'))
         } else if (value !== this.ruleForm.pass) {
-          callback(new Error('Entered passwords diff'))
+          callback(new Error('Please enter the same password.'))
         } else {
           callback()
         }
@@ -215,7 +220,7 @@
     margin-top: 20px;
   }
   >>> .el-form {
-    width: 500px;
+    width: 520px;
     margin-top: 30px;
     margin-bottom: 15px;
   }

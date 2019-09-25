@@ -70,7 +70,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="6">
+                                <el-col :span="5">
                                     <el-form-item label="Years" prop="year">
                                         <el-select v-model="ruleForm.year" @change="selectYear">
                                             <el-option 
@@ -82,7 +82,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="6">
+                                <el-col :span="7">
                                     <el-form-item label="CVV:" prop="CVV">
                                         <el-tooltip placement="bottom" effect="light">
                                             <div slot="content"> Flip your card over and look at the<br> signature
@@ -212,6 +212,17 @@
                         callback();
                     }
                 };
+                let cvvNum = (rule, value, callback) => {
+                    let reg = /^[\w]{3,4}$/;
+                    if (value == '') {
+                        callback(new Error('Please enter CVV.'));
+                    }else{
+                        if(!reg.test(value)){
+                            callback(new Error('Please enter 3-4 digitals.'));
+                        }
+                        callback();
+                    }
+                }
                 return{
                     status: 1,
                     headerInfo: [
@@ -237,7 +248,8 @@
                         // message: 'Please enter cardNumber.'
                         type: [{required: true, trigger: 'blur' ,message: 'Please choose a type.'}],
                         month: [{required: true, trigger: 'blur' }],
-                        CVV: [{required: true, trigger: 'blur' ,message: 'Please enter CVV.'}],
+                        // CVV: [{required: true, trigger: 'blur' ,message: 'Please enter CVV.'}],
+                        CVV: [{required: true, trigger: 'blur' ,validator:cvvNum}],
                         street: [{required: true, trigger: 'blur' ,message: 'Please enter street.'}],
                         city: [{required: true, trigger: 'blur' ,message: 'Please enter city.'}],
                         zipcode: [{required: true, trigger: 'blur' ,message: 'Please enter zipcode.'}],
@@ -410,7 +422,7 @@
                                         console.log(res);
                                         if(res.data.code==200) {
                                             this.$message({
-                                                message: 'Added successfully',
+                                                message: 'Added successfully.',
                                                 type: 'success',
                                                 center: true
                                             })
