@@ -8,7 +8,7 @@
                 :default-active="$route.path"
                 class="el-menu-vertical-demo"
                 text-color="#333"
-                active-text-color="#FF9A0D"
+                active-text-color="#009fea"
                 :default-openeds="openeds"
                 router
               >
@@ -74,9 +74,9 @@ export default {
     color: #666666 !important;
   }
   .el-menu-item.is-active {
-    color: #FF9A0D !important;
+    color: #009fea !important;
   }
   .el-menu-item:hover{
-      color: #FF9A0D !important;
+      color: #009fea !important;
   }
 </style>

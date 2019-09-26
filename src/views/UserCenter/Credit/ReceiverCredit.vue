@@ -524,7 +524,7 @@
         font-size: 16px;
         float: left;
         margin-right: 30px;
-        color: #002E63;
+        color: #333;
       }
       .introduction>.img-wrapper {
         float: left;
@@ -587,6 +587,7 @@
       }
       .card-address{
         font-size:14px;
+        color: #333;
       }
       .cancel-btn{
           width: 72px;
