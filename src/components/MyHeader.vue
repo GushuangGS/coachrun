@@ -114,7 +114,7 @@
                             VueCookie.delete('front-sessionId');
                             this.$store.commit('logout');
                             this.$router.push({name: 'Login'});
-                        }else{
+                        }else if(data.data.code==500){
                             this.$message({
                                 message: data.data.msg,
                                 type: 'warning',
@@ -218,7 +218,7 @@ margin-left: 5px;
     text-align: center;
     font-size:16px;
     font-family:ArialMT;
-    color: #232323;
+    color: #333;
     padding: 15px;
 }
 .header-title li:first-child{
@@ -226,7 +226,7 @@ margin-left: 5px;
 }
 .header-title li a{
     text-decoration: none;
-    color: #232323;
+    color: #333;
     font-weight: bold;
 }
 </style>

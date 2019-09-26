@@ -703,7 +703,7 @@
 <style scoped>
     .column-name {
         background-color: #E5EFFA;
-        color: #274F7C;
+        color: #29507D;
         height: 36px;
         line-height: 36px;
       }
@@ -720,13 +720,13 @@
         padding-right: 3px;
       }
       >>> .el-collapse-item:not(:last-child) {
-        background-color: #F5F5F5;
+        background-color: #f8f8f8;
         margin-bottom: 20px;
       }
       >>> .el-collapse-item__header {
         border-bottom: none;
         /* background-color: inherit; */
-        background-color: #F5F5F5 !important;
+        background-color: #f8f8f8 !important;
         height: 80px;
       } 
       .title-bookings{
@@ -830,7 +830,7 @@
       }
       div.order-status {
         font-size: 14px;
-        color: #458A8E;
+        color: #208291;
         text-align: center;
         font-weight: bold;
       }
@@ -900,7 +900,7 @@
         border-bottom: 1px dashed #F2F6FB;
       }
       >>> .el-collapse-item__wrap {
-        background-color: inherit;
+        background-color: #f8f8f8;
       }
       .line-none{
         text-decoration: line-through;

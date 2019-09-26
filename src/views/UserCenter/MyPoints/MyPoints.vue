@@ -196,10 +196,10 @@
   }
   .brief>.brief-left>.brief-left-down {
     text-align: center;
-    font-size: 30px;
+    font-size: 24px;
     line-height: 1;
     font-weight: bold;
-    color: #365C86;
+    color: #29507D;
   }
   .brief>.brief-right {
     flex: 1 1;
@@ -223,7 +223,7 @@
   }
   .brief>.brief-right>.brief-right-item>p {
     /* font-size: 18px; */
-    font-size: 15px;
+    font-size: 14px;
     text-align: center;
     color: #666666;
     margin: 0;
@@ -285,11 +285,12 @@
   }
   >>> .cell {
     position: relative;
-    
-    /* text-align: center; */
   }
   >>> .el-table th>.cell{
     font-size: 16px;
+  }
+  >>> .el-table .cell{
+    font-size: 14px;
   }
   .text-pending {
     font-size: 14px;
