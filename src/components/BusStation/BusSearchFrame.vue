@@ -1,132 +1,184 @@
 <template>
   <div class="wrap section search-frame">
     <div class="search-box">
+      <div class="track-bus-btn">
+        <el-button class="iconfont icon-bus" @click="returnBusStatus">Track Bus Status</el-button>
+      </div>
       <div class="search-box-container">
         <div class="search-table flex">
           <el-form style="display: flex" ref="form">
             <div class="search-city flex">
               <div class="departure-city city_passenger">
-                <i class="el-icon-location-outline"></i>
-                <el-select v-model="depart_City" filterable placeholder="From" @change="getArrOptions">
+                <i class="fa icon-direction"></i>
+                <el-select
+                  v-model="depart_City"
+                  filterable
+                  placeholder="Departure City"
+                  default-first-option
+                  @change="getCityReturn"
+                >
                   <el-option
                     v-for="(item,index) in depart_options"
                     :key="index"
                     :label="item"
-                    :value="item">
+                    :value="item"
+                  >
                   </el-option>
                 </el-select>
               </div>
               <div class="arrow" @click="this.getCityBack">
-                <img src="../../assets/change.png">
+                <img src="@/assets/change.png">
               </div>
               <div class="arrive-city city_passenger" >
-                <i class="el-icon-location-outline"></i>
-                <el-select v-model="arrive_City" filterable placeholder="To" style="padding-left: 0px;">
+                <i class="fa icon-location"></i>
+                <el-select
+                  ref="arrSeclect"
+                  v-model="arrive_City"
+                  filterable
+                  placeholder="Arrival City"
+                  style="padding-left: 0px;"
+                  default-first-option
+                  :disabled="arrive_options==''?true:false"
+                >
                   <el-option
                     v-for="(item,index) in arrive_options"
                     :key="index"
                     :label="item"
-                    :value="item">
+                    :value="item"
+                  >
                   </el-option>
                 </el-select>
               </div>
             </div>
             <div class="change-date">
-              <el-input
-                placeholder="Departure"
-                prefix-icon="el-icon-date"
-                v-model="depart_date"
-                v-popover:depart
-                class="date-in"
-                @focus="departFlag"
-              >
-              </el-input>
-              <el-input
-                placeholder="Return"
-                prefix-icon="el-icon-date"
-                v-model="return_date"
-                v-popover:return
-                class="date-in"
-                @focus="returnFlag"
-              >
-              </el-input>
+              <div class="change-date-div">
+                <i class="fa icon-calendar"></i>
+                <el-select
+                  placeholder="Departure"
+                  prefix-icon="el-icon-date"
+                  v-model="depart_date"
+                  class="date-in"
+                  ref="departSelect"
+                >
+                  <el-option
+                    class="option-calendar"
+                    :value="depart_date"
+                  >
+                    <div @click.stop>
+                      <ele-calendar
+                        :render-content="depRenderContent"
+                        :data="depart_datedef"
+                        :prop="prop"
+                        @pick = "datePickDepart"
+                        :disabled-date = "disabledDate"
+                        lang="en"
+                      ></ele-calendar>
+                    </div>
+                  </el-option>
+                </el-select>
+              </div>
+              <div class="change-date-div">
+                <i class="fa icon-calendar"></i>
+                <el-select
+                  placeholder="Return"
+                  prefix-icon="el-icon-date"
+                  v-model="return_date"
+                  class="date-in return-date"
+                  ref="returnSelect"
+                >
+                  <el-option
+                    class="option-calendar"
+                  >
+                    <div @click.stop>
+                      <ele-calendar
+                        :render-content="arrRenderContent"
+                        :data="arrval_datedef"
+                        :prop="prop"
+                        @pick = "datePickReturn"
+                        :disabled-date = "disabledDate"
+                        lang="en"
+                      ></ele-calendar>
+                    </div>
+                  </el-option>
+                </el-select>
+                <i class="el-icon-circle-close return-date-cancel" v-show="return_date" @click="clearReturnDate"></i>
+              </div>
             </div>
             <div class="change-passenger city_passenger">
-              <i class="el-icon-user"></i>
+              <i class="fa icon-user"></i>
               <el-select
-                v-model="pssengerNum"
-
+                v-model="passengerNum1"
+                placeholder="1 Adult, 0 Child"
+                ref="passenger"
               >
-                <el-option>
+                <el-option
+                  class="option-inpnumber"
+                >
                   <div @click.stop>
                     <span style="float: left">Adults</span>
-                    <el-input-number v-model="adultsNum" :min="1" :max="50"></el-input-number>
+                    <el-input-number
+                      v-model="adultsNum"
+                      :min="1"
+                      :max="50"
+                      @input.native="inputCount($event)"
+                      @blur="blurPassenger"
+                    ></el-input-number>
                   </div>
                 </el-option>
-                <el-option>
+                <el-option
+                  class="option-inpnumber"
+                >
                   <div @click.stop>
                     <span style="float: left">Children</span>
-                    <el-input-number v-model="childrenNum" :min="0" :max="50"></el-input-number>
+                    <el-input-number
+                      v-model="childrenNum"
+                      :min="0"
+                      :max="50"
+                      @input.native="inputCount($event)"
+                      @blur="blurPassenger"
+                    ></el-input-number>
+                  </div>
+                </el-option>
+                <el-option
+                  class="option-inpnumber"
+                >
+                  <div @click.stop>
+                    <el-button @click = "hiddenPassengerBox" id="passenger-btn">Done</el-button>
                   </div>
                 </el-option>
               </el-select>
             </div>
             <div class="search-submit">
-              <el-button type="primary" icon="el-icon-search" @click="onSubmit"></el-button>
+              <el-button @click="onSubmit">Search</el-button>
             </div>
           </el-form>
         </div>
-        <div class="track-bus-btn">
-          <el-button class="iconfont icon-bus" @click="returnBus">Track Bus Status</el-button>
-        </div>
+      </div>
+      <div class="service">
+        <div class="icon-plug service-item">Free Power Plug</div>
+        <div class="icon-wifi service-item">Free Wireless Internet</div>
+        <div class="icon-snowflake-o service-item">Air Conditioner</div>
+        <div class="icon-chair service-item">Reclining Seats</div>
+        <div class="icon-toilet service-item">Restroom Equipped</div>
       </div>
     </div>
-    <el-popover
-      ref="depart"
-      placement="bottom"
-      title=""
-      width="340"
-      trigger="click"
-    >
-      <ele-calendar
-        :render-content="depRenderContent"
-        :data="depart_datedef"
-        :prop="prop"
-        @pick = "datePickDepart"
-        :disabled-date = "disabledDate"
-        lang="en"
-      ></ele-calendar>
-    </el-popover>
-    <el-popover
-      ref="return"
-      placement="bottom"
-      width="340"
-      trigger="click"
-    >
-      <ele-calendar
-        :render-content="arrRenderContent"
-        :data="arrval_datedef"
-        :prop="prop"
-        @pick = "datePickReturn"
-        :disabled-date = "disabledDate"
-        lang="en"
-      ></ele-calendar>
-    </el-popover>
   </div>
 </template>
 <script>
   import eleCalendar from 'ele-calendar'
   import 'ele-calendar/dist/vue-calendar.css' //引入css
   import moment from 'moment'
+  import '../../styles/fonts/css/a.css'
   export default {
     props:{
       group:Object
     },
     data(){
       return {
-        depart_options: [],//出发城市列表b_cities
+        depart_options:[],//出发城市列表b_cities
         depart_City: '',//查找的出发城市
         arrive_City: '',//选择的到达城市
+        arrive_options:[],//到达城市列表
         depart_date:'',//日期选择
         return_date:'',//返回日期
         adultsNum:1,//成人人数
@@ -136,35 +188,29 @@
         arrval_datedef:[],//到达价格
         dep_min_price:undefined,//最低价格
         ret_min_price:undefined,
-        arrive_options:[],//出发城市对应的到达城市列表
-        eletoday:moment(Date.now()).format("YYYY-MM-DD"),//今日日期格式化
-        prop:'date' //对应日期字段名
+        eletoday:moment(Date.now()).format("YYYY-MM-DD"),//今天日期格式化
+        prop:'date', //对应日期字段名
+        calendarCon:'',
+        passengerNum1:''//输入框中的乘客
       }
     },
     mounted(){
       this.timer = setTimeout(()=>{
         this.depart_options = b_cities
+        clearTimeout(this.timer)
       },0)
     },
     computed : {
-      pssengerNum(){
-        let adult = 'Adult'
-        let child = 'Child'
-        if (this.adultsNum>1)adult = 'Adults'
-        if (this.childrenNum>1)child = 'Children'
-        return `${this.adultsNum} ${adult}, ${this.childrenNum} ${child}`
-      },
     },
     watch:{
       depart_City:function () {
-        if (this.arrive_City!=''&&g_bus[this.depart_City].indexOf(this.arrive_City)==-1){
+        if (this.arrive_City!=''&&g_bus[this.depart_City].indexOf(this.arrive_City)==-1){//到达城市不为空且新的route列表中没有之前选中的到达城市
           this.arrive_City = ''
         }
       },
       arrive_City:function(){
         if (this.arrive_City&&this.depart_City){
-          this.$http({
-            url:"https://search.gotobus.com/search/get-lowest-price-embed-json.do",
+          this.$axios("https://search.gotobus.com/search/get-lowest-price-embed-json.do",{
             params:{
               vendorId:1350154,
               fromCity:this.depart_City,
@@ -177,14 +223,14 @@
               this.depart_datedef.push({
                 date:key,
                 price:res.data.Departure[key],
-                cid:key+""+res.data.Departure[key]
+                cid:key
               })
             }
             for (let key in res.data.Return) {
               this.arrval_datedef.push({
                 date:key,
                 price:res.data.Return[key],
-                cid:key+""+res.data.Departure[key]
+                cid:key
               })
             }
             this.dep_min_price = res.data.DepartureLowest
@@ -197,20 +243,48 @@
       },
       return_date:function(){
         this.judgeDate()
+      },
+      adultsNum:function(){
+        let adult = 'Adult'
+        let child = 'Child'
+        if (this.adultsNum>1)adult = 'Adults'
+        if (this.childrenNum>1)child = 'Children'
+        if (this.adultsNum==""||this.adultsNum<1||this.adultsNum==undefined)this.adultsNum = 1
+        this.passengerNum1 = `${this.adultsNum} ${adult}, ${this.childrenNum} ${child}`
+        console.log(this.adultsNum,this.childrenNum)
+      },
+      childrenNum:function () {
+        let adult = 'Adult'
+        let child = 'Child'
+        if (this.adultsNum>1)adult = 'Adults'
+        if (this.childrenNum>1)child = 'Children'
+        if (this.childrenNum==""||this.childrenNum<1||this.childrenNum==undefined)this.childrenNum = 0
+        this.passengerNum1 = `${this.adultsNum} ${adult}, ${this.childrenNum} ${child}`
+        console.log(this.adultsNum,this.childrenNum)
       }
     },
     methods:{
-      returnBus(){
-        window.location.href="https://www.coachrun.com/track-bus-status/"
+      blurPassenger(ev){
+        if (ev.target.value==""){
+          ev.target.value = ev.target.min
+          console.log(ev.target.value)
+        }
       },
-      getArrOptions () {
-        this.arrive_options = g_bus[this.depart_City]//出发城市对应的到达城市
+      clearReturnDate(){
+        this.return_date = ""
       },
-      disabledDate (today) {//日历日期禁用
+      returnBusStatus(){
+        window.location.href="/track-bus-status/"
+      },
+      disabledDate (today) {//eleCalendar的disable-date的回调函数
         let day = moment(today).format("YYYY-MM-DD")
         if (this.eletoday.replace(/-/g,"\/")>day.replace(/-/g,"\/")) {
           return true
         }
+      },
+      getCityReturn(){
+        console.log(1)
+        this.arrive_options = g_bus[this.depart_City]
       },
       onSubmit(){
         if (this.return_date){
@@ -219,82 +293,84 @@
           window.location.href = `https://www.coachrun.com/search/bus.do?nm=1350154&st=1350154&is_roundtrip=1&bus_from=${this.depart_City}&bus_to=${this.arrive_City}&filter_date=${this.depart_date}&adult_num=${this.adultsNum}&child_num=${this.childrenNum}`
         }
       },
-      departFlag() {
-        this.$refs.depart.$refs.popper.hidden = false
-        this.$refs.depart.doClose()
-      },
-      returnFlag(){
-        this.$refs.return.$refs.popper.hidden = false
-        this.$refs.return.doClose()
-      },
-      datePickDepart(date,event,row,dome){
+      datePickDepart(date,event,row,dome){//出发日历pick事件
         date = moment(date)
         this.depart_date= date.format('YYYY-MM-DD')
-        this.$refs.depart.value = true
-        this.$refs.depart.$refs.popper.hidden = true
+        this.$refs.departSelect.visible = false//隐藏弹框
       },
-      datePickReturn(date,event,row,dome) {
+      datePickReturn(date,event,row,dome) {//到达日历pick事件
         date = moment(date)
         this.return_date= date.format('YYYY-MM-DD')
-        this.$refs.return.$refs.popper.hidden = true
+        this.$refs.returnSelect.visible = false
       },
-      getCityBack(){
-        this.dep_min_price = undefined
-        this.ret_min_price = undefined
+      getCityBack(){//出发与到达城市互换
         const temp = this.depart_City
         if (b_cities.indexOf(this.arrive_City)!=-1&&g_bus[this.arrive_City].indexOf(temp)!=-1) {
           this.depart_City = this.arrive_City
           this.arrive_City = temp
         }
       },
-      depRenderContent(h,parmas) {
-        console.log('112233')
+      depRenderContent(h,parmas) {//出发日历内容渲染
         const loop = data =>{
-          data.defvalue.value?console.log(data):'0'
           return(
             data.defvalue.value?(data.defvalue.value.price==this.dep_min_price?
-              (<div>
-                  <div>{data.defvalue.text}</div>
-                  <span class="font-green">${data.defvalue.value.price}</span>
-                </div>):
-                (<div>
-                  <div>{data.defvalue.text}</div>
-                  <span class="cf60">${data.defvalue.value.price}</span>
-              </div>)):
-              <div>{data.defvalue.text}</div>
-          )
-        }
-        return (
-          <div  style="min-height:60px;">
-          {loop(parmas)}
-          </div>
-        );
-      },
-      arrRenderContent(h,parmas) {
-        const loop = data =>{
-          return(
-            data.defvalue.value?(data.defvalue.value.price==this.ret_min_price?
-              (<div>
-              <div>{data.defvalue.text}</div>
+              (<div style="display: flex;flex-direction: column;">
+                <div style="line-height:20px">{data.defvalue.text}</div>
               <span class="font-green">${data.defvalue.value.price}</span>
-                </div>):
-                (<div>
-                <div>{data.defvalue.text}</div>
-                <span class="cf60">${data.defvalue.value.price}</span>
-              </div>)):
-              <div>{data.defvalue.text}</div>
-          )
+            </div>):
+            (<div style="display: flex;flex-direction: column;">
+            <div style="line-height:20px">{data.defvalue.text}</div>
+            <span class="cf60">${data.defvalue.value.price}</span>
+            </div>)):(
+            <div>
+            <div style="line-height:20px">{data.defvalue.text}</div>
+            </div>
+        )
+        )
         }
         return (
-          <div  style="min-height:60px;">
+          <div>
           {loop(parmas)}
           </div>
       );
       },
-      judgeDate(){
+      arrRenderContent(h,parmas) {//到达日历内容渲染
+        const loop = data =>{
+          return(
+            data.defvalue.value?(data.defvalue.value.price==this.ret_min_price?
+              (<div style="display: flex;flex-direction: column;">
+                <div>{data.defvalue.text}</div>
+                <span class="font-green">${data.defvalue.value.price}</span>
+              </div>):
+              (<div style="display: flex;flex-direction: column;">
+            <div>{data.defvalue.text}</div>
+            <span class="cf60">${data.defvalue.value.price}</span>
+            </div>)):
+            <div>{data.defvalue.text}</div>
+        )
+        }
+        return (
+          <div>
+          {loop(parmas)}
+          </div>
+      );
+      },
+      judgeDate(){//日期比较
         if (this.depart_date&&this.return_date){//日期比较，返回日期比出发日期早，初始化返回日期
           (new Date(this.depart_date.replace(/-/g,"\/")))>(new Date(this.return_date.replace(/-/g,"\/")))?this.return_date="":""
         }
+      },
+      inputCount(ev){
+        ev.target.value = ev.target.value.replace(/[^\d]/g, '')//只能输入数字
+        if (ev.target.value.length>1){
+          ev.target.value = ev.target.value.replace(/^0{1,}/g,'')//数字有两位以上，不能以0开头
+        }
+        ev.target.value = parseInt(ev.target.value) > ev.target.max?parseInt(new Number(ev.target.value)/10):ev.target.value//大于最大值，则等于当前值
+        // ev.target.value = parseInt(ev.target.value) < ev.target.min?ev.target.min:ev.target.value//小于最小值，则等于最小值
+        // ev.target.value = ev.target.value == "" ? ev.target.min:ev.target.value//value为空时，等于最小值
+      },
+      hiddenPassengerBox(){
+        this.$refs.passenger.visible = false
       }
     },
     name:"BusSearchFrame",
@@ -304,14 +380,54 @@
   }
 </script>
 <style scoped>
-  .icon-bus {
-    font-size: 14px;
-  }
-  .search-city {
+  .flex {
     display: flex;
   }
   .search-frame {
     background-image: url("../../assets/bg.png");
+  }
+  >>> .fa {
+    left: 10px!important;
+    top: 17px!important;
+  }
+  >>> .return-date-cancel {
+    position: absolute;
+    right: 10px;
+    top: 17px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  >>> .el-select .el-input .el-select__caret {
+    font-size: 16px;
+  }
+  >>> .change-date-div {
+    float: left;
+    position: relative;
+    height: 48px;
+    width: 160px;
+  }
+  >>> .change-date-div .icon-calendar {
+    position: absolute;
+    left: 10px;
+    top: 14px;
+    z-index: 1;
+  }
+  >>> .date-in .el-input__suffix{
+    display: none;
+  }
+  >>> .return-date .el-input__suffix {
+    display: block;
+  }
+  >>> .return-date .el-input__suffix .el-icon-arrow-up {
+    display: none;
+  }
+  >>> .date-in input {
+    padding-left: 43px!important;
+  }
+  >>> .cf60,>>>.font-green {
+    display: inline-block;
+    height: 16px;
+    line-height: 16px;
   }
   >>> .cf60 {
     color: #ff6600;
@@ -321,10 +437,6 @@
   }
   >>> .change-date .date-in .el-input__inner {
     padding-left: 35px;
-  }
-  >>> .date-in {
-    width: 50%;
-    float: left;
   }
   >>>.el-popper {
     padding: 0px;
@@ -349,13 +461,14 @@
   >>> .search-submit .el-button {
     width: 98px;
     height: 48px;
-    background: rgba(255,153,13,1);
+    background: #FF9A0D;
+    border-color: #FF9A0D;
   }
-  >>> .search-submit .el-button--primary,.search-submit .el-button--primary:hover{
-    border-color: rgba(255,153,13,1);
-  }
-  >>> .search-submit .el-icon-search {
-    font-size: 24px;
+  >>> .search-submit button {
+    font-size: 16px;
+    font-family: Arial-BoldMT;
+    font-weight: bold;
+    color: white;
   }
   >>> .change-passenger .el-input__inner {
     padding: 0px 25px 0px 37px;
@@ -366,17 +479,22 @@
     color:#606266;
     line-height:14px;
   }
+  >>> .el-form .change-passenger .el-input__inner {
+    padding-right: 25px!important;
+  }
+  >>> .icon-bus {
+    font-size: 14px;
+  }
+  >>> .icon-bus:before {
+    font-size: 15px;
+  }
   >>> .change-passenger .el-input__suffix {
     right: 3px!important;
   }
   >>> .el-scrollbar .el-input__inner {
     height: auto;
   }
-  >>> .el-select-dropdown .el-select-dropdown__item,.el-select-dropdown li {
-    height: 40px;
-    margin-top:2px
-  }
-  >>> .el-select-dropdown .el-select-dropdown__item>span,.el-select-dropdown li>span {
+  >>> .el-select-dropdown .el-select-dropdown__item span,.el-select-dropdown li span {
     line-height: 40px;
   }
   >>> .el-input-number {
@@ -399,21 +517,26 @@
     width: 220px;
     position: relative;
   }
-  .change-passenger .el-icon-user {
-    color: #383838;
-    font-size: 19px;
+  .change-passenger .icon-user {
+    font-size: 16px;
     z-index: 11;
     position: absolute;
-    top: 14px;
+    top: 16px!important;
     left: 8px;
   }
   >>> .track-bus-btn .el-button {
     width: 152px;
     height: 36px;
-    background: linear-gradient(180deg,rgba(245,245,245,1) 0%,rgba(240,240,240,1) 100%);
+    line-height: 36px;
+
+    /*background: linear-gradient(180deg,rgba(245,245,245,1) 0%,rgba(240,240,240,1) 100%);*/
     border-radius: 6px;
-    border: 1px solid rgba(204,204,204,1);
+    border: 0px;
+    /*border: 1px solid rgba(204,204,204,1);*/
     padding: 0px;
+  }
+  >>> .track-bus-btn .el-button:hover {
+    background-color: transparent;
   }
   .arrow {
     position: relative;
@@ -429,13 +552,16 @@
     height: 24px;
     line-height: 24px;
   }
+  .el-button--text {
+    color: #606266;
+  }
   >>> .city_passenger .el-select .el-input .el-input__inner {
-    padding-left: 37px;
-    padding-right: 51px;
+    padding-left: 43px;
     width: 100%;
+    padding-right: 52px;
   }
   >>> .arrive-city .el-select .el-input .el-input__inner {
-    padding-left: 47px;
+    padding-left: 53px;
     width: 240px;
   }
   >>> .city_passenger .el-select .el-input span.el-input__suffix {
@@ -444,9 +570,24 @@
   >>> .city_passenger .el-select .el-input span.el-input__suffix i {
     color: rgba(56,56,56,1);
   }
-
+  >>> #passenger-btn {
+    font-size: 14px;
+    font-family: Arial-BoldMT;
+    font-weight: normal;
+    color: #606266;
+    line-height: 14px;
+    float: right;
+  }
 </style>
 <style lang="scss" scoped>
+  .track-bus-btn{
+    .el-button{
+      color: #666;
+      &:focus,&:hover{
+        color: #00a2ff;
+      }
+    }
+  }
   .el-popover {
     padding: 0px!important;
   }
@@ -456,13 +597,21 @@
     padding-top: 189px;
     background-size: 100% 100%;
   }
+  .track-bus-btn {
+    margin-top: 8px;
+    margin-bottom: 6px;
+    &>button{
+      float: right;
+      margin-right: 24px;
+    }
+  }
   .search-box {
     width:1185px;
-    height:160px;
     background:rgba(255,255,255,1);
     box-shadow:2px 4px 20px 0px rgba(51,51,51,0.67);
     border-radius:11px;
     display: flex;
+    flex-direction: column;
     margin:0 auto;
     opacity: 1;
     .search-box-container {
@@ -472,7 +621,7 @@
       flex-direction: column;
       position: relative;
       .search-table {
-        margin-top: 26px;
+        /*margin-top: 26px;*/
         font-size:14px;
         font-family:ArialMT;
         color:rgba(129,129,129,1);
@@ -481,12 +630,10 @@
 
         }
       }
-      .track-bus-btn {
-        margin-top: 26px;
-      }
       .arrive-city {
-        .el-icon-location-outline {
-          left: 262px!important;
+        position: relative;
+        .icon-location {
+          left: 20px!important;
         }
         .el-select {
           .el-input {
@@ -508,28 +655,98 @@
       }
     }
   }
-  .departure-city,.arrive-cit {
+  .departure-city,.arrive-city {
     width: 240px;
   }
   .departure-city,.arrive-city,.change-passenger {
-    .el-icon-location-outline {
-      color: rgba(56,56,56,1);
-      font-size: 19px;
+    .icon-direction,.icon-location {
+      color: #999;
+      font-size: 14px;
       z-index: 11;
       position: absolute;
-      top: 39px;
+      top: 17px;
       left: 10px;
     }
     .el-select {
       width: 100%;
     }
   }
-  .el-select-dropdown__list .el-select-dropdown__item {
-    width: 291px!important;
+  .service {
+    display: flex;
+    height: 44px;
+    margin-top: 24px;
+    justify-content: space-between;
+    align-items: center;
+    background:linear-gradient(180deg,rgba(108,152,193,1) 0%,rgba(104,147,186,1) 57%,rgba(102,146,189,1) 100%);
+    border-radius:0px 0px 8px 8px;
+    .service-item {
+      flex: 1;
+      color: #fff;
+      text-align: center;
+      font-family: Arial;
+      font-size: 12px;
+      &:before {
+        display: inline-block;
+        margin-right: 9px;
+        font-size: 16px;
+      }
+    }
   }
 </style>
 <style>
+  [class*="icon-shuangzuojiantou-"]:before,
+  [class*="icon-icon_arrow_left"]:before,
+  [class*="icon-shuangyoujiantou-"]:before,
+  [class*="icon-icon_arrow_right"]:before
+  {
+    font-family: iconfont!important;
+  }
+  [style*="min-width: 160px"].el-popper {
+    width: 338px;
+  }
+  [style*="min-width: 160px"].el-popper .el-scrollbar {
+    overflow: hidden;
+    height: 373px;
+  }
+  [style*="min-width: 160px"].el-popper .el-scrollbar__wrap{
+    max-height: 373px;
+    overflow: hidden;
+  }
+  .el-scrollbar__wrap th {
+    text-align: center;
+  }
+  .option-calendar {
+    height: 373px;
+    width: 338px;
+    padding: 0px;
+    margin: 0px;
+  }
   .el-popover{
     padding: 0;
+  }
+  .el-select-dropdown__list {
+    padding: 0px;
+  }
+  .option-inpnumber {
+    margin: 10px 0px!important;
+    width: 291px!important;
+    height: 40px;
+    margin-top:2px
+  }
+  .option-inpnumber.hover, .option-inpnumber:hover {
+    background:none;
+  }
+  .option-inpnumber .el-button {
+    font-weight: normal;
+    border: 0px;
+  }
+  .option-inpnumber .el-button span {
+    color: rgba(255,153,13,1);
+  }
+  .el-date-table-calendar__row td>div{
+    min-height: 46px!important;
+  }
+  .el-date-table-calendar__row td>div>div{
+    height: 46px!important;
   }
 </style>

@@ -48,13 +48,13 @@
     justify-content:space-between;
     align-items: center;
     height: 22px;
-    margin-bottom: 22px;
+    margin-bottom: 10px;
   }
   .line-title {
     font-size:18px;
     font-family:Arial-BoldMT;
     font-weight:normal;
-    color:rgba(35,35,35,1);
+    color:#333;
     height: 20px;
     line-height: 20px;
   }

@@ -131,12 +131,12 @@
     flex-direction: column!important;
     .el-main {
       width: 100%;
-      margin-top: 40px;
       .station-list {
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
         list-style: none;
+        margin: 0px;
       }
     }
   }
