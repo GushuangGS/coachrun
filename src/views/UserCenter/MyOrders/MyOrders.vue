@@ -279,12 +279,12 @@
   }
   .bookings-header>span {
     font-size: 14px;
-    color: #274F7C;
+    color: #29507D;
     cursor: pointer;
   }
   .column-name {
     background-color: #E5EFFA;
-    color: #274F7C;
+    color: #29507D;
     height: 36px;
     line-height: 36px;
   }
@@ -367,8 +367,8 @@
     border-bottom: 1px dashed #F2F6FB;
   }
   >>> .el-collapse-item__wrap {
-    background-color: inherit;
-    border: 2px solid #F5F5F5;
+    background-color: #f8f8f8;
+    border: 2px solid #f8f8f8;
   }
   .no-bookings{
       color:rgba(51,51,51,1); 

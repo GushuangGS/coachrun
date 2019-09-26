@@ -1432,7 +1432,7 @@
         border-bottom: 1px dashed #F2F6FB;
       }
       >>> .el-collapse-item__wrap {
-        background-color: inherit;
+        background-color: #f8f8f8;
         border: 2px solid #f8f8f8;
       }
 

@@ -720,7 +720,7 @@
         padding-right: 3px;
       }
       >>> .el-collapse-item:not(:last-child) {
-        background-color: #F5F5F5;
+        background-color: #f8f8f8;
         margin-bottom: 20px;
       }
       >>> .el-collapse-item__header {
@@ -900,7 +900,7 @@
         border-bottom: 1px dashed #F2F6FB;
       }
       >>> .el-collapse-item__wrap {
-        background-color: inherit;
+        background-color: #f8f8f8;
       }
       .line-none{
         text-decoration: line-through;
