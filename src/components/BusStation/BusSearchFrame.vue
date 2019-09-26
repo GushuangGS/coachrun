@@ -88,6 +88,7 @@
                 >
                   <el-option
                     class="option-calendar"
+                    :value="return_date"
                   >
                     <div @click.stop>
                       <ele-calendar
@@ -113,6 +114,7 @@
               >
                 <el-option
                   class="option-inpnumber"
+                  :value="passengerNum1"
                 >
                   <div @click.stop>
                     <span style="float: left">Adults</span>
@@ -127,6 +129,7 @@
                 </el-option>
                 <el-option
                   class="option-inpnumber"
+                  :value="passengerNum1"
                 >
                   <div @click.stop>
                     <span style="float: left">Children</span>
@@ -141,6 +144,7 @@
                 </el-option>
                 <el-option
                   class="option-inpnumber"
+                  :value="passengerNum1"
                 >
                   <div @click.stop>
                     <el-button @click = "hiddenPassengerBox" id="passenger-btn">Done</el-button>
