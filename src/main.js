@@ -49,13 +49,6 @@ const tip = msg =>{
     });
 }
 
-const toLogin =()=>{
-  router.replace({
-    name: 'Login',
-    query:{pageUrl:location.href}
-  })
-}
-
 const errorHandle = (status, msg) => {//code判断
   // 状态码判断
   switch (status) {
@@ -69,10 +62,9 @@ const errorHandle = (status, msg) => {//code判断
           localStorage.removeItem('IvyCustomer_LoginToken');
           localStorage.removeItem("loginName");
           store.commit('logout');
-          toLogin;
-          // setTimeout(() => {
-          //     router.replace({name: 'Login'});
-          // }, 1000);
+          setTimeout(() => {
+              router.replace({name: 'Login',query:{pageUrl:location.href}});
+          }, 1000);
           break;
       default:
   }
