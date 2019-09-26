@@ -70,7 +70,7 @@
     margin: auto;
   }
   >>> .el-card__body:hover {
-     background:rgba(250,250,250,1);
+     background:#f8f8f8;
      box-shadow:2px 4px 12px 0px rgba(0,0,0,0.1);
      border-radius:4px;
    }
@@ -80,7 +80,7 @@
     box-shadow: none;
   }
   .box-item {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
   .box-card {
     width: 524px;
@@ -127,7 +127,7 @@
           p {
             font-size:14px;
             font-family:ArialMT;
-            color:rgba(76,76,76,1);
+            color:#666;
             line-height:21px;
             margin: 0px;
           }

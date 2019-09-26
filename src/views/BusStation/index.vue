@@ -66,7 +66,7 @@
 </script>
 <style scoped>
   .section {
-    margin: 0 auto 90px;
+    margin: 0 auto 60px;
   }
   .ellipsis{
     overflow: hidden;
@@ -86,8 +86,5 @@
   }
   .el-main {
     padding: 0px!important;
-  }
-  .section {
-    margin:0 auto 80px;
   }
 </style>
