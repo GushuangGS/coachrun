@@ -1238,7 +1238,7 @@
         color: #333333;
       }
       .guest-add{
-        color: #FFA212;
+        color: #FF9A0D;
         cursor: pointer;
         font-weight: bold;
       }
@@ -1248,7 +1248,7 @@
       }
       .column-name {
         background-color: #E5EFFA;
-        color: #274F7C;
+        color: #29507D;
         height: 36px;
         line-height: 36px;
       }
@@ -1263,7 +1263,7 @@
       }
       >>> .el-collapse-item__header {
         border-bottom: none;
-        background-color: #F5F5F5;
+        background-color: #f8f8f8;
         height: 80px;
       } 
       .total-pay{
@@ -1433,7 +1433,7 @@
       }
       >>> .el-collapse-item__wrap {
         background-color: inherit;
-        border: 2px solid #F5F5F5;
+        border: 2px solid #f8f8f8;
       }
 
       .pagination-wrapper {

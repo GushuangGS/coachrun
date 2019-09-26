@@ -8,7 +8,7 @@
                 :default-active="$route.path"
                 class="el-menu-vertical-demo"
                 text-color="#333"
-                active-text-color="#E38E16"
+                active-text-color="#FF9A0D"
                 :default-openeds="openeds"
                 router
               >
@@ -19,7 +19,7 @@
                   <template slot="title">
                     <span>My Account</span>
                   </template>
-                  <el-menu-item-group text-color="#666666">
+                  <el-menu-item-group>
                     <el-menu-item index="/render/member/account/booking-list" :route="{name:'MyBookings'}">My Bookings</el-menu-item>
                     <el-menu-item index="/render/member/account/deals" :route="{name:'MyDeals'}">My Deals</el-menu-item>
                     <el-menu-item index="/render/member/account/view-point" :route="{name:'MyPoints'}">My Points</el-menu-item>
@@ -70,13 +70,13 @@ export default {
     background: #F1F1F1;
   }
   >>> .el-menu-item-group>ul>li{
-    background: #FBFBFB;
+    background: #f8f8f8;
     color: #666666 !important;
   }
   .el-menu-item.is-active {
-    color: #E38E16 !important;
+    color: #FF9A0D !important;
   }
   .el-menu-item:hover{
-      color: #E38E16 !important;
+      color: #FF9A0D !important;
   }
 </style>

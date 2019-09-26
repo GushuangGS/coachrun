@@ -726,7 +726,7 @@
       >>> .el-collapse-item__header {
         border-bottom: none;
         /* background-color: inherit; */
-        background-color: #F5F5F5 !important;
+        background-color: #f8f8f8 !important;
         height: 80px;
       } 
       .title-bookings{

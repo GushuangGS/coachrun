@@ -228,7 +228,7 @@
     align-items: center;
   }
   .points-num{
-    color: #365C86;
+    color: #29507D;
     font-size: 24px;
     line-height: 24px;
     margin-left: 10px;
