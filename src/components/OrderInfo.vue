@@ -703,7 +703,7 @@
 <style scoped>
     .column-name {
         background-color: #E5EFFA;
-        color: #274F7C;
+        color: #29507D;
         height: 36px;
         line-height: 36px;
       }
