@@ -114,7 +114,7 @@
                             VueCookie.delete('front-sessionId');
                             this.$store.commit('logout');
                             this.$router.push({name: 'Login'});
-                        }else{
+                        }else if(data.data.code==500){
                             this.$message({
                                 message: data.data.msg,
                                 type: 'warning',
