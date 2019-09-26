@@ -1206,7 +1206,7 @@
         padding-top: 0;
       }
       .content {
-        margin-top: 10px;
+        margin-top: 20px;
         padding-left: 20px;
       }
       .content>h2 {
@@ -1364,7 +1364,7 @@
       }
       div.order-status {
         font-size: 14px;
-        color: #458A8E;
+        color: #208291;
         font-weight: bold;
       }
       div.order-status2{

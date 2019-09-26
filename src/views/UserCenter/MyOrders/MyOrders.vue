@@ -188,7 +188,7 @@
     margin-top: 0;
     font-size: 24px;
     line-height: 28px;
-    color: #002E63;
+    color: #29507D;
   }
   .account-brief {
     box-sizing: border-box;
@@ -229,7 +229,7 @@
   }
   .points-num{
     color: #29507D;
-    font-size: 24px;
+    font-size: 18px;
     line-height: 24px;
     margin-left: 10px;
     font-weight:bold;

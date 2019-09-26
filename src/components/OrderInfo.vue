@@ -830,7 +830,7 @@
       }
       div.order-status {
         font-size: 14px;
-        color: #458A8E;
+        color: #208291;
         text-align: center;
         font-weight: bold;
       }
