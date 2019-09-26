@@ -37,7 +37,10 @@
                 1 Order(s) has been added to your account! Please check <span class="right-tips-span" @click="toBookings">My Bookings.</span> 
             </div>
             <div class="error-tips" v-show="showError">
-                Sorry, no purchase records under “{{inputEmail}}” within 100 days. 
+                <img src="@/assets/iconsad.png" alt="" class="err-img">
+                <span>
+                    Sorry, no purchase records under “{{inputEmail}}” within 100 days. 
+                </span>
             </div>
         </div>
     </template>
@@ -65,7 +68,7 @@
                     sendAuthCode: true, //布尔值，通过v-show控制显示‘发送按钮’还是‘倒计时’ 
                     tips:'Click “ Get Security Code” for us to send a security code to your booking email.',
                     showRight:false,
-                    showError:false,
+                    showError:true,
                     err:'',
                     verCode:'',
                     showRed:false,
@@ -177,7 +180,7 @@
         /* background: skyblue; */
         border-radius:2px;
         margin: 0 auto;
-        padding: 20px 23px 30px 23px;
+        padding: 20px 24px 30px 24px;
        }
        .right-tips{
         width: 568px; 
@@ -205,7 +208,15 @@
         text-align: center;
         line-height: 59px;
         color: #333333;
-        font-size: 14px;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+       }
+       .err-img{
+           width: 16px;
+           height: 16px;
+           margin-left: 25px;
+           margin-right: 12px;
        }
        .wrap-title{
            font-size: 16px;
@@ -242,7 +253,7 @@
            border-bottom-left-radius: 0;
        }
        .btn2{
-           margin-left: 127px;
+           margin-left: 103px;
        }
        .click-tip{
             margin-top: -50px;
@@ -252,7 +263,7 @@
             margin-left: 109px;
        }
        .red{
-           color: red;
+           color: #f56c6c;
        }
        .code-rule{
            margin-top: 30px;

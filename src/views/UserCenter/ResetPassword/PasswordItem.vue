@@ -196,7 +196,7 @@
             background:rgba(255,255,255,1);
             width: 568px;
             min-height: 414px;
-            padding: 20px 23px 30px 23px;
+            padding: 20px 24px 30px 24px;
         }
         .title{
             font-size: 16px;
@@ -245,7 +245,7 @@
         }
         .btnCode{
             width: 25%;
-            margin-left: 127px;
+            margin-left: 120px;
         }
         .click-tip{
             margin-top: -50px;

@@ -258,7 +258,7 @@
   }
   .divider {
     width: 978px;
-    border-top: 1px solid #EAEAEA;
+    border-top: 1px solid #EBEEF5;
     margin-top: 20px;
     margin-bottom: 58px;
   }
@@ -372,8 +372,9 @@
   }
   .no-bookings{
       color:rgba(51,51,51,1); 
-      line-height:18px;
+      height: 40px;
+      line-height: 40px;
       font-size: 16px;
-      margin-top: 10px;
+      border-bottom: 1px solid #EBEEF5;
     }
 </style>

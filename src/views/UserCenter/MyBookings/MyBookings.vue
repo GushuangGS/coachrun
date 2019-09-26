@@ -1499,5 +1499,8 @@
     .el-picker-panel__sidebar+.el-picker-panel__body{
       margin-left: 195px;
     }
+    .bookings-item-content[data-v-19d485cc] .el-row{
+      border-bottom:1px dashed #EBEEF5;
+    }
     </style>
     
