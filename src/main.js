@@ -56,7 +56,7 @@ const errorHandle = (status, msg) => {//code判断
           // tip(msg);
           break;
       case 401:
-          if(msg==-1){
+          if(msg.indexOf('logout')==-1){
             tip('Your login has expired. Please log in again to continue.');
           }
           localStorage.removeItem('IvyCustomer_LoginToken');
