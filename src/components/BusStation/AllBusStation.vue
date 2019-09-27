@@ -98,7 +98,7 @@
   >>> .el-dialog__header {
     padding: 0px;
     height: 40px;
-    background:rgba(240,240,240,1);
+    background:#f9f9f9;
     display: flex;
     align-items: center;
   }
@@ -106,7 +106,7 @@
     height:20px;
     font-size:18px;
     font-family:Arial;
-    font-weight:normal;
+    font-weight:bold;
     color:rgba(42,42,42,1);
     line-height:21px;
     margin-left: 20px;

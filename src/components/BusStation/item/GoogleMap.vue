@@ -2,6 +2,7 @@
     <div id="google-map" style="width: 640px;height: 458px;top: 20px;left: 20px;"></div>
 </template>
 <script>
+  import country from "../../../configs/country.json"
   export default {
     props:{
       positions:{
@@ -13,7 +14,23 @@
         default: 0
       }
     },
+    data(){
+      return {
+        newCountry:{}
+      }
+    },
+    mounted(){
+      this.getCountry(country)
+    },
     methods:{
+       getCountry(data) {
+        let newdata = {}
+        for (let n in data) {
+          let item = data[n]
+          newdata[item.value] = item.text
+        }
+        this.newCountry = newdata
+      },
       initMap() {
         // const uluru = {lat: 36, lng: -97};
         var bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
@@ -27,6 +44,7 @@
         let markerArr = []  //需要弹窗的marker对象数组
         let infoWindow = []//msg数组
         for (let i = 0;i<this.positions.length;i++) {
+          console.log(this.positions)
           bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));
           let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
           if (i == this.index) {
@@ -39,10 +57,35 @@
           } else {
             let marker = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
             marker.setMap(map)
+            let info = {}
+            let landmarkData = this.positions[i].landmark.split(', ')
+            if (landmarkData.length==1){
+              if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
+                info = new google.maps.InfoWindow({
+                  content:`<div>${landmarkData[0]}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
+</div>`
+                })
+              } else {
+                info = new google.maps.InfoWindow({
+                  content:`<div>${landmarkData[0]}()<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.position[i].address.state}${this.position[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
+</div>`
+                })
+              }
+            } else {
+              if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
+                info = new google.maps.InfoWindow({
+                  content:`<div>${landmarkData[0]}(${landmarkData[1]})<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
+</div>`
+                })
+              } else {
+                info = new google.maps.InfoWindow({
+                  content:`<div>${landmarkData[0]}(${landmarkData[1]})<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.position[i].address.state}${this.position[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
+</div>`
+                })
+              }
+            }
 
-            let info = new google.maps.InfoWindow({
-              content:this.positions[i].name
-            })
+            //${this.positions[i].landmark}()<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}${this.positions[i].address.zipcode?', '+this.position[i].address.state+this.position[i].address.zipcode:""}<br>${this.newCountry[this.positions[i].address.country]}
             google.maps.event.addListener(marker,"click",function (event) {
               info.open(map,marker)
             })
