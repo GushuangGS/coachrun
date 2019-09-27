@@ -159,14 +159,14 @@
                     },
                     rules: {
                         firstName: [
-                            { required: true, trigger: 'blur' ,message: 'Please enter your first name.'}
+                            { required: true, trigger: 'blur' ,message: 'Please enter first name.'}
                         ],
                         lastName: [
-                            { required: true, trigger: 'blur' ,message: 'Please enter your last name.'}
+                            { required: true, trigger: 'blur' ,message: 'Please enter last name.'}
                         ],
                         email: [
                             { required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
-                            { type: 'email', message: 'Please enter the correct email address', trigger: 'blur'}
+                            { type: 'email', message: 'Please enter a valid email address.', trigger: 'blur'}
                         ],
                         phone: [
                             { required: true, trigger: 'blur',validator: validatePhone}

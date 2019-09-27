@@ -149,7 +149,7 @@
               console.log(res);
               if(res.data.code == 200){
                 this.$message({
-                  message: 'Deleted successfully.',
+                  message: 'Removed successfully.',
                   type: 'success',
                   center: true
                 });

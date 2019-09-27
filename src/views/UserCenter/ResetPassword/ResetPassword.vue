@@ -59,7 +59,7 @@
                     if(!reg.test(value)){
                         callback(new Error('Use 6-12 characters with a mix of letters, numbers & symbols.'));
                     }else if(value !== this.ruleForm.pass){
-                        callback(new Error('The password must be the same.'));
+                        callback(new Error('Please enter the same password.'));
                     }
                     callback();
                 }

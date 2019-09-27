@@ -39,7 +39,7 @@
               <el-form-item label="New Password:" prop="pass">
                 <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="Reenter New Password:" prop="checkPass">
+              <el-form-item label="Re-type password:" prop="checkPass">
                 <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item>
