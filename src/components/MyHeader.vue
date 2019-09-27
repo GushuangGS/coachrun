@@ -161,7 +161,7 @@
     height: 36px;
     line-height: 34px;
     padding: 0 15px;
-    border:1px solid rgba(219,219,219,1);
+    border:1px solid #cdcdcd;
     display: flex;
     font-size:14px;   
     border-radius:4px;      
