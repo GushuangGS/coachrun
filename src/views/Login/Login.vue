@@ -114,16 +114,23 @@
                                 console.log(data);
                                 if(data.data.code==200){
                                     this.pageUrl = this.getId("pageUrl");
-                                    if(this.pageUrl){
-                                        window.location.href = this.pageUrl;
-                                    }else{
-                                        this.$router.push({name: 'MyOrders'});
-                                    }
+
+                                    // if(process.env.NODE_ENV === 'production'){
+                                    //     if(VueCookie.get('IvyCustomer_role')>=3){
+                                    //         this.$router.push({path:'/app/member/account'});
+                                    //     }else{
+                                    //         if(this.pageUrl){
+                                    //             window.location.href = this.pageUrl;
+                                    //         }else{
+                                    //             this.$router.push({name: 'MyOrders'});
+                                    //         }
+                                    //     }
+                                    // }
                                     
                                     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
                                     if(loginCookie == undefined) return
                                         let token = loginCookie.split('+|+')[2]
-                                    if (process.env.NODE_ENV === 'production'){
+                                    if (process.env.NODE_ENV == 'production'){
                                         if(!token){
                                             this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
                                                 .then( res => {
@@ -135,9 +142,25 @@
                                                 })
                                         }
                                     }
-                                    if (process.env.NODE_ENV === 'development'){
+                                    console.log(process.env.NODE_ENV);
+                                    if (process.env.NODE_ENV == 'development'){
                                         localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                                         localStorage.setItem("loginName", data.data.data.user.email);
+                                        if(this.pageUrl){
+                                            window.location.href = this.pageUrl;
+                                        }else{
+                                            this.$router.push({name: 'MyOrders'});
+                                        }
+                                    }else{
+                                        if(this.pageUrl){
+                                            window.location.href = this.pageUrl;
+                                        }else{
+                                            if(VueCookie.get('IvyCustomer_role')>=3){
+                                                this.$router.push({path:'/app/member/account'});
+                                            }else{
+                                                this.$router.push({name: 'MyOrders'});
+                                            }
+                                        }
                                     }
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
                                     this.$store.commit('login'); 

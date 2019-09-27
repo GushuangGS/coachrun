@@ -7,36 +7,7 @@
             <el-main>
               <div class="content">
                 <h2 class="welcome">My Bookings</h2>
-                <!-- <div class="order-time">
-                    <span class="dateTitle">Purchase Date:</span>
-                    <el-select v-model="value" @change="select">
-                      <el-option :value="value">
-                          <template>
-                            <el-date-picker
-                              v-model="valueTime"
-                              size="small"
-                              type="daterange"
-                              @change="selectTime"
-                              value-format="yyyy-MM-dd"
-                              format="yyyy-MM-dd"
-                              unlink-panels
-                              range-separator="to"
-                              start-placeholder="Start Date"
-                              end-placeholder="End Date"
-                              >
-                            </el-date-picker>
-                          </template>
-                      </el-option>
-                      <el-option
-                        v-for="item in options"
-                        :key="item.value"
-                        :label="item.name"
-                        :value="item.value">
-                      </el-option>
-                    </el-select>
-                </div> -->
-                <!--  -->
-                <!-- <my-date-picker :userID="userId" @changeDate="changeBookList"></my-date-picker> -->
+                <!-- <my-date-picker :userID="userId" :api="bookingsApi" @changeDate="changeBookList"></my-date-picker> -->
                 <div class="order-time">
                   <span class="dateTitle">Purchase Date:</span>
                   <el-date-picker
@@ -89,7 +60,6 @@
                             </div>
                             <div class="total-pay">
                               <span>Total Payment: </span>
-                              <!-- <span class="total-money">${{info.totalAmount}}</span> -->
                               <span class="total-money">${{getTotal(info.entities)}}</span>
                             </div>
                           </div>
@@ -341,376 +311,8 @@
                                 </div>
                             </div>
                           </li>
-                          <!-- <li class="bookings-item-content">
-                                <el-row>
-                                  <el-col :span="11">
-                                      <div class="column-first">
-                                          <span>
-                                                Boston 5:50pm ->  New York 10:00pm
-                                          </span>
-                                          <div class="icon-night2"></div>
-                                          <div class="bookings-disc bookings-disc-color2">
-                                                Cancled
-                                          </div>
-                                        </div>
-                                    </el-col>
-                                  <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                                  <el-col :span="3"><div>0</div></el-col>
-                                  <el-col :span="3"><div class="money">$0</div></el-col>
-                                  <el-col :span="3">
-                                    <div class="order-status">
-                                      Cofirmed
-                                    </div>
-                                  </el-col>
-                                </el-row>
-                                <div class="actions">
-                                  <div class="order-details">
-                                      <div>
-                                          <span class="details-left">Itinerary ID:</span>
-                                          <span class="details-icon1">JT26-600-1947-62</span>
-                                      </div>
-                                      <div>
-                                          <span class="details-left">Schedule ID:</span>
-                                          <span class="details-icon1">CHR00378</span>
-                                      </div>
-                                      <div>
-                                          <span class="details-left">Departure:</span>
-                                          <span class="details-icon2">5:oopm Miami Bayside - 401 Biscayne</span>
-                                      </div>
-                                      <div>
-                                          <span class="details-left">Arrival:</span>
-                                          <span class="details-icon2">9:30pm Kissimmee - 1387 E Osceola Pkwy</span>
-                                      </div>
-                                      <div>
-                                          <span class="details-left">Price Type:</span>
-                                          <span class="details-icon1">Value Ticket</span>
-                                      </div>
-                                      <div class="details-info">
-                                          <span class="details-left">Passengers:</span>
-                                          <div class="details-icon1">
-                                              <div>
-                                                  <span>Adult:</span><span>1</span>
-                                                  <span>Child:</span><span>0</span>
-                                              </div>
-                                              <div>
-                                                    <span>Adult:</span><span>1</span>
-                                                    <span>Child:</span><span>0</span>
-                                                </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="btns">
-                                      <el-button class="Reschedule">Reschedule</el-button>
-                                      <el-button class="E-Ticket">E-Ticket</el-button>
-                                      <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                                  </div>
-                                </div>
-                              </li>
-                              <li class="bookings-item-content">
-                                    <el-row>
-                                      <el-col :span="11">
-                                          <div class="column-first">
-                                              <span>
-                                                    Boston 5:50pm ->  New York 10:00pm
-                                              </span>
-                                              <div class="icon-night2"></div>
-                                              <div class="bookings-disc bookings-disc-color3">
-                                                    SCHEDULED
-                                              </div>
-                                            </div>
-                                        </el-col>
-                                      <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                                      <el-col :span="3"><div>0</div></el-col>
-                                      <el-col :span="3"><div class="money">$0</div></el-col>
-                                      <el-col :span="3">
-                                        <div class="order-status">
-                                          Cofirmed
-                                        </div>
-                                      </el-col>
-                                    </el-row>
-                                    <div class="actions">
-                                      <div class="order-details">
-                                          <div>
-                                              <span class="details-left">Itinerary ID:</span>
-                                              <span class="details-icon1">JT26-600-1947-62</span>
-                                          </div>
-                                          <div>
-                                              <span class="details-left">Schedule ID:</span>
-                                              <span class="details-icon1">CHR00378</span>
-                                          </div>
-                                          <div>
-                                              <span class="details-left">Departure:</span>
-                                              <span class="details-icon2">5:oopm Miami Bayside - 401 Biscayne</span>
-                                          </div>
-                                          <div>
-                                              <span class="details-left">Arrival:</span>
-                                              <span class="details-icon2">9:30pm Kissimmee - 1387 E Osceola Pkwy</span>
-                                          </div>
-                                          <div>
-                                              <span class="details-left">Price Type:</span>
-                                              <span class="details-icon1">Value Ticket</span>
-                                          </div>
-                                          <div class="details-info">
-                                              <span class="details-left">Passengers:</span>
-                                              <div class="details-icon1">
-                                                  <div>
-                                                      <span>Adult:</span><span>1</span>
-                                                      <span>Child:</span><span>0</span>
-                                                  </div>
-                                                  <div>
-                                                        <span>Adult:</span><span>1</span>
-                                                        <span>Child:</span><span>0</span>
-                                                    </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="btns">
-                                          <el-button class="Reschedule">Reschedule</el-button>
-                                          <el-button class="E-Ticket">E-Ticket</el-button>
-                                          <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                                      </div>
-                                    </div>
-                                  </li> -->
                         </ul>
                       </el-collapse-item>
-
-                      <!-- <el-collapse-item name="2">
-                            <template slot="title">
-                              <div class="title-bookings">
-                                <img class="down" src="./img/up.png">
-                                <div>
-                                    <div class="bookings-item-brief">
-                                        <div>OrderId:&nbsp;&nbsp;<span>JT23-600-3427</span></div>
-                                        <div>Purchase date:&nbsp;&nbsp;<span>Tue,Jul 23,2019</span></div>
-                                        
-                                    </div>
-                                    <div class="bookings-item-brief">
-                                        <div>Name:&nbsp;&nbsp;<span>shi lina</span></div>
-                                        <div>Phone: &nbsp;&nbsp;<span>+1 17682309116</span></div>
-                                        <div>Email:&nbsp;&nbsp;<span>+1 17682309116</span></div>
-                                    </div>
-                                </div>
-                              </div>
-                            </template>
-                            <ul class="bookings-item-contents">
-                              <li class="bookings-item-content">
-                                <el-row>
-                                  <el-col :span="11">
-                                      <div class="column-first">
-                                          <span>
-                                                Boston 5:50pm ->  New York 10:00pm
-                                          </span>
-                                          <img src="./img/up.png" alt="">
-                                          <div class="bookings-disc bookings-disc-color1">
-                                                SCHEDULED
-                                          </div>
-                                        </div>
-                                    </el-col>
-                                  <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                                  <el-col :span="3"><div>0</div></el-col>
-                                  <el-col :span="3"><div class="money">$0</div></el-col>
-                                  <el-col :span="3">
-                                    <div class="order-status">
-                                      Cofirmed
-                                    </div>
-                                  </el-col>
-                                </el-row>
-                                <div class="actions">
-                                  <div class="order-details">
-                                      <div>
-                                          <span class="details-left">Itinerary ID:</span>
-                                          <span class="details-icon1">JT26-600-1947-62</span>
-                                      </div>
-                                      <div>
-                                          <span class="details-left">Schedule ID:</span>
-                                          <span class="details-icon1">CHR00378</span>
-                                      </div>
-                                      <div>
-                                          <span class="details-left">Departure:</span>
-                                          <span class="details-icon2">5:oopm Miami Bayside - 401 Biscayne</span>
-                                      </div>
-                                      <div>
-                                          <span class="details-left">Arrival:</span>
-                                          <span class="details-icon2">9:30pm Kissimmee - 1387 E Osceola Pkwy</span>
-                                      </div>
-                                      <div>
-                                          <span class="details-left">Price Type:</span>
-                                          <span class="details-icon1">Value Ticket</span>
-                                      </div>
-                                      <div class="details-info">
-                                          <span class="details-left">Passengers:</span>
-                                          <div class="details-icon1">
-                                              <div>
-                                                  <span>Adult:</span><span>1</span>
-                                                  <span>Child:</span><span>0</span>
-                                              </div>
-                                              <div>
-                                                    <span>Adult:</span><span>1</span>
-                                                    <span>Child:</span><span>0</span>
-                                                </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <div class="btns">
-                                      <el-button class="Reschedule">Reschedule</el-button>
-                                      <el-button class="E-Ticket">E-Ticket</el-button>
-                                      <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                                  </div>
-                                </div>
-                              </li>
-                              <li class="bookings-item-content">
-                                    <el-row>
-                                      <el-col :span="11">
-                                          <div class="column-first">
-                                              <span>
-                                                    Boston 5:50pm ->  New York 10:00pm
-                                              </span>
-                                              <img src="./img/up.png" alt="">
-                                              <div class="bookings-disc bookings-disc-color2">
-                                                    Cancled
-                                              </div>
-                                            </div>
-                                        </el-col>
-                                      <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                                      <el-col :span="3"><div>0</div></el-col>
-                                      <el-col :span="3"><div class="money">$0</div></el-col>
-                                      <el-col :span="3">
-                                        <div class="order-status">
-                                          Cofirmed
-                                        </div>
-                                      </el-col>
-                                    </el-row>
-                                    <div class="actions">
-                                      <div class="order-details">
-                                          <div>
-                                              <span class="details-left">Itinerary ID:</span>
-                                              <span class="details-icon1">JT26-600-1947-62</span>
-                                          </div>
-                                          <div>
-                                              <span class="details-left">Schedule ID:</span>
-                                              <span class="details-icon1">CHR00378</span>
-                                          </div>
-                                          <div>
-                                              <span class="details-left">Departure:</span>
-                                              <span class="details-icon2">5:oopm Miami Bayside - 401 Biscayne</span>
-                                          </div>
-                                          <div>
-                                              <span class="details-left">Arrival:</span>
-                                              <span class="details-icon2">9:30pm Kissimmee - 1387 E Osceola Pkwy</span>
-                                          </div>
-                                          <div>
-                                              <span class="details-left">Price Type:</span>
-                                              <span class="details-icon1">Value Ticket</span>
-                                          </div>
-                                          <div class="details-info">
-                                              <span class="details-left">Passengers:</span>
-                                              <div class="details-icon1">
-                                                  <div>
-                                                      <span>Adult:</span><span>1</span>
-                                                      <span>Child:</span><span>0</span>
-                                                  </div>
-                                                  <div>
-                                                        <span>Adult:</span><span>1</span>
-                                                        <span>Child:</span><span>0</span>
-                                                    </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                      <div class="btns">
-                                          <el-button class="Reschedule">Reschedule</el-button>
-                                          <el-button class="E-Ticket">E-Ticket</el-button>
-                                          <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                                      </div>
-                                    </div>
-                                  </li>
-                                  <li class="bookings-item-content">
-                                        <el-row>
-                                          <el-col :span="11">
-                                              <div class="column-first">
-                                                  <span>
-                                                        Boston 5:50pm ->  New York 10:00pm
-                                                  </span>
-                                                  <img src="./img/up.png" alt="">
-                                                  <div class="bookings-disc bookings-disc-color3">
-                                                        SCHEDULED
-                                                  </div>
-                                                </div>
-                                            </el-col>
-                                          <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                                          <el-col :span="3"><div>0</div></el-col>
-                                          <el-col :span="3"><div class="money">$0</div></el-col>
-                                          <el-col :span="3">
-                                            <div class="order-status">
-                                              Cofirmed
-                                            </div>
-                                          </el-col>
-                                        </el-row>
-                                        <div class="actions">
-                                          <div class="order-details">
-                                              <div>
-                                                  <span class="details-left">Itinerary ID:</span>
-                                                  <span class="details-icon1">JT26-600-1947-62</span>
-                                              </div>
-                                              <div>
-                                                  <span class="details-left">Schedule ID:</span>
-                                                  <span class="details-icon1">CHR00378</span>
-                                              </div>
-                                              <div>
-                                                  <span class="details-left">Departure:</span>
-                                                  <span class="details-icon2">5:oopm Miami Bayside - 401 Biscayne</span>
-                                              </div>
-                                              <div>
-                                                  <span class="details-left">Arrival:</span>
-                                                  <span class="details-icon2">9:30pm Kissimmee - 1387 E Osceola Pkwy</span>
-                                              </div>
-                                              <div>
-                                                  <span class="details-left">Price Type:</span>
-                                                  <span class="details-icon1">Value Ticket</span>
-                                              </div>
-                                              <div class="details-info">
-                                                  <span class="details-left">Passengers:</span>
-                                                  <div class="details-icon1">
-                                                      <div>
-                                                          <span>Adult:</span><span>1</span>
-                                                          <span>Child:</span><span>0</span>
-                                                      </div>
-                                                      <div>
-                                                            <span>Adult:</span><span>1</span>
-                                                            <span>Child:</span><span>0</span>
-                                                        </div>
-                                                  </div>
-                                              </div>
-                                          </div>
-                                          <div class="btns">
-                                              <el-button class="Reschedule">Reschedule</el-button>
-                                              <el-button class="E-Ticket">E-Ticket</el-button>
-                                              <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                                          </div>
-                                        </div>
-                                      </li> -->
-                              <!-- <li class="bookings-item-content">
-                                <el-row>
-                                  <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
-                                  <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                                  <el-col :span="4"><div>0</div></el-col>
-                                  <el-col :span="4"><div class="money">$0</div></el-col>
-                                  <el-col :span="4">
-                                    <div class="order-status">
-                                      Cofirmed
-                                    </div>
-                                  </el-col>
-                                </el-row>
-                                <div class="actions">
-                                    <div class="order-details">Details &raquo;</div>
-                                    <div class="btns">
-                                        <el-button class="Reschedule">Reschedule</el-button>
-                                        <el-button class="E-Ticket">E-Ticket</el-button>
-                                        <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                                    </div>
-                                </div>
-                              </li> -->
-                            <!-- </ul>
-                          </el-collapse-item> -->
                     </el-collapse>
                     <div class="no-bookings" v-if="bookingsList.length==0">
                         No purchase records match your selection. Please adjust the time period for your search.
@@ -870,34 +472,12 @@
             ],
             currentPage:1, //初始页
             pagesize:10,    //每页的数据
-            // options:[
-            //         { name: "Today", value: 2 },
-            //         { name: "Yesterday", value: 3 },
-            //         { name: "Yesterday & Today", value: 4 },
-            //         { name: "This Week (Sun - Today)", value: 5 },
-            //         { name: "This Week (Mon - Today)", value: 6 },
-            //         { name: "Last 7 days", value: 7 },
-            //         { name: "Today & Last 7 days", value: 8 },
-            //         { name: "Last Week (Sun - Sat)", value: 9 },
-            //         { name: "Last Week (Mon - Sun)", value: 10 },
-            //         { name: "Last 14 days", value: 11 },
-            //         { name: "Today & Last 14 days", value: 12 },
-            //         { name: "This Month", value: 13 },
-            //         { name: "Last Month", value: 14 },
-            //         { name: "Last 30 days", value: 15 },
-            //         { name: "Today & Last 30 days", value: 16 },
-            //         { name: "Last 90 days", value: 17 },
-            //         { name: "Today & Last 90 days", value: 18 },
-            //         { name: "Last 180 days", value: 19 },
-            //         { name: "Today & Last 180 days", value: 20 }],
-            value:'Today & Last 30 days',
-            valueTime:'',
             bookingsList:[],
-            // str:'2019-05-02',
             activeNames: [],
             userId:VueCookie.get("front-sessionId"),
             timeDefaultShow:'',
             selectedItinerary: null,
+            bookingsApi:'api/orders/list',//DatePicker
           }
         },
         components: {
@@ -906,16 +486,8 @@
         },
         name: 'MyBookings',
         created(){
-          // console.log(this.getSelectTime(moment().weekday(-6)))
-          // console.log(moment().add('month', 0).format('YYYY-MM') + '-01')
-          // console.log(moment().day(0).format('YYYY-MM-DD'))
-          // console.log(moment().day(0).format('YYYY-MM-DD'))
           this.orderList();
           // console.log(this.str.substr(5,2));  
-
-          // var nowDa = moment().format('YYYY-MM-DD HH:mm:ss');
-          // console.log(moment().format('YYYY-MM-DD HH:mm'))
-          // console.log(moment('2019-9-16 16:14:15').isAfter(nowDa))
         },
         mounted(){
           this.timeDefaultShow = new Date();
@@ -976,8 +548,8 @@
             }
             return false;
           },
-          changeBookList(){
-            // this.bookingsList = 
+          changeBookList(data){//DatePicker
+            this.bookingsList = data;
           },
           getIndex(index){
             return this.activeNames.some(item=>{
@@ -1004,17 +576,6 @@
               this.orderList();
             }
           },
-          // getSelectTime(time){
-          //   var datetime = new Date();  
-          //   datetime.setTime(time);  
-          //   var year = datetime.getFullYear();  
-          //   var month = datetime.getMonth() + 1 < 10 ? "0" + (datetime.getMonth() + 1) : datetime.getMonth() + 1;  
-          //   var date = datetime.getDate() < 10 ? "0" + datetime.getDate() : datetime.getDate();  
-          //   var hour = datetime.getHours()< 10 ? "0" + datetime.getHours() : datetime.getHours();  
-          //   var minute = datetime.getMinutes()< 10 ? "0" + datetime.getMinutes() : datetime.getMinutes();  
-          //   var second = datetime.getSeconds()< 10 ? "0" + datetime.getSeconds() : datetime.getSeconds();  
-          //   return year + "-" + month + "-" + date;   
-          // },
           getCity(item){
             var firCity,endCity,firTime,endTime,routeLine;
             if(item.passengers.length!=0){
@@ -1040,11 +601,6 @@
             var nowDate = moment(new Date()).add('year',0).format("YYYY-MM-DD");
             return moment(item.serviceDate).isAfter(nowDate);
           },
-          // getNextDay(item){
-          //   var nextDay;
-          //   nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
-          //   return nextDay;
-          // },
           getNext1Day(item){
               var nextDay;
               if(item.passengers.length!=0){
@@ -1091,36 +647,6 @@
               this.currentPage = currentPage;
               console.log(this.currentPage)  //点击第几页
           },
-          // select(value) {//选择器选中的value
-          //   this.$http.get(this.$api.bookingList,
-          //   {params:{dateRange:value,userId:this.userId}})
-          //           .then((res)=>{
-          //               console.log(res);
-          //               if(res.data.data!=null || res.data.data!=undefined){
-          //                 this.bookingsList = res.data.data;
-          //               }else{
-          //                 this.bookingsList = [];
-          //               }
-          //           })
-          //     console.log(value);
-          // },
-          // selectTime(value){
-          //   console.log(value)
-          //   if(value!=undefined){
-          //     this.$http.get(this.$api.bookingList,
-          //     {params:{startDate:value[0],endDate:value[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-          //             .then((res)=>{
-          //                 console.log(res);
-          //                 if(res.data.data!=null || res.data.data!=undefined){
-          //                   this.bookingsList = res.data.data;
-          //                 }else{
-          //                   this.bookingsList = [];
-          //                 }
-          //             })
-          //     console.log(value[0],value[1]);
-          //     this.value = value[0] +"--"+value[1];
-          //   }
-          // },
           dateChange(str){
             var week,mon,da,yea,newDate;
             week = this.getMyDay(new Date(str));//星期几
@@ -1249,8 +775,8 @@
       .column-name {
         background-color: #E5EFFA;
         color: #29507D;
-        height: 36px;
-        line-height: 36px;
+        height: 40px;
+        line-height: 40px;
       }
       .column-first {
         margin-left: 30px;
@@ -1263,7 +789,7 @@
       }
       >>> .el-collapse-item__header {
         border-bottom: none;
-        background-color: #f8f8f8;
+        background-color: #f9f9f9;
         height: 80px;
       } 
       .total-pay{
@@ -1315,7 +841,7 @@
         color: #666;
       }
       .bookings-item-brief>div>span {
-        color: #000;
+        color: #333;
       }
       .country-tip{
         width: 260px;
@@ -1427,13 +953,13 @@
         line-height: 74px;
         display: flex;
         align-items: center;
-        color: #000;
+        color: #333;
         min-height: 64px;
         border-bottom: 1px dashed #F2F6FB;
       }
       >>> .el-collapse-item__wrap {
-        background-color: #f8f8f8;
-        border: 2px solid #f8f8f8;
+        background-color: #f9f9f9;
+        border: 2px solid #f9f9f9;
       }
 
       .pagination-wrapper {
@@ -1447,9 +973,10 @@
       }
       .no-bookings{
         color:rgba(51,51,51,1); 
-        line-height:18px;
+        height: 40px;
+        line-height:40px;
         font-size: 16px;
-        margin-top: 10px;
+        border-bottom: 1px solid #EBEEF5;
       }
       .rack-Bus-Status{
           background-color: #FF9A0D;
@@ -1498,6 +1025,9 @@
     }
     .el-picker-panel__sidebar+.el-picker-panel__body{
       margin-left: 195px;
+    }
+    .bookings-item-content[data-v-19d485cc] .el-row{
+      border-bottom:1px dashed #EBEEF5;
     }
     </style>
     

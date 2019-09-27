@@ -19,7 +19,7 @@
     import moment from "moment"
     export default {
         name:'datePicker',
-        props:['userID'],
+        props:['userID','api'],
         data() {
             return {
                 value: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
@@ -150,25 +150,26 @@
         },
         methods:{
             selectOrder(time){
-                console.log(time)
                 if(time!=null){
-                    this.$http.get(this.$api.bookingList,
+                    this.$http.get(this.api,
                     {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userID}})
                             .then((res)=>{
                                 console.log(res);
                                 if(res.data.code == 200){
                                     if(res.data.data!=null || res.data.data!=undefined){
-                                    // this.bookingsList = res.data.data;
                                         this.$emit('changeDate', res.data.data);
                                     }else{
-                                    // this.bookingsList = [];
+                                        this.$emit('changeDate', '');
                                     } 
                                 }
                             })
                 }else{
-                    // this.orderList();
+                    this.$emit('changeDate', '');
                 }
             },
         }
     };
     </script>
+    <style scoped>
+    
+    </style>

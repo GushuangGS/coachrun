@@ -130,9 +130,14 @@
                   console.log(res);
                   if(res.data.code == 200){
                     this.showDialogVisible = false;
-                    this.successBoxFlag = true;
+                    // this.successBoxFlag = true;
                     this.creditInfo.splice(this.deleteIndex,1);
-                  }else{
+                    this.$message({
+                        message: 'Your Credit Card has been removed successfully!',
+                        type: 'success',
+                        center: true
+                    });
+                  }else if(res.data.code == 500){
                     this.$message({
                         message: res.data.msg,
                         type: 'warning',
@@ -224,13 +229,13 @@
     list-style: none;
     padding-left: 0;
     padding-bottom: 30px;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #cdcdcd;
   }
   .credits>.credit-list>.credit-list-item {
     box-sizing: border-box;
     width: 830px;
     height: 72px;
-    border: 1px solid #999;
+    border: 1px solid #cdcdcd;
     border-radius: 4px;
     padding: 17px 24px;
     color: #333;
@@ -285,7 +290,7 @@
     border-right: 1px solid #979797;
   }
   .add-credit {
-    margin-top: 13px;
+    margin-top: 5px;
   }
   .add-credit>h2.title {
     margin-top: 0;
@@ -351,7 +356,7 @@
     background: none;
   }
   >>> .el-dialog__header{
-    background: #F0F0F0;
+    background: #f2f2f2;
     color: #333333;
     font-size: 16px;
     font-weight: bold;
@@ -369,10 +374,14 @@
     color: #FFFFFF;
     border: none;
     height: 40px;
+    margin-left: 10px !important;
   }
   >>> .el-button{
     padding: 7px 5px;
     height: 30px;
     /* border: none; */
+  }
+  >>> .el-button+.el-button{
+    margin-left: 0px;
   }
 </style>

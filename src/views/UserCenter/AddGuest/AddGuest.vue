@@ -34,10 +34,16 @@
                 </el-form>
             </div>
             <div class="right-tips" v-show="showRight">
-                1 Order(s) has been added to your account! Please check <span class="right-tips-span" @click="toBookings">My Bookings.</span> 
+                <img src="@/assets/iconhappy.png" alt="">
+                <span>
+                    1 Order(s) has been added to your account! Please check <span class="right-tips-span" @click="toBookings">My Bookings.</span> 
+                </span>
             </div>
             <div class="error-tips" v-show="showError">
-                Sorry, no purchase records under “{{inputEmail}}” within 100 days. 
+                <img src="@/assets/iconsad.png" alt="" class="err-img">
+                <span>
+                    Sorry, no purchase records under “{{inputEmail}}” within 100 days. 
+                </span>
             </div>
         </div>
     </template>
@@ -177,19 +183,27 @@
         /* background: skyblue; */
         border-radius:2px;
         margin: 0 auto;
-        padding: 20px 23px 30px 23px;
+        padding: 20px 24px 30px 24px;
        }
        .right-tips{
         width: 568px; 
         height: 59px;  
         margin: 40px auto;
-        background:rgba(241,255,249,1);
         border-radius:4px;
-        border:1px solid rgba(56,202,114,1);
         text-align: center;
         line-height: 59px;
         color: #333333;
-        font-size: 14px;
+        font-size: 13px;
+        background: rgba(241,255,249,1);
+        border: 1px solid rgba(56,202,114,1);
+        display: flex;
+        align-items: center;
+       }
+       .right-tips img{
+           width: 16px;
+           height: 16px;
+           margin-left: 25px;
+           margin-right: 12px;
        }
        .right-tips-span{
            color: #208291;
@@ -205,7 +219,15 @@
         text-align: center;
         line-height: 59px;
         color: #333333;
-        font-size: 14px;
+        font-size: 13px;
+        display: flex;
+        align-items: center;
+       }
+       .err-img{
+           width: 16px;
+           height: 16px;
+           margin-left: 25px;
+           margin-right: 12px;
        }
        .wrap-title{
            font-size: 16px;
@@ -224,25 +246,27 @@
            position: relative;
            left: 205px;
            top: -41px;
-           /* background: #099FE1;
-           color: #FFFFFF; */
            font-size: 12px;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
+           padding: 6px 10px;
+           border-top-right-radius: 4px;
+           border-bottom-right-radius: 4px;
        }
        .btn-disable{
             height: 36px;
            position: relative;
            left: 196px;
            top: -41px;
-           /* background: #099FE1;
-           color: #FFFFFF; */
            font-size: 12px;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
+           padding: 6px 10px;
+           border-top-right-radius: 4px;
+           border-bottom-right-radius: 4px;
        }
        .btn2{
-           margin-left: 127px;
+           margin-left: 103px;
        }
        .click-tip{
             margin-top: -50px;
@@ -252,7 +276,7 @@
             margin-left: 109px;
        }
        .red{
-           color: red;
+           color: #f56c6c;
        }
        .code-rule{
            margin-top: 30px;

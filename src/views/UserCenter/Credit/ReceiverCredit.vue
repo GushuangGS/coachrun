@@ -606,7 +606,10 @@
         margin-bottom: 15px;
         margin-top: 10px;
       }
+      >>> .el-switch__label{
+        color: #606266;
+      }
       >>> .el-switch__label.is-active{
-        color: #303133;
+        color: #606266;
       }
     </style>

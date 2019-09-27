@@ -56,14 +56,14 @@ const errorHandle = (status, msg) => {//code判断
           // tip(msg);
           break;
       case 401:
-          if(msg==-1){
+          if(msg.indexOf('logout')==-1){
             tip('Your login has expired. Please log in again to continue.');
           }
           localStorage.removeItem('IvyCustomer_LoginToken');
           localStorage.removeItem("loginName");
           store.commit('logout');
           setTimeout(() => {
-              router.replace({name: 'Login'});
+              router.replace({name: 'Login',query:{pageUrl:location.href}});
           }, 1000);
           break;
       default:
@@ -129,7 +129,7 @@ axios.interceptors.request.use(
 //http response 拦截器
 axios.interceptors.response.use(
   response => {
-    console.log(response);
+    // console.log(response);
       //当返回信息为未登录或者登录失效的时候重定向为登录页面
       if(response.data.code == '200'){
           // tryHideFullScreenLoading();

@@ -12,7 +12,7 @@
                 <el-table
                   :data="contactList"
                   style="width: 100%"
-                  size="mini">
+                  size="mini"> 
                   <el-table-column
                     header-align="center"
                     align="left"
@@ -227,6 +227,9 @@
   >>> .el-table__body td>div.cell{
     font-size: 14px;
   }
+  >>> .el-table tr{
+    height: 40px;
+  }
   span.default {
     color: #FF9A0D;
     margin-left: 8px;
@@ -272,12 +275,13 @@
     color: #FFFFFF;
     font-size: 14px;
     border: none;
+    padding: 7px 8px !important;
   }
   >>> .el-dialog{
     background: none;
   }
   >>> .el-dialog__header{
-    background: #F0F0F0;
+    background: #f2f2f2;
     color: #333333;
     font-size: 16px;
     font-weight: bold;
@@ -298,13 +302,17 @@
     height: 30px;
     /* border: none; */
   }
-  .el-button+.el-button{
-    margin-left: 10px;
+  >>> .el-button+.el-button{
+    margin-left: 0px;
   }
   .remove-btn{
     background: #FF9A0D;
     color: #FFFFFF;
     font-size: 14px;
     border: none;
+    margin-left: 10px !important;
+  }
+  >>> .el-table--mini td, .el-table--mini th{
+    padding: 4px 0;
   }
 </style>

@@ -160,7 +160,7 @@
     }
     .login-btn{
         width: 200px;
-        height: 48px;
+        height: 36px;
         background: #FF9A0D;
         border-radius:4px;
         margin-top: 10px;
@@ -177,5 +177,8 @@
     }
     >>> .el-form-item__error{
         position: inherit;
+    }
+    .el-button{
+        padding: 10px 20px;
     }
 </style>

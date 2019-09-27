@@ -172,7 +172,7 @@
     width: 980px;
     height: 200px;
     box-sizing: border-box;
-    border: 1px solid #E9F1FA;
+    border: 1px solid #EBEEF5;
     /* padding: 26px 90px; */
     padding: 26px 90px 26px 40px;
     display: flex;
@@ -314,5 +314,12 @@
     text-align: left;
     color: #333333;
     font-size: 16px;
+  }
+  >>> .el-table__empty-block{
+    min-height: 40px;
+    border: none;
+  }
+  >>> .el-table__empty-text{
+    line-height: 40px;
   }
 </style>
