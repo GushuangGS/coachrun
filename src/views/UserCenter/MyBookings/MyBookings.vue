@@ -36,7 +36,7 @@
                     </el-select>
                 </div> -->
                 <!--  -->
-                <!-- <my-date-picker :userID="userId" @changeDate="changeBookList"></my-date-picker> -->
+                <!-- <my-date-picker :userID="userId" :api="bookingsApi" @changeDate="changeBookList"></my-date-picker> -->
                 <div class="order-time">
                   <span class="dateTitle">Purchase Date:</span>
                   <el-date-picker
@@ -898,6 +898,7 @@
             userId:VueCookie.get("front-sessionId"),
             timeDefaultShow:'',
             selectedItinerary: null,
+            bookingsApi:'api/orders/list',//DatePicker
           }
         },
         components: {
@@ -976,8 +977,8 @@
             }
             return false;
           },
-          changeBookList(){
-            // this.bookingsList = 
+          changeBookList(data){//DatePicker
+            this.bookingsList = data;
           },
           getIndex(index){
             return this.activeNames.some(item=>{
@@ -1315,7 +1316,7 @@
         color: #666;
       }
       .bookings-item-brief>div>span {
-        color: #000;
+        color: #333;
       }
       .country-tip{
         width: 260px;
@@ -1427,7 +1428,7 @@
         line-height: 74px;
         display: flex;
         align-items: center;
-        color: #000;
+        color: #333;
         min-height: 64px;
         border-bottom: 1px dashed #F2F6FB;
       }
@@ -1450,7 +1451,6 @@
         height: 40px;
         line-height:40px;
         font-size: 16px;
-        margin-top: 10px;
         border-bottom: 1px solid #EBEEF5;
       }
       .rack-Bus-Status{

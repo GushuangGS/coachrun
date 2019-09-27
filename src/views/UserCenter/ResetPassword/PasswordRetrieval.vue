@@ -16,6 +16,7 @@
             data() {
                return{
                     toPas:passwordItem,
+                    // toPas:ResetPassword,
                     userInfo:[]
                }
             },

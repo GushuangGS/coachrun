@@ -275,6 +275,7 @@
     color: #FFFFFF;
     font-size: 14px;
     border: none;
+    padding: 7px 8px !important;
   }
   >>> .el-dialog{
     background: none;

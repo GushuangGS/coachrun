@@ -787,7 +787,7 @@
         text-overflow: ellipsis;
       }
       .bookings-item-brief>div>span {
-        color: #000;
+        color: #333;
       }
       ul.bookings-item-contents {
         padding-left: 0;

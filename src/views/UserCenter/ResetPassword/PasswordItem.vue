@@ -16,7 +16,7 @@
                         <el-button id="submit" size="mini" type="primary" class="btn" :disabled="canClick" v-show="sendAuthCode" @click="resetPass">
                             Get Verfication Code
                         </el-button>
-                        <el-button class="btn2" size="mini" type="primary" plain disabled v-show="!sendAuthCode">
+                        <el-button class="btn2" size="medium" type="primary" plain disabled v-show="!sendAuthCode">
                             ({{auth_time}}s Expires) 
                         </el-button>
                     </el-form-item>
@@ -233,6 +233,9 @@
            font-size: 12px;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
+           padding: 6px 10px;
+           border-top-right-radius: 4px;
+           border-bottom-right-radius: 4px;
         }
         .btn2{
             height: 36px;
@@ -242,6 +245,9 @@
            font-size: 12px;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
+           padding: 6px 10px;
+           border-top-right-radius: 4px;
+           border-bottom-right-radius: 4px;
         }
         .btnCode{
             width: 25%;
@@ -255,7 +261,7 @@
             margin-left: 120px;
        }
        .red{
-           color: red;
+           color: #f56c6c;
        }
        .code-rule{
            margin-top: 30px;

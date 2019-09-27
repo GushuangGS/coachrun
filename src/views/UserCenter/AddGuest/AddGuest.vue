@@ -246,22 +246,24 @@
            position: relative;
            left: 205px;
            top: -41px;
-           /* background: #099FE1;
-           color: #FFFFFF; */
            font-size: 12px;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
+           padding: 6px 10px;
+           border-top-right-radius: 4px;
+           border-bottom-right-radius: 4px;
        }
        .btn-disable{
             height: 36px;
            position: relative;
            left: 196px;
            top: -41px;
-           /* background: #099FE1;
-           color: #FFFFFF; */
            font-size: 12px;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
+           padding: 6px 10px;
+           border-top-right-radius: 4px;
+           border-bottom-right-radius: 4px;
        }
        .btn2{
            margin-left: 103px;

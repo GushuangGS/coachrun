@@ -382,11 +382,11 @@
       >>> .country-selector-arrow{
         top: 0;
       }
-      >>> .field.vue-input-ui.has-value .field-label{
-        /* top: -10px; */
+      >>> .el-switch__label{
+        color: #606266;
       }
       >>> .el-switch__label.is-active{
-        color: #303133;
+        color: #606266;
       }
       .btns{
           margin-top: 15px;
