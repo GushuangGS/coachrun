@@ -61,16 +61,16 @@ export default {
     margin: 0 auto;
   }
   >>> .el-menu-item{
-    background: #F1F1F1;
+    background: #f2f2f2;
   }
   >>> .el-menu-item-group__title{
     display: none;
   }
   >>> .el-submenu{
-    background: #F1F1F1;
+    background: #f2f2f2;
   }
   >>> .el-menu-item-group>ul>li{
-    background: #f8f8f8;
+    background: #f9f9f9;
     color: #666666 !important;
   }
   .el-menu-item.is-active {

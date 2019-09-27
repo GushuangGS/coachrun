@@ -280,7 +280,7 @@
     background: none;
   }
   >>> .el-dialog__header{
-    background: #F1F1F1;
+    background: #f2f2f2;
     color: #333333;
     font-size: 16px;
     font-weight: bold;
@@ -310,5 +310,8 @@
     font-size: 14px;
     border: none;
     margin-left: 10px !important;
+  }
+  >>> .el-table--mini td, .el-table--mini th{
+    padding: 4px 0;
   }
 </style>

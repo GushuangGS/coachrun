@@ -1249,8 +1249,8 @@
       .column-name {
         background-color: #E5EFFA;
         color: #29507D;
-        height: 36px;
-        line-height: 36px;
+        height: 40px;
+        line-height: 40px;
       }
       .column-first {
         margin-left: 30px;
@@ -1263,7 +1263,7 @@
       }
       >>> .el-collapse-item__header {
         border-bottom: none;
-        background-color: #f8f8f8;
+        background-color: #f9f9f9;
         height: 80px;
       } 
       .total-pay{
@@ -1432,8 +1432,8 @@
         border-bottom: 1px dashed #F2F6FB;
       }
       >>> .el-collapse-item__wrap {
-        background-color: #f8f8f8;
-        border: 2px solid #f8f8f8;
+        background-color: #f9f9f9;
+        border: 2px solid #f9f9f9;
       }
 
       .pagination-wrapper {
@@ -1447,9 +1447,11 @@
       }
       .no-bookings{
         color:rgba(51,51,51,1); 
-        line-height:18px;
+        height: 40px;
+        line-height:40px;
         font-size: 16px;
         margin-top: 10px;
+        border-bottom: 1px solid #EBEEF5;
       }
       .rack-Bus-Status{
           background-color: #FF9A0D;

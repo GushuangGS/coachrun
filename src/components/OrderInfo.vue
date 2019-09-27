@@ -704,8 +704,8 @@
     .column-name {
         background-color: #E5EFFA;
         color: #29507D;
-        height: 36px;
-        line-height: 36px;
+        height: 40px;
+        line-height: 40px;
       }
       .column-first {
         margin-left: 30px;
@@ -720,13 +720,13 @@
         padding-right: 3px;
       }
       >>> .el-collapse-item:not(:last-child) {
-        background-color: #f8f8f8;
+        background-color: #f9f9f9;
         margin-bottom: 20px;
       }
       >>> .el-collapse-item__header {
         border-bottom: none;
         /* background-color: inherit; */
-        background-color: #f8f8f8 !important;
+        background-color: #f9f9f9 !important;
         height: 80px;
       } 
       .title-bookings{
@@ -900,7 +900,7 @@
         border-bottom: 1px dashed #F2F6FB;
       }
       >>> .el-collapse-item__wrap {
-        background-color: #f8f8f8;
+        background-color: #f9f9f9;
       }
       .line-none{
         text-decoration: line-through;
