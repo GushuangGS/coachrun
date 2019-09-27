@@ -61,6 +61,7 @@
                     }else if(value !== this.ruleForm.pass){
                         callback(new Error('The password must be the same.'));
                     }
+                    callback();
                 }
             };
             return{
@@ -88,13 +89,13 @@
         },
         methods:{
             getEmail(name){
-                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-                    var r = window.location.search.substr(1).match(reg);
-                    if(r != null) return unescape(r[2]);
-                    return null;
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if(r != null) return unescape(r[2]);
+                return null;
             },
             save(){
-                this.$refs.ruleForm.validate((valid) => {
+                this.$refs.ruleForm.validate((valid)=>{
                     if(valid){
                         this.$http.post(this.$api.resetPassword,
                             {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
@@ -112,9 +113,6 @@
                             })
                     }
                 });
-            },
-            logIn(){
-
             }
         }
     }

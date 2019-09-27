@@ -238,7 +238,7 @@
                         year: '',
                         street: '',
                         city: '',
-                        state:'',
+                        state:'AK',
                         zipcode:'',
                         country:'us'
                     },
