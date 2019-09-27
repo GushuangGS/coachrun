@@ -146,6 +146,11 @@
                                     if (process.env.NODE_ENV == 'development'){
                                         localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                                         localStorage.setItem("loginName", data.data.data.user.email);
+                                        if(this.pageUrl){
+                                            window.location.href = this.pageUrl;
+                                        }else{
+                                            this.$router.push({name: 'MyOrders'});
+                                        }
                                     }else{
                                         if(this.pageUrl){
                                             window.location.href = this.pageUrl;

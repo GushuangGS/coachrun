@@ -166,19 +166,6 @@
                 }else{
                     this.$emit('changeDate', '');
                 }
-                // else{
-                //     this.$http.get(this.api,{params:{dateRange:16,userId:this.userId}})
-                //     .then((res)=>{
-                //         console.log(res);
-                //         if(res.data.code == 200){
-                //           if(res.data.data!=null || res.data.data!=undefined){
-                //             this.$emit('changeDate', res.data.data);
-                //           }else{
-                //             this.$emit('changeDate', '');
-                //           }
-                //         }
-                //     })
-                // }
             },
         }
     };
