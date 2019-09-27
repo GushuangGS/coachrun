@@ -34,7 +34,10 @@
                 </el-form>
             </div>
             <div class="right-tips" v-show="showRight">
-                1 Order(s) has been added to your account! Please check <span class="right-tips-span" @click="toBookings">My Bookings.</span> 
+                <img src="@/assets/iconhappy.png" alt="">
+                <span>
+                    1 Order(s) has been added to your account! Please check <span class="right-tips-span" @click="toBookings">My Bookings.</span> 
+                </span>
             </div>
             <div class="error-tips" v-show="showError">
                 <img src="@/assets/iconsad.png" alt="" class="err-img">
@@ -186,13 +189,21 @@
         width: 568px; 
         height: 59px;  
         margin: 40px auto;
-        background:rgba(241,255,249,1);
         border-radius:4px;
-        border:1px solid rgba(56,202,114,1);
         text-align: center;
         line-height: 59px;
         color: #333333;
-        font-size: 14px;
+        font-size: 13px;
+        background: rgba(241,255,249,1);
+        border: 1px solid rgba(56,202,114,1);
+        display: flex;
+        align-items: center;
+       }
+       .right-tips img{
+           width: 16px;
+           height: 16px;
+           margin-left: 25px;
+           margin-right: 12px;
        }
        .right-tips-span{
            color: #208291;
