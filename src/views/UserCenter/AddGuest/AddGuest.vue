@@ -68,7 +68,7 @@
                     sendAuthCode: true, //布尔值，通过v-show控制显示‘发送按钮’还是‘倒计时’ 
                     tips:'Click “ Get Security Code” for us to send a security code to your booking email.',
                     showRight:false,
-                    showError:true,
+                    showError:false,
                     err:'',
                     verCode:'',
                     showRed:false,
