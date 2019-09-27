@@ -21,7 +21,7 @@
     created(){
        this.$http({
         methods:'get',
-        url:'http://sandbox.gotobus.com/api/components/bus-stations',
+        url:'/api/components/bus-stations',
         headers:{
           // 'Content-Type':'application/json',
           'X-Api-Key':'7:1350154:0:1',
