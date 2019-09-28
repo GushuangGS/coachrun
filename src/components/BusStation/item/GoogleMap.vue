@@ -44,7 +44,7 @@
         let markerArr = []  //需要弹窗的marker对象数组
         let infoWindow = []//msg数组
         for (let i = 0;i<this.positions.length;i++) {
-          console.log(this.positions)
+          console.log(this.positions,google)
           bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));
           let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
           if (i == this.index) {
@@ -78,7 +78,6 @@
 </div>`
                 })
               }
-
 
             //${this.positions[i].landmark}()<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}${this.positions[i].address.zipcode?', '+this.position[i].address.state+this.position[i].address.zipcode:""}<br>${this.newCountry[this.positions[i].address.country]}
             google.maps.event.addListener(marker,"click",function (event) {
