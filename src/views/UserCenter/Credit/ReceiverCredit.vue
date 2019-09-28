@@ -256,9 +256,6 @@
                         country: [{required: true, trigger: 'blur' ,message: 'Please enter Country.'}]
                     },
                     types:[
-                        // {value: '3',label: 'AmEx'},
-                        // {value: '2',label: 'VISA'},
-                        // {value: '1',label: 'Master'}
                         {value: 'AmEx',label: 'AmEx'},
                         {value: 'VISA',label: 'VISA'},
                         {value: 'Master',label: 'Master'}
@@ -275,7 +272,8 @@
                     selectNum:'',//选择数字
                     infos:{},//编辑的具体信息
                     creditName:'',//具体操作
-                    creditId:''
+                    creditId:'',
+                    userState:''
                 }
             },
             created(){
@@ -329,23 +327,19 @@
                         if(Number(val)<=year && parseInt(this.ruleForm.month)<=month){
                             this.ruleForm.month = this.months[month].label;
                         }
-                        // if(Number(val)>year){
-                        //     this.months = this.selectMonths.map(item => {
-                        //         return { value: item, label: item };
-                        //     });
-                        // }else{
-                        //     if(parseInt(this.ruleForm.month)<=month){
-                        //         this.ruleForm.month = this.months[month].label;
-                        //     }
-                            
-                        // }
                     }
                 },
                 selectCountry(val){//选择国家
                     if(val == 'us'){
                         this.stateChange = true;
+                        if(this.userState!=''){
+                            this.ruleForm.state = this.userState
+                        }else{
+                            this.ruleForm.state = 'AK';
+                        }
                     }else{
                         this.stateChange = false;
+                        this.ruleForm.state = '';
                     }
                 },
                 selectDefault(val){
@@ -364,6 +358,7 @@
                             if(res.data.code==200){
                                 console.log(res);
                                 this.infos = res.data.data;
+                                this.userState = this.infos.billingAddress.state;//用户的地址
                                 this.ruleForm.holderName = this.infos.nameOnCard;
                                 this.ruleForm.cardNumber = this.infos.cardNumber;
                                 if(this.infos.cardType == 3){

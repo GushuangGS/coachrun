@@ -156,7 +156,7 @@
                                             window.location.href = this.pageUrl;
                                         }else{
                                             if(VueCookie.get('IvyCustomer_role')>=3){
-                                                this.$router.push({path:'/app/member/account'});
+                                                this.$route.push({path:'/app/member/account'});
                                             }else{
                                                 this.$router.push({name: 'MyOrders'});
                                             }
