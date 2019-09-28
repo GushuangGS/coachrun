@@ -55,8 +55,13 @@
             }
         },
         created(){
-            const name = localStorage.getItem('IvyCustomer_LoginToken');
-
+            var name;
+            if (process.env.NODE_ENV == 'development'){
+                name = localStorage.getItem('IvyCustomer_LoginToken');
+            }else{
+                name = VueCookie.get('IvyCustomer_LoginCookie');
+            }
+            // console.log(name);
             if(name){
                 this.$store.commit('login');
                 this.isLogin = this.$store.state.isLogin;

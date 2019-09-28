@@ -14,7 +14,6 @@
             </div>
             <div class="failure-wrapper" v-if="changeStatus == 2">
               <div class="failure">
-                <img src="@/assets/sad.png" alt="failure">
                 <div class="failure-content">
                   <p>Current password invalid!</p>
                 </div>
