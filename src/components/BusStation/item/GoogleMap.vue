@@ -1,8 +1,9 @@
 <template>
-    <div id="google-map" style="width: 640px;height: 458px;top: 20px;left: 20px;"></div>
+    <div id="google-map" style="padding: 20px;height: 100%;"></div>
 </template>
 <script>
   import country from "../../../configs/country.json"
+  import stationlocation from "@/assets/stationlocation.png"
   export default {
     props:{
       positions:{
@@ -38,7 +39,8 @@
           for (let i = 0;i<this.positions.length;i++) {
             bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));//加入中心点和zoom计算中
             let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
-            let marker = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
+            let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
+            // require("./img/stationlocation")
             marker.setMap(map)
             let infowindow = {}//信息窗口
             if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){

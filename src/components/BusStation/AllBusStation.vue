@@ -96,12 +96,20 @@
     width: 680px;
     height: 538px;
   }
+  >>> .el-dialog {
+    background: transparent;
+  }
   >>> .el-dialog__header {
     padding: 0px;
     height: 54px;
     background:#f2f2f2;
     display: flex;
     align-items: center;
+    color: #333333;
+    font-size: 16px;
+    font-weight: bold;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
   }
   >>> .el-dialog__title {
     height:20px;
@@ -120,6 +128,7 @@
     font-size: 16px;
   }
   >>> .el-dialog__body {
+    background: white;
     height: 498px;
     padding: 0px;
   }
