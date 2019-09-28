@@ -150,7 +150,7 @@
         },
         methods:{
             selectOrder(time){
-                if(time!=null){
+                if(time!=null && this.api!=undefined && this.userID!=undefined){
                     this.$http.get(this.api,
                     {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userID}})
                             .then((res)=>{
@@ -170,6 +170,26 @@
         }
     };
     </script>
-    <style scoped>
-    
+    <style>
+        .el-select-dropdown__item{
+            color: #333333;
+        }
+        .el-range-editor--small .el-range-input{
+            font-size: 14px;
+        }
+        .el-date-editor .el-range-input{
+            color: #333333;
+        }
+        .el-date-editor .el-range-input::-webkit-input-placeholder { /* WebKit browsers */
+            color: #333333;
+        }
+        .el-date-range-picker.has-sidebar{
+            width: 896px;
+        }
+        .el-picker-panel__sidebar{
+            width: 195px;
+        }
+        .el-picker-panel__sidebar+.el-picker-panel__body{
+            margin-left: 195px;
+        }
     </style>
