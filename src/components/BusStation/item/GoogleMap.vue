@@ -33,6 +33,7 @@
         this.newCountry = newdata
       },
       initMap() {
+        let infowindow = new google.maps.infoWindow();//信息窗口
         let bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
         const map = new google.maps.Map(document.getElementById('google-map'));
         if (this.positions.length){//防止数据为undefined问题
@@ -42,17 +43,12 @@
             let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
             // require("./img/stationlocation")
             marker.setMap(map)
-            let infowindow = {}//信息窗口
             if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
-              infowindow = new google.maps.InfoWindow({
-                content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
-</div>`
-              })
+              infowindow.setContent(`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
+</div>`)
             } else {
-              infowindow = new google.maps.InfoWindow({
-                content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.positions[i].address.state} ${this.positions[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
-</div>`
-              })
+              infowindow.setContent(`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.positions[i].address.state} ${this.positions[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
+</div>`)
             }
             if (i == this.index) {//当前项是点击时的那一项
               infowindow.open(map,marker);//直接打开
