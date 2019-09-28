@@ -54,6 +54,7 @@
         this.title=cityName
         this.timer = setTimeout(()=>{
           this.$refs.googlemap.initMap()
+          clearTimeout(this.timer)
         },0)
       },
       closeDialog(){
