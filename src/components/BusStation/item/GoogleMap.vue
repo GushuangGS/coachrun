@@ -53,7 +53,7 @@
               })
             }
             if (i == this.index) {//当前项是点击时的那一项
-              infowindow.open(map,indexMap);//直接打开
+              infowindow.open(map,marker);//直接打开
             } else {
               google.maps.event.addListener(marker,"click",function (event) {//添加点击时打开的事件
                 info.open(map,marker)
