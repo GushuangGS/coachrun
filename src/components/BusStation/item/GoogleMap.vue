@@ -32,24 +32,14 @@
         this.newCountry = newdata
       },
       initMap() {
-        // const uluru = {lat: 36, lng: -97};
-        var bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
-        const map = new google.maps.Map(
-          document.getElementById('google-map'));
-          // document.getElementById('google-map'), {zoom: 3, center: uluru});
-
-        //需要显示的标记 markers
-        let indexMap = undefined
-        let icon = ''
-        let markerArr = []  //需要弹窗的marker对象数组
-        let infoWindow = []//msg数组
-        for (let i = 0;i<this.positions.length;i++) {
-          console.log(this.positions,google)
-          bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));
-          let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
-          if (i == this.index) {
-            indexMap = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
-            indexMap.setMap(map)
+        let bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
+        const map = new google.maps.Map(document.getElementById('google-map'));
+        if (this.positions.length){//防止数据为undefined问题
+          for (let i = 0;i<this.positions.length;i++) {
+            bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));//加入中心点和zoom计算中
+            let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
+            let marker = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
+            marker.setMap(map)
             let infowindow = {}
             if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
               infowindow = new google.maps.InfoWindow({
@@ -58,34 +48,20 @@
               })
             } else {
               infowindow = new google.maps.InfoWindow({
-                content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.position[i].address.state} ${this.position[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
+                content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.positions[i].address.state} ${this.positions[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
 </div>`
               })
             }
-            infowindow.open(map,indexMap);
-          } else {
-            let marker = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
-            marker.setMap(map)
-            let info = {}
-              if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
-                info = new google.maps.InfoWindow({
-                  content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
-</div>`
-                })
-              } else {
-                info = new google.maps.InfoWindow({
-                  content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.position[i].address.state} ${this.position[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
-</div>`
-                })
-              }
-
-            //${this.positions[i].landmark}()<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}${this.positions[i].address.zipcode?', '+this.position[i].address.state+this.position[i].address.zipcode:""}<br>${this.newCountry[this.positions[i].address.country]}
-            google.maps.event.addListener(marker,"click",function (event) {
-              info.open(map,marker)
-            })
+            if (i == this.index) {//当前项是点击时的那一项
+              infowindow.open(map,indexMap);//直接打开
+            } else {
+              google.maps.event.addListener(marker,"click",function (event) {//添加点击时打开的事件
+                info.open(map,marker)
+              })
+            }
           }
         }
-        map.fitBounds(bounds)
+        map.fitBounds(bounds)//计算出的中心点和zoom给map
       }
     },
     name:"GoogleMap"
