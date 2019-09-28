@@ -38,7 +38,7 @@
           for (let i = 0;i<this.positions.length;i++) {
             bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));//加入中心点和zoom计算中
             let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
-            let marker = new google.maps.Marker({position: pluru,icon:require("./img/stationlocation.png")});//标记
+            let marker = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
             marker.setMap(map)
             let infowindow = {}//信息窗口
             if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
