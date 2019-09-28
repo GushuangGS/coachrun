@@ -1,8 +1,9 @@
 <template>
-    <div id="google-map" style="width: 640px;height: 458px;top: 20px;left: 20px;"></div>
+    <div id="google-map" style="padding: 20px;height: 100%;"></div>
 </template>
 <script>
   import country from "../../../configs/country.json"
+  import stationlocation from "@/assets/stationlocation.png"
   export default {
     props:{
       positions:{
@@ -32,25 +33,22 @@
         this.newCountry = newdata
       },
       initMap() {
+        let infowindow = new google.maps.InfoWindow();//信息窗口
         let bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
         const map = new google.maps.Map(document.getElementById('google-map'));
         if (this.positions.length){//防止数据为undefined问题
           for (let i = 0;i<this.positions.length;i++) {
             bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));//加入中心点和zoom计算中
             let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
-            let marker = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
+            let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
+            // require("./img/stationlocation")
             marker.setMap(map)
-            let infowindow = {}//信息窗口
             if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
-              infowindow = new google.maps.InfoWindow({
-                content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
-</div>`
-              })
+              infowindow.setContent(`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
+</div>`)
             } else {
-              infowindow = new google.maps.InfoWindow({
-                content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.positions[i].address.state} ${this.positions[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
-</div>`
-              })
+              infowindow.setContent(`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.positions[i].address.state} ${this.positions[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
+</div>`)
             }
             if (i == this.index) {//当前项是点击时的那一项
               infowindow.open(map,marker);//直接打开
