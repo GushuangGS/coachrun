@@ -58,7 +58,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="6">
+                                <el-col :span="5">
                                     <el-form-item label="Expiration:" prop="month">
                                         <el-select v-model="ruleForm.month" @change="expiration">
                                             <el-option 
@@ -82,8 +82,8 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="7">
-                                    <el-form-item label="CVV:" prop="CVV">
+                                <el-col :span="8">
+                                    <el-form-item label="CVV/CVC:" prop="CVV">
                                         <el-tooltip placement="bottom" effect="light">
                                             <div slot="content"> Flip your card over and look at the<br> signature
                                                  box. You should see either<br> the
@@ -215,10 +215,10 @@
                 let cvvNum = (rule, value, callback) => {
                     let reg = /^[\w]{3,4}$/;
                     if (value == '') {
-                        callback(new Error('Please enter CVV.'));
+                        callback(new Error('Please enter CVV/CVC.'));
                     }else{
                         if(!reg.test(value)){
-                            callback(new Error('Please enter 3-4 digitals.'));
+                            callback(new Error('CVV/CVC should be 3-4 digis.'));
                         }
                         callback();
                     }
@@ -573,7 +573,7 @@
       #icon-tip2{
         position: absolute;
         top: -26px;
-        left: 46px;
+        left: 78px;
       }
       #icon-tip3{
         position: absolute;

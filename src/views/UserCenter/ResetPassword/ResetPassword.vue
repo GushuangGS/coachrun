@@ -109,6 +109,11 @@
                                     })
                                 }else{
                                     this.$router.push({name: 'Login'});
+                                    this.$message({
+                                        message: 'Reset successfully',
+                                        type: 'success',
+                                        center: true
+                                    })
                                 }
                             })
                     }

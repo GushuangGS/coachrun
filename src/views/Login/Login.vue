@@ -19,7 +19,7 @@
        <div class="hr"></div>
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
-           <span class="to-register" @click="gotoRegister">Register Now</span>
+           <span class="to-register" @click="gotoRegister">Register</span>
        </div>
        <div class="bot-info">
            <div class="intro">
