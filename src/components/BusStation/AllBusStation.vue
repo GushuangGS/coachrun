@@ -98,8 +98,8 @@
   }
   >>> .el-dialog__header {
     padding: 0px;
-    height: 40px;
-    background:#f9f9f9;
+    height: 54px;
+    background:#f2f2f2;
     display: flex;
     align-items: center;
   }
@@ -108,16 +108,16 @@
     font-size:18px;
     font-family:Arial;
     font-weight:bold;
-    color:rgba(42,42,42,1);
+    color:#303133;
     line-height:21px;
     margin-left: 20px;
   }
   >>> .el-dialog__headerbtn {
-    top: 10px
+    height: 16px;
+    width: 16px;
   }
   >>> .el-icon-close {
-    font-size: 20px;
-    color: #000000!important;
+    font-size: 16px;
   }
   >>> .el-dialog__body {
     height: 498px;
