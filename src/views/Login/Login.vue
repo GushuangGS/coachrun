@@ -126,6 +126,11 @@
                                     //         }
                                     //     }
                                     // }
+                                    if(this.pageUrl){
+                                        window.location.href = this.pageUrl;
+                                    }else{
+                                        this.$router.push({name: 'MyOrders'});
+                                    }
                                     
                                     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
                                     if(loginCookie == undefined) return
@@ -146,22 +151,23 @@
                                     if (process.env.NODE_ENV == 'development'){
                                         localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                                         localStorage.setItem("loginName", data.data.data.user.email);
-                                        if(this.pageUrl){
-                                            window.location.href = this.pageUrl;
-                                        }else{
-                                            this.$router.push({name: 'MyOrders'});
-                                        }
-                                    }else{
-                                        if(this.pageUrl){
-                                            window.location.href = this.pageUrl;
-                                        }else{
-                                            // if(VueCookie.get('IvyCustomer_role')>=3){
-                                            //     this.$router.push({path:'/app/member/account'});
-                                            // }else{
-                                                this.$router.push({name: 'MyOrders'});
-                                            // }
-                                        }
+                                        // if(this.pageUrl){
+                                        //     window.location.href = this.pageUrl;
+                                        // }else{
+                                        //     this.$router.push({name: 'MyOrders'});
+                                        // }
                                     }
+                                    // else{
+                                    //     if(this.pageUrl){
+                                    //         window.location.href = this.pageUrl;
+                                    //     }else{
+                                    //         if(VueCookie.get('IvyCustomer_role')>=3){
+                                    //             this.$router.push({path:'/app/member/account'});
+                                    //         }else{
+                                    //             this.$router.push({name: 'MyOrders'});
+                                    //         }
+                                    //     }
+                                    // }
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
                                     this.$store.commit('login'); 
 
