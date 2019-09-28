@@ -33,7 +33,7 @@
         this.newCountry = newdata
       },
       initMap() {
-        let infowindow = new google.maps.infoWindow();//信息窗口
+        let infowindow = new google.maps.InfoWindow();//信息窗口
         let bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
         const map = new google.maps.Map(document.getElementById('google-map'));
         if (this.positions.length){//防止数据为undefined问题
