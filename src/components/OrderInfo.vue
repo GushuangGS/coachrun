@@ -799,10 +799,10 @@
       }
       .bookings-disc{
         width: 86px;
-        height: 21px;
-        border-radius:3px;
+        height: 20px;
+        border-radius:4px;
         font-size: 12px;
-        line-height: 21px;
+        line-height: 20px;
         text-align: center;
         margin-left: 10px;
       }
@@ -812,9 +812,9 @@
         color:rgba(32,130,145,1);
       }
       .bookings-disc-color2{
-        background:rgba(248,92,92,0.07);
+        background:#FEEBEB;
         border:1px solid rgba(248,76,76,1);
-        color:rgba(248,76,76,1);
+        color:#f56c6c;
       }
       .bookings-disc-color3{
         background:rgba(255,252,243,1);

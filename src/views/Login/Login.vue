@@ -19,7 +19,7 @@
        <div class="hr"></div>
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
-           <span class="to-register" @click="gotoRegister">Register Now</span>
+           <span class="to-register" @click="gotoRegister">Register</span>
        </div>
        <div class="bot-info">
            <div class="intro">
@@ -52,9 +52,9 @@
                 },
                 rules: {
                     email: [{ required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
-                            { type: 'email', message: 'Please enter the correct email address', trigger: 'blur'}],
+                            { type: 'email', message: 'Please enter a valid email address.', trigger: 'blur'}],
                     password: [{ required: true, trigger: 'blur' ,message: 'Please enter your password.'},
-                            { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }],
+                            { min: 6, message: 'Please enter a valid password.', trigger: 'blur' }],
                 },
                 userId:'',
                 pageUrl:''
@@ -156,7 +156,7 @@
                                             window.location.href = this.pageUrl;
                                         }else{
                                             if(VueCookie.get('IvyCustomer_role')>=3){
-                                                this.$router.push({path:'/app/member/account'});
+                                                this.$route.push({path:'/app/member/account'});
                                             }else{
                                                 this.$router.push({name: 'MyOrders'});
                                             }

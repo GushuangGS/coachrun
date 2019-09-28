@@ -174,7 +174,7 @@
                         this.msg[1].code = this.ruleCode.code;
                         this.$emit('ResPas',this.msg)
                     }else{
-                        this.err = 'Your verfication code is incorrect.'
+                        this.err = 'Please enter a valid verification code.'
                     }
                     // this.$router.push({name: 'ResetPassword'});
                 }

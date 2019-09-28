@@ -39,11 +39,12 @@
               <el-form-item label="New Password:" prop="pass">
                 <el-input type="password" v-model="ruleForm.pass" autocomplete="off"></el-input>
               </el-form-item>
-              <el-form-item label="Reenter New Password:" prop="checkPass">
+              <el-form-item label="Re-type password:" prop="checkPass">
                 <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button class="save" @click="submitForm('ruleForm')">Save</el-button>
+                <!-- <el-button class="save" @click="submitForm('ruleForm')">Save</el-button> -->
+                <el-button class="save" @click="submitForm('ruleForm')">Reset Password</el-button>
               </el-form-item>
             </el-form>
           </div>
@@ -228,7 +229,7 @@
     background-color: #FF9A0D;
     color: #fff;
     border-radius: 4px;
-    width: 72px;
+    width: 138px;
     height: 30px;
     font-size: 14px;
     padding: 7px 16px;

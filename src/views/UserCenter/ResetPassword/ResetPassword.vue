@@ -59,8 +59,9 @@
                     if(!reg.test(value)){
                         callback(new Error('Use 6-12 characters with a mix of letters, numbers & symbols.'));
                     }else if(value !== this.ruleForm.pass){
-                        callback(new Error('The password must be the same.'));
+                        callback(new Error('Please enter the same password.'));
                     }
+                    callback();
                 }
             };
             return{
@@ -88,13 +89,13 @@
         },
         methods:{
             getEmail(name){
-                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
-                    var r = window.location.search.substr(1).match(reg);
-                    if(r != null) return unescape(r[2]);
-                    return null;
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                var r = window.location.search.substr(1).match(reg);
+                if(r != null) return unescape(r[2]);
+                return null;
             },
             save(){
-                this.$refs.ruleForm.validate((valid) => {
+                this.$refs.ruleForm.validate((valid)=>{
                     if(valid){
                         this.$http.post(this.$api.resetPassword,
                             {verificationCode:this.code,password:this.ruleForm.pass,rePassword:this.ruleForm.checkPass})
@@ -108,13 +109,15 @@
                                     })
                                 }else{
                                     this.$router.push({name: 'Login'});
+                                    this.$message({
+                                        message: 'Reset successfully',
+                                        type: 'success',
+                                        center: true
+                                    })
                                 }
                             })
                     }
                 });
-            },
-            logIn(){
-
             }
         }
     }

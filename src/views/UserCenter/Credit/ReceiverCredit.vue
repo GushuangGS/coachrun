@@ -58,7 +58,7 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="6">
+                                <el-col :span="5">
                                     <el-form-item label="Expiration:" prop="month">
                                         <el-select v-model="ruleForm.month" @change="expiration">
                                             <el-option 
@@ -82,8 +82,8 @@
                                         </el-select>
                                     </el-form-item>
                                 </el-col>
-                                <el-col :span="7">
-                                    <el-form-item label="CVV:" prop="CVV">
+                                <el-col :span="8">
+                                    <el-form-item label="CVV/CVC:" prop="CVV">
                                         <el-tooltip placement="bottom" effect="light">
                                             <div slot="content"> Flip your card over and look at the<br> signature
                                                  box. You should see either<br> the
@@ -215,10 +215,10 @@
                 let cvvNum = (rule, value, callback) => {
                     let reg = /^[\w]{3,4}$/;
                     if (value == '') {
-                        callback(new Error('Please enter CVV.'));
+                        callback(new Error('Please enter CVV/CVC.'));
                     }else{
                         if(!reg.test(value)){
-                            callback(new Error('Please enter 3-4 digitals.'));
+                            callback(new Error('CVV/CVC should be 3-4 digis.'));
                         }
                         callback();
                     }
@@ -238,7 +238,7 @@
                         year: '',
                         street: '',
                         city: '',
-                        state:'',
+                        state:'AK',
                         zipcode:'',
                         country:'us'
                     },
@@ -256,9 +256,6 @@
                         country: [{required: true, trigger: 'blur' ,message: 'Please enter Country.'}]
                     },
                     types:[
-                        // {value: '3',label: 'AmEx'},
-                        // {value: '2',label: 'VISA'},
-                        // {value: '1',label: 'Master'}
                         {value: 'AmEx',label: 'AmEx'},
                         {value: 'VISA',label: 'VISA'},
                         {value: 'Master',label: 'Master'}
@@ -275,7 +272,8 @@
                     selectNum:'',//选择数字
                     infos:{},//编辑的具体信息
                     creditName:'',//具体操作
-                    creditId:''
+                    creditId:'',
+                    userState:''
                 }
             },
             created(){
@@ -329,23 +327,19 @@
                         if(Number(val)<=year && parseInt(this.ruleForm.month)<=month){
                             this.ruleForm.month = this.months[month].label;
                         }
-                        // if(Number(val)>year){
-                        //     this.months = this.selectMonths.map(item => {
-                        //         return { value: item, label: item };
-                        //     });
-                        // }else{
-                        //     if(parseInt(this.ruleForm.month)<=month){
-                        //         this.ruleForm.month = this.months[month].label;
-                        //     }
-                            
-                        // }
                     }
                 },
                 selectCountry(val){//选择国家
                     if(val == 'us'){
                         this.stateChange = true;
+                        if(this.userState!=''){
+                            this.ruleForm.state = this.userState
+                        }else{
+                            this.ruleForm.state = 'AK';
+                        }
                     }else{
                         this.stateChange = false;
+                        this.ruleForm.state = '';
                     }
                 },
                 selectDefault(val){
@@ -364,6 +358,7 @@
                             if(res.data.code==200){
                                 console.log(res);
                                 this.infos = res.data.data;
+                                this.userState = this.infos.billingAddress.state;//用户的地址
                                 this.ruleForm.holderName = this.infos.nameOnCard;
                                 this.ruleForm.cardNumber = this.infos.cardNumber;
                                 if(this.infos.cardType == 3){
@@ -573,7 +568,7 @@
       #icon-tip2{
         position: absolute;
         top: -26px;
-        left: 46px;
+        left: 78px;
       }
       #icon-tip3{
         position: absolute;
