@@ -279,7 +279,7 @@
            color: #f56c6c;
        }
        .code-rule{
-           margin-top: 30px;
+           margin-top: 22px;
        }
        >>> .el-input__inner{
            width: 206px;

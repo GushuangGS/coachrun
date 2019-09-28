@@ -264,7 +264,7 @@
            color: #f56c6c;
        }
        .code-rule{
-           margin-top: 30px;
+           margin-top: 22px;
        }
        .right-tips{
             width: 568px; 
