@@ -44,7 +44,7 @@
         let markerArr = []  //需要弹窗的marker对象数组
         let infoWindow = []//msg数组
         for (let i = 0;i<this.positions.length;i++) {
-          console.log(this.positions.google)
+          console.log(this.positions,google)
           bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));
           let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
           if (i == this.index) {
