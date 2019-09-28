@@ -247,7 +247,7 @@
     display: none;
   }
   .none-data{
-    height: 65px;
+    height: 40px;
     background: #FAFAFA;
     margin-top: 5px;
     display: flex;
