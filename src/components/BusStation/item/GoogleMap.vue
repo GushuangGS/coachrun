@@ -38,9 +38,9 @@
           for (let i = 0;i<this.positions.length;i++) {
             bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));//加入中心点和zoom计算中
             let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
-            let marker = new google.maps.Marker({position: pluru,icon:require("./img/icon_mark.png")});//标记
+            let marker = new google.maps.Marker({position: pluru,icon:require("./img/stationlocation.png")});//标记
             marker.setMap(map)
-            let infowindow = {}
+            let infowindow = {}//信息窗口
             if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
               infowindow = new google.maps.InfoWindow({
                 content:`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
@@ -54,11 +54,10 @@
             }
             if (i == this.index) {//当前项是点击时的那一项
               infowindow.open(map,marker);//直接打开
-            } else {
-              google.maps.event.addListener(marker,"click",function (event) {//添加点击时打开的事件
-                info.open(map,marker)
-              })
             }
+            google.maps.event.addListener(marker,"click",function (event) {//添加点击时打开的事件
+              infowindow.open(map,marker)
+            })
           }
         }
         map.fitBounds(bounds)//计算出的中心点和zoom给map
