@@ -22,7 +22,8 @@
         props:['userID','api'],
         data() {
             return {
-                value: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
+                // value: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
+                value:[],
                 timeDefaultShow:'',
                 pickerOptions2: {
                     disabledDate(time){
@@ -150,22 +151,23 @@
         },
         methods:{
             selectOrder(time){
-                if(time!=null && this.api!=undefined && this.userID!=undefined){
-                    this.$http.get(this.api,
-                    {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userID}})
-                            .then((res)=>{
-                                console.log(res);
-                                if(res.data.code == 200){
-                                    if(res.data.data!=null || res.data.data!=undefined){
-                                        this.$emit('changeDate', res.data.data);
-                                    }else{
-                                        this.$emit('changeDate', '');
-                                    } 
-                                }
-                            })
-                }else{
-                    this.$emit('changeDate', '');
-                }
+                console.log(time)
+                // if(time!=null && this.api!=undefined && this.userID!=undefined){
+                //     this.$http.get(this.api,
+                //     {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userID}})
+                //             .then((res)=>{
+                //                 console.log(res);
+                //                 if(res.data.code == 200){
+                //                     if(res.data.data!=null || res.data.data!=undefined){
+                //                         this.$emit('changeDate', res.data.data);
+                //                     }else{
+                //                         this.$emit('changeDate', '');
+                //                     } 
+                //                 }
+                //             })
+                // }else{
+                //     this.$emit('changeDate', '');
+                // }
             },
         }
     };
