@@ -152,6 +152,7 @@
         methods:{
             selectOrder(time){
                 console.log(time)
+                // console.log(moment(time[0]).format('YYYY-MM-DD'))
                 // if(time!=null && this.api!=undefined && this.userID!=undefined){
                 //     this.$http.get(this.api,
                 //     {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userID}})

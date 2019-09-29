@@ -560,8 +560,8 @@
             // console.log(time)
             if(time!=null){
               this.$http.get(this.$api.bookingList,
-              // {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-              {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId}})
+              // {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userId}})
+              {params:{dateRange:1,startDate:moment(time[0]).format('YYYY-MM-DD'),endDate:moment(time[1]).format('YYYY-MM-DD'),userId:this.userId}})
                       .then((res)=>{
                           console.log(res);
                           if(res.data.code == 200){
