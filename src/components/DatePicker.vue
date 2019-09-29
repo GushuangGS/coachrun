@@ -11,7 +11,7 @@
             end-placeholder="End Date"
             @change="selectOrder"
             :default-value="timeDefaultShow"
-            :picker-options="pickerOptions2">
+            :picker-options="pickerOptions">
         </el-date-picker>
 </template>
 
@@ -25,7 +25,7 @@
                 // value: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
                 value:[],
                 timeDefaultShow:'',
-                pickerOptions2: {
+                pickerOptions: {
                     disabledDate(time){
                         return time.getTime() > new Date(new Date().toLocaleDateString()).getTime();
                     },
@@ -155,7 +155,7 @@
                 // console.log(moment(time[0]).format('YYYY-MM-DD'))
                 // if(time!=null && this.api!=undefined && this.userID!=undefined){
                 //     this.$http.get(this.api,
-                //     {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userID}})
+                //     {params:{dateRange:1,startDate:time[0]).format('YYYY-MM-DD'),endDate:time[1]).format('YYYY-MM-DD'),userId:this.userID}})
                 //             .then((res)=>{
                 //                 console.log(res);
                 //                 if(res.data.code == 200){

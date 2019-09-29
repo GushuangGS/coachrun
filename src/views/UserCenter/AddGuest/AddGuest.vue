@@ -242,7 +242,7 @@
        }
        .btn{
            /* width: 114px; */
-           height: 36px;
+           height: 40px;
            position: relative;
            left: 205px;
            top: -41px;
@@ -254,7 +254,7 @@
            border-bottom-right-radius: 4px;
        }
        .btn-disable{
-            height: 36px;
+            height: 40px;
            position: relative;
            left: 196px;
            top: -41px;
@@ -283,7 +283,7 @@
        }
        >>> .el-input__inner{
            width: 206px;
-           height: 36px;
+           height: 40px;
            border-top-right-radius: 0;
            border-bottom-right-radius: 0;
            color: #333333;
