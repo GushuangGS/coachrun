@@ -16,12 +16,14 @@
                   placeholder="Departure City"
                   default-first-option
                   @change="getCityReturn"
+                  :filter-method="matchData"
                 >
                   <el-option
-                    v-for="(item,index) in depart_options"
+                    v-for="(item,index) in depart_options.cities"
                     :key="index"
-                    :label="item"
-                    :value="item"
+                    :label="depart_options.citiesTemp[index]"
+                    :value="depart_options.citiesTemp[index]"
+                    v-html="item"
                   >
                   </el-option>
                 </el-select>
@@ -39,12 +41,14 @@
                   style="padding-left: 0px;"
                   default-first-option
                   :disabled="arrive_options==''?true:false"
+                  :filter-method="arriveMatchData"
                 >
                   <el-option
-                    v-for="(item,index) in arrive_options"
+                    v-for="(item,index) in arrive_options.cities"
                     :key="index"
-                    :label="item"
-                    :value="item"
+                    :label="arrive_options.citiesTemp[index]"
+                    :value="arrive_options.citiesTemp[index]"
+                    v-html="item"
                   >
                   </el-option>
                 </el-select>
@@ -179,10 +183,18 @@
     },
     data(){
       return {
-        depart_options:[],//出发城市列表b_cities
+        depart_options:{
+          cities:[],
+          citiesTemp:[]
+        },//出发城市列表b_cities
+        depart_options1:[],
         depart_City: '',//查找的出发城市
         arrive_City: '',//选择的到达城市
-        arrive_options:[],//到达城市列表
+        arrive_options:{
+          cities:[],
+          citiesTemp:[]
+        },//到达城市列表
+        arrive_options1:[],
         depart_date:'',//日期选择
         return_date:'',//返回日期
         adultsNum:1,//成人人数
@@ -200,7 +212,9 @@
     },
     mounted(){
       this.timer = setTimeout(()=>{
-        this.depart_options = b_cities
+        this.depart_options.cities = b_cities
+        this.depart_options.citiesTemp = b_cities
+        this.depart_options1 = b_cities
         clearTimeout(this.timer)
       },0)
     },
@@ -268,6 +282,48 @@
       }
     },
     methods:{
+      matchData(val){//出发城市自定义模糊查询
+        this.depart_City = val
+        if (val) { //val存在
+          this.depart_options.cities = this.depart_options1.filter((item) => {
+            if (!!~item.indexOf(val) || !!~item.toUpperCase().indexOf(val.toUpperCase())) {
+              return true
+            }
+          })
+          this.depart_options.citiesTemp = this.depart_options.cities
+          this.depart_options.cities = this.depart_options.cities.map((val)=>{
+            let temp = this.depart_City
+            if (val.indexOf(this.depart_City)==-1){
+              temp = temp.slice(0, 1).toUpperCase() + temp.slice(1)
+            }
+            return val.replace(new RegExp(this.depart_City,"ig"),`<strong class="coachrun-text-color6">`+temp+`</strong>`)
+          })
+        } else { //val为空时，还原数组
+          this.depart_options.cities = this.depart_options1;
+          this.depart_options.citiesTemp = this.depart_options1;
+        }
+      },
+      arriveMatchData(val){
+        this.arrive_City = val
+        if (val) { //val存在
+          this.arrive_options.cities = this.arrive_options1.filter((item) => {
+            if (!!~item.indexOf(val) || !!~item.toUpperCase().indexOf(val.toUpperCase())) {
+              return true
+            }
+          })
+          this.arrive_options.citiesTemp = this.arrive_options.cities
+          this.arrive_options.cities = this.arrive_options.cities.map((val)=>{
+            let temp = this.arrive_City
+            if (val.indexOf(this.arrive_City)==-1){
+              temp = temp.slice(0, 1).toUpperCase() + temp.slice(1)
+            }
+            return val.replace(new RegExp(this.arrive_City,"ig"),`<strong class="coachrun-text-color6">`+temp+`</strong>`)
+          })
+        } else { //val为空时，还原数组
+          this.arrive_options.cities = this.depart_options1;
+          this.arrive_options.citiesTemp = this.depart_options1;
+        }
+      },
       blurPassenger(ev){
         if (ev.target.value==""){
           ev.target.value = ev.target.min
@@ -287,8 +343,9 @@
         }
       },
       getCityReturn(){
-        console.log(1)
-        this.arrive_options = g_bus[this.depart_City]
+        this.arrive_options.cities = g_bus[this.depart_City]
+        this.arrive_options.citiesTemp = g_bus[this.depart_City]
+        this.arrive_options1 = g_bus[this.depart_City]
       },
       onSubmit(){
         if (this.return_date){
@@ -752,5 +809,8 @@
   }
   .el-date-table-calendar__row td>div>div{
     height: 46px!important;
+  }
+  .coachrun-text-color6 {
+    color: #666;
   }
 </style>
