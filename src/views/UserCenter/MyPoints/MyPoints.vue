@@ -244,7 +244,7 @@
     font-size: 18px;
     font-weight: bold;
     margin-top: 0;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     line-height: 1;
   }
   .pagination-wrapper {

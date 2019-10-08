@@ -11,7 +11,7 @@
             end-placeholder="End Date"
             @change="selectOrder"
             :default-value="timeDefaultShow"
-            :picker-options="pickerOptions2">
+            :picker-options="pickerOptions">
         </el-date-picker>
 </template>
 
@@ -22,9 +22,10 @@
         props:['userID','api'],
         data() {
             return {
-                value: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
+                // value: [moment().subtract(30, 'days').format('YYYY-MM-DD'),moment().format('YYYY-MM-DD')],
+                value:[],
                 timeDefaultShow:'',
-                pickerOptions2: {
+                pickerOptions: {
                     disabledDate(time){
                         return time.getTime() > new Date(new Date().toLocaleDateString()).getTime();
                     },
@@ -150,22 +151,24 @@
         },
         methods:{
             selectOrder(time){
-                if(time!=null && this.api!=undefined && this.userID!=undefined){
-                    this.$http.get(this.api,
-                    {params:{dateRange:1,startDate:time[0],endDate:time[1],userId:this.userID}})
-                            .then((res)=>{
-                                console.log(res);
-                                if(res.data.code == 200){
-                                    if(res.data.data!=null || res.data.data!=undefined){
-                                        this.$emit('changeDate', res.data.data);
-                                    }else{
-                                        this.$emit('changeDate', '');
-                                    } 
-                                }
-                            })
-                }else{
-                    this.$emit('changeDate', '');
-                }
+                console.log(time)
+                // console.log(moment(time[0]).format('YYYY-MM-DD'))
+                // if(time!=null && this.api!=undefined && this.userID!=undefined){
+                //     this.$http.get(this.api,
+                //     {params:{dateRange:1,startDate:time[0]).format('YYYY-MM-DD'),endDate:time[1]).format('YYYY-MM-DD'),userId:this.userID}})
+                //             .then((res)=>{
+                //                 console.log(res);
+                //                 if(res.data.code == 200){
+                //                     if(res.data.data!=null || res.data.data!=undefined){
+                //                         this.$emit('changeDate', res.data.data);
+                //                     }else{
+                //                         this.$emit('changeDate', '');
+                //                     } 
+                //                 }
+                //             })
+                // }else{
+                //     this.$emit('changeDate', '');
+                // }
             },
         }
     };

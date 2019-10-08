@@ -151,7 +151,7 @@
                                     <el-switch
                                         class="isDefault"
                                         v-model="showDefault"
-                                        inactive-text="Default payment method:"
+                                        inactive-text="Default Payment Method:"
                                         @change="selectDefault">
                                     </el-switch>
                                 </el-col>

@@ -216,6 +216,7 @@
     font-weight: bold;
     line-height: 1;
     margin-top: 0;
+    margin-bottom: 18px;
   }
   >>> .el-table__header th {
     background-color: #E5EFFA;

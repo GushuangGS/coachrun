@@ -92,7 +92,7 @@
                                         <el-switch
                                             class="isDefault"
                                             v-model="showDefault"
-                                            inactive-text="Default information："
+                                            inactive-text="Default Contact:"
                                             @change="selectDefault">
                                         </el-switch>
                                     </el-col>
