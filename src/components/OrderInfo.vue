@@ -753,11 +753,13 @@
 </script>
 
 <style scoped>
-    .column-name {
+      .column-name {
         background-color: #E5EFFA;
         color: #29507D;
         height: 40px;
         line-height: 40px;
+        border-left: 10px solid #E5EFFA;
+        border-right: 10px solid #E5EFFA;
       }
       .column-first {
         margin-left: 30px;
