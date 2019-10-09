@@ -17,18 +17,24 @@
               </div>
               <div class="right">
                 <div @click="contactInfo" class="img-span">
-                  <!-- <img class="right-img" src="@/assets/contact-edit.png" alt=""> -->
-                  <img class="right-img" src="@/assets/personInfo.png" alt="">
+                  <!-- <img class="right-img" src="@/assets/personInfo.png" alt=""> -->
+                  <div class="right-icon">
+                    <i class="icon-id-card-o right-img"></i>
+                  </div>
                   <span class="right-span">Manage Contact Info</span>
                 </div>
                 <div @click="creditcard" class="img-span">
-                  <!-- <img class="right-img" src="@/assets/reschedule.png" alt=""> -->
-                  <img class="right-img" src="@/assets/createCard.png" alt="">
+                  <!-- <img class="right-img" src="@/assets/createCard.png" alt=""> -->
+                  <div class="right-icon">
+                      <i class="icon-credit-card right-img"></i>
+                  </div>
                   <span class="right-span">View/Edit Credit Card</span>
                 </div>
                 <div @click="changePass" class="img-span">
-                    <!-- <img class="right-img" src="@/assets/password.png" alt=""> -->
-                    <img class="right-img" src="@/assets/changePas.png" alt="">
+                    <!-- <img class="right-img" src="@/assets/changePas.png" alt=""> -->
+                    <div class="right-icon">
+                        <i class="icon-lock right-img"></i>
+                    </div>
                     <span class="right-span">Change My Password</span>
                 </div>
               </div>
@@ -246,9 +252,14 @@
   .img-span{
     display: flex;
   }
+  .right-icon{
+    width: 20px;
+    text-align: center;
+  }
   .right-img{
-    width: 16px;
-    height: 16px;
+    /* width: 16px;
+    height: 16px; */
+    color: #666;
   }
   .right-span{
     font-size: 14px;
@@ -299,7 +310,7 @@
     padding-right: 3px;
   }
   >>> .el-collapse-item{
-    background-color: #F5F5F5;
+    background-color: #f9f9f9;
     margin-bottom: 20px;
   }
   >>> .el-collapse-item__header {
@@ -367,8 +378,10 @@
     border-bottom: 1px dashed #F2F6FB;
   }
   >>> .el-collapse-item__wrap {
-    background-color: #f8f8f8;
-    border: 2px solid #f8f8f8;
+    background-color: #f9f9f9;
+    border: 0px;
+    border-left: 10px solid #f9f9f9;
+    border-right: 10px solid #f9f9f9;
   }
   .no-bookings{
       color:rgba(51,51,51,1); 

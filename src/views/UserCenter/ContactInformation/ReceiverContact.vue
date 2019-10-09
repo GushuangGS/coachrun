@@ -100,8 +100,8 @@
                                 <el-row :gutter="20">
                                     <el-col :span="24">
                                         <el-form-item class="btns">
-                                            <el-button class="cancel-btn" @click="goBack">Cancel</el-button>
                                             <el-button class="save-btn" @click="submitForm('ruleForm')">Save</el-button>
+                                            <el-button class="cancel-btn" @click="goBack">Cancel</el-button>
                                         </el-form-item>
                                     </el-col>
                                 </el-row>
