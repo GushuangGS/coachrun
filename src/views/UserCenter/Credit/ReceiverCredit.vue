@@ -158,8 +158,8 @@
                             </el-row>
                             <el-row>
                                 <el-col :span="24">
-                                    <el-button class="cancel-btn" @click="goBack">Cancel</el-button>
                                     <el-button class="save-btn" @click.native.prevent="submitForm('ruleForm')">Save</el-button>
+                                    <el-button class="cancel-btn" @click="goBack">Cancel</el-button>
                                 </el-col>
                             </el-row>
                             <!-- <el-form-item>
@@ -531,7 +531,8 @@
         background-color: #FCFCFC;
         padding-top: 32px;
         padding-bottom: 20px;
-        width: 814px;
+        /* width: 814px; */
+        width: 833px;
       }
       .form-wrapper>.info {
         height: 30px;
@@ -573,7 +574,7 @@
       #icon-tip3{
         position: absolute;
         top: -26px;
-        left: 69px;
+        left: 67px;
       }
       .middle {
         border-top: 1px dashed #E5EFFA;

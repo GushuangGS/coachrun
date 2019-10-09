@@ -24,8 +24,8 @@
                         />
                     </template>
                 </el-form-item> 
-                <el-form-item prop="password">
-                    <el-input class="password-register" type="password" v-model="loginInfo.password" placeholder="Password"></el-input>
+                <el-form-item prop="password" :error="err">
+                    <el-input @input="inputPas" class="password-register" type="password" v-model="loginInfo.password" placeholder="Password"></el-input>
                 </el-form-item>
                 <el-button @click.native.prevent="register" class="login-btn">Create My Account</el-button>
            </el-form>
@@ -109,9 +109,20 @@
                     yourValue:'',
                     results: {},
                     canSave:false,
+                    err:''
                 }
             },
             methods:{
+                inputPas(){
+                    let reg = /((?=.*\d)(?=.*\D)|(?=.*[a-zA-Z])(?=.*[^a-zA-Z]))(?!^.*[\u4E00-\u9FA5].*$)^\S{6,12}$/;
+                    if(this.loginInfo.password!=''){
+                        if(!reg.test(this.loginInfo.password)){
+                            this.err = 'Use 6-12 characters with a mix of letters, numbers & symbols.';
+                        }else{
+                            this.err = '';
+                        }
+                    }
+                },
                 onUpdate(payload) {
                     console.log(payload);
                     this.canSave = payload.isValid;

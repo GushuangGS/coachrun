@@ -1,4 +1,5 @@
 const webpack = require('webpack')
+const path = require('path')
 
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
@@ -28,4 +29,20 @@ module.exports = {
       })
     ],
   },
+  // 调整内部的 webpack 配置。
+  chainWebpack: config => {
+    const types = ['vue-modules', 'vue', 'normal-modules', 'normal']
+    types.forEach(type => addStyleResource(config.module.rule('scss').oneOf(type)))
+  },
+}
+
+
+function addStyleResource (rule) {
+  rule.use('style-resource')
+    .loader('style-resources-loader')
+    .options({
+      patterns: [
+        path.resolve(__dirname, './src/styles/variables.scss'),
+      ],
+    })
 }

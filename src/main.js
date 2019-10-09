@@ -1,13 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
-// import router from './router/router'
 import {router} from './router/router'
 import store from './store'
-// import './configs/element.js'
-import ElementUI from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css'
-import locale from './configs/en.js'
-// import BootstrapVue from 'bootstrap-vue'
+// import ElementUI from 'element-ui'
+// import 'element-ui/lib/theme-chalk/index.css'
+// import locale from './configs/en.js'
+import './plugins/element.js'
 import axios from 'axios'
 import api from './configs/api'
 import VueCookie from 'vue-cookie';
@@ -20,9 +18,7 @@ import 'ele-calendar/dist/vue-calendar.css' //引入css
 import 'font-awesome/css/font-awesome.min.css'
 import './styles/css/index.css'
 
-// Vue.use(BootstrapVue);
-Vue.use(ElementUI,{ locale });
-// Vue.use({ locale });
+// Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
 Vue.use(VuePhoneNumberInput);
 Vue.use(eleCalendar);
@@ -33,8 +29,6 @@ Vue.config.productionTip = false;
 Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
 // axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
-// axios.defaults.baseURL = 'http://testwww.coachrun.com/api';
-
 // axios.defaults.baseURL = 'http://testwww.coachrun.com/';
 axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
 Vue.prototype.$api = api;
@@ -56,14 +50,20 @@ const errorHandle = (status, msg) => {//code判断
           // tip(msg);
           break;
       case 401:
+          let localHref = location.href
+          if(localHref.indexOf('logout') != -1){
+            localHref = '';
+          }
           if(msg.indexOf('logout')==-1){
             tip('Your login has expired. Please log in again to continue.');
           }
-          localStorage.removeItem('IvyCustomer_LoginToken');
-          localStorage.removeItem("loginName");
+          if (process.env.NODE_ENV == 'development'){
+            localStorage.removeItem('IvyCustomer_LoginToken');
+            localStorage.removeItem("loginName");
+          }
           store.commit('logout');
           setTimeout(() => {
-              router.replace({name: 'Login',query:{pageUrl:location.href}});
+              router.replace({name: 'Login',query:{pageUrl:localHref}});
           }, 1000);
           break;
       default:
@@ -99,13 +99,10 @@ export function tryHideFullScreenLoading() {
 //http request 拦截器
 axios.interceptors.request.use(
   config => {
-      
-      // var token = '';
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
       let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
       let token = loginCookie.split('+|+')[2];
-      // console.log(token)
       if(token==undefined){
         token = localStorage.getItem('IvyCustomer_LoginToken');
       }
@@ -113,8 +110,6 @@ axios.interceptors.request.use(
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
       // console.log(config.url.indexOf('login')==-1);
-      // console.log(token);
-      // console.log(typeof config.url);
       if(config.url.indexOf('api')!=-1){
         config.headers['X-Api-Key'] = btoa(apiKey);
         config.headers['Authorization'] = token;
@@ -143,7 +138,6 @@ axios.interceptors.response.use(
       return Promise.reject(error);
   }
 )
-// ---------------------------------------
 
 new Vue({
   router,

@@ -248,7 +248,7 @@
     display: none;
   }
   .none-data{
-    height: 40px;
+    height: 72px;
     background: #FAFAFA;
     margin-top: 5px;
     display: flex;
@@ -258,7 +258,7 @@
   .nodate-img{
     width: 28px;
     height: 27px;
-    margin-left: 12px;
+    margin-left: 6px;
     margin-right: 20px;
   }
   .none-data>span{

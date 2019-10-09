@@ -49,6 +49,7 @@
           </div>
         </el-main>
       </el-container>
+      <!-- <my-date-picker></my-date-picker> -->
     </div>
 </template>
 
@@ -56,6 +57,8 @@
   import VueCookie from 'vue-cookie';
   import ItemHeader from '@/components/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
+
+  import MyDatePicker from '@/components/DatePicker'
 
   export default {
     data() {
@@ -183,7 +186,8 @@
     },
     components: {
       ItemHeader,
-      SuccessBox
+      SuccessBox,
+      MyDatePicker
     },
     name: 'ChangePassword'
   }

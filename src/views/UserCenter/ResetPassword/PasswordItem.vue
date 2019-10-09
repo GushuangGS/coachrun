@@ -313,6 +313,7 @@
        >>> .el-button--primary.is-disabled{
             background-color:#099FE1;
             color: #FFFFFF;
+            border: none;
        }
        >>> .el-button--primary.is-disabled:hover{
             background-color:#099FE1;
@@ -321,6 +322,7 @@
        >>> .el-button--warning{
             background-color: #FF9A0D;
             color: #ffffff;
+            border: none;
         }
         >>> .el-button--warning.is-disabled:hover{
             background-color: #FEB347;
