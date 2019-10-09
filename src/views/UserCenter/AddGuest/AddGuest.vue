@@ -1,7 +1,7 @@
 <template>
         <div class="container">
             <div class="wrap">
-                <h3 class="wrap-title">Add Guest Booking</h3>
+                <h3 class="wrap-title">Add Guest Bookings</h3>
                 <span class="wrap-tip">Please provide the booking email address for the guest bookings in the last 100 days.</span>
                 <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" :show-message="false" label-width="auto">
                     <el-form-item

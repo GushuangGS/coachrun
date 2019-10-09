@@ -50,14 +50,20 @@ const errorHandle = (status, msg) => {//code判断
           // tip(msg);
           break;
       case 401:
+          let localHref = location.href
+          if(localHref.indexOf('logout') != -1){
+            localHref = '';
+          }
           if(msg.indexOf('logout')==-1){
             tip('Your login has expired. Please log in again to continue.');
           }
-          localStorage.removeItem('IvyCustomer_LoginToken');
-          localStorage.removeItem("loginName");
+          if (process.env.NODE_ENV == 'development'){
+            localStorage.removeItem('IvyCustomer_LoginToken');
+            localStorage.removeItem("loginName");
+          }
           store.commit('logout');
           setTimeout(() => {
-              router.replace({name: 'Login',query:{pageUrl:location.href}});
+              router.replace({name: 'Login',query:{pageUrl:localHref}});
           }, 1000);
           break;
       default:

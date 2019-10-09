@@ -382,6 +382,9 @@
       >>> .country-selector-arrow{
         top: 0;
       }
+      >>> .country-selector-toggle{
+          top: 0;
+      }
       >>> .el-switch__label{
         color: #606266;
       }
