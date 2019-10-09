@@ -217,16 +217,16 @@
                                         <span class="details-left gray">Schedule ID:</span>
                                         <span class="details-icon1 gray">{{item.product.code}}</span>
                                     </div>
-                                    <div class="details-options" v-if="hasPassengers(item)">
+                                    <div class="details-options" v-if="hasAbnormalPassengers(item)">
                                       <div class="left-details">
-                                          <span class="details-left gray"  v-for="(label,index) in item.passengers[0].options" :key="index">
+                                          <span class="details-left gray"  v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
                                             <span v-show="label.type=='bus_stop'|| label.type=='string'">
                                               {{label.name}}:
                                             </span>
                                           </span>
                                       </div>
                                       <div class="right-details">
-                                          <span class="details-icon2 gray"  v-for="(value,index) in item.passengers[0].options" :key="index">
+                                          <span class="details-icon2 gray"  v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
                                             <span v-show="label.type=='bus_stop'|| label.type=='string'">
                                               {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
                                             </span>
@@ -237,23 +237,23 @@
                                         <span class="details-left gray">Passengers:</span>
                                         <div class="details-icon1 gray">
                                             <div>
-                                              {{getpeopleNumber(item)}}
+                                              {{getAbnormalpeopleNumber(item)}}
                                                 <!-- <span>Adult: </span>
                                                 <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
                                                 <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
                                                 <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span> -->
                                             </div>
                                             <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Adult').length!=0"> -->
-                                            <div class="line-none" v-if="filterPeopleType('Adult')">
-                                              <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')" :key="index">
+                                            <div class="line-none" v-if="filterAbnormalPeopleType('Adult')">
+                                              <div v-for="(adult,index) in item.abnormalPassengers.filter(name=>name.type=='Adult')" :key="index">
                                                   <span>Adult{{index+1}}: </span>
                                                   <span>{{adult.name}} </span>
                                                   <span>(CN: {{adult.cn}})</span>
                                               </div>
                                             </div>
                                             <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Child').length!=0"> -->
-                                            <div class="line-none" v-if="filterPeopleType('Child')">
-                                                <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
+                                            <div class="line-none" v-if="filterAbnormalPeopleType('Child')">
+                                                <div v-for="(Child,index) in item.abnormalPassengers.filter(name=>name.type=='Child')"
                                                     :key="index">
                                                     <span>Child{{index+1}}: </span>
                                                     <span>{{Child.name}} </span>
@@ -262,8 +262,8 @@
                                                 </div>
                                             </div>
                                             <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Infant').length!=0"> -->
-                                            <div class="line-none" v-if="filterPeopleType('Infant')">
-                                                <div v-for="(Infant,index) in item.passengers.filter(name=>name.type=='Infant')"
+                                            <div class="line-none" v-if="filterAbnormalPeopleType('Infant')">
+                                                <div v-for="(Infant,index) in item.abnormalPassengers.filter(name=>name.type=='Infant')"
                                                     :key="index">
                                                     <span>Infant{{index+1}}: </span>
                                                     <span>{{Infant.name}}</span>
@@ -271,8 +271,8 @@
                                                 </div>
                                             </div>
                                             <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Senior').length!=0"> -->
-                                            <div class="line-none" v-if="filterPeopleType('Senior')">
-                                                <div v-for="(Senior,index) in item.passengers.filter(name=>name.type=='Senior')"
+                                            <div class="line-none" v-if="filterAbnormalPeopleType('Senior')">
+                                                <div v-for="(Senior,index) in item.abnormalPassengers.filter(name=>name.type=='Senior')"
                                                     :key="index">
                                                     <span>Senior{{index+1}}: </span>
                                                     <span>{{Senior.name}}</span>
@@ -280,8 +280,8 @@
                                                 </div>
                                             </div>
                                             <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Junior').length!=0"> -->
-                                            <div class="line-none" v-if="filterPeopleType('Junior')">
-                                                <div v-for="(Junior,index) in item.passengers.filter(name=>name.type=='Junior')"
+                                            <div class="line-none" v-if="filterAbnormalPeopleType('Junior')">
+                                                <div v-for="(Junior,index) in item.abnormalPassengers.filter(name=>name.type=='Junior')"
                                                     :key="index">
                                                     <span>Junior{{index+1}}: </span>
                                                     <span>{{Junior.name}}</span>
@@ -289,8 +289,8 @@
                                                 </div>
                                             </div>
                                             <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Student').length!=0"> -->
-                                                <div class="line-none" v-if="filterPeopleType('Student')">
-                                                <div v-for="(Student,index) in item.passengers.filter(name=>name.type=='Student')"
+                                                <div class="line-none" v-if="filterAbnormalPeopleType('Student')">
+                                                <div v-for="(Student,index) in item.abnormalPassengers.filter(name=>name.type=='Student')"
                                                     :key="index">
                                                     <span>Student{{index+1}}: </span>
                                                     <span>{{Student.name}}</span>
@@ -298,8 +298,8 @@
                                                 </div>
                                             </div>
                                             <!-- <div class="line-none" v-if="item.passengers.filter(name=>name.type=='Military').length!=0"> -->
-                                            <div class="line-none" v-if="filterPeopleType('Military')">
-                                                <div v-for="(Military,index) in item.passengers.filter(name=>name.type=='Military')"
+                                            <div class="line-none" v-if="filterAbnormalPeopleType('Military')">
+                                                <div v-for="(Military,index) in item.abnormalPassengers.filter(name=>name.type=='Military')"
                                                     :key="index">
                                                     <span>Military{{index+1}}: </span>
                                                     <span>{{Military.name}}</span>
@@ -485,6 +485,11 @@
           MyDatePicker
         },
         name: 'MyBookings',
+        // beforeCreate(){
+        //   this.$nextTick(function(){
+        //     this.orderList();
+        //   })
+        // },
         created(){
           this.orderList();
           // console.log(this.str.substr(5,2));  
@@ -500,6 +505,17 @@
                 this.selectedItinerary = itinerary;
                 if(this.selectedItinerary.passengers && this.selectedItinerary.passengers.length){
                     return this.selectedItinerary.passengers[0].options;
+                }
+                return null;
+              }
+            }
+          },
+          abnormalOptions(){
+            for(const tickets of this.bookingsList){
+              for(const itinerary of tickets.entities){
+                this.selectedItinerary = itinerary;
+                if(this.selectedItinerary.abnormalPassengers && this.selectedItinerary.abnormalPassengers.length){
+                    return this.selectedItinerary.abnormalPassengers[0].options;
                 }
                 return null;
               }
@@ -532,8 +548,40 @@
               }
               return peopleNumberArray.join(", ");
             },
+            getAbnormalpeopleNumber(itinerary) {
+              if(!this.abnormalOptions) return 
+              let peopleTypes = [
+                "Adult",
+                "Child",
+                "Infant",
+                "Senior",
+                "Junior",
+                "Student",
+                "Military"
+              ];
+              let peopleNumberArray = [];
+              for (const peopleType of peopleTypes) {
+                let count = 0;
+                for (const passenger of itinerary.abnormalPassengers) {
+                  if (passenger.type == peopleType) {
+                    count++;
+                  }
+                }
+                if (count > 0) {
+                  peopleNumberArray.push(`${peopleType} ${count}`);
+                }
+              }
+              return peopleNumberArray.join(", ");
+            },
           hasPassengers(item){
             if(item.passengers.length!=0){
+              return true;
+            }else{
+              return false;
+            }
+          },
+          hasAbnormalPassengers(item){
+            if(item.abnormalPassengers.length!=0){
               return true;
             }else{
               return false;
@@ -542,6 +590,15 @@
           filterPeopleType(peopleType) {
             if(!this.options) return 
             for (const passenger of this.selectedItinerary.passengers) {
+              if (passenger.type === peopleType) {
+                return true;
+              }
+            }
+            return false;
+          },
+          filterAbnormalPeopleType(peopleType){
+            if(!this.abnormalOptions) return 
+            for (const passenger of this.selectedItinerary.abnormalPassengers) {
               if (passenger.type === peopleType) {
                 return true;
               }
@@ -959,7 +1016,9 @@
       }
       >>> .el-collapse-item__wrap {
         background-color: #f9f9f9;
-        border: 2px solid #f9f9f9;
+        border: 0px;
+        border-left: 10px solid #f9f9f9;
+        border-right: 10px solid #f9f9f9;
       }
 
       .pagination-wrapper {

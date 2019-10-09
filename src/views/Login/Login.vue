@@ -3,8 +3,8 @@
     <div class="login">
        <h3 class="login-title">Log In</h3>
        <el-form class="login-form" :model="loginInfo" :rules="rules" ref="loginForm" label-width="0px">
-            <el-form-item prop="email">
-                <el-input v-model="loginInfo.email" placeholder="Email"></el-input>
+            <el-form-item prop="email" :error="err">
+                <el-input v-model="loginInfo.email" placeholder="Email" @input="blurInp"></el-input>
             </el-form-item> 
             <el-form-item prop="password">
                 <el-input type="password" v-model="loginInfo.password" placeholder="Password"></el-input>
@@ -33,7 +33,7 @@
             <div class="intro">
                 <img class="intro-img" src="@/assets/chechkouts.png" alt="">
                 <span class="intro-info">Faster Checkouts</span>
-            </div>
+            </div>  
        </div>
     </div>
     </div>
@@ -53,11 +53,13 @@
                 rules: {
                     email: [{ required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
                             { type: 'email', message: 'Please enter a valid email address.', trigger: 'blur'}],
+                    // email:[{required: true, message: 'Please enter your full email address.'}],
                     password: [{ required: true, trigger: 'blur' ,message: 'Please enter your password.'},
                             { min: 6, message: 'Please enter a valid password.', trigger: 'blur' }],
                 },
                 userId:'',
-                pageUrl:''
+                pageUrl:'',
+                err:'',
             }
         },
         created(){
@@ -66,6 +68,18 @@
             }
         },
         methods:{
+            blurInp(){
+                // let reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+                // if(this.loginInfo.email!=''){
+                //     if(!reg.test(this.loginInfo.email)){
+                //         this.err = 'Please enter a valid email address.';
+                //     }else{
+                //         this.err = '';
+                //     }
+                // }
+                // console.log(reg.test(this.loginInfo.email));
+                // console.log(this.loginInfo.email)
+            },
             //忘记密码
             forgetPass(){
                 this.$router.push({name: 'PasswordRetrieval'});
@@ -183,7 +197,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .hr{
         width: 330px;
         height: 1px;
@@ -224,7 +238,6 @@
         height: 56px;
         font-size: 20px;
         margin-top: 20px;
-        /* background:rgba(254,179,71,1); */
         background:#FF9A0D;
         color:rgba(255,255,255,1);
         border: none;
