@@ -227,8 +227,9 @@
         }
       },
       arrive_City:function(){
+        console.log(this.arrive_City,this.depart_City)
         if (this.arrive_City&&this.depart_City){
-          this.$axios("https://search.gotobus.com/search/get-lowest-price-embed-json.do",{
+          this.$http("https://search.gotobus.com/search/get-lowest-price-embed-json.do",{
             params:{
               vendorId:1350154,
               fromCity:this.depart_City,
@@ -291,12 +292,9 @@
             }
           })
           this.depart_options.citiesTemp = this.depart_options.cities
+          let matcher = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + val + ")(?![^<>]*>)(?![^&;]+;)", "gi");
           this.depart_options.cities = this.depart_options.cities.map((val)=>{
-            let temp = this.depart_City
-            if (val.indexOf(this.depart_City)==-1){
-              temp = temp.slice(0, 1).toUpperCase() + temp.slice(1)
-            }
-            return val.replace(new RegExp(this.depart_City,"ig"),`<strong class="coachrun-text-color6">`+temp+`</strong>`)
+            return val.replace(matcher, "<strong>$1</strong>");
           })
         } else { //val为空时，还原数组
           this.depart_options.cities = this.depart_options1;
@@ -312,12 +310,9 @@
             }
           })
           this.arrive_options.citiesTemp = this.arrive_options.cities
+          let matcher = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + val + ")(?![^<>]*>)(?![^&;]+;)", "gi");
           this.arrive_options.cities = this.arrive_options.cities.map((val)=>{
-            let temp = this.arrive_City
-            if (val.indexOf(this.arrive_City)==-1){
-              temp = temp.slice(0, 1).toUpperCase() + temp.slice(1)
-            }
-            return val.replace(new RegExp(this.arrive_City,"ig"),`<strong class="coachrun-text-color6">`+temp+`</strong>`)
+            return val.replace(matcher, "<strong>$1</strong>");
           })
         } else { //val为空时，还原数组
           this.arrive_options.cities = this.depart_options1;
@@ -811,6 +806,10 @@
     height: 46px!important;
   }
   .coachrun-text-color6 {
-    color: #666;
+    color: #333;
+  }
+  .el-select-dropdown__item.selected {
+    color: #409EFF;
+    font-weight: 400;
   }
 </style>
