@@ -51,9 +51,8 @@
                     password: '',
                 },
                 rules: {
-                    email: [{ required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
-                            { type: 'email', message: 'Please enter a valid email address.', trigger: 'blur'}],
-                    // email:[{required: true, message: 'Please enter your full email address.'}],
+                    // email: [{ required: true, trigger: 'blur' ,message: 'Please enter your full email address.'},
+                    //         { type: 'email', message: 'Please enter a valid email address.', trigger: 'blur'}],
                     password: [{ required: true, trigger: 'blur' ,message: 'Please enter your password.'},
                             { min: 6, message: 'Please enter a valid password.', trigger: 'blur' }],
                 },
@@ -69,16 +68,16 @@
         },
         methods:{
             blurInp(){
-                // let reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
-                // if(this.loginInfo.email!=''){
-                //     if(!reg.test(this.loginInfo.email)){
-                //         this.err = 'Please enter a valid email address.';
-                //     }else{
-                //         this.err = '';
-                //     }
-                // }
-                // console.log(reg.test(this.loginInfo.email));
-                // console.log(this.loginInfo.email)
+                let reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+                if(this.loginInfo.email!=''){
+                    if(!reg.test(this.loginInfo.email)){
+                        this.err = 'Please enter a valid email address.';
+                    }else{
+                        this.err = '';
+                    }
+                }else{
+                    this.err = 'Please enter your full email address.'
+                }
             },
             //忘记密码
             forgetPass(){
@@ -151,8 +150,6 @@
                                                     let token = res.data.token;
                                                     let newLoginCookie = `${loginCookie}+|+${token}`
                                                     VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
-                                                    console.log(newLoginCookie);
-                                                    console.log(res);
                                                 })
                                         }
                                     }
