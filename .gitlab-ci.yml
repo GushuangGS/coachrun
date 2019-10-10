@@ -12,7 +12,7 @@ sandbox:
  script:
     - npm --registry https://registry.npm.taobao.org install express
     - rm -rf node_modules package-lock.json && npm install
-    - npm run build
+    - npm run sandbox
     - scp -r vue root@192.168.20.9:/var/www/vhosts/test-servers/coachrun.com/www
     - echo success
     
