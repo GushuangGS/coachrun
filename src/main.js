@@ -18,6 +18,8 @@ import 'ele-calendar/dist/vue-calendar.css' //引入css
 import 'font-awesome/css/font-awesome.min.css'
 import './styles/css/index.css'
 
+import './styles/common.css'
+
 // Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
 Vue.use(VuePhoneNumberInput);
