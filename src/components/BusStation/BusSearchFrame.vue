@@ -121,7 +121,7 @@
                   :value="passengerNum1"
                 >
                   <div @click.stop>
-                    <span style="float: left">Adults</span>
+                    <span style="float: left;color: #606266;">Adults</span>
                     <el-input-number
                       v-model="adultsNum"
                       :min="1"
@@ -136,7 +136,7 @@
                   :value="passengerNum1"
                 >
                   <div @click.stop>
-                    <span style="float: left">Children</span>
+                    <span style="float: left;color: #606266;">Children</span>
                     <el-input-number
                       v-model="childrenNum"
                       :min="0"
@@ -151,7 +151,7 @@
                   :value="passengerNum1"
                 >
                   <div @click.stop>
-                    <el-button @click = "hiddenPassengerBox" id="passenger-btn">Done</el-button>
+                    <el-button @click = "hiddenPassengerBox" id="passenger-btn" type="text">Done</el-button>
                   </div>
                 </el-option>
               </el-select>
@@ -371,15 +371,15 @@
           return(
             data.defvalue.value?(data.defvalue.value.price==this.dep_min_price?
               (<div style="display: flex;flex-direction: column;">
-                <div style="line-height:20px">{data.defvalue.text}</div>
+                <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
               <span class="font-green">${data.defvalue.value.price}</span>
             </div>):
             (<div style="display: flex;flex-direction: column;">
-            <div style="line-height:20px">{data.defvalue.text}</div>
+            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
             <span class="cf60">${data.defvalue.value.price}</span>
             </div>)):(
             <div>
-            <div style="line-height:20px">{data.defvalue.text}</div>
+            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
             </div>
         )
         )
@@ -395,14 +395,14 @@
           return(
             data.defvalue.value?(data.defvalue.value.price==this.ret_min_price?
               (<div style="display: flex;flex-direction: column;">
-                <div>{data.defvalue.text}</div>
+                <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
                 <span class="font-green">${data.defvalue.value.price}</span>
               </div>):
               (<div style="display: flex;flex-direction: column;">
-            <div>{data.defvalue.text}</div>
+            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
             <span class="cf60">${data.defvalue.value.price}</span>
             </div>)):
-            <div>{data.defvalue.text}</div>
+            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
         )
         }
         return (
@@ -788,6 +788,16 @@
     width: 291px!important;
     height: 40px;
     margin-top:2px
+  }
+  .option-inpnumber:first-child {
+    margin-top: 20px!important;
+  }
+  .option-inpnumber:last-child {
+    margin: 14px 0 12px!important;
+    height: 14px;
+  }
+  .option-inpnumber:last-child button {
+    padding: 0px;
   }
   .option-inpnumber.hover, .option-inpnumber:hover {
     background:none;
