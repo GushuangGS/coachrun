@@ -512,17 +512,8 @@
                 this.selectedItinerary = itinerary;
                 if(this.selectedItinerary.passengers && this.selectedItinerary.passengers.length){
                     return this.selectedItinerary.passengers[0].options;
-                }
-                return null;
-              }
-            }
-          },
-          abnormalOptions(){
-            for(const tickets of this.bookingsList){
-              for(const itinerary of tickets.entities){
-                this.selectedItinerary = itinerary;
-                if(this.selectedItinerary.abnormalPassengers && this.selectedItinerary.abnormalPassengers.length){
-                    return this.selectedItinerary.abnormalPassengers[0].options;
+                }else if(this.selectedItinerary.abnormalPassengers && this.selectedItinerary.abnormalPassengers.length != 0){
+                  return this.selectedItinerary.abnormalPassengers[0].options;
                 }
                 return null;
               }
@@ -545,31 +536,6 @@
               for (const peopleType of peopleTypes) {
                 let count = 0;
                 for (const passenger of itinerary.passengers) {
-                  if (passenger.type == peopleType) {
-                    count++;
-                  }
-                }
-                if (count > 0) {
-                  peopleNumberArray.push(`${peopleType} ${count}`);
-                }
-              }
-              return peopleNumberArray.join(", ");
-            },
-            getAbnormalpeopleNumber(itinerary) {
-              if(!this.abnormalOptions) return 
-              let peopleTypes = [
-                "Adult",
-                "Child",
-                "Infant",
-                "Senior",
-                "Junior",
-                "Student",
-                "Military"
-              ];
-              let peopleNumberArray = [];
-              for (const peopleType of peopleTypes) {
-                let count = 0;
-                for (const passenger of itinerary.abnormalPassengers) {
                   if (passenger.type == peopleType) {
                     count++;
                   }
@@ -604,7 +570,7 @@
             return false;
           },
           filterAbnormalPeopleType(peopleType){
-            if(!this.abnormalOptions) return 
+            if(!this.options) return 
             for (const passenger of this.selectedItinerary.abnormalPassengers) {
               if (passenger.type === peopleType) {
                 return true;
