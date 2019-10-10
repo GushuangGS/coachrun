@@ -1,5 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
+const CompressionPlugin = require("compression-webpack-plugin")
 
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
@@ -20,14 +21,16 @@ module.exports = {
       }
     }
   },
-  configureWebpack: {
-    plugins: [
-      new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
-        'windows.jQuery': 'jquery'
-      })
-    ],
+  configureWebpack:config => {
+    if(process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'sandbox'){
+      return {
+        plugins: [new CompressionPlugin({
+          test: /\.js$|\.htm$|\.css/,
+          threshold: 10240,
+          deleteOriginalAssets: false
+        })]
+      }
+    }
   },
   // 调整内部的 webpack 配置。
   chainWebpack: config => {
