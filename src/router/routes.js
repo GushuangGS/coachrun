@@ -1,48 +1,5 @@
 import userCenterRouter from './user-center/user-center'
 // import login from './login/login'
-const Login = resolve => {//登陆页面
-  import('@/views/Login/Login').then(module => {
-    resolve(module)
-  })
-}
-const Logout = resolve => {//退出登陆
-  import('@/views/Login/Login').then(module => {
-    resolve(module)
-  })
-}
-const Register = resolve => {//注册页面
-  import('@/views/Login/Register').then(module => {
-    resolve(module)
-  })
-}
-
-const PasswordRetrieval = resolve => {//忘记密码
-  import('@/views/UserCenter/ResetPassword/PasswordRetrieval').then(module => {
-    resolve(module)
-  })
-}
-const RemindEmail = resolve => {
-  import('@/views/UserCenter/ResetPassword/RemindEmail').then(module => {
-    resolve(module)
-  })
-}
-const ResetPassword = resolve => {
-  import('@/views/UserCenter/ResetPassword/ResetPassword').then(module => {
-    resolve(module)
-  })
-}
-
-const AddGuest = resolve => {
-  import('@/views/UserCenter/AddGuest/AddGuest').then(module => {
-    resolve(module)
-  })
-}
-const BusStation = resolve => {
-  import('@/views/BusStation').then(module=>{
-    resolve(module)
-  })
-}
-
 const routes = [
   // {
   //   path: '/',
@@ -55,22 +12,22 @@ const routes = [
   {//登陆
     path:'/render/user/login',
     name:'Login',
-    component:Login
+    component:()=>import('@/views/Login/Login')
   },
   {//退出
     path:'/render/user/logout',
     name:'Logout',
-    component:Logout
+    component:()=>import('@/views/Login/Login')
   },
   {//注册
     path:'/render/user/register',
     name:'Register',
-    component:Register
+    component:()=>import('@/views/Login/Register')
   },
   {//发送邮箱
     path: '/render/user/forgot-password',
     name: 'PasswordRetrieval',
-    component: PasswordRetrieval
+    component:()=>import('@/views/UserCenter/ResetPassword/PasswordRetrieval')
   },
   // {//发送至邮箱提醒
   //   path: '/render/user/forgot-password/after',
@@ -91,12 +48,12 @@ const routes = [
   {//添加订单
     path: '/render/member/guest-booking-reclaim',
     name: 'AddGuest',
-    component: AddGuest
+    component:()=>import('@/views/UserCenter/AddGuest/AddGuest')
   },
   {//bus-station
     path:'/bus-stations',
     name:'BusStation',
-    component:BusStation,
+    component:()=>import('@/views/BusStation'),
     meta:{
       keepAlive:true
     }

@@ -14,7 +14,7 @@
                 <input id="chkAdmin" type="checkbox" v-model="item"> 
                 <label for="chkAdmin" class="rem-me">Remember me</label>
             </div> -->
-            <el-button @click.native.prevent="login" class="login-btn">Log In</el-button>
+            <el-button @click.native.prevent="login" class="login-btn uiButtonBackground">Log In</el-button>
        </el-form>
        <div class="hr"></div>
        <div class="register">
@@ -166,11 +166,11 @@
                                         if(this.pageUrl){
                                             window.location.href = this.pageUrl;
                                         }else{
-                                            if(VueCookie.get('IvyCustomer_role')>=3){
-                                                this.$router.push({path:'/app/member/account'});
-                                            }else{
+                                            // if(VueCookie.get('IvyCustomer_role')>=3){
+                                            //     this.$router.push({path:'/app/member/account'});
+                                            // }else{
                                                 this.$router.push({name: 'MyOrders'});
-                                            }
+                                            // }
                                         }
                                     }
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);

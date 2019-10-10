@@ -59,10 +59,10 @@
         methods:{
             useType(coupon){
                 ((coupon.deviceType & 1) == 1
-                ? this.$t("lang.users_identity_deals_desktop") + ","
+                ? "Desktop" + ","
                 : "") +
                 ((coupon.deviceType & 2) == 2
-                ? this.$t("lang.users_identity_deals_mobile") + ","
+                ? "Mobile" + ","
                 : "") +
                 ((coupon.deviceType & 4) == 4 ? "APP" : "")
             }
