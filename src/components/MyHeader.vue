@@ -182,7 +182,7 @@
     color: #009FEA;
 }
 .user-name{
-    color: #009fea;
+    color: #00A2FF;
     white-space: nowrap;
 }
 .logout{
@@ -191,7 +191,7 @@
     padding: 0 15px;
 }
 .logout:hover {
-  color:rgba(0,159,234,1);;
+  color:#00A2FF;;
 }
 .login{
     margin-right: 5px;
