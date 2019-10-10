@@ -22,7 +22,7 @@
             </div>
             <div class="show-name" v-if="$store.state.isLogin">
                 <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
-                <span class="logot" @click="logout">Logout</span>
+                <span class="logout" @click="logout">Logout</span>
             </div>
             <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
                 <!-- <img src="@/assets/shoppingcart.png" alt=""> -->
@@ -185,14 +185,13 @@
     color: #009fea;
     white-space: nowrap;
 }
-.logot{
-    margin-left: 20px;
+.logout{
+    margin-left: 16px;
     font-size:14px;
-    color:rgba(0,159,234,1);
-    font-weight: 600;
-    border: 1px solid;
     padding: 0 15px;
-    border-radius: 4px;
+}
+.logout:hover {
+  color:rgba(0,159,234,1);;
 }
 .login{
     margin-right: 5px;
@@ -201,11 +200,11 @@
 margin-left: 5px;
 }
 .shopping-cart{
-    margin-left:30px;
+    margin-left:16px;
     font-size: 18px;
 }
 .live-chat{
-    margin-left: 28px;
+    margin-left: 16px;
     font-size: 18px;
 }
 .header-title{
