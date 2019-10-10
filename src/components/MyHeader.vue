@@ -16,11 +16,8 @@
 
         <div class="header-right">
             <div class="login-register" v-if="!$store.state.isLogin">
-                <span class="login" @click="login">
+                <span @click="login">
                     Login
-                </span>|
-                <span class="register" @click="register">
-                    Register
                 </span>
             </div>
             <div class="show-name" v-if="$store.state.isLogin">
@@ -126,7 +123,7 @@
                                 center: true
                             });
                         }
-                        
+
                     });
             }
         }
@@ -168,8 +165,8 @@
     padding: 0 15px;
     border:1px solid #cdcdcd;
     display: flex;
-    font-size:14px;   
-    border-radius:4px;      
+    font-size:14px;
+    border-radius:4px;
     color:rgba(51,51,51,1);
 }
 .show-name{
@@ -178,7 +175,7 @@
     margin-left: 150px;
     padding: 0 0 0 15px;
     display: flex;
-    font-size:14px;   
+    font-size:14px;
     color:rgba(51,51,51,1);
 }
 .bgColor{

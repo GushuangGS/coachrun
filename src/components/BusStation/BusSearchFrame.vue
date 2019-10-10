@@ -441,6 +441,12 @@
   }
   .search-frame {
     background-image: url("../../assets/bg.jpg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 360px!important;
+    margin-bottom: 20px;
+    padding-top: 0px!important;
   }
   >>> .fa {
     left: 10px!important;
