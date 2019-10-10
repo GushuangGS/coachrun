@@ -1,18 +1,13 @@
 <template>
   <el-main>
     <component is="BusSearchFrame"></component>
-    <all-bus-station :data="data"></all-bus-station>
+    <all-bus-station :items="data"></all-bus-station>
   </el-main>
 </template>
 <script>
   import BusSearchFrame from '@/components/BusStation/BusSearchFrame'
   import AllBusStation from '@/components/BusStation/AllBusStation'
   export default {
-    // data(){
-    //   return {
-    //     data:[]
-    //   }
-    // },
     data(){
       return{
         data:[]
@@ -32,11 +27,14 @@
         }
       }).then(response => {
         if (response.data.code==200) {
+          console.log(response.data.data,44)
           const data = response.data.data
-          let mapData = {}
+          let mapData1 = [{},{}]
           let mapgroup = []
           let mapname = []
           let temp = ''
+          let count1 = 0
+          let count2 = 0
           for (let i = 0 ; i<data.length;i++) {
             if(mapname.indexOf(data[i].address.city)==-1){
               mapname.push(data[i].address.city)
@@ -46,20 +44,24 @@
                   mapgroup.push(data[index])
                 }
               }
-              mapData[temp] = mapgroup
+              if (count1>count2){
+                mapData1[1][temp] = mapgroup
+                count2 = count2 + 2 + mapgroup.length
+              } else {
+                mapData1[0][temp] = mapgroup
+                count1 = count1 + 2 + mapgroup.length
+              }
               temp = ''
               mapgroup = []
             }
           }
-          this.data = mapData;
+          this.data = mapData1
         }
       })
     },
     components:{
       BusSearchFrame,
       AllBusStation
-      // BusSearchFrame:()=>import(/*webpackChunkName: "BusSearchFrame"*/'../../../components/pages/section/BusSearchFrame'),
-      // AllBusStation:()=>import(/*webpackChunkName: "AllBusStation"*/'../../../components/pages/section/AllBusStation')
     },
     name:"BusStation",
   }

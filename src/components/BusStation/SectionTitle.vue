@@ -18,7 +18,7 @@
 </script>
 <style lang="scss" scoped>
   .section {
-    margin: 0 auto 90px;
+    margin: 0 auto 60px;
   }
   .ellipsis{
     overflow: hidden;
@@ -52,8 +52,6 @@
   }
   .line-title {
     font-size:18px;
-    font-family:Arial-BoldMT;
-    font-weight:normal;
     color:#333;
     height: 20px;
     line-height: 20px;

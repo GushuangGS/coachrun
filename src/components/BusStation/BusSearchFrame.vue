@@ -440,7 +440,7 @@
     display: flex;
   }
   .search-frame {
-    background-image: url("../../assets/bg.png");
+    background-image: url("../../assets/bg.jpg");
   }
   >>> .fa {
     left: 10px!important;
@@ -522,7 +522,6 @@
   }
   >>> .search-submit button {
     font-size: 16px;
-    font-family: Arial-BoldMT;
     font-weight: bold;
     color: white;
   }
@@ -530,8 +529,6 @@
     padding: 0px 25px 0px 37px;
     width: 100%;
     font-size:14px;
-    font-family:Arial-BoldMT;
-    font-weight:normal;
     color:#606266;
     line-height:14px;
   }
@@ -559,8 +556,6 @@
   >>> .search-box-container input::-webkit-input-placeholder {
     height:17px;
     font-size:14px;
-    font-family:ArialMT;
-    /*color:rgba(51,51,51,1);*/
     line-height:18px;
   }
   >>> .search-table .el-icon-arrow-up:before {
@@ -628,8 +623,7 @@
   }
   >>> #passenger-btn {
     font-size: 14px;
-    font-family: Arial-BoldMT;
-    font-weight: normal;
+    font-weight: bold;
     color: #606266;
     line-height: 14px;
     float: right;
@@ -673,13 +667,11 @@
     .search-box-container {
       margin: 0 auto;
       height: 100%;
-      font-family:Arial;
       flex-direction: column;
       position: relative;
       .search-table {
         /*margin-top: 26px;*/
         font-size:14px;
-        font-family:ArialMT;
         color:rgba(129,129,129,1);
         display: flex;
         .search-city {
@@ -739,7 +731,6 @@
       flex: 1;
       color: #fff;
       text-align: center;
-      font-family: Arial;
       font-size: 12px;
       &:before {
         display: inline-block;

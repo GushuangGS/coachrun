@@ -18,7 +18,7 @@
               @click="showMap(StationItem,index,CityName)"
           >
             <i><img src="../../../assets/location.png"></i>
-            <p>{{item.name}}</p>
+            <p>{{item.landmark}}{{item.landmark?(item.address.street?", ":""):""}}{{item.address.street}}</p>
           </li>
         </ul>
       </el-card>

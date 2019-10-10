@@ -1,10 +1,10 @@
 <template>
   <el-container class="section">
     <section-title title-name="All Bus Stations Available On CoachRun"></section-title>
-    <el-main>
-      <ul class="station-list">
+    <el-main class="flex">
+      <ul class="station-list" v-for="i in 2" :key="i">
 <!--          <li is="BusStationItem" v-for="i in 12" @show="showMap"></li>-->
-        <li is="BusStationItem" v-for="(item,index) in data" @show="showMap" :station-item="item" :key="index" :city-name="index"></li>
+        <li is="BusStationItem" v-for="(item,index) in items[i-1]" @show="showMap" :station-item="item" :key="index" :city-name="index"></li>
       </ul>
     </el-main>
     <el-dialog
@@ -26,10 +26,7 @@
   import BusStationItem from "@/components/BusStation/item/BusStationItem"
   export default {
     props:{
-      data:{
-        type:Array,
-        default:[]
-      }
+      items:Object
     },
     data() {
       return {
@@ -40,13 +37,9 @@
       };
     },
     mounted(){
-      console.log(this.data,111)
+      console.log(this.items,111)
     },
     methods:{
-      // setPosition(markers,position){
-      //   this.markers = markers
-      //   this.position = position
-      // },
       showMap(positions,index,cityName){
         this.positions = positions
         this.index = index
@@ -114,7 +107,6 @@
   >>> .el-dialog__title {
     height:20px;
     font-size:18px;
-    font-family:Arial;
     font-weight:bold;
     color:#303133;
     line-height:21px;
@@ -142,6 +134,7 @@
     .el-main {
       width: 100%;
       .station-list {
+        width: 50%;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
