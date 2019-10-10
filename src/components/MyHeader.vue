@@ -219,7 +219,6 @@ margin-left: 5px;
     margin-left: 30px;
     text-align: center;
     font-size:16px;
-    font-family:ArialMT;
     color: #333;
     padding: 15px;
 }

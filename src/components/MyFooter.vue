@@ -65,7 +65,7 @@
         background: #00A2FF;
     }
     .footer-top{
-      height: 300px;
+      height: 232px;
       width: 1200px;
       display: flex;
       flex-direction: column;
@@ -73,7 +73,7 @@
       color:rgba(255,255,255,1);
       line-height: 20px;
       margin: 0 auto;
-      padding-top: 51px;
+      padding-top: 40px;
     }
     .footer-top span {
       font-family: ArialMT;

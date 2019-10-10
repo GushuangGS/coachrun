@@ -1,5 +1,5 @@
 <template>
-  <el-container class="section">
+  <el-container class="section" style="margin-bottom: 30px">
     <section-title title-name="All Bus Stations Available On CoachRun"></section-title>
     <el-main class="flex">
       <ul class="station-list" v-for="i in 2" :key="i">
@@ -128,11 +128,10 @@
 <style scoped lang="scss">
   .el-container {
     width: 1178px;
-    padding: 18px 0 0;
-    margin: 80px auto auto;
     flex-direction: column!important;
     .el-main {
       width: 100%;
+      padding: 0px 20px;
       .station-list {
         width: 50%;
         display: flex;

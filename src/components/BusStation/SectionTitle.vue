@@ -37,7 +37,7 @@
   }
 
   .el-header {
-    padding: 0px!important;
+    padding-bottom: 30px;
   }
   ul{
     list-style: none;
@@ -47,8 +47,7 @@
     display: flex;
     justify-content:space-between;
     align-items: center;
-    height: 22px;
-    margin-bottom: 10px;
+    height: 20px!important;
   }
   .line-title {
     font-size:18px;
