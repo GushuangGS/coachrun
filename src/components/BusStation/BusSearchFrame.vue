@@ -121,7 +121,7 @@
                   :value="passengerNum1"
                 >
                   <div @click.stop>
-                    <span style="float: left">Adults</span>
+                    <span style="float: left;color: #606266;">Adults</span>
                     <el-input-number
                       v-model="adultsNum"
                       :min="1"
@@ -136,7 +136,7 @@
                   :value="passengerNum1"
                 >
                   <div @click.stop>
-                    <span style="float: left">Children</span>
+                    <span style="float: left;color: #606266;">Children</span>
                     <el-input-number
                       v-model="childrenNum"
                       :min="0"
@@ -151,7 +151,7 @@
                   :value="passengerNum1"
                 >
                   <div @click.stop>
-                    <el-button @click = "hiddenPassengerBox" id="passenger-btn">Done</el-button>
+                    <el-button @click = "hiddenPassengerBox" id="passenger-btn" type="text">Done</el-button>
                   </div>
                 </el-option>
               </el-select>
@@ -227,8 +227,9 @@
         }
       },
       arrive_City:function(){
+        console.log(this.arrive_City,this.depart_City)
         if (this.arrive_City&&this.depart_City){
-          this.$axios("https://search.gotobus.com/search/get-lowest-price-embed-json.do",{
+          this.$http("https://search.gotobus.com/search/get-lowest-price-embed-json.do",{
             params:{
               vendorId:1350154,
               fromCity:this.depart_City,
@@ -291,12 +292,9 @@
             }
           })
           this.depart_options.citiesTemp = this.depart_options.cities
+          let matcher = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + val + ")(?![^<>]*>)(?![^&;]+;)", "gi");
           this.depart_options.cities = this.depart_options.cities.map((val)=>{
-            let temp = this.depart_City
-            if (val.indexOf(this.depart_City)==-1){
-              temp = temp.slice(0, 1).toUpperCase() + temp.slice(1)
-            }
-            return val.replace(new RegExp(this.depart_City,"ig"),`<strong class="coachrun-text-color6">`+temp+`</strong>`)
+            return val.replace(matcher, "<strong>$1</strong>");
           })
         } else { //val为空时，还原数组
           this.depart_options.cities = this.depart_options1;
@@ -312,12 +310,9 @@
             }
           })
           this.arrive_options.citiesTemp = this.arrive_options.cities
+          let matcher = new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + val + ")(?![^<>]*>)(?![^&;]+;)", "gi");
           this.arrive_options.cities = this.arrive_options.cities.map((val)=>{
-            let temp = this.arrive_City
-            if (val.indexOf(this.arrive_City)==-1){
-              temp = temp.slice(0, 1).toUpperCase() + temp.slice(1)
-            }
-            return val.replace(new RegExp(this.arrive_City,"ig"),`<strong class="coachrun-text-color6">`+temp+`</strong>`)
+            return val.replace(matcher, "<strong>$1</strong>");
           })
         } else { //val为空时，还原数组
           this.arrive_options.cities = this.depart_options1;
@@ -376,15 +371,15 @@
           return(
             data.defvalue.value?(data.defvalue.value.price==this.dep_min_price?
               (<div style="display: flex;flex-direction: column;">
-                <div style="line-height:20px">{data.defvalue.text}</div>
+                <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
               <span class="font-green">${data.defvalue.value.price}</span>
             </div>):
             (<div style="display: flex;flex-direction: column;">
-            <div style="line-height:20px">{data.defvalue.text}</div>
+            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
             <span class="cf60">${data.defvalue.value.price}</span>
             </div>)):(
             <div>
-            <div style="line-height:20px">{data.defvalue.text}</div>
+            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
             </div>
         )
         )
@@ -400,14 +395,14 @@
           return(
             data.defvalue.value?(data.defvalue.value.price==this.ret_min_price?
               (<div style="display: flex;flex-direction: column;">
-                <div>{data.defvalue.text}</div>
+                <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
                 <span class="font-green">${data.defvalue.value.price}</span>
               </div>):
               (<div style="display: flex;flex-direction: column;">
-            <div>{data.defvalue.text}</div>
+            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
             <span class="cf60">${data.defvalue.value.price}</span>
             </div>)):
-            <div>{data.defvalue.text}</div>
+            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
         )
         }
         return (
@@ -794,6 +789,16 @@
     height: 40px;
     margin-top:2px
   }
+  .option-inpnumber:first-child {
+    margin-top: 20px!important;
+  }
+  .option-inpnumber:last-child {
+    margin: 14px 0 12px!important;
+    height: 14px;
+  }
+  .option-inpnumber:last-child button {
+    padding: 0px;
+  }
   .option-inpnumber.hover, .option-inpnumber:hover {
     background:none;
   }
@@ -811,6 +816,10 @@
     height: 46px!important;
   }
   .coachrun-text-color6 {
-    color: #666;
+    color: #333;
+  }
+  .el-select-dropdown__item.selected {
+    color: #409EFF;
+    font-weight: 400;
   }
 </style>
