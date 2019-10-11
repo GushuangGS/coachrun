@@ -110,7 +110,7 @@
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Child').length!=0"> -->
-                                        <div v-if="filterPeopleType('Child')">
+                                        <div v-if="filterPeopleType('Child',item)">
                                         <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                             :key="index">
                                             <span>Child{{index+1}}: </span>
@@ -120,7 +120,7 @@
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Infant').length!=0"> -->
-                                        <div v-if="filterPeopleType('Infant')">
+                                        <div v-if="filterPeopleType('Infant',item)">
                                         <div v-for="(Infant,index) in item.passengers.filter(name=>name.type=='Infant')"
                                             :key="index">
                                             <span>Infant{{index+1}}: </span>
@@ -129,7 +129,7 @@
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Senior').length!=0"> -->
-                                        <div v-if="filterPeopleType('Senior')">
+                                        <div v-if="filterPeopleType('Senior',item)">
                                         <div v-for="(Senior,index) in item.passengers.filter(name=>name.type=='Senior')"
                                             :key="index">
                                             <span>Senior{{index+1}}: </span>
@@ -138,7 +138,7 @@
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Junior').length!=0"> -->
-                                        <div v-if="filterPeopleType('Junior')">
+                                        <div v-if="filterPeopleType('Junior',item)">
                                         <div v-for="(Junior,index) in item.passengers.filter(name=>name.type=='Junior')"
                                             :key="index">
                                             <span>Junior{{index+1}}: </span>
@@ -147,7 +147,7 @@
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Student').length!=0"> -->
-                                        <div v-if="filterPeopleType('Student')">
+                                        <div v-if="filterPeopleType('Student',item)">
                                         <div v-for="(Student,index) in item.passengers.filter(name=>name.type=='Student')"
                                             :key="index">
                                             <span>Student{{index+1}}: </span>
@@ -156,7 +156,7 @@
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Military').length!=0"> -->
-                                      <div v-if="filterPeopleType('Military')">
+                                      <div v-if="filterPeopleType('Military',item)">
                                         <div v-for="(Military,index) in item.passengers.filter(name=>name.type=='Military')"
                                             :key="index">
                                             <span>Military{{index+1}}: </span>
@@ -527,8 +527,8 @@
         name:'OrderInfo',
         computed:{
           options(){
-            for(const tickets  of this.allTicket){
-                for(const itinerary of tickets.entities){
+            for(let tickets of this.allTicket){
+                for(let itinerary of tickets.entities){
                   if(itinerary.passengers && itinerary.passengers.length){
                       return itinerary.passengers[0].options;
                   }else if(itinerary.abnormalPassengers && itinerary.abnormalPassengers.length != 0){
@@ -552,9 +552,9 @@
                 "Military"
               ];
               let peopleNumberArray = [];
-              for (const peopleType of peopleTypes) {
+              for (let peopleType of peopleTypes) {
                 let count = 0;
-                for (const passenger of itinerary.passengers) {
+                for (let passenger of itinerary.passengers) {
                   if (passenger.type == peopleType) {
                     count++;
                   }
@@ -583,7 +583,7 @@
               if(!this.options) return 
               // console.log(item)
               if(item!=undefined){
-                for (const passenger of item.passengers) {
+                for (let passenger of item.passengers) {
                   if (passenger.type === peopleType) {
                     return true;
                   }
@@ -593,7 +593,7 @@
             },
             filterAbnormalPeopleType(peopleType){
               if(!this.options) return 
-              for (const passenger of this.selectedItinerary.abnormalPassengers) {
+              for (let passenger of this.selectedItinerary.abnormalPassengers) {
                 if (passenger.type === peopleType) {
                   return true;
                 }
