@@ -51,6 +51,7 @@
   }
   .line-title {
     font-size:18px;
+    font-weight: 500;
     color:#333;
     height: 20px;
     line-height: 20px;
