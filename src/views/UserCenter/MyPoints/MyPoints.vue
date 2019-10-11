@@ -41,7 +41,7 @@
               </div>
             </div>
             <div class="detail">
-              <h2 class="table-title">Points Details</h2>
+              <h2 class="table-title uiTitleFontColor">Points Details</h2>
               <el-table
                 empty-text="Start earning your loyalty points today!"
                 :data="tableData"
@@ -229,12 +229,14 @@
     margin: 0;
   }
   .help {
-    color: #274F7C;
-    font-weight: bold;
+    color: #333333;
     line-height: 53px;
     text-align: center;
     cursor: pointer;
     font-size: 14px;
+  }
+  .help:hover{
+    color: #00A2FF;
   }
   .detail {
     margin-left: 10px;

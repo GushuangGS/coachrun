@@ -9,7 +9,7 @@
           <success-box :text="successBoxText"></success-box>
         </div>
         <div class="credits" v-if="creditInfo.length>0">
-          <h2>My Credit Cards</h2>
+          <h2 class="uiTitleFontColor">My Credit Cards</h2>
           <ul class="credit-list">
             <li class="credit-list-item" v-for="(info,index) in creditInfo" :key="index">
               <div class="icon">

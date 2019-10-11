@@ -41,9 +41,9 @@
             </div>
             <div class="divider"></div>
             <div class="recent-bookings">
-              <div class="bookings-header">
+              <div class="bookings-header uiTitleFontColor">
                 <h4>Upcoming Trips</h4>
-                <span class="go-to-bookings" @click="myBookings">See All Bookings ></span>
+                <span class="go-to-bookings" @click="myBookings">See All Bookings</span>
               </div>
               <order-info :ticket="dashInfo"></order-info>
               <!-- <div class="bookings-list">

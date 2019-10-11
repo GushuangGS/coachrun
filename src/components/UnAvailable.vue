@@ -9,28 +9,35 @@
                 </div>
                 <div class="product-bus">
                     <span class="product-intro1">{{listInfo.title}}</span>
-                    <span class="product-intro2">Departure time: {{listInfo.serviceDateDescription}}</span>
+                    <span class="product-intro2">
+                        <span>
+                                Departure time: 
+                        </span>
+                        <el-tooltip :content="listInfo.purchaseDateDescription" effect="light" placement="top-start">
+                            <span>{{listInfo.purchaseDateDescription}}</span>
+                        </el-tooltip>
+                    </span>
                     <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
-                    <span>{{listInfo.deviceType}}</span>
+                    <span class="product-intro4">Applicable device: {{useType(listInfo)}}</span>
                 </div>
                 <div class="product-details">
-                        <el-collapse>
-                            <el-collapse-item>
-                                    <template slot="title">
-                                            View promotion detail
-                                            <img class="down"src="@/assets/down.png" alt=""> 
-                                       </template>
-                                       <div>{{listInfo.description}}</div>
-                                        <div>{{listInfo.serviceDateDescription}}</div>
-                                        <div v-for="(item,index) in listInfo.products" :key="index">
-                                            {{item.name}}
-                                        </div>
-                            </el-collapse-item>
-                        </el-collapse>
+                    <el-collapse>
+                        <el-collapse-item>
+                            <template slot="title">
+                                View promotion detail
+                                <img class="down"src="@/assets/down.png" alt=""> 
+                            </template>
+                            <div class="infiDes" v-html="listInfo.description"></div>
+                            <!-- <div>{{listInfo.serviceDateDescription}}</div> -->
+                            <div v-for="(item,index) in listInfo.products" :key="index">
+                                {{item.name}}
+                            </div>
+                        </el-collapse-item>
+                    </el-collapse>
                 </div>
             </div>
-            <div class="left-ridus"></div>
-            <div class="right-ridus"></div>
+            <!-- <div class="left-ridus"></div>
+            <div class="right-ridus"></div> -->
             <div class="top-img">
                 <img  v-show="listInfo.usedDate ==''"  src="@/assets/used.png" alt="">
                 <img  v-show="listInfo.isExpired ==true"  src="@/assets/expired.png" alt="">
@@ -57,6 +64,17 @@
                     str+="%";
                     this.discountValue = str; 
                 }
+            },
+            methods:{
+                useType(coupon){
+                    return ((coupon.deviceType & 1) == 1
+                    ? "Desktop" + ","
+                    : "") +
+                    ((coupon.deviceType & 2) == 2
+                    ? "Mobile" + ","
+                    : "") +
+                    ((coupon.deviceType & 4) == 4 ? "APP" : "")
+                }
             }
         }
     </script>
@@ -70,19 +88,20 @@
             position: relative;
         }
         .left-ridus,.right-ridus{
-            width: 40px;
+            width: 20px;
             height: 40px;
-            border-radius: 50%;
             background: #ffffff;
             position: absolute;
         }
         .left-ridus{
-            left: -17px;
-            top: 106px;
+            left: 0px;
+            top: 108px;
+            border-radius: 0 20px 20px 0;
         }
         .right-ridus{
             left: 268px;
-            top: 106px;
+            top: 108px;
+            border-radius: 20px 0 0 20px;
         }
         .top-img{
             position: absolute;
@@ -103,15 +122,15 @@
         .product-extra{
             margin: 0 auto;
             width: 254px;
-            height: 121px;
+            height: 96px;
             display: flex;
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            border-bottom: 2px dashed #D7D7D7;
+            border-bottom: 0.5px dashed #EFEFEF;
         }
         .product-tltle1{
-            width:65px;
+            /* width:65px; */
             height:20px;
             font-size:18px;
             font-family:Arial-BoldMT;
@@ -120,7 +139,7 @@
             line-height:21px;
         }
         .product-tltle2{
-            width:49px;
+            /* width:49px; */
             height:27px;
             font-size:24px;
             font-family:Arial-BoldMT;
@@ -129,7 +148,7 @@
             line-height:28px;
         }
         .product-tltle3{
-            width:35px;
+            /* width:35px; */
             height:25px;
             font-size:18px;
             font-family:PingFangSC-Regular;
@@ -139,12 +158,11 @@
         }
         .product-bus{
             width: 284px;
-            height: 60px;
+            height: 70px;
         }
-        .product-intro1,.product-intro2,.product-intro3{
+        .product-intro1,.product-intro2,.product-intro3,.product-intro4{
             padding-left: 8px;
             height:16px;
-            font-family:ArialMT;
             color:#666666;
             line-height:16px;
             display: block;
@@ -155,14 +173,16 @@
             margin-top: 12px;
         }
         .product-intro2{
-            font-size:13px;
+            font-size:12px;
             margin-top: 8px;
         }
         .product-intro3{
-            margin-top: 8px;
+            margin-top: 2px;
             font-size: 12px;
-            color: #365BC3;
-            font-weight: bold;
+        }
+        .product-intro4{
+            margin-top: 2px;
+            font-size: 12px;
         }
         .product-details{
             padding-left:8px; 
@@ -172,7 +192,11 @@
             margin-top: 20px;
             line-height:15px;
         }
-
+        .infiDes{
+            color:rgba(51,51,51,1);
+            font-size: 12px;
+            line-height: 16px;
+        }
         .down{
             margin-left: 5px;
         }
@@ -190,5 +214,8 @@
         }
         >>> .el-collapse-item__wrap{
             background-color: #EBEBEB;
+        }
+        >>> .el-collapse-item__content{
+            padding-bottom: 10px;
         }
     </style>
