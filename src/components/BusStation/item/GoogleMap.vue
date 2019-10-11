@@ -3,7 +3,7 @@
 </template>
 <script>
   import country from "../../../configs/country.json"
-  import stationlocation from "@/assets/stationlocation.png"
+  import stationlocation from "@/assets/location_m.png"
   export default {
     props:{
       positions:{
@@ -39,7 +39,7 @@
         if (this.positions.length){//防止数据为undefined问题
           for (let i = 0;i<this.positions.length;i++) {
             bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));//加入中心点和zoom计算中
-            let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}
+            let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}//经纬度位置
             let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
             // require("./img/stationlocation")
             marker.setMap(map)
@@ -55,6 +55,7 @@
             }
             google.maps.event.addListener(marker,"click",function (event) {//添加点击时打开的事件
               infowindow.open(map,marker)
+              console.log(infowindow)
             })
           }
         }
