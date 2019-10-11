@@ -651,7 +651,6 @@
     width: 100%;
     height: 614px;
     padding-top: 189px;
-    background-size: 100% 100%;
   }
   .track-bus-btn {
     margin-top: 8px;
