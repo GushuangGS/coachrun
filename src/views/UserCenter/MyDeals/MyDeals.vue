@@ -7,7 +7,7 @@
         </el-container> -->
         <el-main>
             <div class="content">
-                <div class="deals-title">My Deals</div>
+                <h2 class="deals-title uiTitleFontColor">My Deals</h2>
                 <div class="products">
                         <el-row :gutter="20">
                             <el-col :span="8" v-for="(listInfo,index) in dataList" :key="index">
@@ -83,7 +83,7 @@
     }
     .deals-title{
         font-size: 18px;
-        font-weight: bold;
+        margin-top: 0;
     }
     >>> .el-row{
         display: flex;

@@ -4,3 +4,6 @@
 .uiButtonBackground:hover{
     background: #FF9A0D;
 }
+.uiTitleFontColor{
+    color: #333;
+}

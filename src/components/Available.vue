@@ -9,9 +9,14 @@
             </div>
             <div class="product-bus">
                 <span class="product-intro1">{{listInfo.title}}</span>
-                <span class="product-intro2">Departure time: {{listInfo.serviceDateDescription}}</span>
-                <span class="product-intro3" v-if="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
-                <span class="product-intro2">Applicable device:{{useType(this.listInfo)}}</span>
+                <span class="product-intro2">
+                    <span>Departure time: </span>
+                    <el-tooltip :content="listInfo.purchaseDateDescription" effect="light" placement="top-start">
+                        <span>{{listInfo.purchaseDateDescription}}</span>
+                    </el-tooltip>
+                </span>
+                <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
+                <span class="product-intro4">Applicable device: {{useType(listInfo)}}</span>
             </div>
             <div class="product-details">
                     <el-collapse>
@@ -20,8 +25,8 @@
                                      View promotion detail
                                      <img class="down" src="@/assets/down.png" alt=""> 
                                 </template>
-                            <div>{{listInfo.description}}</div>
-                            <div>{{listInfo.serviceDateDescription}}</div>
+                            <!-- <div class="infiDes" v-html="getDescription(listInfo.description)"></div> -->
+                            <div class="infiDes" v-html="listInfo.description"></div>
                             <div v-for="(item,index) in listInfo.products" :key="index">
                                 {{item.name}}
                             </div>
@@ -29,8 +34,8 @@
                     </el-collapse>
             </div>
         </div>
-        <div class="left-ridus"></div>
-        <div class="right-ridus"></div>
+        <!-- <div class="left-ridus"></div>
+        <div class="right-ridus"></div> -->
     </div>
 </template>
 
@@ -45,7 +50,7 @@
             }
         },
         created(){
-            // console.log(this.listInfo.discountValue);
+            console.log(this.listInfo);
             if(this.listInfo.discountValue>1){
                 var str ="$"+this.listInfo.discountValue;
                 this.discountValue = str;
@@ -54,18 +59,25 @@
                 str+="%";
                 this.discountValue = str; 
             }
-
         },
         methods:{
             useType(coupon){
-                ((coupon.deviceType & 1) == 1
-                ? "Desktop" + ","
+                return ((coupon.deviceType & 1) == 1
+                ? "Desktop" + ", "
                 : "") +
                 ((coupon.deviceType & 2) == 2
-                ? "Mobile" + ","
+                ? "Mobile" + ", "
                 : "") +
                 ((coupon.deviceType & 4) == 4 ? "APP" : "")
-            }
+            },
+            // getDescription(str){
+            //     var strArr = str.split('<br/>');
+            //     let arr = "";
+            //     for(let list of strArr){
+            //         arr+= '<span>'+list+'</span>'
+            //     }
+            //     return arr;
+            // }
         }
     }
 </script>
@@ -81,26 +93,28 @@
         /* z-index: 1; */
     }
     .left-ridus,.right-ridus{
-        width: 40px;
+        width: 20px;
         height: 40px;
-        border-radius: 50%;
         background: #F5F5F5;
         position: absolute;
     }
     .left-ridus{
-        left: -17px;
-        top: 106px;
+        left: 0px;
+        top: 108px;
+        border-radius: 0 20px 20px 0;
     }
     .right-ridus{
         left: 268px;
-        top: 106px;
+        top: 108px;
+        border-radius: 20px 0 0 20px;
     }
     .product-top{
         width:284px;
         height:12px;
-        background:rgba(248,76,76,1);
-        border-top-left-radius: 5px;
-        border-top-right-radius:5px;
+        /* background:rgba(248,76,76,1); */
+        background: #FF9A0D;
+        border-top-left-radius: 4px;
+        border-top-right-radius:4px;
     }
     .product-container{
         width: 284px;
@@ -109,48 +123,44 @@
     .product-extra{
         margin: 0 auto;
         width: 254px;
-        height: 121px;
+        height: 96px;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         align-items: center;
-        border-bottom: 2px dashed #E81F4A;
+        border-bottom: 0.5px solid #EFEFEF;
     }
     .product-tltle1{
-        width:65px;
+        /* width:65px; */
         height:20px;
         font-size:18px;
-        font-family:Arial-BoldMT;
         font-weight:normal;
-        color:rgba(232,31,74,1);
+        color:#FF9A0D;
         line-height:21px;
     }
     .product-tltle2{
-        width:49px;
+        /* width:49px; */
         height:27px;
         font-size:24px;
-        font-family:Arial-BoldMT;
         font-weight:bold;
-        color:rgba(232,31,74,1);
+        color:#FF9A0D;
         line-height:28px;
     }
     .product-tltle3{
-        width:35px;
+        /* width:35px; */
         height:25px;
         font-size:18px;
-        font-family:PingFangSC-Regular;
         font-weight:400;
-        color:rgba(232,31,74,1);
+        color:#FF9A0D;
         line-height:25px;
     }
     .product-bus{
         width: 284px;
         height: 70px;
     }
-    .product-intro1,.product-intro2,.product-intro3{
+    .product-intro1,.product-intro2,.product-intro3,.product-intro4{
         padding-left: 8px;
         height:16px;
-        font-family:ArialMT;
         color:rgba(51,51,51,1);
         line-height:16px;
         display: block;
@@ -161,14 +171,19 @@
         margin-top: 12px;
     }
     .product-intro2{
-        font-size:13px;
+        font-size:12px;
         margin-top: 8px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
     .product-intro3{
-        margin-top: 8px;
+        margin-top: 2px;
         font-size: 12px;
-        color: #365BC3;
-        font-weight: bold;
+    }
+    .product-intro4{
+        margin-top: 2px;
+        font-size: 12px;
     }
     .product-details{
         padding-left:8px; 
@@ -182,7 +197,11 @@
     .down{
         margin-left: 5px;
     }
-
+    .infiDes{
+        color:rgba(51,51,51,1);
+        font-size: 12px;
+        line-height: 16px;
+    }
     >>> .el-collapse{
         border-top: none;
         border-bottom: none;
@@ -190,10 +209,13 @@
     >>> .el-collapse-item__header{
         height: 20px;
         line-height: 20px;
-        color:#2D5687;
+        color:#29507D;
         border-bottom: none;
     }
     >>> .el-collapse-item__wrap{
         /* z-index: 100; */
+    }
+    >>> .el-collapse-item__content{
+        padding-bottom: 10px;
     }
 </style>

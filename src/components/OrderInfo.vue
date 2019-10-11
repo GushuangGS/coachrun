@@ -38,9 +38,11 @@
                         <el-row>
                           <el-col :span="11">
                               <div class="column-first">
-                                  <span class="country-tip">
+                                  <el-tooltip :content="getCity(item)" effect="light" placement="top-start">
+                                    <span class="country-tip">
                                       {{getCity(item)}}
                                     </span>
+                                  </el-tooltip>
                                   <div v-if="getNext1Day(item)" class="icon-night1"></div>
                                   <div v-if="getNext2Day(item)" class="icon-night2"></div>
                                   <div class="bookings-disc bookings-disc-color2" v-show="item.serviceStatus==3">
@@ -93,71 +95,71 @@
                                   <span class="details-left">Passengers:</span>
                                   <div class="details-icon1">
                                       <div>
-                                          {{getpeopleNumber(item)}}
+                                          {{getpeopleNumber(item)}} 
                                           <!-- <span>Adult: </span>
                                           <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
                                           <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
                                           <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span> -->
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Adult').length!=0"> -->
-                                      <div v-if="filterPeopleType('Adult')">
+                                      <div v-show="filterPeopleType('Adult',item)">
                                         <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')" :key="index">
-                                            <!-- <span>Adult{{index+1}}: </span> -->
+                                            <span>Adult{{index+1}}: </span>
                                             <span>{{adult.name}} </span>
                                             <span>(CN: {{adult.cn}})</span>
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Child').length!=0"> -->
-                                        <div v-if="filterPeopleType('Child')">
+                                        <div v-if="filterPeopleType('Child',item)">
                                         <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                             :key="index">
-                                            <!-- <span>Child{{index+1}}: </span> -->
+                                            <span>Child{{index+1}}: </span>
                                             <span>{{Child.name}} </span>
                                             <span v-if="Child.age!=undefined && Child.age!=''">(Age: {{Child.age}}) </span>
                                             <span>(CN: {{Child.cn}})</span>
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Infant').length!=0"> -->
-                                        <div v-if="filterPeopleType('Infant')">
+                                        <div v-if="filterPeopleType('Infant',item)">
                                         <div v-for="(Infant,index) in item.passengers.filter(name=>name.type=='Infant')"
                                             :key="index">
-                                            <!-- <span>Infant{{index+1}}: </span> -->
+                                            <span>Infant{{index+1}}: </span>
                                             <span>{{Infant.name}}</span>
                                             <span>(CN: {{Infant.cn}})</span>
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Senior').length!=0"> -->
-                                        <div v-if="filterPeopleType('Senior')">
+                                        <div v-if="filterPeopleType('Senior',item)">
                                         <div v-for="(Senior,index) in item.passengers.filter(name=>name.type=='Senior')"
                                             :key="index">
-                                            <!-- <span>Senior{{index+1}}: </span> -->
+                                            <span>Senior{{index+1}}: </span>
                                             <span>{{Senior.name}}</span>
                                             <span>(CN: {{Senior.cn}})</span>
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Junior').length!=0"> -->
-                                        <div v-if="filterPeopleType('Junior')">
+                                        <div v-if="filterPeopleType('Junior',item)">
                                         <div v-for="(Junior,index) in item.passengers.filter(name=>name.type=='Junior')"
                                             :key="index">
-                                            <!-- <span>Junior{{index+1}}: </span> -->
+                                            <span>Junior{{index+1}}: </span>
                                             <span>{{Junior.name}}</span>
                                             <span>(CN: {{Junior.cn}})</span>
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Student').length!=0"> -->
-                                        <div v-if="filterPeopleType('Student')">
+                                        <div v-if="filterPeopleType('Student',item)">
                                         <div v-for="(Student,index) in item.passengers.filter(name=>name.type=='Student')"
                                             :key="index">
-                                            <!-- <span>Student{{index+1}}: </span> -->
+                                            <span>Student{{index+1}}: </span>
                                             <span>{{Student.name}}</span>
                                             <span>(CN: {{Student.cn}})</span>
                                         </div>
                                       </div>
                                       <!-- <div v-if="item.passengers.filter(name=>name.type=='Military').length!=0"> -->
-                                      <div v-if="filterPeopleType('Military')">
+                                      <div v-if="filterPeopleType('Military',item)">
                                         <div v-for="(Military,index) in item.passengers.filter(name=>name.type=='Military')"
                                             :key="index">
-                                            <!-- <span>Military{{index+1}}: </span> -->
+                                            <span>Military{{index+1}}: </span>
                                             <span>{{Military.name}}</span>
                                             <span>(CN: {{Military.cn}})</span>
                                         </div>
@@ -181,23 +183,23 @@
                         <div class="actions" v-if="item.status==8">
                           <div class="order-details">
                               <div>
-                                  <span class="details-left">Itinerary ID:</span>
-                                  <span class="details-icon1">{{item.entityCode}}</span>
+                                  <span class="details-left gray">Itinerary ID:</span>
+                                  <span class="details-icon1 gray">{{item.entityCode}}</span>
                               </div>
                               <div>
-                                  <span class="details-left">Schedule ID:</span>
-                                  <span class="details-icon1">{{item.product.code}}</span>
+                                  <span class="details-left gray">Schedule ID:</span>
+                                  <span class="details-icon1 gray">{{item.product.code}}</span>
                               </div>
                               <div class="details-options" v-if="hasAbnormalPassengers(item)">
                                 <div class="left-details">
-                                    <span class="details-left"  v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
+                                    <span class="details-left gray"  v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
                                         <span v-show="label.type=='bus_stop'|| label.type=='string'">
                                             {{label.name}}:
                                           </span>
                                     </span>
                                 </div>
                                 <div class="right-details">
-                                    <span class="details-icon2"  v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
+                                    <span class="details-icon2 gray"  v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
                                         <span v-show="label.type=='bus_stop'|| label.type=='string'">
                                             {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
                                           </span>
@@ -205,10 +207,11 @@
                                 </div>
                               </div>
                               <div class="details-info">
-                                  <span class="details-left">Passengers:</span>
-                                  <div class="details-icon1">
+                                  <span class="details-left gray">Passengers:</span>
+                                  <div class="details-icon1 gray">
                                       <div>
-                                          {{item.abnormalPassengers.length}}
+                                          <!-- {{item.abnormalPassengers.length}} -->
+                                          0
                                           <!-- <span>Adult: </span>
                                           <span>{{item.passengers.filter(name=>name.type=="Adult").length}}</span>
                                           <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
@@ -524,13 +527,12 @@
         name:'OrderInfo',
         computed:{
           options(){
-            for(const tickets  of this.allTicket){
-                for(const itinerary of tickets.entities){
-                  this.selectedItinerary = itinerary;
-                  if(this.selectedItinerary.passengers && this.selectedItinerary.passengers.length){
-                      return this.selectedItinerary.passengers[0].options;
-                  }else if(this.selectedItinerary.abnormalPassengers && this.selectedItinerary.abnormalPassengers.length != 0){
-                    return this.selectedItinerary.abnormalPassengers[0].options;
+            for(let tickets of this.allTicket){
+                for(let itinerary of tickets.entities){
+                  if(itinerary.passengers && itinerary.passengers.length){
+                      return itinerary.passengers[0].options;
+                  }else if(itinerary.abnormalPassengers && itinerary.abnormalPassengers.length != 0){
+                    return itinerary.abnormalPassengers[0].options;
                   }
                   return null;
                 }
@@ -550,9 +552,9 @@
                 "Military"
               ];
               let peopleNumberArray = [];
-              for (const peopleType of peopleTypes) {
+              for (let peopleType of peopleTypes) {
                 let count = 0;
-                for (const passenger of itinerary.passengers) {
+                for (let passenger of itinerary.passengers) {
                   if (passenger.type == peopleType) {
                     count++;
                   }
@@ -577,18 +579,21 @@
                 return false;
               }
             },
-            filterPeopleType(peopleType) {
+            filterPeopleType(peopleType,item) {
               if(!this.options) return 
-              for (const passenger of this.selectedItinerary.passengers) {
-                if (passenger.type === peopleType) {
-                  return true;
+              // console.log(item)
+              if(item!=undefined){
+                for (let passenger of item.passengers) {
+                  if (passenger.type === peopleType) {
+                    return true;
+                  }
                 }
               }
               return false;
             },
             filterAbnormalPeopleType(peopleType){
               if(!this.options) return 
-              for (const passenger of this.selectedItinerary.abnormalPassengers) {
+              for (let passenger of this.selectedItinerary.abnormalPassengers) {
                 if (passenger.type === peopleType) {
                   return true;
                 }
@@ -857,13 +862,13 @@
       }
       div.order-status {
         font-size: 14px;
-        color: #208291;
+        color: #333;
         text-align: center;
         font-weight: bold;
       }
       div.order-status2{
         font-size: 14px;
-        color:rgba(102,102,102,1);
+        color:#999;
         text-align: center;
         font-weight: bold;
       }
@@ -930,7 +935,7 @@
         background-color: #f9f9f9;
       }
       .line-none{
-        text-decoration: line-through;
+        /* text-decoration: line-through; */
       }
       .abnorDes{
         color: #f56c6c;
@@ -945,5 +950,8 @@
       >>> .el-button{
         height: 30px;
         padding: 7px 8px;
+      }
+      .gray{
+        color: #999999 !important;
       }
 </style>
