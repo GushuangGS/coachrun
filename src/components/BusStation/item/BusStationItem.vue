@@ -38,7 +38,6 @@
     },
     methods:{
       showMap(positions,index,cityName){
-        console.log(positions,index,cityName)
         this.$emit('show',positions,index,cityName)
       }
     },

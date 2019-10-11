@@ -64,7 +64,7 @@
                       <span v-show="scope.row.orderCode"> (Order {{scope.row.orderCode}})</span>
                     </template>
                 </el-table-column>
-                
+
                 <el-table-column
                   label="Points"
                   min-width="140px"
@@ -127,7 +127,7 @@
     },
     methods:{
       gotoPoints(){
-        window.open('https://www.gotobus.com/points/pointshelp/', '_blank');
+        window.open('https://www.coachrun.com/points/', '_blank');
       },
       handleCurrentChange: function(currentPage){
               this.currentPage = currentPage;

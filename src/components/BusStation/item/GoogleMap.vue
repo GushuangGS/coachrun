@@ -17,7 +17,8 @@
     },
     data(){
       return {
-        newCountry:{}
+        newCountry:{},
+        infoObj:{}
       }
     },
     mounted(){
@@ -39,24 +40,26 @@
         if (this.positions.length){//防止数据为undefined问题
           for (let i = 0;i<this.positions.length;i++) {
             bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));//加入中心点和zoom计算中
-            let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}//经纬度位置
-            let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
-            // require("./img/stationlocation")
-            marker.setMap(map)
-            if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
-              infowindow.setContent(`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
+            let fn = ((i)=>{
+              let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}//经纬度位置
+              let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
+              // require("./img/stationlocation")
+              marker.setMap(map)
+              if (!this.positions[i].address.zipcode&&!this.positions[i].address.state){
+                infowindow.setContent(`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}<br>${this.newCountry[this.positions[i].address.country]}
 </div>`)
-            } else {
-              infowindow.setContent(`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.positions[i].address.state} ${this.positions[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
+              } else {
+                infowindow.setContent(`<div>${this.positions[i].landmark}<br>${this.positions[i].address.street}<br>${this.positions[i].address.city}, ${this.positions[i].address.state} ${this.positions[i].address.zipcode}<br>${this.newCountry[this.positions[i].address.country]}
 </div>`)
-            }
-            if (i == this.index) {//当前项是点击时的那一项
-              infowindow.open(map,marker);//直接打开
-            }
-            google.maps.event.addListener(marker,"click",function (event) {//添加点击时打开的事件
-              infowindow.open(map,marker)
-              console.log(infowindow)
-            })
+              }
+              if (i == this.index) {//当前项是点击时的那一项
+                infowindow.open(map,marker);//直接打开
+              }
+              google.maps.event.addListener(marker,"click",function (event) {//添加点击时打开的事件
+                infowindow.open(map,marker)
+              })
+            })(i)
+            fn = null
           }
         }
         map.fitBounds(bounds)//计算出的中心点和zoom给map

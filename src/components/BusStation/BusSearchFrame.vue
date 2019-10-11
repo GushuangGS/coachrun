@@ -809,7 +809,7 @@
     min-height: 46px!important;
   }
   .el-date-table-calendar__row td>div>div{
-    height: 46px!important;
+    /*height: 46px!important;*/
   }
   .coachrun-text-color6 {
     color: #333;
@@ -817,5 +817,9 @@
   .el-select-dropdown__item.selected {
     color: #409EFF;
     font-weight: 400;
+  }
+  .el-date-table-calendar td.current[data-v-55be3324]:not(.disabled) {
+    color: #409eff!important;
+    background-color: white!important;
   }
 </style>
