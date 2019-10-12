@@ -52,7 +52,7 @@
                   min-width="160px"
                   header-align="center"
                   align="center">
-                  <!-- prop="orderCode" -->
+                  <!-- prop="orderCode"  160-->
                   <template slot-scope="scope">
                       <span v-show="scope.row.rewardType==0">Booking</span>
                       <span v-show="scope.row.rewardType==1">Review</span>
@@ -70,6 +70,7 @@
                   min-width="140px"
                   header-align="center"
                   align="center">
+                  <!-- 140 -->
                   <template slot-scope="scope">
                       <span  :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0}">{{scope.row.rewardPoint}}</span>
                       <span v-if="scope.row.isPending==1" class="text-pending">Pending</span>
@@ -82,7 +83,8 @@
                   label="Date"
                   header-align="center"
                   align="center"
-                  min-width="130px">
+                  min-width="180px">
+                  <!-- 130 -->
                 </el-table-column>
               </el-table>
               <div class="pagination-wrapper" v-if="tableData.length">

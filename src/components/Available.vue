@@ -10,9 +10,9 @@
             <div class="product-bus">
                 <span class="product-intro1">{{listInfo.title}}</span>
                 <span class="product-intro2">
-                    <span>Departure time: </span>
-                    <el-tooltip :content="listInfo.purchaseDateDescription" effect="light" placement="top-start">
-                        <span>{{listInfo.purchaseDateDescription}}</span>
+                    <span>Purahase time: </span>
+                    <el-tooltip :content="getTime(listInfo)" effect="light" placement="top-start">
+                        <span>{{getTime(listInfo)}}</span>
                     </el-tooltip>
                 </span>
                 <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
@@ -22,7 +22,7 @@
                     <el-collapse>
                         <el-collapse-item>
                                 <template slot="title">
-                                     View promotion detail
+                                     View promotion details
                                      <img class="down" src="@/assets/down.png" alt=""> 
                                 </template>
                             <!-- <div class="infiDes" v-html="getDescription(listInfo.description)"></div> -->
@@ -70,6 +70,13 @@
                 : "") +
                 ((coupon.deviceType & 4) == 4 ? "APP" : "")
             },
+            getTime(info){
+                if(info.purchaseDateDescription!=undefined){
+                    return info.purchaseDateDescription;
+                }else if(info.serviceDateDescription!=undefined){
+                    return info.serviceDateDescription;
+                }
+            }
             // getDescription(str){
             //     var strArr = str.split('<br/>');
             //     let arr = "";
@@ -191,7 +198,7 @@
         /* height:15px; */
         font-size:13px;
         color:#2D5687;
-        margin-top: 20px;
+        margin-top: 10px;
         line-height:15px;
     }
     .down{
@@ -207,10 +214,11 @@
         border-bottom: none;
     }
     >>> .el-collapse-item__header{
-        height: 20px;
-        line-height: 20px;
+        height: 30px;
+        line-height: 30px;
         color:#29507D;
         border-bottom: none;
+        font-size: 12px;
     }
     >>> .el-collapse-item__wrap{
         /* z-index: 100; */

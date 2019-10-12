@@ -11,16 +11,23 @@
                     <span class="product-intro1">{{listInfo.title}}</span>
                     <span class="product-intro2">
                         <span>
-                                Departure time: 
+                                Purahase time: 
                         </span>
-                        <el-tooltip :content="listInfo.purchaseDateDescription" effect="light" placement="top-start">
-                            <span>{{listInfo.purchaseDateDescription}}</span>
+                        <el-tooltip :content="getTime(listInfo)" effect="light" placement="top-start">
+                            <span>{{getTime(listInfo)}}</span>
                         </el-tooltip>
                     </span>
                     <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
                     <span class="product-intro4">Applicable device: {{useType(listInfo)}}</span>
                 </div>
-                <div class="product-details">
+                <!-- <div class="expired-deals" v-show="listInfo.isExpired ==true"> -->
+                <div class="expired-deals">
+                    This coupon expired on {{listInfo.expiredDate}}
+                </div>
+                <div class="expired-deals" v-show="listInfo.usedDate ==''">
+                    This coupon used on {{listInfo.usedDate}}
+                </div>
+                <!-- <div class="product-details">
                     <el-collapse>
                         <el-collapse-item>
                             <template slot="title">
@@ -28,13 +35,12 @@
                                 <img class="down"src="@/assets/down.png" alt=""> 
                             </template>
                             <div class="infiDes" v-html="listInfo.description"></div>
-                            <!-- <div>{{listInfo.serviceDateDescription}}</div> -->
                             <div v-for="(item,index) in listInfo.products" :key="index">
                                 {{item.name}}
                             </div>
                         </el-collapse-item>
                     </el-collapse>
-                </div>
+                </div> -->
             </div>
             <!-- <div class="left-ridus"></div>
             <div class="right-ridus"></div> -->
@@ -74,6 +80,13 @@
                     ? "Mobile" + ","
                     : "") +
                     ((coupon.deviceType & 4) == 4 ? "APP" : "")
+                },
+                getTime(info){
+                    if(info.purchaseDateDescription!=undefined){
+                        return info.purchaseDateDescription;
+                    }else if(info.serviceDateDescription!=undefined){
+                        return info.serviceDateDescription;
+                    }
                 }
             }
         }
@@ -112,8 +125,8 @@
             width:284px;
             height:12px;
             background:#E0E0E0;
-            border-top-left-radius: 5px;
-            border-top-right-radius:5px;
+            border-top-left-radius: 4px;
+            border-top-right-radius:4px;
         }
         .product-container{
             width: 284px;
@@ -127,7 +140,7 @@
             flex-direction: column;
             justify-content: space-around;
             align-items: center;
-            border-bottom: 0.5px dashed #EFEFEF;
+            border-bottom: 0.5px solid #D7D7D7;
         }
         .product-tltle1{
             /* width:65px; */
@@ -175,6 +188,9 @@
         .product-intro2{
             font-size:12px;
             margin-top: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .product-intro3{
             margin-top: 2px;
@@ -184,12 +200,23 @@
             margin-top: 2px;
             font-size: 12px;
         }
+        .expired-deals{
+            padding-left:8px; 
+            height:30px;
+            font-size:12px;
+            color:#666;
+            margin-top: 10px;
+            line-height:30px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         .product-details{
             padding-left:8px; 
             /* height:15px; */
-            font-size:13px;
+            font-size:12px;
             color:#2D5687;
-            margin-top: 20px;
+            margin-top: 10px;
             line-height:15px;
         }
         .infiDes{
@@ -206,8 +233,8 @@
             border-bottom: none;
         }
         >>> .el-collapse-item__header{
-            height: 20px;
-            line-height: 20px;
+            height: 30px;
+            line-height: 30px;
             color:#2D5687;
             border-bottom: none;
             background: none;

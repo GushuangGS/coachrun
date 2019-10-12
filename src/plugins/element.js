@@ -19,6 +19,7 @@ import {
     ButtonGroup,
     Table,
     TableColumn,
+    Badge,
     DatePicker,
     TimeSelect,
     TimePicker,
@@ -73,6 +74,7 @@ Vue.use(Button)
 Vue.use(ButtonGroup)
 Vue.use(Table)
 Vue.use(TableColumn)
+Vue.use(Badge)
 Vue.use(DatePicker)
 Vue.use(TimeSelect)
 Vue.use(TimePicker)

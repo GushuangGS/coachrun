@@ -1,7 +1,8 @@
 <template>
     <div class="header">
         <div class="header-left">
-            <div class="logo" @click="skip('http://testwww.coachrun.com/')">
+            <!-- <div class="logo" @click="skip('http://testwww.coachrun.com/')"> -->
+            <div class="logo" @click="toShopping">
                 <img src="@/assets/coachrunlogo.png" alt="">
             </div>
             <ul class="header-title">
@@ -25,11 +26,11 @@
                 <span class="logout" @click="logout">Logout</span>
             </div>
             <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
-                <!-- <img src="@/assets/shoppingcart.png" alt=""> -->
-                <i class="icon-basket"></i>
+                <el-badge :value="10">
+                    <i class="icon-basket"></i>
+                </el-badge>
             </div>
             <div class="live-chat" @click="toLive">
-                <!-- <img src="@/assets/livechat.png" alt=""> -->
                 <i class="icon-chat"></i>
             </div>
         </div>
@@ -88,7 +89,11 @@
                 window.location.href = this.navLists[index].src;
             },
             toShopping(){
-                window.location.href = 'testwww.coachrun.com/cgi-bin/ivyecom.cgi?a=shopcart_view&nm=1350154';
+                if(process.env === 'production'){
+                    window.location.href = 'https://www.coachrun.com/';
+                }else{
+                    window.location.href = 'http://testwww.coachrun.com/';
+                }
             },
             toLive(){
                 window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes',"_blank");
@@ -229,4 +234,23 @@ margin-left: 5px;
     color: #333;
     font-weight: bold;
 }
+#bus_shopping_cart_nav sup {
+    display: inline-block;
+    background-color: #FF6600;
+    color: #FFFFFF;
+    border-radius: 50%;
+    text-align: center;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    position: absolute;
+    top: -3px;
+    left: 12px;
+    font-size: 11px;
+    right: 0px;
+    transform: none;
+    padding: 0px;
+    border: 0px;
+}
+
 </style>

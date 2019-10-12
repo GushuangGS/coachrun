@@ -627,6 +627,16 @@
               }else{
                 return routeLine = item.product.name;
               }
+            }else if(item.abnormalPassengers.length!=0){
+              if(item.abnormalPassengers[0].options[0].value.station!=undefined){
+                if(item.abnormalPassengers[0].options[0].value.station.address!=undefined){
+                  firCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
+                  endCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
+                  firTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
+                  endTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
+                  return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
+                }
+              }
             }else{
               return routeLine = item.product.name;
             }
