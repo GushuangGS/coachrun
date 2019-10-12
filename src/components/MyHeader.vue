@@ -26,7 +26,7 @@
                 <span class="logout" @click="logout">Logout</span>
             </div>
             <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
-                <el-badge :value="10" :max="99" :hidden="shopNum==0?true:false">
+                <el-badge :value="shopNum" :max="99" :hidden="shopNum==0?true:false">
                     <i class="icon-basket"></i>
                 </el-badge>
             </div>
