@@ -26,7 +26,7 @@
                 <span class="logout" @click="logout">Logout</span>
             </div>
             <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
-                <el-badge :value="10">
+                <el-badge :value="10" :max="99" :hidden="shopNum==0?true:false">
                     <i class="icon-basket"></i>
                 </el-badge>
             </div>
@@ -49,7 +49,8 @@
                     {"text":"Hotel","src":"https://www.coachrun.com/hotel/"},
                     {"text":"Ticket Policy","src":"https://www.coachrun.com/ticket-policy/"}
                 ],
-                userName:''
+                userName:'',
+                shopNum:0
             }
         },
         created(){
@@ -65,6 +66,9 @@
                 this.isLogin = this.$store.state.isLogin;
                 // this.$store.commit('loginName',name);
             }
+        },
+        mounted(){
+            this.shopNum = VueCookie.get('IvyCustomer_ShoppingItems');
         },
         methods:{
             getUserName(){

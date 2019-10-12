@@ -258,7 +258,7 @@
                                                   <span>{{abnormal.name}} </span>
                                                   <span>(CN: {{abnormal.cn}}) </span>
                                               </span>
-                                              <span class="abnorDes" v-if="abnormal.description!=''">&nbsp;[{{abnormal.description}}]</span>
+                                              <span class="abnorDes" v-if="abnormal.description!=''">&nbsp;{{abnormal.description}}</span>
                                             </div>
                                             <!-- <div class="line-none" v-if="filterAbnormalPeopleType('Adult')">
                                               <div v-for="(adult,index) in item.abnormalPassengers.filter(name=>name.type=='Adult')" :key="index">

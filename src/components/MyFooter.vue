@@ -33,7 +33,7 @@
             </el-row>
         </div>
         <div class="copy">
-            Copyright © 2019 <a class="net-link" href="www.coachrun.com">www.coachrun.com.</a>&nbsp;All&nbsp;rights&nbsp;reserved
+            Copyright © 2019 <a class="net-link" href="https://www.coachrun.com">www.coachrun.com.</a>&nbsp;All&nbsp;rights&nbsp;reserved
         </div>
     </div>
 </template>
