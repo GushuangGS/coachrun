@@ -44,6 +44,14 @@
                   mapgroup.push(data[index])
                 }
               }
+              // {{item.landmark}}{{item.landmark?(item.address.street?", ":""):""}}{{item.address.street}}
+              if (mapgroup.length>1){
+                mapgroup.sort(function(a,b){
+                  a = a.landmark+""+(a.landmark?(a.address.street?", ":""):"")+a.address.street
+                  b = b.landmark+""+(b.landmark?(b.address.street?", ":""):"")+b.address.street
+                  return a.localeCompare(b)
+                })
+              }
               if (count1>count2){
                 mapData1[1][temp] = mapgroup
                 count2 = count2 + 2 + mapgroup.length

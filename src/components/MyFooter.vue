@@ -75,9 +75,6 @@
       margin: 0 auto;
       padding-top: 40px;
     }
-    .footer-top span {
-      font-family: ArialMT;
-    }
     .bot-logo{
         margin-top: 50px;
       margin-left: 14px;
@@ -96,7 +93,6 @@
       text-decoration: none;
       color:rgba(255,255,255,1);
       font-size:14px;
-      font-family:ArialMT;
       line-height:28px;
     }
 

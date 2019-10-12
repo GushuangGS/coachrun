@@ -17,7 +17,7 @@
               class="content-item"
               @click="showMap(StationItem,index,CityName)"
           >
-            <i><img src="../../../assets/location.png"></i>
+            <i><img src="../../../assets/station.png"></i>
             <p>{{item.landmark}}{{item.landmark?(item.address.street?", ":""):""}}{{item.address.street}}</p>
           </li>
         </ul>
@@ -38,7 +38,6 @@
     },
     methods:{
       showMap(positions,index,cityName){
-        console.log(positions,index,cityName)
         this.$emit('show',positions,index,cityName)
       }
     },
