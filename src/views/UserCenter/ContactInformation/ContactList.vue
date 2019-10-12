@@ -18,7 +18,8 @@
                     align="left"
                     prop="name"
                     label="Name"
-                    min-width="200">
+                    min-width="200"
+                    show-overflow-tooltip="true">
                     <template slot-scope="scope">
                       <span>{{ scope.row.firstName}} {{scope.row.lastName }}</span>
                       <span v-if="scope.row.isDefault" class="default">[Default]</span>
@@ -29,14 +30,16 @@
                     header-align="center"
                     prop="email"
                     label="Email"
-                    min-width="300">
+                    min-width="300"
+                    show-overflow-tooltip="true">
                   </el-table-column>
                   <el-table-column
                     align="center"
                     header-align="center"
                     prop="phone"
                     label="Phone"
-                    min-width="150">
+                    min-width="150"
+                    show-overflow-tooltip="true">
                   </el-table-column>
                   <el-table-column
                     align="right"

@@ -931,7 +931,7 @@
         color:rgba(255,130,44,1);
       }
       div.money {
-        font-size: 16px;
+        font-size: 14px;
         color: #333;
       }
       div.order-status {
