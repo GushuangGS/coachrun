@@ -420,6 +420,9 @@
       >>> .field.vue-input-ui .field-input{
           cursor: default;
       }
+      >>> .field.vue-input-ui .field-clear{
+        top: -3px;
+      }
       >>> .field.vue-input-ui .field-clear>span[data-v-4039a700]:not(.field-clear__effect){
             top: -1px;
             left: 1px;
