@@ -1,5 +1,8 @@
 <template>
   <div class="wrap section search-frame">
+    <div class="search-img-car">
+      <img src="../../assets/bgcar-2.png">
+    </div>
     <div class="search-box">
       <div class="track-bus-btn">
         <el-button class="iconfont icon-bus" @click="returnBusStatus">Track Bus Status</el-button>
@@ -163,11 +166,11 @@
         </div>
       </div>
       <div class="service">
-        <div class="icon-plug service-item">Free Power Plug</div>
-        <div class="icon-wifi service-item">Free Wireless Internet</div>
+        <div class="icon-plug service-item">Power Outlet</div>
+        <div class="icon-wifi service-item">Wi-Fi</div>
         <div class="icon-snowflake-o service-item">Air Conditioner</div>
         <div class="icon-chair service-item">Reclining Seats</div>
-        <div class="icon-toilet service-item">Restroom Equipped</div>
+        <div class="icon-toilet service-item">Sanitized Restroom</div>
       </div>
     </div>
   </div>
@@ -379,7 +382,7 @@
             <span class="cf60">${data.defvalue.value.price}</span>
             </div>)):(
             <div>
-            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
+            <div style="line-height:46px;font-size:14px">{data.defvalue.text}</div>
             </div>
         )
         )
@@ -402,7 +405,7 @@
             <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
             <span class="cf60">${data.defvalue.value.price}</span>
             </div>)):
-            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
+            <div style="line-height:46px;font-size:14px">{data.defvalue.text}</div>
         )
         }
         return (
@@ -439,14 +442,20 @@
   .flex {
     display: flex;
   }
+  .search-img-car {
+    position: absolute;
+    top: 31px;
+    left: 1066px;
+  }
   .search-frame {
-    background-image: url("../../assets/bg.jpg");
+    background-image: url("../../assets/search-box-bg.png");
     display: flex;
     align-items: center;
     justify-content: center;
     height: 360px!important;
     margin-bottom: 20px;
     padding-top: 0px!important;
+    position: relative;
   }
   >>> .fa {
     left: 10px!important;
@@ -495,7 +504,7 @@
     color: #ff6600;
   }
   >>> .font-green {
-    color: #12b22d !important;
+    color: #12b22d;
   }
   >>> .change-date .date-in .el-input__inner {
     padding-left: 35px;
@@ -633,6 +642,12 @@
     color: #606266;
     line-height: 14px;
     float: right;
+  }
+  >>> .current .font-green {
+    color: white;
+  }
+  >>> .current .cf60 {
+    color: white;
   }
 </style>
 <style lang="scss" scoped>
@@ -817,9 +832,5 @@
   .el-select-dropdown__item.selected {
     color: #409EFF;
     font-weight: 400;
-  }
-  .el-date-table-calendar td.current[data-v-55be3324]:not(.disabled) {
-    color: #409eff!important;
-    background-color: white!important;
   }
 </style>

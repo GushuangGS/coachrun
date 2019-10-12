@@ -15,10 +15,10 @@
               v-for="(item,index) in StationItem"
               :key="index"
               class="content-item"
-              @click="showMap(StationItem,index,CityName)"
+              @click="showMap(StationItem,index,CityName,item.address.state)"
           >
             <i><img src="../../../assets/station.png"></i>
-            <p>{{item.landmark}}{{item.landmark?(item.address.street?", ":""):""}}{{item.address.street}}</p>
+            <p>{{item.content}}</p>
           </li>
         </ul>
       </el-card>
@@ -37,7 +37,8 @@
       }
     },
     methods:{
-      showMap(positions,index,cityName){
+      showMap(positions,index,cityName,state){
+        cityName = (cityName?(state?(""+cityName+", "+state):(""+cityName)):"")
         this.$emit('show',positions,index,cityName)
       }
     },

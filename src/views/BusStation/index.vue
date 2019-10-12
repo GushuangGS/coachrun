@@ -44,13 +44,342 @@
                   mapgroup.push(data[index])
                 }
               }
-              // {{item.landmark}}{{item.landmark?(item.address.street?", ":""):""}}{{item.address.street}}
               if (mapgroup.length>1){
                 mapgroup.sort(function(a,b){
-                  a = a.landmark+""+(a.landmark?(a.address.street?", ":""):"")+a.address.street
-                  b = b.landmark+""+(b.landmark?(b.address.street?", ":""):"")+b.address.street
-                  return a.localeCompare(b)
+                  let a1 = ""
+                  let b1 = ""
+                  if (a.address.street){//v1
+                    a1 +=a.address.street
+                    if (a.address.city){//v2
+                      a1 = a1 + ", " + a.address.city
+                      if (a.address.state){//v3
+                        a1 = a1 + ", " + a.address.state
+                        if (a.address.zipcode){//v4
+                          a1 = a1 + " " + a.address.zipcode
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }else {//v4
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }
+                      }else {//v3
+                        if (a.address.zipcode){//v4
+                          a1 = a1 + ", " + a.address.zipcode
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }else {//v4
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }
+                      }
+                    } else {
+                      if (a.address.state){//v3
+                        a1 = a1 + ", " + a.address.state
+                        if (a.address.zipcode){//v4
+                          a1 = a1 + " " + a.address.zipcode
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }else {//v4
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }
+                      }else {//v3
+                        if (a.address.zipcode){//v4
+                          a1 = a1 + ", " + a.address.zipcode
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }else {//v4
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }
+                      }
+                    }
+                  } else {
+                    if (a.address.city){//v2
+                      a1 = a1 + "" + a.address.city
+                      if (a.address.state){//v3
+                        a1 = a1 + ", " + a.address.state
+                        if (a.address.zipcode){//v4
+                          a1 = a1 + " " + a.address.zipcode
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }else {//v4
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }
+                      }else {//v3
+                        if (a.address.zipcode){//v4
+                          a1 = a1 + ", " + a.address.zipcode
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }else {//v4
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }
+                      }
+                    } else {
+                      if (a.address.state){//v3
+                        a1 = a1 + ", " + a.address.state
+                        if (a.address.zipcode){//v4
+                          a1 = a1 + " " + a.address.zipcode
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }else {//v4
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }
+                      }else {//v3
+                        if (a.address.zipcode){//v4
+                          a1 = a1 + ", " + a.address.zipcode
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }else {//v4
+                          if (a.landmark){//v5
+                            a1 = a1 + " (" + a.landmark + ")"
+                          }
+                        }
+                      }
+                    }
+                  }
+                  if (b.address.street){//v1
+                    b1 +=b.address.street
+                    if (b.address.city){//v2
+                      b1 = b1 + ", " + b.address.city
+                      if (b.address.state){//v3
+                        b1 = b1 + ", " + b.address.state
+                        if (b.address.zipcode){//v4
+                          b1 = b1 + " " + b.address.zipcode
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }else {//v4
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }
+                      }else {//v3
+                        if (b.address.zipcode){//v4
+                          b1 = b1 + ", " + b.address.zipcode
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }else {//v4
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }
+                      }
+                    } else {
+                      if (b.address.state){//v3
+                        b1 = b1 + ", " + b.address.state
+                        if (b.address.zipcode){//v4
+                          b1 = b1 + " " + b.address.zipcode
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }else {//v4
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }
+                      }else {//v3
+                        if (b.address.zipcode){//v4
+                          b1 = b1 + ", " + b.address.zipcode
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }else {//v4
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }
+                      }
+                    }
+                  } else {
+                    if (b.address.city){//v2
+                      b1 = b1 + "" + b.address.city
+                      if (b.address.state){//v3
+                        b1 = b1 + ", " + b.address.state
+                        if (b.address.zipcode){//v4
+                          b1 = b1 + " " + b.address.zipcode
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }else {//v4
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }
+                      }else {//v3
+                        if (b.address.zipcode){//v4
+                          b1 = b1 + ", " + b.address.zipcode
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }else {//v4
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }
+                      }
+                    } else {
+                      if (b.address.state){//v3
+                        b1 = b1 + ", " + b.address.state
+                        if (b.address.zipcode){//v4
+                          b1 = b1 + " " + b.address.zipcode
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }else {//v4
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }
+                      }else {//v3
+                        if (b.address.zipcode){//v4
+                          b1 = b1 + ", " + b.address.zipcode
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }else {//v4
+                          if (b.landmark){//v5
+                            b1 = b1 + " (" + b.landmark + ")"
+                          }
+                        }
+                      }
+                    }
+                  }
+                  a.content = a1
+                  b.content = b1
+                  return a1.localeCompare(b1)
                 })
+              }else {
+                let a1 = ""
+                let a = mapgroup[0]
+                if (a.address.street){//v1
+                  a1 +=a.address.street
+                  if (a.address.city){//v2
+                    a1 = a1 + ", " + a.address.city
+                    if (a.address.state){//v3
+                      a1 = a1 + ", " + a.address.state
+                      if (a.address.zipcode){//v4
+                        a1 = a1 + " " + a.address.zipcode
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }else {//v4
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }
+                    }else {//v3
+                      if (a.address.zipcode){//v4
+                        a1 = a1 + ", " + a.address.zipcode
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }else {//v4
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }
+                    }
+                  } else {
+                    if (a.address.state){//v3
+                      a1 = a1 + ", " + a.address.state
+                      if (a.address.zipcode){//v4
+                        a1 = a1 + " " + a.address.zipcode
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }else {//v4
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }
+                    }else {//v3
+                      if (a.address.zipcode){//v4
+                        a1 = a1 + ", " + a.address.zipcode
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }else {//v4
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }
+                    }
+                  }
+                } else {
+                  if (a.address.city){//v2
+                    a1 = a1 + "" + a.address.city
+                    if (a.address.state){//v3
+                      a1 = a1 + ", " + a.address.state
+                      if (a.address.zipcode){//v4
+                        a1 = a1 + " " + a.address.zipcode
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }else {//v4
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }
+                    }else {//v3
+                      if (a.address.zipcode){//v4
+                        a1 = a1 + ", " + a.address.zipcode
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }else {//v4
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }
+                    }
+                  } else {
+                    if (a.address.state){//v3
+                      a1 = a1 + ", " + a.address.state
+                      if (a.address.zipcode){//v4
+                        a1 = a1 + " " + a.address.zipcode
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }else {//v4
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }
+                    }else {//v3
+                      if (a.address.zipcode){//v4
+                        a1 = a1 + ", " + a.address.zipcode
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }else {//v4
+                        if (a.landmark){//v5
+                          a1 = a1 + " (" + a.landmark + ")"
+                        }
+                      }
+                    }
+                  }
+                }
+                mapgroup[0].content = a1
               }
               if (count1>count2){
                 mapData1[1][temp] = mapgroup
