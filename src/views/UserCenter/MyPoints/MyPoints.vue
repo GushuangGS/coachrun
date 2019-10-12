@@ -51,7 +51,8 @@
                   label="Source"
                   min-width="160px"
                   header-align="center"
-                  align="center">
+                  align="center"
+                  show-overflow-tooltip="true">
                   <!-- prop="orderCode"  160-->
                   <template slot-scope="scope">
                       <span v-show="scope.row.rewardType==0">Booking</span>
@@ -70,7 +71,6 @@
                   min-width="140px"
                   header-align="center"
                   align="center">
-                  <!-- 140 -->
                   <template slot-scope="scope">
                       <span  :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0}">{{scope.row.rewardPoint}}</span>
                       <span v-if="scope.row.isPending==1" class="text-pending">Pending</span>
@@ -83,8 +83,7 @@
                   label="Date"
                   header-align="center"
                   align="center"
-                  min-width="180px">
-                  <!-- 130 -->
+                  min-width="130px">
                 </el-table-column>
               </el-table>
               <div class="pagination-wrapper" v-if="tableData.length">
