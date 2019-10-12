@@ -62,6 +62,9 @@
         },
         methods:{
             useType(coupon){
+                if((coupon.deviceType & 7) == 7){
+                    return 'All'
+                }
                 return ((coupon.deviceType & 1) == 1
                 ? "Desktop" + ", "
                 : "") +
