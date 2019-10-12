@@ -62,7 +62,7 @@
         },
         methods:{
             useType(coupon){
-                if((coupon.deviceType & 7) == 7){
+                if(coupon.deviceType == 7){
                     return 'All'
                 }
                 return ((coupon.deviceType & 1) == 1
