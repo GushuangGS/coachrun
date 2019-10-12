@@ -11,7 +11,7 @@
                     <span class="product-intro1">{{listInfo.title}}</span>
                     <span class="product-intro2">
                         <span>
-                                Purahase time: 
+                                Purchase time: 
                         </span>
                         <el-tooltip :content="getTime(listInfo)" effect="light" placement="top-start">
                             <span>{{getTime(listInfo)}}</span>
