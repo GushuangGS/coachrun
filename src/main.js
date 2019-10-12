@@ -78,7 +78,7 @@ function startLoading() {//使用Element loading-start 方法
   loading = Vue.prototype.$loading({
       lock: true,
       text: 'loading……',
-      // background: 'rgba(0, 0, 0, 0.9)'
+      background: 'rgba(255, 255, 255, 0.96)'
   })
 }
 function endLoading() {//使用Element loading-close 方法
