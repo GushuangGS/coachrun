@@ -6,7 +6,7 @@ stages:
 sandbox:
  stage: sandbox
  only:
-   - test         #指定分支，只允许master
+   - dev         #指定分支，只允许master
  tags:
    - coachrun-pc
  script:
