@@ -38,18 +38,20 @@ router.beforeEach((to,from,next)=>{
 
     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
     let token = loginCookie.split('+|+')[2];
-    if (process.env.NODE_ENV == 'development'){
-      if(token==undefined){
-        token = localStorage.getItem('IvyCustomer_LoginToken');
-      }
-    }else{
-      axios.post('api/users/authorization',{loginCookie:loginCookie})
-          .then( res => {
-              console.log(res);
-          })
+    if(token==undefined){
+      token = localStorage.getItem('IvyCustomer_LoginToken');
     }
     
     if(token){
+      if(process.env.NODE_ENV != 'development'){
+        axios.post('api/users/authorization',{loginCookie:loginCookie})
+          .then( res => {
+              console.log(res);
+              if(res.data.code==401){
+                next({name: 'Login'});
+              }
+          })
+      }
       next();
     }else {//没有登录信息
       if(name == "MyDeals" || name == "MyPoints" || name=="CreditList" || name=="ChangePassword" 
