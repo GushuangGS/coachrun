@@ -41,12 +41,10 @@ router.beforeEach((to,from,next)=>{
         token = localStorage.getItem('IvyCustomer_LoginToken');
       }
     }else{
-      if(!token){
-        this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
-            .then( res => {
-                console.log(res);
-            })
-      }
+      this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
+          .then( res => {
+              console.log(res);
+          })
     }
     
     if(token){
