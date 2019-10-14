@@ -12,20 +12,31 @@
                 :default-openeds="openeds"
                 router
               >
-                <el-menu-item index="/render/member/account/dashboard" :route="{name:'MyOrders'}">
-                  <span slot="title">Dashboard</span>
+                <el-menu-item index="/render/member/account/dashboard">
+                  <router-link :to="{name:'MyOrders'}" style="color: inherit;" slot="title">Dashboard</router-link>
                 </el-menu-item>
                 <el-submenu index="2">
                   <template slot="title">
                     <span>My Account</span>
                   </template>
                   <el-menu-item-group>
-                    <el-menu-item index="/render/member/account/booking-list" :route="{name:'MyBookings'}">My Bookings</el-menu-item>
-                    <el-menu-item index="/render/member/account/deals" :route="{name:'MyDeals'}">My Deals</el-menu-item>
-                    <el-menu-item index="/render/member/account/view-point" :route="{name:'MyPoints'}">My Points</el-menu-item>
-                    <el-menu-item index="/render/member/account/contact-info-list" :route="{name:'ContactList'}">My Contact Information</el-menu-item>
-                    <el-menu-item index="/render/member/account/credit-card-list" :route="{name:'CreditList'}">My Credit Cards</el-menu-item>
-                    <el-menu-item index="/render/member/account/change-password" :route="{name:'ChangePassword'}">Change Password</el-menu-item>
+                    <el-menu-item index="/render/member/account/booking-list">
+                      <router-link :to="{name:'MyBookings'}" style="color: inherit;">My Bookings</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="/render/member/account/deals">
+                      <router-link :to="{name:'MyDeals'}" style="color: inherit;">My Deals</router-link></el-menu-item>
+                    <el-menu-item index="/render/member/account/view-point">
+                      <router-link :to="{name:'MyPoints'}" style="color: inherit;">My Points</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="/render/member/account/contact-info-list">
+                      <router-link :to="{name:'ContactList'}" style="color: inherit;">My Contact Information</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="/render/member/account/credit-card-list">
+                      <router-link :to="{name:'CreditList'}" style="color: inherit;">My Credit Cards</router-link>
+                    </el-menu-item>
+                    <el-menu-item index="/render/member/account/change-password">
+                      <router-link :to="{name:'ChangePassword'}" style="color: inherit;">Change Password</router-link>
+                    </el-menu-item>
                   </el-menu-item-group>
                 </el-submenu>
               </el-menu>
@@ -49,7 +60,7 @@ export default {
     }
   },
   created(){
-    
+
   }
 }
 </script>
