@@ -2,6 +2,8 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import routes from './routes'
 import VueCookie from 'vue-cookie';
+import axios from 'axios'
+axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
 
 Vue.use(Router)
 
@@ -41,7 +43,7 @@ router.beforeEach((to,from,next)=>{
         token = localStorage.getItem('IvyCustomer_LoginToken');
       }
     }else{
-      this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
+      axios.post('api/users/authorization',{loginCookie:loginCookie})
           .then( res => {
               console.log(res);
           })
