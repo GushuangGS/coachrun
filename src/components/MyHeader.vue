@@ -26,7 +26,7 @@
                 <span class="logout" @click="logout">Logout</span>
             </div>
             <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
-                <el-badge :value="shopNum" :max="99" :hidden="shopNum==0?true:false">
+                <el-badge :value="shopNum" :max="99" id="bus_shopping_cart_nav" :hidden="shopNum==0?true:false">
                     <i class="icon-basket"></i>
                 </el-badge>
             </div>
@@ -93,7 +93,7 @@
                 window.location.href = this.navLists[index].src;
             },
             toShopping(){
-                if(process.env === 'production'){
+                if(process.env.NODE_ENV === 'production'){
                     window.location.href = 'https://www.coachrun.com/';
                 }else{
                     window.location.href = 'http://testwww.coachrun.com/';
@@ -238,23 +238,24 @@ margin-left: 5px;
     color: #333;
     font-weight: bold;
 }
-#bus_shopping_cart_nav sup {
-    display: inline-block;
-    background-color: #FF6600;
-    color: #FFFFFF;
-    border-radius: 50%;
-    text-align: center;
-    width: 12px;
-    height: 12px;
-    line-height: 12px;
-    position: absolute;
-    top: -3px;
-    left: 12px;
-    font-size: 11px;
-    right: 0px;
-    transform: none;
-    padding: 0px;
-    border: 0px;
-}
-
+</style>
+<style>
+    #bus_shopping_cart_nav sup{
+        display: inline-block;
+        background-color: #FF6600;
+        color: #FFFFFF;
+        border-radius: 50%;
+        text-align: center;
+        width: 12px;
+        height: 12px;
+        line-height: 12px;
+        position: absolute;
+        top: -3px;
+        left: 12px;
+        font-size: 11px;
+        right: 0px;
+        transform: none;
+        padding: 0px;
+        border: 0px;
+    }
 </style>
