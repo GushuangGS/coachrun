@@ -207,9 +207,6 @@
                                   </div>
                               </div>
                               <div class="btns">
-                                  <!-- <el-button v-if="showRes(item)" @click="resche(item)" class="Reschedule">Reschedule</el-button>
-                                  <el-button @click="eticket(item)" v-if="item.status==5" class="E-Ticket">E-Ticket</el-button>
-                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus>0&&showRes(item)" type="warning" class="rack-Bus-Status">Track Bus Status</el-button> -->
                                   <el-button v-if="!(item.status==8&&showRes(item))" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                                   <el-button @click="eticket(item)" v-if="item.status!=8" class="E-Ticket">E-Ticket</el-button>
                                   <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>

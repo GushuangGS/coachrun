@@ -9,43 +9,36 @@
                 </div>
                 <div class="product-bus">
                     <span class="product-intro1">{{listInfo.title}}</span>
-                    <span class="product-intro2">
+                    <span class="product-intro2" v-if="listInfo.purchaseDateDescription">
                         <span>
-                                Purchase time: 
+                                Purchase date: 
                         </span>
-                        <el-tooltip :content="getTime(listInfo)" effect="light" placement="top-start">
-                            <span>{{getTime(listInfo)}}</span>
+                        <el-tooltip :content="listInfo.purchaseDateDescription" effect="light" placement="top-start">
+                            <span>{{listInfo.purchaseDateDescription}}</span>
                         </el-tooltip>
                     </span>
-                    <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
+                    <span class="product-intro2" v-if="listInfo.serviceDateDescription">
+                        <span>
+                                Service date: 
+                        </span>
+                        <el-tooltip :content="listInfo.serviceDateDescription" effect="light" placement="top-start">
+                            <span>{{listInfo.serviceDateDescription}}</span>
+                        </el-tooltip>
+                    </span>
+                    <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited one time offer</span>
                     <span class="product-intro4">Applicable device: {{useType(listInfo)}}</span>
                 </div>
-                <!-- <div class="expired-deals" v-show="listInfo.isExpired ==true"> -->
-                <div class="expired-deals">
+                <div class="expired-deals" v-show="listInfo.isExpired ==true">
                     This coupon expired on {{listInfo.expiredDate}}
                 </div>
-                <div class="expired-deals" v-show="listInfo.usedDate ==''">
+                <div class="expired-deals" v-show="listInfo.isUsed ==''">
                     This coupon used on {{listInfo.usedDate}}
                 </div>
-                <!-- <div class="product-details">
-                    <el-collapse>
-                        <el-collapse-item>
-                            <template slot="title">
-                                View promotion detail
-                                <img class="down"src="@/assets/down.png" alt=""> 
-                            </template>
-                            <div class="infiDes" v-html="listInfo.description"></div>
-                            <div v-for="(item,index) in listInfo.products" :key="index">
-                                {{item.name}}
-                            </div>
-                        </el-collapse-item>
-                    </el-collapse>
-                </div> -->
             </div>
             <!-- <div class="left-ridus"></div>
             <div class="right-ridus"></div> -->
             <div class="top-img">
-                <img  v-show="listInfo.usedDate ==''"  src="@/assets/used.png" alt="">
+                <img  v-show="listInfo.isUsed ==''"  src="@/assets/used.png" alt="">
                 <img  v-show="listInfo.isExpired ==true"  src="@/assets/expired.png" alt="">
             </div>
         </div>

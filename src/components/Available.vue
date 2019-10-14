@@ -9,13 +9,19 @@
             </div>
             <div class="product-bus">
                 <span class="product-intro1">{{listInfo.title}}</span>
-                <span class="product-intro2">
-                    <span>Purchase time: </span>
-                    <el-tooltip :content="getTime(listInfo)" effect="light" placement="top-start">
-                        <span>{{getTime(listInfo)}}</span>
+                <span class="product-intro2" v-if="listInfo.purchaseDateDescription">
+                    <span>Purchase date: </span>
+                    <el-tooltip :content="listInfo.purchaseDateDescription" effect="light" placement="top-start">
+                        <span>{{listInfo.purchaseDateDescription}}</span>
                     </el-tooltip>
                 </span>
-                <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited 1 Time Offer</span>
+                <span class="product-intro2" v-if="listInfo.serviceDateDescription">
+                        <span>Service date: </span>
+                        <el-tooltip :content="listInfo.serviceDateDescription" effect="light" placement="top-start">
+                            <span>{{listInfo.serviceDateDescription}}</span>
+                        </el-tooltip>
+                    </span>
+                <span class="product-intro3" v-show="listInfo.oneTimeUse ==true">Limited one time offer</span>
                 <span class="product-intro4">Applicable device: {{useType(listInfo)}}</span>
             </div>
             <div class="product-details">
@@ -62,16 +68,21 @@
         },
         methods:{
             useType(coupon){
-                if(coupon.deviceType == 7){
-                    return 'All'
+                if (coupon.deviceType == 7) {
+                    return " All";
                 }
-                return ((coupon.deviceType & 1) == 1
-                ? "Desktop" + ", "
-                : "") +
-                ((coupon.deviceType & 2) == 2
-                ? "Mobile" + ", "
-                : "") +
-                ((coupon.deviceType & 4) == 4 ? "APP" : "")
+                let strings = [];
+                if (coupon.deviceType & 1) {
+                    strings.push("Desktop");
+                }
+                if (coupon.deviceType & 2) {
+                    strings.push("Mobile");
+                }
+                if (coupon.deviceType & 4) {
+                    strings.push("APP");
+                }
+                let result = strings.join(", ");
+                return result;
             },
             getTime(info){
                 if(info.purchaseDateDescription!=undefined){

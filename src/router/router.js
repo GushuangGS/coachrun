@@ -18,15 +18,37 @@ router.beforeEach((to,from,next)=>{
   // console.log(to);
   const name=to.name;
   if (to.matched.some(record => record.meta.auth)){
-    // const display = VueCookie.get('display');
-    // const display = sessionStorage.getItem('display');
-    // const token = sessionStorage.getItem('IvyCustomer_LoginToken');
+    // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+    // let token = loginCookie.split('+|+')[2];
+    // if(token==undefined){
+    //   token = localStorage.getItem('IvyCustomer_LoginToken');
+    // }
+    // if(token){
+    //   next();
+    // }else {//没有登录信息
+    //   if(name == "MyDeals" || name == "MyPoints" || name=="CreditList" || name=="ChangePassword" 
+    //       || name == "ContactList" ||name == "MyBookings" ||name == "MyOrders" ||name == "ReceiverCredit"
+    //       || name == "ReceiverContact" || name == "AddGuest"){
+    //     next({name: 'Login'});
+    //   }
+    //   next();
+    // }
+
     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
     let token = loginCookie.split('+|+')[2];
-    if(token==undefined){
-      // token = sessionStorage.getItem('IvyCustomer_LoginToken');
-      token = localStorage.getItem('IvyCustomer_LoginToken');
+    if (process.env.NODE_ENV == 'development'){
+      if(token==undefined){
+        token = localStorage.getItem('IvyCustomer_LoginToken');
+      }
+    }else{
+      if(!token){
+        this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
+            .then( res => {
+                console.log(res);
+            })
+      }
     }
+    
     if(token){
       next();
     }else {//没有登录信息
@@ -37,6 +59,8 @@ router.beforeEach((to,from,next)=>{
       }
       next();
     }
+
+
   }
   next();
 })

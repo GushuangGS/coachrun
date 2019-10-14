@@ -44,4 +44,25 @@ body{
 .el-message__closeBtn{
   right: 8px;
 }
+/*包含以下四种的链接*/
+a {
+    text-decoration: none;
+    color: #606266;
+}
+/*正常的未被访问过的链接*/
+a:link {
+    text-decoration: none;
+}
+/*已经访问过的链接*/
+a:visited {
+    text-decoration: none;
+}
+/*鼠标划过(停留)的链接*/
+a:hover {
+    text-decoration: none;
+}
+/* 正在点击的链接*/
+a:active {
+    text-decoration: none;
+}
 </style>

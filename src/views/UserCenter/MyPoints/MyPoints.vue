@@ -35,8 +35,10 @@
                   <h4>Others</h4>
                   <p>{{resData.otherPoints}}</p>
                 </div>
-                <div class="brief-right-item help" @click="gotoPoints">
-                  Points Help &nbsp;>>
+                <div class="brief-right-item help">
+                  <a href="https://www.coachrun.com/points/" class="help">
+                      Points Help &nbsp;>>
+                  </a>
                 </div>
               </div>
             </div>
