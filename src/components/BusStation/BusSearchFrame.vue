@@ -5,7 +5,7 @@
     </div>
     <div class="search-box">
       <div class="track-bus-btn">
-        <el-button class="icon-bus" @click="returnBusStatus" type="text">Track Bus Status</el-button>
+        <el-button class="icon-bus" type="text"><a href="/track-bus-status/" style="color: inherit;text-decoration: none">Track Bus Status</a></el-button>
       </div>
       <div class="search-box-container">
         <div class="search-table flex">
@@ -167,7 +167,7 @@
       </div>
       <div class="service">
         <div class="icon-plug service-item">Power Outlet</div>
-        <div class="icon-wifi service-item">Wi-Fi</div>
+        <div class="icon-wifi service-item">Free Wi-Fi</div>
         <div class="icon-snowflake-o service-item">Air Conditioner</div>
         <div class="icon-chair service-item">Reclining Seats</div>
         <div class="icon-toilet service-item">Sanitized Restroom</div>
