@@ -5,7 +5,7 @@
     </div>
     <div class="search-box">
       <div class="track-bus-btn">
-        <el-button class="iconfont icon-bus" @click="returnBusStatus">Track Bus Status</el-button>
+        <el-button class="icon-bus" @click="returnBusStatus" type="text">Track Bus Status</el-button>
       </div>
       <div class="search-box-container">
         <div class="search-table flex">
@@ -832,5 +832,23 @@
   .el-select-dropdown__item.selected {
     color: #409EFF;
     font-weight: 400;
+  }
+  .track-bus-btn button span {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  }
+  input {
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  }
+  input::-webkit-input-placeholder { /* WebKit browsers */
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  }
+  input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  }
+  input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
+  }
+  input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif!important;
   }
 </style>

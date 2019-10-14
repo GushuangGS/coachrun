@@ -2,7 +2,7 @@
   <li class="box-item">
       <el-card class="box-card">
         <div class="clearfix">
-          <span class="card-title">{{CityName}}
+          <span class="card-title">{{CityName}}{{StationItem[0].address.state?(", "+StationItem[0].address.state):""}}
           </span>
         </div>
         <ul class="content-list">

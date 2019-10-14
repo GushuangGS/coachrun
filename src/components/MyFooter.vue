@@ -80,10 +80,11 @@
       margin-left: 14px;
     }
     .bot-title{
-        color:rgba(255,255,255,1);
-        font-size:16px;
-        font-weight: bold;
-        margin-bottom: 20px;
+      color:rgba(255,255,255,1);
+      font-size:16px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      margin-top: 0px;
     }
     .bot-link{
         display: flex;
@@ -120,6 +121,7 @@
         color:rgba(255,255,255,1);
         line-height: 43px;
         font-size: 13px;
+      padding-right: 3px;
         box-shadow: 0px 1px 2px 0px rgba(255,255,255,1)
     }
     </style>
