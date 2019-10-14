@@ -14,7 +14,7 @@
       }
     },
     created(){
-       this.$http({
+      this.$http({
         methods:'get',
         url:'/api/components/bus-stations',
         headers:{
@@ -34,7 +34,7 @@
           let temp = ''
           let count1 = 0
           let count2 = 0
-          let mapData2 = []
+          let mapData2 = [{city:[]}]
           for (let i = 0 ; i<data.length;i++) {
             if(mapname.indexOf(data[i].address.city)==-1){
               mapname.push(data[i].address.city)
@@ -155,28 +155,23 @@
                 }
                 data[index].content = a1
               }
+              mapData2[0].city.push({'cityname':temp,'items':mapgroup})
+              mapData2[0].city.sort((a,b)=>{
+                return a.cityname.localeCompare(b.cityname)
+              })
               // if (count1>count2){
-              //   mapData1[1][temp] = mapgroup
+              //   mapData1[1].city.push({'cityname':temp,'items':mapgroup})
+              //   mapData1[1].city.sort((a,b)=>{
+              //     return a.cityname.localeCompare(b.cityname)
+              //   })
               //   count2 = count2 + 2 + mapgroup.length
               // } else {
-              //   mapData1[0][temp] = mapgroup
+              //   mapData1[0].city.push({'cityname':temp,'items':mapgroup})
+              //   mapData1[0].city.sort((a,b)=>{
+              //     return a.cityname.localeCompare(b.cityname)
+              //   })
               //   count1 = count1 + 2 + mapgroup.length
               // }
-              if (count1>count2){
-                mapData1[1].city.push({'cityname':temp,'items':mapgroup})
-                mapData1[1].city.sort((a,b)=>{
-                  return a.cityname.localeCompare(b.cityname)
-                })
-                console.log(mapData1)
-                count2 = count2 + 2 + mapgroup.length
-              } else {
-                mapData1[0].city.push({'cityname':temp,'items':mapgroup})
-                mapData1[0].city.sort((a,b)=>{
-                  return a.cityname.localeCompare(b.cityname)
-                })
-                console.log(mapData1)
-                count1 = count1 + 2 + mapgroup.length
-              }
 
               temp = ''
               mapgroup = []
@@ -196,6 +191,15 @@
             //   }
             // }
           }
+          for (let m = 0 ; m<mapData2[0].city.length ; m++){
+            count1 = count1 + mapData2[0].city[m].items.length
+            if ((m+1)*2+count1>(mapData2[0].city.length*2+data.length)/2){
+              count2 = m
+              break;
+            }
+          }
+          mapData1[0].city = mapData2[0].city.slice(0,count2)
+          mapData1[1].city = mapData2[0].city.slice(count2,-1)
           this.data = mapData1
           console.log(this.data)
         }
