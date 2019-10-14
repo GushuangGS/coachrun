@@ -6,6 +6,7 @@ import axios from 'axios'
 axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
 
 Vue.use(Router)
+Vue.use(VueCookie);
 
 // export default new Router({
 export const router = new Router({
@@ -36,7 +37,7 @@ router.beforeEach((to,from,next)=>{
     //   next();
     // }
 
-    let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+    let loginCookie = VueCookie.get('IvyCustomer_LoginCookie');
     let token = loginCookie.split('+|+')[2];
     if(token==undefined){
       token = localStorage.getItem('IvyCustomer_LoginToken');

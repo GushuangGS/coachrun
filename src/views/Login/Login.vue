@@ -144,7 +144,7 @@
                                     if(loginCookie == undefined) return
                                         let token = loginCookie.split('+|+')[2]
                                     if (process.env.NODE_ENV == 'production'){
-                                        if(!token){
+                                        if(!token && loginCookie){
                                             this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
                                                 .then( res => {
                                                     let token = res.data.token;
