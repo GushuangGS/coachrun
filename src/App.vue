@@ -65,4 +65,5 @@ a:hover {
 a:active {
     text-decoration: none;
 }
+button, input, select, textarea {font-family:inherit;}
 </style>
