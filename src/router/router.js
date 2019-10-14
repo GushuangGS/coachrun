@@ -21,38 +21,12 @@ router.beforeEach((to,from,next)=>{
   // console.log(to);
   const name=to.name;
   if (to.matched.some(record => record.meta.auth)){
-    // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
-    // let token = loginCookie.split('+|+')[2];
-    // if(token==undefined){
-    //   token = localStorage.getItem('IvyCustomer_LoginToken');
-    // }
-    // if(token){
-    //   next();
-    // }else {//没有登录信息
-    //   if(name == "MyDeals" || name == "MyPoints" || name=="CreditList" || name=="ChangePassword" 
-    //       || name == "ContactList" ||name == "MyBookings" ||name == "MyOrders" ||name == "ReceiverCredit"
-    //       || name == "ReceiverContact" || name == "AddGuest"){
-    //     next({name: 'Login'});
-    //   }
-    //   next();
-    // }
-
-    let loginCookie = VueCookie.get('IvyCustomer_LoginCookie');
+    let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
     let token = loginCookie.split('+|+')[2];
     if(token==undefined){
       token = localStorage.getItem('IvyCustomer_LoginToken');
     }
-    
     if(token){
-      if(process.env.NODE_ENV != 'development'){
-        axios.post('api/users/authorization',{loginCookie:loginCookie})
-          .then( res => {
-              console.log(res);
-              if(res.data.code==401){
-                next({name: 'Login'});
-              }
-          })
-      }
       next();
     }else {//没有登录信息
       if(name == "MyDeals" || name == "MyPoints" || name=="CreditList" || name=="ChangePassword" 
@@ -62,6 +36,32 @@ router.beforeEach((to,from,next)=>{
       }
       next();
     }
+
+//     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+//     let token = loginCookie.split('+|+')[2];
+//     if(token==undefined){
+//       token = localStorage.getItem('IvyCustomer_LoginToken');
+//     }
+    
+//     if(token){
+//       if(process.env.NODE_ENV != 'development'){
+//         axios.post('api/users/authorization',{loginCookie:loginCookie})
+//           .then( res => {
+//               console.log(res);
+//               if(res.data.code==401){
+//                 next({name: 'Login'});
+//               }
+//           })
+//       }
+//       next();
+//     }else {//没有登录信息
+//       if(name == "MyDeals" || name == "MyPoints" || name=="CreditList" || name=="ChangePassword" 
+//           || name == "ContactList" ||name == "MyBookings" ||name == "MyOrders" ||name == "ReceiverCredit"
+//           || name == "ReceiverContact" || name == "AddGuest"){
+//         next({name: 'Login'});
+//       }
+//       next();
+//     }
 
 
   }

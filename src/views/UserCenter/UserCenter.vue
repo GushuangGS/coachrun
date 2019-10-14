@@ -90,4 +90,7 @@ export default {
   .el-menu-item:hover{
       color: #009fea !important;
   }
+  >>> .el-aside{
+    overflow: hidden;
+  }
 </style>
