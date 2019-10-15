@@ -162,13 +162,17 @@
                                         }else{
                                             this.$router.push({name: 'MyOrders'});
                                         }
+                                    }else if(process.env.NODE_ENV == 'sandbox'){
+                                        if(this.pageUrl){
+                                            window.location.href = this.pageUrl;
+                                        }else{
+                                            this.$router.push({name: 'MyOrders'});
+                                        }
                                     }else{
                                         if(this.pageUrl){
                                             window.location.href = this.pageUrl;
                                         }else{
-                                            console.log(VueCookie.get('IvyCustomer_role'))
                                             if(VueCookie.get('IvyCustomer_role')>=3){
-                                                // this.$router.push({path:'/app/member/account'});
                                                 window.location.href = 'https://www.coachrun.com/app/member/account';
                                             }else{
                                                 this.$router.push({name: 'MyOrders'});
