@@ -14,11 +14,11 @@
                   style="width: 100%"
                   size="mini"> 
                   <el-table-column
-                    header-align="center"
+                    header-align="left"
                     align="left"
                     prop="name"
                     label="Name"
-                    min-width="200"
+                    min-width="250"
                     show-overflow-tooltip="true">
                     <template slot-scope="scope">
                       <span>{{ scope.row.firstName}} {{scope.row.lastName }}</span>
@@ -26,30 +26,30 @@
                     </template>
                   </el-table-column>
                   <el-table-column
-                    align="center"
-                    header-align="center"
+                    align="left"
+                    header-align="left"
                     prop="email"
                     label="Email"
-                    min-width="300"
+                    min-width="250"
                     show-overflow-tooltip="true">
                   </el-table-column>
                   <el-table-column
-                    align="center"
-                    header-align="center"
+                    align="left"
+                    header-align="left"
                     prop="phone"
                     label="Phone"
                     min-width="150"
                     show-overflow-tooltip="true">
                   </el-table-column>
                   <el-table-column
-                    align="right"
-                    header-align="center"
+                    align="left"
+                    header-align="left"
                     label="Actions"
                     min-width="220">
                     <template slot-scope="scope">
                       <el-button @click="edit(scope.row)"  type="text" size="small">Edit</el-button>
-                      <el-button @click="setDefault(scope.row)" v-show="scope.row.isDefault != true" type="text" size="small">Default</el-button>
                       <el-button @click="clickdel(scope.row)" type="text" size="small">Remove</el-button>
+                      <el-button @click="setDefault(scope.row)" v-show="scope.row.isDefault != true" type="text" size="small">Default</el-button>
                     </template>
                   </el-table-column>
                 </el-table>
@@ -244,8 +244,12 @@
     font-size: 14px;
   }
   >>> .el-table__body td>div.cell>button:not(:last-child)>span {
-    padding-right: 10px;
-    border-right: 1px solid #979797;
+    /* padding-right: 10px; */
+    /* border-right: 1px solid #979797; */
+  }
+  >>> .el-table__body td>div.cell>button:not(:first-child)>span{
+    padding-left: 10px;
+    border-left: 1px solid #979797;
   }
   >>> .el-table__empty-block{
     display: none;

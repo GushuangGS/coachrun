@@ -411,7 +411,11 @@
                     firTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
                     endTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
                     return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
+                  }else{
+                    return routeLine = item.product.name;
                   }
+                }else{
+                  return routeLine = item.product.name;
                 }
               }else{
                   return routeLine = item.product.name;

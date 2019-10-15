@@ -40,6 +40,9 @@
                       Points Help &nbsp;>>
                   </a>
                 </div>
+                <!-- <div class="brief-right-item help">
+                  <my-router-link :status="showRouter" :hrefLink="hrefLink" :domText="domText"></my-router-link>    
+                </div> -->
               </div>
             </div>
             <div class="detail">
@@ -51,9 +54,9 @@
                 style="width: 100%;">
                 <el-table-column
                   label="Source"
-                  min-width="160px"
-                  header-align="center"
-                  align="center"
+                  min-width="200px"
+                  header-align="left"
+                  align="left"
                   show-overflow-tooltip="true">
                   <!-- prop="orderCode"  160-->
                   <template slot-scope="scope">
@@ -71,20 +74,22 @@
                 <el-table-column
                   label="Points"
                   min-width="140px"
-                  header-align="center"
-                  align="center">
+                  header-align="left"
+                  align="left">
                   <template slot-scope="scope">
-                      <span  :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0}">{{scope.row.rewardPoint}}</span>
-                      <span v-if="scope.row.isPending==1" class="text-pending">Pending</span>
+                      <!-- <span  :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0}">{{scope.row.rewardPoint}}</span>
+                      <span v-if="scope.row.isPending==1" class="text-pending">Pending</span> -->
                     <!-- <span :class="{'positive': scope.row.points.value > 0, 'negtive': scope.row.points.value < 0, 'pending': scope.row.points.isPending}">{{(scope.row.points.value > 0 ? '+' : '-') + ' ' + Math.abs(scope.row.points.value)}}</span>
                     <span v-if="scope.row.points.isPending" class="text-pending">Pending{{scope}}</span> -->
+                    <span :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0, 'pending': scope.row.isPending}">{{(scope.row.rewardPoint > 0 ? '+' : '-') + ' ' + Math.abs(scope.row.rewardPoint)}}</span>
+                    <span v-if="scope.row.isPending==1" class="text-pending">Pending</span>
                   </template>
                 </el-table-column>
                 <el-table-column
                   prop="timestamp"
                   label="Date"
-                  header-align="center"
-                  align="center"
+                  header-align="left"
+                  align="left"
                   min-width="130px">
                 </el-table-column>
               </el-table>
@@ -107,6 +112,9 @@
 
 <script>
   import ItemHeader from '@/components/ItemHeader'
+  // import MyRouterLink from '@/components/MyRouterLink'
+
+
   export default {
     data() {
       return {
@@ -118,7 +126,10 @@
         currentPage:1, //初始页
         pagesize:20,    //每页的数据
         tableData: [],
-        resData:{}
+        resData:{},
+        showRouter:true,
+        hrefLink:'credit-card-list',
+        domText:'Points Help >>'
       }
     },
     components: {
@@ -172,17 +183,20 @@
     padding-top: 4px;
   }
   .brief {
-    width: 980px;
-    height: 200px;
+    /* width: 980px; */
+    width: 720px;
+    /* height: 200px; */
+    height: 190px;
     box-sizing: border-box;
     border: 1px solid #EBEEF5;
-    /* padding: 26px 90px; */
-    padding: 26px 90px 26px 40px;
+    /* padding: 26px 90px 26px 40px; */
+    padding: 26px 90px 26px 0px;
     display: flex;
     align-items: stretch;
   }
   .brief>.brief-left {
-    width: 280px;
+    /* width: 280px; */
+    width: 200px;
     display: flex;
     flex-direction: column;
   }
@@ -206,7 +220,7 @@
   }
   .brief>.brief-right {
     flex: 1 1;
-    padding-left: 40px;
+    /* padding-left: 40px; */
     padding-top: 15px;
     display: flex;
     flex-wrap: wrap;
@@ -244,6 +258,7 @@
   .detail {
     margin-left: 10px;
     margin-top: 40px;
+    width: 720px;
   }
   .detail>.table-title {
     font-size: 18px;
