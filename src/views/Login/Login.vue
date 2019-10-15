@@ -168,7 +168,8 @@
                                         }else{
                                             console.log(VueCookie.get('IvyCustomer_role'))
                                             if(VueCookie.get('IvyCustomer_role')>=3){
-                                                this.$router.push({path:'/app/member/account'});
+                                                // this.$router.push({path:'/app/member/account'});
+                                                window.location.href = 'https://www.coachrun.com/app/member/account';
                                             }else{
                                                 this.$router.push({name: 'MyOrders'});
                                             }
