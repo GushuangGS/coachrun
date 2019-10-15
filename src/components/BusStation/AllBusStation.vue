@@ -2,7 +2,7 @@
   <el-container class="section" style="margin-bottom: 30px">
     <section-title title-name="All Bus Stations Available On CoachRun"></section-title>
     <el-main class="flex">
-      <ul class="station-list" v-for="i in 2" :key="i" v-if="items[i].city">
+      <ul class="station-list" v-for="i in 2" :key="i">
         <li is="BusStationItem" v-for="(item,index) in items[i-1].city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
       </ul>
     </el-main>
@@ -14,7 +14,6 @@
       :before-close="closeDialog"
     >
       <google-map-item ref="googlemap" :positions="positions" :index="index"></google-map-item>
-<!--      <component is="MapItem" ref="item"></component>-->
     </el-dialog>
   </el-container>
 
@@ -25,7 +24,10 @@
   import BusStationItem from "@/components/BusStation/item/BusStationItem"
   export default {
     props:{
-      items:[{city:[]},{city:[]}]
+      items:{
+        type:Array,
+        default:[{city:[]},{city:[]}]
+      }
     },
     data() {
       return {
