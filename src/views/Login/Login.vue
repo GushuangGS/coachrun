@@ -166,11 +166,11 @@
                                         if(this.pageUrl){
                                             window.location.href = this.pageUrl;
                                         }else{
-                                            // if(VueCookie.get('IvyCustomer_role')>=3){
-                                            //     this.$router.push({path:'/app/member/account'});
-                                            // }else{
+                                            if(VueCookie.get('IvyCustomer_role')>=3){
+                                                this.$router.push({path:'/app/member/account'});
+                                            }else{
                                                 this.$router.push({name: 'MyOrders'});
-                                            // }
+                                            }
                                         }
                                     }
                                     this.$cookie.set('front-sessionId', data.data.data.user.id);
