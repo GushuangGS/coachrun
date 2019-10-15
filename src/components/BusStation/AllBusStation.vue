@@ -2,9 +2,7 @@
   <el-container class="section" style="margin-bottom: 30px">
     <section-title title-name="All Bus Stations Available On CoachRun"></section-title>
     <el-main class="flex">
-      <ul class="station-list" v-for="i in 2" :key="i">
-<!--          <li is="BusStationItem" v-for="i in 12" @show="showMap"></li>-->
-<!--        <li is="BusStationItem" v-for="(item,index) in items[i-1].cityarr" @show="showMap" :station-item="items[i][item]" :key="index" :city-name="item"></li>-->
+      <ul class="station-list" v-for="i in 2" :key="i" v-if="items[i].city">
         <li is="BusStationItem" v-for="(item,index) in items[i-1].city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
       </ul>
     </el-main>
@@ -27,7 +25,7 @@
   import BusStationItem from "@/components/BusStation/item/BusStationItem"
   export default {
     props:{
-      items:Array
+      items:[{city:[]},{city:[]}]
     },
     data() {
       return {
