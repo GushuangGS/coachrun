@@ -19,7 +19,7 @@
                         <p class="bot-title">Main Menu</p>
                         <a href="https://www.coachrun.com/bus-stations/">Bus Stations</a>
                         <a href="https://www.gotocharter.com">Bus Rental</a>
-                        <a href="https://www.coachrun.com/hotel/">Hotel</a>
+                        <a href="https://www.coachrun.com/hotels/">Hotels</a>
                         <a href="https://www.coachrun.com/ticket-policy/">Ticket Policy</a>
                     </div>
                 </el-col>

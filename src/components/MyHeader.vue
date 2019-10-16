@@ -17,8 +17,8 @@
           </a>
         </li>
         <li>
-          <a href="https://www.coachrun.com/hotel/">
-            Hotel
+          <a href="https://www.coachrun.com/hotels/">
+            Hotels
           </a>
         </li>
         <li>
