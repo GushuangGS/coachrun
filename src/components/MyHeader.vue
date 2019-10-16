@@ -121,9 +121,11 @@
         window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes',"_blank");
       },
       gotoMine(){
-        console.log(1)
-        this.$router.push({name: 'MyOrders'});
-        console.log(3)
+        if(VueCookie.get('IvyCustomer_role')>=3){
+            window.location.href = 'https://www.coachrun.com/app/member/account';
+        }else{
+            this.$router.push({name: 'MyOrders'});
+        }
       },
       login(){
         this.$router.push({name: 'Login'});

@@ -207,9 +207,9 @@
                                   </div>
                               </div>
                               <div class="btns">
-                                  <el-button v-if="!(item.status==8&&showRes(item))" @click="resche(item)" class="Reschedule">Reschedule</el-button>
+                                  <el-button v-if="!(item.status==8&&showRes(item))&&item.product.type==1" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                                   <el-button @click="eticket(item)" v-if="item.status!=8" class="E-Ticket">E-Ticket</el-button>
-                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
+                                  <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3&&item.product.type==1" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                               </div>
                             </div>
                             <div class="actions" v-if="item.status==8">
@@ -609,29 +609,32 @@
           },
           getCity(item){
             var firCity,endCity,firTime,endTime,routeLine;
-            if(item.passengers.length!=0){
-              if(item.passengers[0].options[0].value.station!=undefined){
-                if(item.passengers[0].options[0].value.station.address!=undefined){
-                  firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
-                  endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
-                  firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
-                  endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
-                  // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
-                  return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
+            if(item.product.type==1){
+              if(item.passengers.length!=0){
+                if(item.passengers[0].options[0].value.station!=undefined){
+                  if(item.passengers[0].options[0].value.station.address!=undefined){
+                    firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
+                    endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
+                    firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
+                    endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
+                    return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
+                  }else{
+                    return routeLine = item.product.name;
+                  }
                 }else{
                   return routeLine = item.product.name;
                 }
-              }else{
-                return routeLine = item.product.name;
-              }
-            }else if(item.abnormalPassengers.length!=0){
-              if(item.abnormalPassengers[0].options[0].value.station!=undefined){
-                if(item.abnormalPassengers[0].options[0].value.station.address!=undefined){
-                  firCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
-                  endCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
-                  firTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
-                  endTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
-                  return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
+              }else if(item.abnormalPassengers.length!=0){
+                if(item.abnormalPassengers[0].options[0].value.station!=undefined){
+                  if(item.abnormalPassengers[0].options[0].value.station.address!=undefined){
+                    firCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
+                    endCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
+                    firTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
+                    endTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
+                    return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
+                  }else{
+                    return routeLine = item.product.name;
+                  }
                 }else{
                   return routeLine = item.product.name;
                 }
@@ -641,6 +644,7 @@
             }else{
               return routeLine = item.product.name;
             }
+            
           },
           showRes(item){
             var nowDate = moment(new Date()).add('year',0).format("YYYY-MM-DD");
