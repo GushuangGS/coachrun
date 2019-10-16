@@ -2,10 +2,12 @@
   <el-container class="section" style="margin-bottom: 30px">
     <section-title title-name="All Bus Stations Available On CoachRun"></section-title>
     <el-main class="flex">
-      <ul class="station-list" v-if="items[0].city&&items[1].city">
+      <!-- <ul class="station-list" v-if="items[0].city&&items[1].city"> -->
+      <ul class="station-list" v-if="items">
         <li is="BusStationItem" v-for="(item,index) in items[0].city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
       </ul>
-      <ul class="station-list" v-if="items[0].city&&items[1].city">
+      <!-- <ul class="station-list" v-if="items[0].city&&items[1].city"> -->
+      <ul class="station-list" v-if="items">
         <li is="BusStationItem" v-for="(item,index) in items[1].city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
       </ul>
     </el-main>
