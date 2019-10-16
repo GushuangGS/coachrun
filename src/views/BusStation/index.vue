@@ -81,7 +81,6 @@
           mapData1[0].city = mapData2[0].city.slice(0,count2)
           mapData1[1].city = mapData2[0].city.slice(count2,-1)
           this.data = mapData1
-          console.log(this.data)
         }
       })
     },

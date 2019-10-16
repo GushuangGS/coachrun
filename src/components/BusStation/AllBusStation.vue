@@ -3,12 +3,13 @@
     <section-title title-name="All Bus Stations Available On CoachRun"></section-title>
     <el-main class="flex">
       <!-- <ul class="station-list" v-if="items[0].city&&items[1].city"> -->
-      <ul class="station-list" v-if="items">
-        <li is="BusStationItem" v-for="(item,index) in items[0].city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
+      <ul class="station-list">
+        <li is="BusStationItem" v-for="(item,index) in city.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
+        
       </ul>
       <!-- <ul class="station-list" v-if="items[0].city&&items[1].city"> -->
-      <ul class="station-list" v-if="items">
-        <li is="BusStationItem" v-for="(item,index) in items[1].city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
+      <ul class="station-list">
+        <li is="BusStationItem" v-for="(item,index) in city2.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
       </ul>
     </el-main>
     <el-dialog
@@ -34,13 +35,31 @@
         default:[{city:[]},{city:[]}]
       }
     },
+    computed:{
+      
+    },
+    watch:{
+      items(){
+          if(this.items.length>0){
+          this.city = this.items[0];
+      }
+      if(this.items.length>1){
+        this.city2 = this.items[1];
+      }
+      }
+    },
     data() {
       return {
         title:'',
         dialogVisible: false,//对话框开关
         positions:[],
-        index:0
+        index:0,
+        city:[],
+        city2:[]
       };
+    },
+    updated(){
+      console.log(this.items);
     },
     methods:{
       showMap(positions,index,cityName){
