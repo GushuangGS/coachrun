@@ -92,4 +92,7 @@
 >>> .gm-style{
   font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
 }
+.gm-style .gm-style-iw {
+    font-weight: 400!important;
+}
 </style>
