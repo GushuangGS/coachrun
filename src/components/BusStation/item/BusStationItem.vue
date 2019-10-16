@@ -104,7 +104,6 @@
     }
     .card-title {
       font-size:16px;
-      font-family:Arial;
       font-weight:normal;
       color:rgba(51,51,51,1);
       line-height:16px;
@@ -125,8 +124,7 @@
             color: #009FEA;
           }
           p {
-            font-size:14px;
-            font-family:ArialMT;
+            font-size:15px;
             color:#666;
             line-height:21px;
             margin: 0px;
