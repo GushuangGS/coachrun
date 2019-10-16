@@ -448,7 +448,7 @@
     left: 1066px;
   }
   .search-frame {
-    background-image: url("../../assets/search-box-bg.png");
+    background-image: url("https://www.coachrun.com/client-resource/images/search-box-bg.png");
     display: flex;
     align-items: center;
     justify-content: center;
