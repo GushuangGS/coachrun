@@ -36,7 +36,11 @@
                 </span>
       </div>
       <div class="show-name" v-if="$store.state.isLogin">
-        <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
+        <span class="user-name" @click="gotoMine">
+          <!-- Hello, -->
+          <img src="@/assets/home_head.png" alt="">
+           {{getUserName()}}
+          </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
       <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
@@ -215,6 +219,11 @@
   .user-name{
     color: #00A2FF;
     white-space: nowrap;
+    display: flex;
+    align-items: center
+  }
+  .user-name img{
+    margin-right: 10px;
   }
   .logout{
     margin-left: 16px;
