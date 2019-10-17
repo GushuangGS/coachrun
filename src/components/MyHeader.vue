@@ -38,7 +38,8 @@
       <div class="show-name" v-if="$store.state.isLogin">
         <span class="user-name" @click="gotoMine">
           <!-- Hello, -->
-          <img src="@/assets/home_head.png" alt="">
+          <!-- <img src="@/assets/home_head.png" alt=""> -->
+          <i class="icon-user-circle backgr"></i>
            {{getUserName()}}
           </span>
         <span class="logout" @click="logout">Logout</span>
@@ -222,8 +223,8 @@
     display: flex;
     align-items: center
   }
-  .user-name img{
-    margin-right: 10px;
+  .user-name i{
+    margin-right: 5px;
   }
   .logout{
     margin-left: 16px;
@@ -270,6 +271,9 @@
   }
   .header-title li a{
     text-decoration: none;
+    color: #333;
+  }
+  .backgr{
     color: #333;
   }
 </style>
