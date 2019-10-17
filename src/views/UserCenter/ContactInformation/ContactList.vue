@@ -275,7 +275,7 @@
   .add-btn{
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    /* justify-content: flex-end; */
     margin-top: 10px;
   }
   .add-info{
