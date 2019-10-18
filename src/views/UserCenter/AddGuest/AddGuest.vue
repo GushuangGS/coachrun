@@ -134,11 +134,19 @@
                                 this.verCode = res.data.data.verificationCode;
                                 this.inputEmail = this.ruleForm.email;
                             }else{
-                                this.$message({
-                                    message: res.data.msg,
-                                    type: 'warning',
-                                    center: true
-                                });
+                                if(res.data.msg){
+                                    this.$message({
+                                        message: res.data.msg,
+                                        type: 'warning',
+                                        center: true
+                                    });
+                                }else{
+                                    this.$message({
+                                        message: 'NetWork Error',
+                                        type: 'warning',
+                                        center: true
+                                    });
+                                }
                             }
                         })
                 },

@@ -11,7 +11,7 @@
                 <div class="products">
                         <el-row :gutter="20">
                             <el-col :span="8" v-for="(listInfo,index) in dataList" :key="index">
-                                <un-available :listInfo="listInfo" v-if="listInfo.ususedDate && listInfo.isExpired==1"></un-available>
+                                <un-available :listInfo="listInfo" v-if="listInfo.isUsed==true || listInfo.isExpired==true"></un-available>
                                 <available :listInfo="listInfo" v-else=""></available>
                             </el-col>
                         </el-row>

@@ -68,7 +68,7 @@ export default {
 <style scoped>
   .content {
     width: 1240px;
-    min-height: 550px;
+    min-height: 615px;
     margin: 0 auto;
   }
   >>> .el-menu-item{
