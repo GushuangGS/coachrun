@@ -31,14 +31,14 @@
                 <div class="expired-deals" v-show="listInfo.isExpired ==true">
                     This coupon expired on {{listInfo.expiredDate}}
                 </div>
-                <div class="expired-deals" v-show="listInfo.isUsed ==''">
+                <div class="expired-deals" v-show="listInfo.isUsed ==true">
                     This coupon used on {{listInfo.usedDate}}
                 </div>
             </div>
             <!-- <div class="left-ridus"></div>
             <div class="right-ridus"></div> -->
             <div class="top-img">
-                <img  v-show="listInfo.isUsed ==''"  src="@/assets/used.png" alt="">
+                <img  v-show="listInfo.isUsed ==true"  src="@/assets/used.png" alt="">
                 <img  v-show="listInfo.isExpired ==true"  src="@/assets/expired.png" alt="">
             </div>
         </div>
@@ -167,7 +167,7 @@
         }
         .product-bus{
             width: 284px;
-            height: 70px;
+            height: 95px;
         }
         .product-intro1,.product-intro2,.product-intro3,.product-intro4{
             padding-left: 8px;
@@ -180,6 +180,7 @@
             font-size:14px;
             font-weight:bold;
             margin-top: 12px;
+            display: inline-block;
         }
         .product-intro2{
             font-size:12px;

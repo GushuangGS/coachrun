@@ -275,6 +275,7 @@
   }
   .backgr{
     color: #333;
+    font-size: 18px;
   }
 </style>
 <style>
