@@ -2,19 +2,19 @@
     <div class="footer">
         <div class="footer-top">
             <el-row :gutter="24">
-                <el-col :span="5">
+                <el-col :xs="6" :sm="6">
                     <div class="bot-logo">
                         <img src="@/assets/whitecoachrunlogo.png" alt="">
                     </div>
                 </el-col>
-                <el-col :span="8">
+                <el-col :xs="6" :sm="6">
                     <div>
                         <p class="bot-title">About Us</p>
                         <span class="about">CoachRun provides affordable inter-city bus services on the East Coast, Florida and the West Coast.
                         </span>
                     </div>
                 </el-col>
-                <el-col :span="5">
+                <el-col :xs="6" :sm="6">
                     <div class="bot-link">
                         <p class="bot-title">Main Menu</p>
                         <a href="https://www.coachrun.com/bus-stations/">Bus Stations</a>
@@ -23,7 +23,7 @@
                         <a href="https://www.coachrun.com/ticket-policy/">Ticket Policy</a>
                     </div>
                 </el-col>
-                <el-col :span="5">
+                <el-col :xs="6" :sm="6">
                     <div class="bot-contact">
                         <p class="bot-title">Contact</p>
                         <span>Phone: 617-681-0820</span>
@@ -66,7 +66,8 @@
     }
     .footer-top{
       height: 232px;
-      width: 1200px;
+      max-width: 1200px;
+      width: 100%;
       display: flex;
       flex-direction: column;
       font-size: 14px;
@@ -111,7 +112,8 @@
     .about{
       line-height: 25px;
       display: inline-block;
-      width: 229px;
+      max-width: 229px;
+      width: 100%;
       line-height: 28px;
     }
     .copy{
@@ -123,5 +125,10 @@
         font-size: 13px;
       padding-right: 3px;
         box-shadow: 0px 1px 2px 0px rgba(255,255,255,1)
+    }
+    @media screen and (max-width:768px){
+        .footer-top {
+            display: none !important;
+        }
     }
     </style>

@@ -1,227 +1,300 @@
- <template>
-    <el-header style="height: 80px;">
-      <el-container>
-        <div class="header-left">
-          <div class="logo" @click="skip('https://www.coachrun.com/')">
-            <img src="@/assets/coachrunlogo.png" alt="">
-          </div>
-          <ul class="title">
-            <li v-for="(item,index) in navLists" :key="index">
-              <a :href="item.src">
-                {{item.text}}
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="header-right">
-          <div class="login-register" v-if="!$store.state.isLogin">
-            <span class="login" @click="login">
-                Login
-            </span>|
-            <span class="register" @click="login">
-                Register
-            </span>
-          </div>
-          <div class="show-name" v-if="$store.state.isLogin">
-            <span class="user-name" @click="gotoMine">Hello, {{getUserName()}}</span>
-            <span class="logout" @click="logout">Logout</span>
-          </div>
-          <div class="header-icon">
-            <div class="shopping-cart">
-              <img src="@/assets/shoppingcart.png" alt="" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
-            </div>
-            <div class="live-chat">
-              <a href="javascript:void(window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">
-                <img src="@/assets/livechat.png">
-              </a>
-            </div>
-          </div>
-        </div>
-      </el-container>
-    </el-header>
+<template>
+  <div class="header">
+    <div class="header-left">
+      <!-- <div class="logo" @click="skip('http://testwww.coachrun.com/')"> -->
+      <div class="logo" @click="toShopping">
+        <a href="/">
+          <img src="@/assets/coachrunlogo.png">
+        </a>
+      </div>
+      <ul class="header-title">
+        <li>
+          <router-link to="/bus-stations">Bus Stations</router-link>
+        </li>
+        <li>
+          <a href="https://www.gotocharter.com">
+            Bus Rental
+          </a>
+        </li>
+        <li>
+          <a href="https://www.coachrun.com/hotels/">
+            Hotels
+          </a>
+        </li>
+        <li>
+          <a href="https://www.coachrun.com/ticket-policy/">
+            Ticket Policy
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="header-right">
+      <div class="login-register" v-if="!$store.state.isLogin">
+                <span @click="login">
+                    Login
+                </span>
+      </div>
+      <div class="show-name" v-if="$store.state.isLogin">
+        <span class="user-name" @click="gotoMine">
+          <!-- Hello, -->
+          <!-- <img src="@/assets/home_head.png" alt=""> -->
+          <i class="icon-user-circle backgr"></i>
+           {{getUserName()}}
+          </span>
+        <span class="logout" @click="logout">Logout</span>
+      </div>
+      <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
+        <el-badge :value="shopNum" :max="99" id="bus_shopping_cart_nav" :hidden="shopNum==0?true:false">
+          <a href="/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154">
+            <i class="icon-basket"></i>
+          </a>
+        </el-badge>
+      </div>
+      <div class="live-chat">
+        <a href="javascript:void(window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">
+          <i class="icon-chat"></i>
+        </a>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
-    import VueCookie from 'vue-cookie';
-    export default{
-        name:'MyHeader',
-        data(){
-            return{
-                navLists:[
-                    {"text":"Bus Stations","link":"stations","src":"/bus-stations"},
-                    {"text":"Bus Rental","link":"Login","src":"https://www.gotocharter.com"},
-                    {"text":"Hotel","link":"MyOrders","src":"https://www.coachrun.com/hotel/"},
-                    {"text":"Ticket Policy","link":"Register","src":"https://www.coachrun.com/ticket-policy/"}
-                ],
-                userName:'',
-                name:''
-            }
-        },
-        created(){
-
-            const name = localStorage.getItem('IvyCustomer_LoginToken');
-            if(name){
-                this.$store.commit('login');
-                this.isLogin = this.$store.state.isLogin;
-            }
-
-            // if(name){
-            //     this.$store.commit('login');
-            //     this.isLogin = this.$store.state.isLogin;
-            //     // this.$store.commit('loginName',name);
-            // }
-            // console.log(this.getUserName())
-        },
-        methods:{
-            getUserName(){
-                this.userName = VueCookie.get('IvyCustomer_FirstName');
-                if(this.userName == null || this.userName== undefined){
-                    this.userName = VueCookie.get('IvyCustomer_LoginEmail')!=null?VueCookie.get('IvyCustomer_LoginEmail'):localStorage.getItem("loginName");
-                }
-                 return this.userName;
-            },
-            skip(url){//页面跳转
-              window.location.href = url
-            },
-            gotoMine(){
-                this.$router.push({name: 'MyOrders'});
-            },
-            login(){
-                this.$router.push({name: 'Login'});
-            },
-            logout(){
-                // this.$http.post(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
-                this.$http.delete(this.$api.logout)
-                    .then((data) => {
-                        console.log(data);
-                        localStorage.removeItem("IvyCustomer_LoginToken");
-                        VueCookie.delete('IvyCustomer_LoginCookie');
-                        this.$store.commit('logout');
-                        console.log(this.$store.state.isLogin)
-                        this.$store.commit('loginName','');
-                        this.$router.push({name: 'Login'});
-                    });
-            }
+  import VueCookie from 'vue-cookie';
+  export default{
+    name:'MyHeader',
+    data(){
+      return{
+        navLists:[
+          {"text":"Bus Stations","src":"/bus-stations"},
+          {"text":"Bus Rental","src":"https://www.gotocharter.com"},
+          {"text":"Hotel","src":"https://www.coachrun.com/hotel/"},
+          {"text":"Ticket Policy","src":"https://www.coachrun.com/ticket-policy/"}
+        ],
+        userName:'',
+        shopNum:0
+      }
+    },
+    created(){
+      var name;
+      if (process.env.NODE_ENV == 'development'){
+        name = localStorage.getItem('IvyCustomer_LoginToken');
+      }else{
+        name = VueCookie.get('IvyCustomer_LoginCookie');
+      }
+      // console.log(name);
+      if(name){
+        this.$store.commit('login');
+        this.isLogin = this.$store.state.isLogin;
+        // this.$store.commit('loginName',name);
+      }
+    },
+    mounted(){
+      this.shopNum = VueCookie.get('IvyCustomer_ShoppingItems');
+    },
+    methods:{
+      getUserName(){
+        // console.log(this.$store.state.userName);
+        // this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
+        // if(this.userName == null || this.userName== undefined){
+        //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+        // }
+        // // console.log(this.userName);
+        //  return this.userName;
+        this.userName = VueCookie.get('IvyCustomer_FirstName');
+        if(this.userName == null || this.userName== undefined){
+          this.userName = VueCookie.get('IvyCustomer_LoginEmail')!=null?VueCookie.get('IvyCustomer_LoginEmail'):localStorage.getItem("loginName");
         }
+        return this.userName;
+      },
+      skip(url){
+        window.location.href = url;
+      },
+      changeColor(index){
+        // this.$router.push({name: this.navLists[index].link});
+        window.location.href = this.navLists[index].src;
+      },
+      toShopping(){
+        if(process.env.NODE_ENV === 'production'){
+          window.location.href = 'https://www.coachrun.com/';
+        }else{
+          window.location.href = 'http://testwww.coachrun.com/';
+        }
+      },
+      toLive(){
+        window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes',"_blank");
+      },
+      gotoMine(){
+        if(VueCookie.get('IvyCustomer_role')>=3){
+            window.location.href = 'https://www.coachrun.com/app/member/account';
+        }else{
+            this.$router.push({name: 'MyOrders'});
+        }
+      },
+      login(){
+        this.$router.push({name: 'Login'});
+      },
+      register(){
+        this.$router.push({name: 'Register'});
+      },
+      logout(){
+        // this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
+        this.$http.delete(this.$api.logout)
+          .then((data) => {
+            console.log(data);
+            if(data.data.code==200){
+              if (process.env.NODE_ENV === 'development'){
+                localStorage.removeItem("IvyCustomer_LoginToken");
+                localStorage.removeItem("loginName");
+              }
+              VueCookie.delete('IvyCustomer_LoginCookie');
+              VueCookie.delete('front-sessionId');
+              this.$store.commit('logout');
+              this.$router.push({name: 'Login'});
+            }else if(data.data.code==500){
+              this.$message({
+                message: data.data.msg,
+                type: 'warning',
+                center: true
+              });
+            }
+
+          });
+      }
     }
+  }
 </script>
+
 <style scoped>
-  .el-container {
-    word-spacing: normal;
-    flex-direction: row;
-  }
-  .el-header {
-    /* position: fixed; */
-    width: 100%;
-    z-index: 9999;
-    height: 80px;
-    margin: 0 auto;
-    padding: 0px;
-    background: white;
-    /* box-shadow: 0 1px 4px 0 rgba(0,0,0,.25);
-    -moz-box-box-shadow: 0 1px 4px 0 rgba(0,0,0,.25);
-    -webkit-box-box-shadow: 0 1px 4px 0 rgba(0,0,0,.25); */
-  }
-  .el-header .el-container {
-    padding: 15px 10px;
-    margin: 0 auto;
-    height: 100%;
-    width: 1170px;
+  .header-left{
     display: flex;
+    align-items: baseline;
+    margin-top: 8px;
+  }
+  .header-right{
+    display: flex;
+    align-items: center;
+  }
+
+  .header{
+    height: 80px;
+    width: 1170px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    background:rgba(255,255,255,1);
+    padding: 15px 0;
     justify-content: space-between;
   }
-  .header-left {
-    display: flex;
-    align-items: center;
-  }
-  .title{
-        margin-left: 30px;
-        padding: 15px;
-  }
-  .title a{
-    font-size:16px;
-        font-family:ArialMT;
-        color:rgba(35,35,35,1);
-        line-height:20px;
-        display: block;
-        height: 20px;
-  }
-  .header-right {
-    display: flex;
-    align-items: center;
-  }
-  .header-icon {
-      display: flex;
-      align-items: center;
-      cursor: pointer;
-    }
-.logo{
+  .logo{
     width: 132px;
     height: 26px;
-    cursor: pointer;
-    /* margin-top: 27px; */
-}
-.right-menu{
+  }
+  .right-menu{
     display: flex;
-}
-.login-register{
-    cursor: pointer;
-    height: 35px;
-    line-height: 33px;
+  }
+  .login-register{
+    height: 36px;
+    line-height: 34px;
     padding: 0 15px;
-    border:1px solid rgba(219,219,219,1);
+    border:1px solid #cdcdcd;
     display: flex;
     font-size:14px;
     border-radius:4px;
     color:rgba(51,51,51,1);
-}
-.bgColor{
-    color: #009FEA!important;
-}
-.user-name{
-  white-space: nowrap;
-  color:rgba(0,159,234,1);
-  cursor: pointer;
-}
-.logout{
-    margin-left: 10px;
+  }
+  .show-name{
+    height: 34px;
+    line-height: 34px;
+    margin-left: 150px;
+    padding: 0 0 0 15px;
+    display: flex;
     font-size:14px;
-    color:rgba(0,159,234,1);
-    font-weight: 600;
-  cursor: pointer;
-}
-.login{
+    color:rgba(51,51,51,1);
+  }
+  .bgColor{
+    color: #009FEA;
+  }
+  .user-name{
+    color: #00A2FF;
+    white-space: nowrap;
+    display: flex;
+    align-items: center
+  }
+  .user-name i{
     margin-right: 5px;
-}
-.register{
-margin-left: 5px;
-}
-.shopping-cart{
-    margin-left:30px;
-}
-.live-chat{
-    margin-left: 28px;
-}
-.shopping-cart,.live-chat{
-    /* margin-top: 32px; */
-}
-.title{
+  }
+  .logout{
+    margin-left: 16px;
+    font-size:14px;
+    padding: 0 15px;
+  }
+  .logout:hover {
+    color:#00A2FF;;
+  }
+  .login{
+    margin-right: 5px;
+  }
+  .register{
+    margin-left: 5px;
+  }
+  .shopping-cart{
+    margin-left:16px;
+    font-size: 18px;
+  }
+  .shopping-cart a,.live-chat a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .live-chat{
+    margin-left: 16px;
+    font-size: 18px;
+  }
+  .header-title{
     display: flex;
     align-items: center;
-    margin: 0px;
-}
-.title li{
+    margin: 0;
+    padding-left: 30px;
+  }
+  .header-title li{
     white-space: nowrap;
-    margin-left: 40px;
+    margin-left: 30px;
     text-align: center;
-    font-weight: bold;
-}
-.title li a{
-  text-decoration: none;
-  color:rgba(35,35,35,1);
-  font-weight: normal;
-}
-.nav {
-  font-weight: bold;
-}
+    font-size:16px;
+    color: #333;
+    padding: 15px;
+  }
+  .header-title li:first-child{
+    margin-left: 0;
+  }
+  .header-title li a{
+    text-decoration: none;
+    color: #333;
+  }
+  .backgr{
+    color: #333;
+    font-size: 18px;
+  }
+</style>
+<style>
+  #bus_shopping_cart_nav sup{
+    display: inline-block;
+    background-color: #FF6600;
+    color: #FFFFFF;
+    border-radius: 50%;
+    text-align: center;
+    width: 12px;
+    height: 12px;
+    line-height: 12px;
+    position: absolute;
+    top: -3px;
+    left: 12px;
+    font-size: 11px;
+    right: 0px;
+    transform: none;
+    padding: 0px;
+    border: 0px;
+  }
 </style>

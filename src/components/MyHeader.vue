@@ -1,300 +1,586 @@
 <template>
   <div class="header">
+    <!-- <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i> -->
+    <!-- <el-drawer :size="'60%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose">
+      <nav class="navbar">
+        <div class="user-header-box">
+          <div class="nav-not-login" v-if="!$store.state.isLogin">
+            <img src="@/assets/sidebar-notlogin.png">
+            <p><a href="/render/user/login" style="color: #232323;">Login | Resigter</a></p>
+          </div>
+          <div class="nav-login" v-else>
+            <div class="row">
+              <img class="headImg" src="@/assets/sidebar-login.png" />
+              <div class="userDisplay" v-if="getUserName()">
+                <span class="userName">{{getUserName()}}</span>
+                <span class="userEmail">{{userEmail}}</span>
+              </div>
+              <div class="userDisplay" v-else>
+                <span class="userName">{{userEmail}}</span>
+              </div>
+            </div>
+            <div class="row">
+              <button class="accountButton" @click="gotoAcount">Account</button>
+              <button class="bookingButton" @click="gotoBooking">Bookings</button>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar">
+          <div class="sidebar-cell" @click="toShopping">
+            <div class="sidebar-content">
+              <a>
+                <img src="@/assets/sidebar-home.png">
+                <p>Home</p>
+              </a>
+            </div>
+          </div>
+          <div class="sidebar-cell">
+            <div class="sidebar-content">
+              <a href="/bus-stations">
+                <img src="@/assets/sidebar-bus-station.png">
+                <p>Bus Stations</p>
+              </a>
+            </div>
+          </div>
+          <div class="sidebar-cell">
+            <div class="sidebar-content">
+              <a href="https://www.gotocharter.com">
+                <img src="@/assets/sidebar-bus-rental.png">
+                <p>Bus Rental</p>
+              </a>
+            </div>
+          </div>
+          <div class="sidebar-cell">
+            <div class="sidebar-content">
+              <a href="/track-bus-status/">
+                <img src="@/assets/sidebar-track-bus-status.png">
+                <p>Track Bus Status</p>
+              </a>
+            </div>
+          </div>
+          <div class="sidebar-cell">
+            <div class="sidebar-content">
+              <a href="/hotels/">
+                <img src="@/assets/sidebar-hotel.png">
+                <p>Hotels</p>
+              </a>
+            </div>
+          </div>
+          <div class="sidebar-cell">
+            <div class="sidebar-content">
+              <a href="/ticket-policy/">
+                <img src="@/assets/sidebar-ticket-policy.png">
+                <p>Ticket Policy</p>
+              </a>
+            </div>
+          </div>
+          <div class="sidebar-cell" v-if="false">
+            <div class="sidebar-content">
+              <a href="/render/user/logout">
+                <img src="@/assets/sidebar-logout.png">
+                <p>Log Out</p>
+              </a>
+            </div>
+          </div>
+        </div>
+      </nav>
+    </el-drawer> -->
+
     <div class="header-left">
       <!-- <div class="logo" @click="skip('http://testwww.coachrun.com/')"> -->
       <div class="logo" @click="toShopping">
         <a href="/">
-          <img src="@/assets/coachrunlogo.png">
+          <img src="@/assets/coachrunlogo.png" />
         </a>
       </div>
-      <ul class="header-title">
+      <ul class="header-title hidden">
         <li>
           <router-link to="/bus-stations">Bus Stations</router-link>
         </li>
         <li>
-          <a href="https://www.gotocharter.com">
-            Bus Rental
-          </a>
+          <a href="https://www.gotocharter.com">Bus Rental</a>
         </li>
         <li>
-          <a href="https://www.coachrun.com/hotels/">
-            Hotels
-          </a>
+          <a href="https://www.coachrun.com/hotels/">Hotels</a>
         </li>
         <li>
-          <a href="https://www.coachrun.com/ticket-policy/">
-            Ticket Policy
-          </a>
+          <a href="https://www.coachrun.com/ticket-policy/">Ticket Policy</a>
         </li>
       </ul>
     </div>
 
-    <div class="header-right">
+    <div class="header-right xs-hidden">
       <div class="login-register" v-if="!$store.state.isLogin">
-                <span @click="login">
-                    Login
-                </span>
+      <!-- <div class="login-register" v-if="!userLogin"> -->
+        <span @click="login">Login</span>
       </div>
-      <div class="show-name" v-if="$store.state.isLogin">
+      <div class="show-name" v-else>
+      <!-- <div class="show-name" v-else> -->
         <span class="user-name" @click="gotoMine">
-          <!-- Hello, -->
-          <!-- <img src="@/assets/home_head.png" alt=""> -->
           <i class="icon-user-circle backgr"></i>
-           {{getUserName()}}
-          </span>
+          {{getUserName()}}
+        </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
       <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
-        <el-badge :value="shopNum" :max="99" id="bus_shopping_cart_nav" :hidden="shopNum==0?true:false">
+        <el-badge
+          :value="shopNum"
+          :max="99"
+          id="bus_shopping_cart_nav"
+          :hidden="shopNum==0?true:false"
+        >
           <a href="/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154">
             <i class="icon-basket"></i>
           </a>
         </el-badge>
       </div>
       <div class="live-chat">
-        <a href="javascript:void(window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))">
+        <a
+          href="javascript:void(window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes'))"
+        >
           <i class="icon-chat"></i>
         </a>
       </div>
     </div>
+    <i class="icon-basket basket" style="font-size: 26px"></i>
   </div>
 </template>
 
 <script>
-  import VueCookie from 'vue-cookie';
-  export default{
-    name:'MyHeader',
-    data(){
-      return{
-        navLists:[
-          {"text":"Bus Stations","src":"/bus-stations"},
-          {"text":"Bus Rental","src":"https://www.gotocharter.com"},
-          {"text":"Hotel","src":"https://www.coachrun.com/hotel/"},
-          {"text":"Ticket Policy","src":"https://www.coachrun.com/ticket-policy/"}
-        ],
-        userName:'',
-        shopNum:0
+import VueCookie from "vue-cookie";
+// "element-ui": "^2.4.5",
+export default {
+  name: "MyHeader",
+  data() {
+    return {
+      navLists: [
+        { text: "Bus Stations", src: "/bus-stations" },
+        { text: "Bus Rental", src: "https://www.gotocharter.com" },
+        { text: "Hotel", src: "https://www.coachrun.com/hotel/" },
+        {
+          text: "Ticket Policy",
+          src: "https://www.coachrun.com/ticket-policy/"
+        }
+      ],
+      userName: "",
+      shopNum: 0,
+      showMenu: false,
+      userEmail: "",
+      loginFlag:false
+    };
+  },
+  created() {
+    var name;
+    if (process.env.NODE_ENV == "development") {
+      name = localStorage.getItem("IvyCustomer_LoginToken");
+    } else {
+      name = VueCookie.get("IvyCustomer_LoginCookie");
+    }
+    if (name) {
+      this.$store.commit("login");
+      this.isLogin = this.$store.state.isLogin;
+    }
+  },
+  computed:{
+    userLogin(){
+      if (process.env.NODE_ENV == "development") {
+        return localStorage.getItem("IvyCustomer_LoginToken")?true:false;
+      } else {
+        return VueCookie.get('IvyCustomer_LoginCookie')?true:false;
+      }
+    }
+  },
+  mounted() {
+    if (process.env.NODE_ENV == "development") {
+      this.loginFlag = localStorage.getItem("IvyCustomer_LoginToken")?true:false;
+    } else {
+      this.loginFlag = VueCookie.get('IvyCustomer_LoginCookie')?true:false;
+    }
+    
+    this.shopNum = VueCookie.get("IvyCustomer_ShoppingItems");
+    this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
+  },
+  methods: {
+    handleClose() {
+      this.showMenu = false;
+      console.log(this.showMenu,'handleClose');
+    },
+    clickMenu(){
+      this.showMenu = true;
+      console.log(this.showMenu,'clickMenu');
+    },
+    getUserName() {
+      // console.log(this.$store.state.userName);
+      // this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
+      // if(this.userName == null || this.userName== undefined){
+      //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+      // }
+      // // console.log(this.userName);
+      //  return this.userName;
+      this.userName = VueCookie.get("IvyCustomer_FirstName");
+      if (this.userName == null || this.userName == undefined) {
+        this.userName =
+          VueCookie.get("IvyCustomer_LoginEmail") != null
+            ? VueCookie.get("IvyCustomer_LoginEmail")
+            : localStorage.getItem("loginName");
+      }
+      return this.userName;
+    },
+    skip(url) {
+      window.location.href = url;
+    },
+    changeColor(index) {
+      // this.$router.push({name: this.navLists[index].link});
+      window.location.href = this.navLists[index].src;
+    },
+    toShopping() {
+      if (process.env.NODE_ENV === "production") {
+        window.location.href = "https://www.coachrun.com/";
+      } else {
+        window.location.href = "http://testwww.coachrun.com/";
       }
     },
-    created(){
-      var name;
-      if (process.env.NODE_ENV == 'development'){
-        name = localStorage.getItem('IvyCustomer_LoginToken');
-      }else{
-        name = VueCookie.get('IvyCustomer_LoginCookie');
-      }
-      // console.log(name);
-      if(name){
-        this.$store.commit('login');
-        this.isLogin = this.$store.state.isLogin;
-        // this.$store.commit('loginName',name);
+    toLive() {
+      window.open(
+        "http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=",
+        "",
+        "width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes",
+        "_blank"
+      );
+    },
+    gotoMine() {
+      if (VueCookie.get("IvyCustomer_role") >= 3) {
+        window.location.href = "https://www.coachrun.com/app/member/account";
+      } else {
+        this.$router.push({ name: "MyOrders" });
       }
     },
-    mounted(){
-      this.shopNum = VueCookie.get('IvyCustomer_ShoppingItems');
+    login() {
+      this.$router.push({ name: "Login" });
     },
-    methods:{
-      getUserName(){
-        // console.log(this.$store.state.userName);
-        // this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
-        // if(this.userName == null || this.userName== undefined){
-        //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
-        // }
-        // // console.log(this.userName);
-        //  return this.userName;
-        this.userName = VueCookie.get('IvyCustomer_FirstName');
-        if(this.userName == null || this.userName== undefined){
-          this.userName = VueCookie.get('IvyCustomer_LoginEmail')!=null?VueCookie.get('IvyCustomer_LoginEmail'):localStorage.getItem("loginName");
-        }
-        return this.userName;
-      },
-      skip(url){
-        window.location.href = url;
-      },
-      changeColor(index){
-        // this.$router.push({name: this.navLists[index].link});
-        window.location.href = this.navLists[index].src;
-      },
-      toShopping(){
-        if(process.env.NODE_ENV === 'production'){
-          window.location.href = 'https://www.coachrun.com/';
-        }else{
-          window.location.href = 'http://testwww.coachrun.com/';
-        }
-      },
-      toLive(){
-        window.open('http://live.coachrun.com/chat.php?v=2&group=CoachRun&hcgs=MQ__&htgs=MQ__&hfk=MQ__&eh=aHR0cDovL3d3dy5jb2FjaHJ1bi5jb20vY2xpZW50LXJlc291cmNlL2NvYWNoLXJ1bi9pbWFnZXMvbG9nby5wbmc=','','width=590,height=1010,left=0,top=0,resizable=yes,menubar=no,location=no,status=yes,scrollbars=yes',"_blank");
-      },
-      gotoMine(){
-        if(VueCookie.get('IvyCustomer_role')>=3){
-            window.location.href = 'https://www.coachrun.com/app/member/account';
-        }else{
-            this.$router.push({name: 'MyOrders'});
-        }
-      },
-      login(){
-        this.$router.push({name: 'Login'});
-      },
-      register(){
-        this.$router.push({name: 'Register'});
-      },
-      logout(){
-        // this.$http.delete(this.$api.logout,{headers:{'Authorization':sessionStorage.getItem('IvyCustomer_LoginToken')}})
-        this.$http.delete(this.$api.logout)
-          .then((data) => {
-            console.log(data);
-            if(data.data.code==200){
-              if (process.env.NODE_ENV === 'development'){
-                localStorage.removeItem("IvyCustomer_LoginToken");
-                localStorage.removeItem("loginName");
-              }
-              VueCookie.delete('IvyCustomer_LoginCookie');
-              VueCookie.delete('front-sessionId');
-              this.$store.commit('logout');
-              this.$router.push({name: 'Login'});
-            }else if(data.data.code==500){
-              this.$message({
-                message: data.data.msg,
-                type: 'warning',
-                center: true
-              });
-            }
-
+    register() {
+      this.$router.push({ name: "Register" });
+    },
+    logout() {
+      this.$http.delete(this.$api.logout).then(data => {
+        console.log(data);
+        if (data.data.code == 200) {
+          if (process.env.NODE_ENV === "development") {
+            localStorage.removeItem("IvyCustomer_LoginToken");
+            localStorage.removeItem("loginName");
+          }
+          VueCookie.delete("IvyCustomer_LoginCookie");
+          VueCookie.delete("front-sessionId");
+          this.$store.commit("logout");
+          this.$router.push({ name: "Login" });
+        } else if (data.data.code == 500) {
+          this.$message({
+            message: data.data.msg,
+            type: "warning",
+            center: true
           });
+        }
+      });
+    },
+    gotoAcount() {
+      console.log("11");
+    },
+    gotoBooking() {
+      console.log("22");
+    }
+  }
+};
+</script>
+
+<style scoped lang="scss">
+.header-left {
+  display: flex;
+  align-items: baseline;
+  margin-top: 8px;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.header {
+  height: 80px;
+  max-width: 1170px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  background: rgba(255, 255, 255, 1);
+  padding: 15px 0;
+  justify-content: space-between;
+  padding: 0 15px;
+}
+
+.logo {
+  width: 132px;
+  height: 26px;
+}
+
+.right-menu {
+  display: flex;
+}
+
+.login-register {
+  height: 36px;
+  line-height: 34px;
+  padding: 0 15px;
+  border: 1px solid #cdcdcd;
+  display: flex;
+  font-size: 14px;
+  border-radius: 4px;
+  color: rgba(51, 51, 51, 1);
+}
+
+.show-name {
+  height: 34px;
+  line-height: 34px;
+  // margin-left: 150px;
+  padding: 0 0 0 15px;
+  display: flex;
+  font-size: 14px;
+  color: rgba(51, 51, 51, 1);
+}
+
+.bgColor {
+  color: #009fea;
+}
+
+.user-name {
+  color: #00a2ff;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+}
+
+.user-name i {
+  margin-right: 5px;
+}
+
+.logout {
+  margin-left: 16px;
+  font-size: 14px;
+  padding: 0 15px;
+}
+
+.logout:hover {
+  color: #00a2ff;
+}
+
+.login {
+  margin-right: 5px;
+}
+
+.register {
+  margin-left: 5px;
+}
+
+.shopping-cart {
+  margin-left: 16px;
+  font-size: 18px;
+}
+
+.shopping-cart a,
+.live-chat a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.live-chat {
+  margin-left: 16px;
+  font-size: 18px;
+}
+
+.header-title {
+  display: flex;
+  align-items: center;
+  margin: 0;
+  padding-left: 30px;
+}
+
+.header-title li {
+  white-space: nowrap;
+  margin-left: 30px;
+  text-align: center;
+  font-size: 16px;
+  color: #333;
+  padding: 15px;
+}
+
+.header-title li:first-child {
+  margin-left: 0;
+}
+
+.header-title li a {
+  text-decoration: none;
+  color: #333;
+}
+
+.backgr {
+  color: #333;
+  font-size: 18px;
+}
+
+@media screen and (max-width: 992px) {
+  .header-left{
+    margin-top:-8px;
+  }
+
+  .hidden {
+    display: none;
+  }
+}
+
+// @media screen and (max-width: 768px) {
+//   .xs-hidden {
+//     display: none;
+//   }
+
+//   .basket,
+//   .menu {
+//     display: block !important;
+//   }
+// }
+
+/* ------------------------------ */
+.basket {
+  display: none;
+  // margin-right: -40px;
+}
+
+.menu {
+  // margin-left: -40px;
+  display: none;
+}
+
+nav {
+  a {
+    text-decoration: none;
+  }
+
+  .user-header-box {
+    padding: 33.5px 0px;
+    padding-left: 18px;
+    background-color: #f2f2f2;
+    font-size: 18px;
+    color: #232323;
+
+    .nav-not-login {
+      display: flex;
+      align-items: center;
+      height: 100%;
+    }
+
+    .nav-login {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-content: center;
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: center;
+
+        .userDisplay {
+          display: flex;
+          flex-direction: column;
+          padding-left: 16px;
+
+          .userName {
+            font-size: 32px;
+            font-weight: bold;
+            color: #333333;
+          }
+
+          .userEmail {
+            font-size: 26px;
+            color: #999999;
+          }
+        }
+
+        .accountButton {
+          width: 40%;
+          height: 40px;
+          font-size: 18px;
+          color: white;
+          margin-top: 31px;
+          background-color: #00a2ff;
+          border-radius: 8px;
+          border-width: 0;
+        }
+
+        .bookingButton {
+          width: 40%;
+          height: 40px;
+          background-color: #fff;
+          font-size: 18px;
+          margin-top: 31px;
+          margin-left: 21px;
+          border-radius: 8px;
+          border-width: 0;
+        }
+      }
+    }
+
+    img {
+      width: 44px;
+      height: 44px;
+    }
+
+    p {
+      padding-left: 8px;
+    }
+  }
+
+  .sidebar {
+    .sidebar-content a {
+      display: flex;
+      height: 50px;
+      align-items: center;
+      padding-left: 21px;
+
+      p {
+        color: #2c3e50;
+        text-decoration: none;
+        font-size: 16px;
+        margin-left: 13px;
+      }
+
+      img {
+        width: 18px;
+        height: 18px;
       }
     }
   }
-</script>
-
-<style scoped>
-  .header-left{
-    display: flex;
-    align-items: baseline;
-    margin-top: 8px;
-  }
-  .header-right{
-    display: flex;
-    align-items: center;
-  }
-
-  .header{
-    height: 80px;
-    width: 1170px;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    background:rgba(255,255,255,1);
-    padding: 15px 0;
-    justify-content: space-between;
-  }
-  .logo{
-    width: 132px;
-    height: 26px;
-  }
-  .right-menu{
-    display: flex;
-  }
-  .login-register{
-    height: 36px;
-    line-height: 34px;
-    padding: 0 15px;
-    border:1px solid #cdcdcd;
-    display: flex;
-    font-size:14px;
-    border-radius:4px;
-    color:rgba(51,51,51,1);
-  }
-  .show-name{
-    height: 34px;
-    line-height: 34px;
-    margin-left: 150px;
-    padding: 0 0 0 15px;
-    display: flex;
-    font-size:14px;
-    color:rgba(51,51,51,1);
-  }
-  .bgColor{
-    color: #009FEA;
-  }
-  .user-name{
-    color: #00A2FF;
-    white-space: nowrap;
-    display: flex;
-    align-items: center
-  }
-  .user-name i{
-    margin-right: 5px;
-  }
-  .logout{
-    margin-left: 16px;
-    font-size:14px;
-    padding: 0 15px;
-  }
-  .logout:hover {
-    color:#00A2FF;;
-  }
-  .login{
-    margin-right: 5px;
-  }
-  .register{
-    margin-left: 5px;
-  }
-  .shopping-cart{
-    margin-left:16px;
-    font-size: 18px;
-  }
-  .shopping-cart a,.live-chat a {
-    color: inherit;
-    text-decoration: none;
-  }
-  .live-chat{
-    margin-left: 16px;
-    font-size: 18px;
-  }
-  .header-title{
-    display: flex;
-    align-items: center;
-    margin: 0;
-    padding-left: 30px;
-  }
-  .header-title li{
-    white-space: nowrap;
-    margin-left: 30px;
-    text-align: center;
-    font-size:16px;
-    color: #333;
-    padding: 15px;
-  }
-  .header-title li:first-child{
-    margin-left: 0;
-  }
-  .header-title li a{
-    text-decoration: none;
-    color: #333;
-  }
-  .backgr{
-    color: #333;
-    font-size: 18px;
-  }
+}
+.el-drawer__header {
+  display: none !important;
+}
 </style>
 <style>
-  #bus_shopping_cart_nav sup{
-    display: inline-block;
-    background-color: #FF6600;
-    color: #FFFFFF;
-    border-radius: 50%;
-    text-align: center;
-    width: 12px;
-    height: 12px;
-    line-height: 12px;
-    position: absolute;
-    top: -3px;
-    left: 12px;
-    font-size: 11px;
-    right: 0px;
-    transform: none;
-    padding: 0px;
-    border: 0px;
-  }
+#bus_shopping_cart_nav sup {
+  display: inline-block;
+  background-color: #ff6600;
+  color: #ffffff;
+  border-radius: 50%;
+  text-align: center;
+  width: 12px;
+  height: 12px;
+  line-height: 12px;
+  position: absolute;
+  top: -3px;
+  left: 12px;
+  font-size: 11px;
+  right: 0px;
+  transform: none;
+  padding: 0px;
+  border: 0px;
+}
 </style>

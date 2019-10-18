@@ -99,8 +99,10 @@ export function tryHideFullScreenLoading() {
   }
 }
 //http request 拦截器
+let loginLoadTime = false;
 axios.interceptors.request.use(
   config => {
+      loginLoadTime = config.url.indexOf('api/users/login')!=-1?true:false;
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
       let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
@@ -133,7 +135,13 @@ axios.interceptors.response.use(
       }else{
           errorHandle(response.data.code,response.config.url);
       }
-      tryHideFullScreenLoading();
+      if(loginLoadTime){
+        setTimeout(()=>{
+          tryHideFullScreenLoading();
+        },2000)
+      }else{
+        tryHideFullScreenLoading();
+      }
       return response;
   },
   error => {

@@ -2,15 +2,19 @@
   <el-container class="section" style="margin-bottom: 30px">
     <section-title title-name="All Bus Stations Available On CoachRun"></section-title>
     <el-main class="flex">
-      <!-- <ul class="station-list" v-if="items[0].city&&items[1].city"> -->
-      <ul class="station-list">
+      <!-- <ul class="station-list">
         <li is="BusStationItem" v-for="(item,index) in city.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
         
-      </ul>
-      <!-- <ul class="station-list" v-if="items[0].city&&items[1].city"> -->
-      <ul class="station-list">
-        <li is="BusStationItem" v-for="(item,index) in city2.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
-      </ul>
+      </ul> -->
+      <el-row :gutter="10">
+        <el-col :xs="24" :sm="12" class="station-list">
+          <li is="BusStationItem" v-for="(item,index) in city.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
+          
+        </el-col>
+        <el-col :xs="24" :sm="12" class="station-list">
+          <li is="BusStationItem" v-for="(item,index) in city2.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
+        </el-col>
+      </el-row>
     </el-main>
     <el-dialog
       :title="title"
@@ -149,13 +153,13 @@
 </style>
 <style scoped lang="scss">
   .el-container {
-    width: 1178px;
+    max-width: 1178px;
+    width: 100%;
     flex-direction: column!important;
     .el-main {
       width: 100%;
       padding: 0px 20px;
       .station-list {
-        width: 50%;
         display: flex;
         justify-content: space-between;
         flex-wrap: wrap;
@@ -164,4 +168,18 @@
       }
     }
   }
+</style>
+<style scoped> 
+  @media screen and (max-width:768px){
+    .el-dialog {
+      width: 70% !important;
+    }
+  }
+
+  @media screen and (min-width:768px) and (max-width:769px){
+    .el-col-sm-12 {
+        width: 100% !important;
+    }
+  }
+
 </style>
