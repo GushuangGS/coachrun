@@ -20,10 +20,10 @@ sandbox:
 
 build:
   stage: build
-  tags:
-    - pc
   only:
     - master
+  tags:
+    - pc
   script:
     - npm config set registry https://registry.npm.taobao.org
     - npm install --no-optional --no-shrinkwrap --no-package-lock
