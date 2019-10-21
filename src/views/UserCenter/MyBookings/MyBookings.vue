@@ -96,7 +96,7 @@
                                   </div>
                               </el-col>
                             </el-row>
-                            <div class="actions" v-if="item.status==5">
+                            <div class="actions" v-if="item.status!=8">
                               <div class="order-details">
                                   <div>
                                       <span class="details-left" :class="{gray:!showRes(item)}">Itinerary ID:</span>
@@ -106,7 +106,15 @@
                                       <span class="details-left" :class="{gray:!showRes(item)}">Schedule ID:</span>
                                       <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.product.code}}</span>
                                   </div>
-                                  <div class="details-options" v-if="hasPassengers(item)">
+                                  <div v-if="hasPassengers(item)">
+                                    <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index" :class="{gray:!showRes(item)}">
+                                          <div v-show="label.type=='bus_stop'|| label.type=='string'">
+                                            <span class="details-name">{{label.name}}:</span>
+                                            <span class="details-wrap" :class="{gray:!showRes(item)}">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
+                                          </div>
+                                    </div>
+                                  </div>
+                                  <!-- <div class="details-options" v-if="hasPassengers(item)">
                                     <div class="left-details">
                                         <span class="details-left"  v-for="(label,index) in item.passengers[0].options" :key="index" :class="{gray:!showRes(item)}">
                                           <span v-show="label.type=='bus_stop'|| label.type=='string'">
@@ -121,7 +129,7 @@
                                           </span>
                                         </span>
                                     </div>
-                                  </div>
+                                  </div> -->
                                   <div class="details-info">
                                       <span class="details-left" :class="{gray:!showRes(item)}">Passengers:</span>
                                       <div class="details-icon1" :class="{gray:!showRes(item)}">
@@ -653,9 +661,13 @@
           getNext1Day(item){
               var nextDay;
               if(item.passengers.length!=0){
-                nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
-                if(nextDay == 1){
-                  return true;
+                if( (item.passengers[0].options[0].value)instanceof Object ){
+                  nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
+                  if(nextDay == 1){
+                    return true;
+                  }
+                }else{
+                  return false;
                 }
               }else{
                 return false;
@@ -664,9 +676,13 @@
             getNext2Day(item){
               var nextDay;
               if(item.passengers.length!=0){
-                nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
-                if(nextDay == 2){
-                  return true;
+                if( (item.passengers[0].options[0].value)instanceof Object ){
+                  nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
+                  if(nextDay == 2){
+                    return true;
+                  }
+                }else{
+                  return false;
                 }
               }else{
                 return false;
@@ -951,9 +967,10 @@
       }
       div.order-details {
         color: #274F7C;
-        white-space: nowrap;
+        /* white-space: nowrap; */
         font-weight: normal;
         min-width: 513px;
+        margin-right: 20px;
       }
       .details-info{
           display: flex;
@@ -967,10 +984,27 @@
       }
       .details-left{
           display: inline-block;
-        width: 78px;
+        width: 94px;
         font-size: 14px;
         margin-right: 15px;
         color:rgba(102,102,102,1);
+      }
+      .details-left2{
+        font-size: 14px;
+        color:rgba(102,102,102,1);
+        display: flex;
+        flex-direction: column;
+      }
+      .details-left2>div{
+        display: flex;
+      }
+      .details-name{
+        width: 108px;
+      }
+      .details-wrap{
+        width: 380px;
+        color:rgba(51,51,51,1);
+        font-weight: bold;
       }
       .details-icon1{
           font-size: 14px;

@@ -48,7 +48,8 @@ import {
     Footer,
     Loading,
     MessageBox,
-    Message
+    Message,
+    Drawer
   } from 'element-ui'
 
 // import lang from '../configs/en'
@@ -102,6 +103,7 @@ Vue.use(Aside)
 Vue.use(Main)
 Vue.use(Footer)
 Vue.use(Loading.directive)
+Vue.use(Drawer)
 
 Vue.use(locale);
 

@@ -83,7 +83,7 @@
     margin-bottom: 20px;
   }
   .box-card {
-    width: 524px;
+    /* width: 524px; */
     &:hover{
       background: #fafafa;
       box-shadow: 2px 4px 12px 0 rgba(0,0,0,.1);
@@ -131,6 +131,18 @@
           }
         }
       }
+    }
+  }
+</style>
+<style scoped>
+  @media screen and (max-width:768px){
+    .box-item {
+      width: 100%;
+    }
+  }
+  @media screen and (min-width:768px) and (max-width:769px){
+    .el-col-sm-12 {
+        width: 100% !important;
     }
   }
 </style>

@@ -16,7 +16,7 @@
     name:"SectionTitle"
   }
 </script>
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
   .section {
     margin: 0 auto 60px;
   }
@@ -66,4 +66,45 @@
     height:1.1px;
     background:linear-gradient(90deg,rgba(255,201,30,1) 0%,rgba(255,153,13,0) 100%);
   }
-</style>
+</style> -->
+<style lang="scss" scoped>
+    .el-header {
+      padding: 0px!important;
+    }
+    ul{
+      list-style: none;
+      padding: 0px;
+    }
+    .title {
+      display: flex;
+      height: 20px!important;
+      justify-content:space-between;
+      align-items: center;
+      height: 22px;
+      margin-bottom: 30px;
+    }
+    .line-title {
+      font-size:18px;
+      font-weight:500;
+      color:#333;
+      height: 20px;
+      line-height: 20px;
+    }
+    .line-left {
+      width:30%;
+      height:1.1px;
+      background:linear-gradient(270deg,rgba(255,201,30,1) 0%,rgba(255,153,13,0) 100%);
+    }
+    .line-right {
+      width:30%;
+      height:1.1px;
+      background:linear-gradient(90deg,rgba(255,201,30,1) 0%,rgba(255,153,13,0) 100%);
+    }
+  </style>
+  <style scoped>
+    @media screen and (max-width: 768px) {
+      .line-title {
+        font-size: 16px;
+      }
+    }
+  </style>
