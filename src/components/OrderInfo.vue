@@ -76,13 +76,21 @@
                                   <span class="details-icon1">{{item.product.code}}</span>
                               </div>
                               <div v-if="hasPassengers(item)">
-                                  <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index">
-                                        <div v-show="label.type=='bus_stop'|| label.type=='string'">
-                                          <span class="details-name">{{label.name}}:</span>
-                                          <span class="details-wrap">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
-                                        </div>
-                                  </div>
+                                <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index">
+                                      <div v-show="label.type=='bus_stop'|| label.type=='string'">
+                                        <span class="details-name">{{label.name}}:</span>
+                                        <span class="details-wrap">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
+                                      </div>
                                 </div>
+                              </div>
+                              <!-- <div v-if="hasAbnormalPassengers(item)">
+                                <div class="details-left2" v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
+                                      <div v-show="label.type=='bus_stop'|| label.type=='string'">
+                                        <span class="details-name">{{label.name}}:</span>
+                                        <span class="details-wrap">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
+                                      </div>
+                                </div>
+                              </div> -->
                               <!-- <div class="details-options" v-if="hasPassengers(item)">
                                 <div class="left-details">
                                     <span class="details-left" v-for="(label,index) in item.passengers[0].options" :key="index">
@@ -183,8 +191,8 @@
                               </div>
                           </div>
                           <div class="btns">
-                              <el-button v-if="!(item.status==8&&showRes(item))&&item.product.type==1" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                               <el-button @click="eticket(item)" v-if="item.status!=8" class="E-Ticket">E-Ticket</el-button>
+                              <el-button v-if="!(item.status==8&&showRes(item))&&item.product.type==1" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                               <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3&&item.product.type==1" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                           </div>
                         </div>
@@ -429,6 +437,8 @@
                 }else{
                     return routeLine = item.product.name;
                 }
+              }else{
+                return routeLine = item.product.name;
               }
             },
             showRes(item){
