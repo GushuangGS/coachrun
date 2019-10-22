@@ -19,7 +19,7 @@
                     prop="name"
                     label="Name"
                     min-width="250"
-                    show-overflow-tooltip="true">
+                    :show-overflow-tooltip="true">
                     <template slot-scope="scope">
                       <span>{{ scope.row.firstName}} {{scope.row.lastName }}</span>
                       <span v-if="scope.row.isDefault" class="default">[Default]</span>
@@ -31,7 +31,7 @@
                     prop="email"
                     label="Email"
                     min-width="250"
-                    show-overflow-tooltip="true">
+                    :show-overflow-tooltip="true">
                   </el-table-column>
                   <el-table-column
                     align="left"
@@ -39,7 +39,7 @@
                     prop="phone"
                     label="Phone"
                     min-width="150"
-                    show-overflow-tooltip="true">
+                    :show-overflow-tooltip="true">
                   </el-table-column>
                   <el-table-column
                     align="left"
