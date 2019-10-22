@@ -275,10 +275,18 @@ export default {
       });
     },
     gotoAcount() {
-      console.log("11");
+      if (VueCookie.get("IvyCustomer_role") >= 3) {
+        window.location.href = "https://www.coachrun.com/app/member/account";
+      } else {
+        this.$router.push({ name: "MyOrders" });
+      }
     },
     gotoBooking() {
-      console.log("22");
+      if (VueCookie.get("IvyCustomer_role") >= 3) {
+        window.location.href = "https://www.coachrun.com/app/member/account";
+      } else {
+        this.$router.push({ name: "MyBookings" });
+      }
     }
   }
 };
