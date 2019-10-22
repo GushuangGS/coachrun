@@ -52,7 +52,7 @@
           </div>
           <div class="sidebar-cell">
             <div class="sidebar-content">
-              <a href="/track-bus-status/">
+              <a href="https://www.coachrun.com/track-bus-status/">
                 <img src="@/assets/sidebar-track-bus-status.png">
                 <p>Track Bus Status</p>
               </a>
@@ -182,7 +182,7 @@ export default {
   },
   mounted() {    
     this.shopNum = VueCookie.get("IvyCustomer_ShoppingItems");
-    this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
+    // this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
   },
   methods: {
     handleClose() {
@@ -190,6 +190,11 @@ export default {
     },
     clickMenu(){
       this.showMenu = true;
+    },
+    getUserEmail(){
+      if(process.env.NODE_ENV !== "development"){
+        this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
+      }
     },
     getUserName() {
       // this.userName = VueCookie.get("IvyCustomer_FirstName");
@@ -493,7 +498,7 @@ nav {
           }
 
           .userEmail {
-            font-size: 26px;
+            font-size: 16px;
             color: #999999;
           }
         }
