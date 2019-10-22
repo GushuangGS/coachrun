@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i>
-    <el-drawer :size="'60%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose">
+    <el-drawer :size="'45%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose">
       <nav class="navbar">
         <div class="user-header-box">
           <div class="nav-not-login" v-if="!$store.state.isLogin">
@@ -441,8 +441,8 @@ export default {
     height: 60px;
   }
   html{
-      overflow-y: hidden !important;
-    }
+    overflow-y: hidden !important;
+  }
 }
 
 /* ------------------------------ */
@@ -463,7 +463,7 @@ nav {
 
   .user-header-box {
     padding: 33.5px 0px;
-    padding-left: 18px;
+    padding-left: 8%;
     background-color: #f2f2f2;
     font-size: 18px;
     color: #232323;
@@ -520,7 +520,7 @@ nav {
           background-color: #fff;
           font-size: 18px;
           margin-top: 31px;
-          margin-left: 21px;
+          margin-left: 10%;
           border-radius: 8px;
           border-width: 0;
         }
