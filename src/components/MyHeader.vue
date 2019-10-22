@@ -13,10 +13,10 @@
               <img class="headImg" src="@/assets/sidebar-login.png" />
               <div class="userDisplay" v-if="getUserName()">
                 <span class="userName">{{getUserName()}}</span>
-                <span class="userEmail">{{userEmail}}</span>
+                <span class="userEmail">{{getUserEmail}}</span>
               </div>
               <div class="userDisplay" v-else>
-                <span class="userName">{{userEmail}}</span>
+                <span class="userName">{{getUserEmail}}</span>
               </div>
             </div>
             <div class="row">
