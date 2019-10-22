@@ -193,7 +193,7 @@ export default {
     },
     getUserEmail(){
       if(process.env.NODE_ENV !== "development"){
-        this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
+        return this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
       }
     },
     getUserName() {
