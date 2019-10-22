@@ -1,7 +1,7 @@
 <template>
   <div class="header">
-    <!-- <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i> -->
-    <!-- <el-drawer :size="'60%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose">
+    <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i>
+    <el-drawer :size="'45%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose">
       <nav class="navbar">
         <div class="user-header-box">
           <div class="nav-not-login" v-if="!$store.state.isLogin">
@@ -13,10 +13,10 @@
               <img class="headImg" src="@/assets/sidebar-login.png" />
               <div class="userDisplay" v-if="getUserName()">
                 <span class="userName">{{getUserName()}}</span>
-                <span class="userEmail">{{userEmail}}</span>
+                <span class="userEmail">{{getUserEmail()}}</span>
               </div>
               <div class="userDisplay" v-else>
-                <span class="userName">{{userEmail}}</span>
+                <span class="userName">{{getUserEmail()}}</span>
               </div>
             </div>
             <div class="row">
@@ -52,7 +52,7 @@
           </div>
           <div class="sidebar-cell">
             <div class="sidebar-content">
-              <a href="/track-bus-status/">
+              <a href="https://www.coachrun.com/track-bus-status/">
                 <img src="@/assets/sidebar-track-bus-status.png">
                 <p>Track Bus Status</p>
               </a>
@@ -60,7 +60,7 @@
           </div>
           <div class="sidebar-cell">
             <div class="sidebar-content">
-              <a href="/hotels/">
+              <a href="https://www.coachrun.com/hotels/">
                 <img src="@/assets/sidebar-hotel.png">
                 <p>Hotels</p>
               </a>
@@ -68,15 +68,16 @@
           </div>
           <div class="sidebar-cell">
             <div class="sidebar-content">
-              <a href="/ticket-policy/">
+              <a href="https://www.coachrun.com/ticket-policy/">
                 <img src="@/assets/sidebar-ticket-policy.png">
                 <p>Ticket Policy</p>
               </a>
             </div>
           </div>
-          <div class="sidebar-cell" v-if="false">
-            <div class="sidebar-content">
-              <a href="/render/user/logout">
+          <div class="sidebar-cell" v-if="$store.state.isLogin">
+            <div class="sidebar-content" @click="logout">
+              <a href="">
+                <!-- /render/user/logout -->
                 <img src="@/assets/sidebar-logout.png">
                 <p>Log Out</p>
               </a>
@@ -84,7 +85,7 @@
           </div>
         </div>
       </nav>
-    </el-drawer> -->
+    </el-drawer>
 
     <div class="header-left">
       <!-- <div class="logo" @click="skip('http://testwww.coachrun.com/')"> -->
@@ -111,11 +112,9 @@
 
     <div class="header-right xs-hidden">
       <div class="login-register" v-if="!$store.state.isLogin">
-      <!-- <div class="login-register" v-if="!userLogin"> -->
         <span @click="login">Login</span>
       </div>
       <div class="show-name" v-else>
-      <!-- <div class="show-name" v-else> -->
         <span class="user-name" @click="gotoMine">
           <i class="icon-user-circle backgr"></i>
           {{getUserName()}}
@@ -181,50 +180,43 @@ export default {
       this.isLogin = this.$store.state.isLogin;
     }
   },
-  computed:{
-    userLogin(){
-      if (process.env.NODE_ENV == "development") {
-        return localStorage.getItem("IvyCustomer_LoginToken")?true:false;
-      } else {
-        return VueCookie.get('IvyCustomer_LoginCookie')?true:false;
-      }
-    }
-  },
-  mounted() {
-    if (process.env.NODE_ENV == "development") {
-      this.loginFlag = localStorage.getItem("IvyCustomer_LoginToken")?true:false;
-    } else {
-      this.loginFlag = VueCookie.get('IvyCustomer_LoginCookie')?true:false;
-    }
-    
+  mounted() {    
     this.shopNum = VueCookie.get("IvyCustomer_ShoppingItems");
-    this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
+    // this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
   },
   methods: {
     handleClose() {
       this.showMenu = false;
-      console.log(this.showMenu,'handleClose');
     },
     clickMenu(){
       this.showMenu = true;
-      console.log(this.showMenu,'clickMenu');
+    },
+    getUserEmail(){
+      if(process.env.NODE_ENV !== "development"){
+        return this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
+      }
     },
     getUserName() {
-      // console.log(this.$store.state.userName);
-      // this.userName = this.$store.state.userName!=""?this.$store.state.userName:VueCookie.get('IvyCustomer_FirstName');
-      // if(this.userName == null || this.userName== undefined){
-      //     this.userName = VueCookie.get('IvyCustomer_LoginEmail');
+      // this.userName = VueCookie.get("IvyCustomer_FirstName");
+      // if (this.userName == null || this.userName == undefined) {
+      //   // this.userName =VueCookie.get("IvyCustomer_LoginEmail") != null? VueCookie.get("IvyCustomer_LoginEmail"): localStorage.getItem("loginName");
+      //   if(VueCookie.get("IvyCustomer_LoginEmail") != null || VueCookie.get("IvyCustomer_LoginEmail") != undefined){
+      //      this.userName = VueCookie.get("IvyCustomer_LoginEmail");
+      //   }else{
+      //     this.userName =localStorage.getItem("loginName");
+      //   }
       // }
-      // // console.log(this.userName);
-      //  return this.userName;
-      this.userName = VueCookie.get("IvyCustomer_FirstName");
-      if (this.userName == null || this.userName == undefined) {
-        this.userName =
-          VueCookie.get("IvyCustomer_LoginEmail") != null
-            ? VueCookie.get("IvyCustomer_LoginEmail")
-            : localStorage.getItem("loginName");
+      // return this.userName;
+
+      if(process.env.NODE_ENV === "development"){
+        return  this.userName =localStorage.getItem("loginName");
+      }else{
+        this.userName = VueCookie.get("IvyCustomer_FirstName");
+        if(this.userName == null || this.userName == undefined){
+          this.userName = VueCookie.get("IvyCustomer_LoginEmail");
+        }
+        return this.userName;
       }
-      return this.userName;
     },
     skip(url) {
       window.location.href = url;
@@ -283,10 +275,18 @@ export default {
       });
     },
     gotoAcount() {
-      console.log("11");
+      if (VueCookie.get("IvyCustomer_role") >= 3) {
+        window.location.href = "https://www.coachrun.com/app/member/account";
+      } else {
+        this.$router.push({ name: "MyOrders" });
+      }
     },
     gotoBooking() {
-      console.log("22");
+      if (VueCookie.get("IvyCustomer_role") >= 3) {
+        window.location.href = "https://www.coachrun.com/app/member/account";
+      } else {
+        this.$router.push({ name: "MyBookings" });
+      }
     }
   }
 };
@@ -436,16 +436,22 @@ export default {
   }
 }
 
-// @media screen and (max-width: 768px) {
-//   .xs-hidden {
-//     display: none;
-//   }
+@media screen and (max-width: 768px) {
+  .xs-hidden {
+    display: none;
+  }
 
-//   .basket,
-//   .menu {
-//     display: block !important;
-//   }
-// }
+  .basket,
+  .menu {
+    display: block !important;
+  }
+  .header{
+    height: 60px;
+  }
+  html{
+    overflow-y: hidden !important;
+  }
+}
 
 /* ------------------------------ */
 .basket {
@@ -465,7 +471,7 @@ nav {
 
   .user-header-box {
     padding: 33.5px 0px;
-    padding-left: 18px;
+    padding-left: 8%;
     background-color: #f2f2f2;
     font-size: 18px;
     color: #232323;
@@ -494,13 +500,13 @@ nav {
           padding-left: 16px;
 
           .userName {
-            font-size: 32px;
+            font-size: 18px;
             font-weight: bold;
             color: #333333;
           }
 
           .userEmail {
-            font-size: 26px;
+            font-size: 16px;
             color: #999999;
           }
         }
@@ -522,7 +528,7 @@ nav {
           background-color: #fff;
           font-size: 18px;
           margin-top: 31px;
-          margin-left: 21px;
+          margin-left: 10%;
           border-radius: 8px;
           border-width: 0;
         }
@@ -560,11 +566,11 @@ nav {
     }
   }
 }
+</style>
+<style>
 .el-drawer__header {
   display: none !important;
 }
-</style>
-<style>
 #bus_shopping_cart_nav sup {
   display: inline-block;
   background-color: #ff6600;

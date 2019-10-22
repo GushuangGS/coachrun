@@ -57,7 +57,7 @@
                   min-width="200px"
                   header-align="left"
                   align="left"
-                  show-overflow-tooltip="true">
+                  :show-overflow-tooltip="true">
                   <!-- prop="orderCode"  160-->
                   <template slot-scope="scope">
                       <span v-show="scope.row.rewardType==0">Booking</span>
