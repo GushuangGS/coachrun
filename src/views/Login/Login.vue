@@ -205,6 +205,9 @@
             },
             facebook_login(){
                 var provider = new this.firebase.auth.FacebookAuthProvider();
+                provider.setCustomParameters({
+                'display': 'popup'
+                });
                 this.firebase.auth().signInWithPopup(provider).then(function(result) {
                     console.log(result,11111)
                 }).catch(function(error) {
@@ -213,9 +216,6 @@
             },
             google_login(){
                 var provider = new this.firebase.auth.GoogleAuthProvider();
-                provider.setCustomParameters({
-                'display': 'popup'
-                });
                 this.firebase.auth().signInWithPopup(provider).then(function(result) {
                     console.log(result,11111)
                 }).catch(function(error) {
