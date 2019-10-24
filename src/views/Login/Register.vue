@@ -201,7 +201,7 @@
         }
     </script>
     
-    <style scoped>
+    <style lang="scss" scoped>
         .hr{
             width: 330px;
             height: 1px;
@@ -232,17 +232,9 @@
         }
         .login-title{
             margin-left: 20px;
-            font-size: 20px;
+            font-size: $HeadlineSize;
         }
-        >>> .el-form-item{
-            /* margin-top: 35px; */
-        }
-        >>> .el-form-item__label{
-            font-size: 16px;
-        }
-        >>> .el-form-item__content{
-            line-height:normal;
-        }
+        
         .phone{
             /* display: flex;
             flex-direction: row; */
@@ -256,7 +248,7 @@
         .login-btn{
             width: 100%;
             height: 56px;
-            font-size: 20px;
+            font-size: $HeadlineSize;
             margin-top: 20px;
             /* background:rgba(254,179,71,1); */
             background: #FF9A0D;
@@ -269,11 +261,11 @@
             /* font-weight: 600; */
         }
         .register-info{
-            font-size:14px;
+            font-size:$Body2Size;
             color:rgba(51,51,51,1);
         }
         .to-register{
-            font-size:14px;         
+            font-size:$Body2Size;         
             color:rgba(0,162,255,1);
             margin-left: 10px;
             cursor: pointer;
@@ -296,9 +288,17 @@
             height:28px;
         }
         .intro-info{
-            font-size:12px;
+            font-size:$CaptionSize;
             color:rgba(102,102,102,1);
             margin-top: 10px;
+        }
+    </style>
+    <style scoped>
+        >>> .el-form-item__label{
+            font-size: 16px;
+        }
+        >>> .el-form-item__content{
+            line-height:normal;
         }
         >>> .field.vue-input-ui{
           left: 1px;

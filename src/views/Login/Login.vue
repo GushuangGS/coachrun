@@ -257,22 +257,22 @@
     }
     .login-title{
         margin-left: 20px;
-        font-size: $fontSize;
+        font-size: $HeadlineSize;
     }
     >>> .el-form-item__label{
-        font-size: 16px;
+        font-size: $Body1Size;
     }
     .login-btn{
         width: 100%;
         height: 56px;
-        font-size: $fontSize;
+        font-size: $HeadlineSize;
         margin-top: 20px;
         background:#FF9A0D;
         color:rgba(255,255,255,1);
         border: none;
     }
     .forget-pass{
-        font-size:$fontSize4;
+        font-size:$Body2Size;
         color:rgba(0,162,255,1);
         text-align: end;
         cursor: pointer;
@@ -285,7 +285,7 @@
         margin-top: 20px;
     }
     .rem-me{
-        font-size:14px;
+        font-size:$Body2Size;
         color:rgba(51,51,51,1);
         margin-left: 10px;
         cursor: pointer;
@@ -293,7 +293,7 @@
     .register{
         margin-top: 30px;
         text-align: center;
-        font-size:$fontSize4;
+        font-size:$Body2Size;
     }
     .register-info{
         color:rgba(51,51,51,1);
@@ -319,12 +319,12 @@
         height:28px;
     }
     .intro-info{
-        font-size:$fontSize5;
+        font-size:$CaptionSize;
         color:rgba(102,102,102,1);
         margin-top: 10px;
     }
     >>> .el-input__inner::-webkit-input-placeholder{
-        font-size: 14px;
+        font-size: $Body2Size;
         color:rgba(102,102,102,1);
     }
 
@@ -342,7 +342,7 @@
     .line-title{
         width: 20%;
         text-align: center;
-        font-size: 14px;
+        font-size: $Body2Size;
         color: $fontColor2;
     }
     .other-login{
@@ -371,10 +371,10 @@
     }
     .google-login>span{
         color: #333;
-        font-size: 14px;
+        font-size: $Body2Size;
     }
     .facebook-login>span{
         color: #ffffff;
-        font-size: 14px;
+        font-size: $Body2Size;
     }
 </style>

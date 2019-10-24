@@ -193,19 +193,19 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .change-password {
     flex: 1;
   }
   .content {
     display: flex;
     flex-direction: column;
-    font-size: 16px;
+    font-size: $Body1Size;
     align-items: stretch;
     margin-left: 20px;
   }
   .chapas-title{
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     font-weight: bold;
   }
   .info {
@@ -222,18 +222,14 @@
     align-items: center;
     margin-top: 20px;
   }
-  >>> .el-form {
-    width: 520px;
-    margin-top: 30px;
-    margin-bottom: 15px;
-  }
+  
   .save {
     background-color: #FF9A0D;
     color: #fff;
     border-radius: 4px;
     width: 138px;
     height: 30px;
-    font-size: 14px;
+    font-size: $Body2Size;
     padding: 7px 16px;
     text-align: center;
     border: none;
@@ -275,11 +271,11 @@
     font-size: 17px;
   }*/
   .login-name{
-    font-size: 14px;
+    font-size: $Body2Size;
     color: #333333;
   }
   .finished {
-    font-size: 16px;
+    font-size: $Body1Size;
     background-color: #FF9A0D;
     color: #fff;
     width: 90px;
@@ -301,7 +297,7 @@
     padding-top: 10px;
     padding-bottom: 10px;
     padding-left: 20px;
-    font-size: 17px;
+    font-size: $Body1Size;
     font-weight: bold;
     line-height: 1;
   }
@@ -314,20 +310,23 @@
     margin-top: 0;
     margin-bottom: 0;
   }
-  >>> .el-input {
-    width: 190px;
-    /* height: 32px; */
-  }
-  >>> .el-input>.el-input__inner {
-    width: 190px;
-    /* height: 32px; */
-  }
-  >>> .el-select .el-input__suffix {
-    /* margin-top: 5px; */
-  }
+  
   .failure-wrapper {
     display: flex;
     justify-content: center;
     padding-right: 60px;
+  }
+</style>
+<style scoped>
+  >>> .el-input {
+    width: 190px;
+  }
+  >>> .el-input>.el-input__inner {
+    width: 190px;
+  }
+  >>> .el-form {
+    width: 520px;
+    margin-top: 30px;
+    margin-bottom: 15px;
   }
 </style>
