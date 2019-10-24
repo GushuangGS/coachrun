@@ -5,8 +5,8 @@
               <item-header :status="status" :headerInfo="headerInfo"></item-header>
             </el-header> -->
             <el-main>
-              <div class="content">
-                <h2 class="welcome uiTitleFontColor">My Bookings</h2>
+              <div class="content containerPosition">
+                <h2 class="UIFontTextStyleTitle1">My Bookings</h2>
                 <!-- <my-date-picker :userID="userId" :api="bookingsApi" @changeDate="changeBookList"></my-date-picker> -->
                 <div class="order-time">
                   <span class="dateTitle">Purchase Date:</span>
@@ -801,15 +801,13 @@
         flex: 1;
         min-height: 850px;
       }
-      >>> .el-main {
-        padding-top: 0;
-      }
       .content {
-        margin-top: 20px;
-        padding-left: 20px;
+        /* margin-top: 20px; */
+        /* padding-left: 20px; */
       }
       .content>h2 {
         font-size: 18px;
+        margin-top: 0;
       }
       .dateTitle{
         font-size:16px;
