@@ -176,7 +176,7 @@
         }
     </script>
     
-    <style scoped>
+    <style lang="scss" scoped>
        .container{
         width: 100%;
         height: 100%;
@@ -201,7 +201,7 @@
         text-align: center;
         line-height: 59px;
         color: #333333;
-        font-size: 13px;
+        font-size: $Body3Size;
         background: rgba(241,255,249,1);
         border: 1px solid rgba(56,202,114,1);
         display: flex;
@@ -227,7 +227,7 @@
         text-align: center;
         line-height: 59px;
         color: #333333;
-        font-size: 13px;
+        font-size: $Body3Size;
         display: flex;
         align-items: center;
        }
@@ -238,11 +238,11 @@
            margin-right: 12px;
        }
        .wrap-title{
-           font-size: 16px;
+           font-size: $Body1Size;
            color: #333333;
        }
        .wrap-tip{
-           font-size: 14px;
+           font-size: $Body2Size;
            color: #333333;
        }
        .form-rule{
@@ -254,7 +254,7 @@
            position: relative;
            left: 205px;
            top: -41px;
-           font-size: 12px;
+           font-size: $CaptionSize;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
            padding: 6px 10px;
@@ -266,7 +266,7 @@
            position: relative;
            left: 196px;
            top: -41px;
-           font-size: 12px;
+           font-size: $CaptionSize;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
            padding: 6px 10px;
@@ -279,7 +279,7 @@
        .click-tip{
             margin-top: -50px;
             width: 225px;
-            font-size: 12px;
+            font-size: $CaptionSize;
             color: #666666;
             margin-left: 109px;
        }
@@ -289,7 +289,9 @@
        .code-rule{
            margin-top: 22px;
        }
-       >>> .el-input__inner{
+    </style>
+    <style scoped>
+        >>> .el-input__inner{
            width: 206px;
            height: 40px;
            border-top-right-radius: 0;
