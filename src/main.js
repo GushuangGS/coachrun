@@ -20,6 +20,17 @@ import './styles/css/index.css'
 
 import './styles/common.css'
 
+import * as firebase from "firebase/app";
+import "firebase/auth";
+
+var firebaseConfig = {
+  apiKey: "AIzaSyBBcB6htx6yN66aYrzE8yNgaqwcntPZX2c",
+  authDomain: "fir-coachrun.firebaseapp.com"
+}
+firebase.initializeApp(firebaseConfig)
+Vue.prototype.firebase = firebase
+
+
 // Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
 Vue.use(VuePhoneNumberInput);
