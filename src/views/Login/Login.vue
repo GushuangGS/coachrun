@@ -16,7 +16,26 @@
             </div> -->
             <el-button native-type="submit" @click.native.prevent="login" class="login-btn uiButtonBackground">Log In</el-button>
        </el-form>
-       <div class="hr"></div>
+       <div class="line">
+           <span class="line-left"></span>
+           <span class="line-title">or</span>
+           <span class="line-right"></span>
+       </div>
+       <div class="other-login">
+           <div class="google-login">
+               <img src="@/assets/google.png" alt="">
+                <span>Google</span>
+           </div>
+           <div class="facebook-login">
+               <img src="@/assets/facebook.png" alt="">
+               <span>Facebook</span>
+           </div>
+       </div>
+       <div class="register">
+           <span class="register-info">Not a CoachRun member?</span>
+           <span class="to-register" @click="gotoRegister">Register</span>
+       </div>
+       <!-- <div class="hr"></div>
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
            <span class="to-register" @click="gotoRegister">Register</span>
@@ -34,7 +53,7 @@
                 <img class="intro-img" src="@/assets/chechkouts.png" alt="">
                 <span class="intro-info">Faster Checkouts</span>
             </div>  
-       </div>
+       </div> -->
     </div>
     </div>
 </template>
@@ -288,5 +307,55 @@
     >>> .el-input__inner::-webkit-input-placeholder{
         font-size: 14px;
         color:rgba(102,102,102,1);
+    }
+
+    .line{
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+    .line-left,.line-right{
+        width: 40%;
+        height: 1.1px;
+        background: #efefef;
+    }
+    .line-title{
+        width: 20%;
+        text-align: center;
+        font-size: 14px;
+        color: $fontColor2;
+    }
+    .other-login{
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+    .google-login,.facebook-login{
+        width: 156px;
+        height: 40px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+    }
+    .google-login{
+        border:1px solid #DFDFDF;
+    }
+    .facebook-login{
+        background: #3B5998;
+        border:1px solid;
+    }
+    .google-login>img,.facebook-login>img{
+        margin-right: 11px;
+    }
+    .google-login>span{
+        color: #333;
+        font-size: 14px;
+    }
+    .facebook-login>span{
+        color: #ffffff;
+        font-size: 14px;
     }
 </style>
