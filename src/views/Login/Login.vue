@@ -62,7 +62,7 @@
             }
         },
         created(){
-            if(this.$route.path.indexOf('logout')!=-1){
+            if(this.$route.path.indexOf('logout')!=-1 && VueCookie.get('IvyCustomer_LoginCookie')){
                 this.logout();
             }
         },
