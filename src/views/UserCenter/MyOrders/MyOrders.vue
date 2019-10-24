@@ -5,7 +5,7 @@
           <item-header :notDefault="notDefault" :status="status" :headerInfo="headerInfo"></item-header>
         </el-header> -->
         <el-main>
-          <div class="content">
+          <div class="content containerPosition">
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
               <div class="left">
@@ -41,7 +41,7 @@
             </div>
             <div class="divider"></div>
             <div class="recent-bookings">
-              <div class="bookings-header uiTitleFontColor">
+              <div class="bookings-header UIFontTextStyleTitle1">
                 <h4>Upcoming Trips</h4>
                 <span class="go-to-bookings" @click="myBookings">See All Bookings</span>
               </div>
@@ -187,7 +187,7 @@
   }
   .content {
     /* margin-top: 10px; */
-    padding-left: 20px;
+    /* padding-left: 20px; */
     min-height: 850px;
   }
   .content>h2 {

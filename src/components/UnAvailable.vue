@@ -142,7 +142,6 @@
             /* width:65px; */
             height:20px;
             font-size:18px;
-            font-family:Arial-BoldMT;
             font-weight:normal;
             color:#666666;
             line-height:21px;
@@ -151,7 +150,6 @@
             /* width:49px; */
             height:27px;
             font-size:24px;
-            font-family:Arial-BoldMT;
             font-weight:bold;
             color:#666666;
             line-height:28px;
@@ -160,7 +158,6 @@
             /* width:35px; */
             height:25px;
             font-size:18px;
-            font-family:PingFangSC-Regular;
             font-weight:400;
             color:#666666;
             line-height:25px;

@@ -6,7 +6,7 @@
           <item-header :status="changeStatus" :headerInfo="headerInfo"></item-header>
         </el-header> -->
         <el-main class="content">
-          <div class="chapas-title uiTitleFontColor">Change Password</div>
+          <div class="chapas-title UIFontTextStyleTitle1">Change Password</div>
           <div class="info" v-if="changeStatus != 1">
             <div class="success-wrapper" v-if="changeStatus == 0">
               <success-box text="Your password has been reset successfully!"></success-box>
@@ -201,7 +201,6 @@
     display: flex;
     flex-direction: column;
     font-size: 16px;
-    padding-top: 20px;
     align-items: stretch;
     margin-left: 20px;
   }

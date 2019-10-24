@@ -6,8 +6,8 @@
             </el-header>
         </el-container> -->
         <el-main>
-            <div class="content">
-                <h2 class="deals-title uiTitleFontColor">My Deals</h2>
+            <div class="content containerPosition">
+                <h2 class="deals-title UIFontTextStyleTitle1">My Deals</h2>
                 <div class="products">
                         <el-row :gutter="20">
                             <el-col :span="8" v-for="(listInfo,index) in dataList" :key="index">
@@ -74,11 +74,7 @@
     .my-deals {
         flex: 1;
     }
-    >>> .el-main {
-        padding-top: 20px;
-    }
     .content{
-        padding-left: 20px;
         font-size: 18px;
     }
     .deals-title{

@@ -4,12 +4,12 @@
       <item-header :status="status" :headerInfo="headerInfo"></item-header>
     </el-header> -->
     <el-main>
-      <div class="content">
+      <div class="content containerPosition">
         <div class="success-box-wrapper" v-if="successBoxFlag">
           <success-box :text="successBoxText"></success-box>
         </div>
         <div class="credits" v-if="creditInfo.length>0">
-          <h2 class="uiTitleFontColor">My Credit Cards</h2>
+          <h2 class="UIFontTextStyleTitle1">My Credit Cards</h2>
           <ul class="credit-list">
             <li class="credit-list-item" v-for="(info,index) in creditInfo" :key="index">
               <div class="icon">
@@ -209,11 +209,8 @@
   .credit {
     flex: 1;
   }
-  >>> .el-main {
-    padding-top: 20px;
-  }
   .content {
-    padding-left: 20px;
+    /* padding-left: 20px; */
   }
   .credits {
     display: flex;

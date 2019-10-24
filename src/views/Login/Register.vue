@@ -20,7 +20,7 @@
                         <VuePhoneNumberInput v-model="loginInfo.phone" 
                         default-country-code="US" 
                         @update="onUpdate"
-                        clearable="true"
+                        :clearable="true"
                         />
                     </template>
                 </el-form-item> 
@@ -96,7 +96,7 @@
                         ],
                         // password: [{ required: true, trigger: 'blur',message: 'Please enter your password.' },
                         // { min: 6, message: 'Please enter more than 6 characters.', trigger: 'blur' }]
-                        password: [{required: true, trigger: 'blur',validator: validatePas}]
+                        password: [{ required: true,trigger: 'blur',validator: validatePas}]
                     },
                     options: [
                         {value: '8088',label: 'United States'},
@@ -114,6 +114,7 @@
             },
             methods:{
                 inputPas(){
+                    console.log(this.loginInfo.password)
                     let reg = /((?=.*\d)(?=.*\D)|(?=.*[a-zA-Z])(?=.*[^a-zA-Z]))(?!^.*[\u4E00-\u9FA5].*$)^\S{6,12}$/;
                     if(this.loginInfo.password!=''){
                         if(!reg.test(this.loginInfo.password)){
@@ -121,6 +122,8 @@
                         }else{
                             this.err = '';
                         }
+                    }else{
+                        this.err = 'Please enter your password.'
                     }
                 },
                 onUpdate(payload) {

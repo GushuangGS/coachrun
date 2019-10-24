@@ -4,6 +4,16 @@
 .uiButtonBackground:hover{
     background: #FF9A0D;
 }
-.uiTitleFontColor{
-    color: #333;
+.UIFontTextStyleTitle1{
+    color: #333333;
+}
+.UIFontTextStyleTitle2{
+    color: #666666;
+}
+.UIFontTextStyleTitle3{
+    color: #999999;
+}
+
+.containerPosition{
+    margin-left: 20px;
 }

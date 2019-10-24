@@ -46,7 +46,7 @@
               </div>
             </div>
             <div class="detail">
-              <h2 class="table-title uiTitleFontColor">Points Details</h2>
+              <h2 class="table-title UIFontTextStyleTitle1">Points Details</h2>
               <el-table
                 empty-text="Start earning your loyalty points today!"
                 :data="tableData"

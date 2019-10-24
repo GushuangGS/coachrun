@@ -6,8 +6,8 @@
           <item-header :status="status" :headerInfo="headerInfo"></item-header>
         </el-header> -->
         <el-main>
-            <div class="container">
-              <h2 class="uiTitleFontColor">My Contact Information</h2>
+            <div class="container containerPosition">
+              <h2 class="UIFontTextStyleTitle1">My Contact Information</h2>
               <div class="table-wrapper">
                 <el-table
                   :data="contactList"
@@ -207,12 +207,8 @@
   .contact-list {
     flex: 1;
   }
-  >>> .el-main {
-    /* padding-top: 24px; */
-    padding-top: 20px;
-  }
   .container {
-    padding-left: 20px;
+    /* padding-left: 20px; */
   }
   .container>h2 {
     font-size: 18px;
