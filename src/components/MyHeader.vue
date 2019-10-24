@@ -76,8 +76,7 @@
           </div>
           <div class="sidebar-cell" v-if="$store.state.isLogin">
             <div class="sidebar-content" @click="logout">
-              <a href="">
-                <!-- /render/user/logout -->
+              <a>
                 <img src="@/assets/sidebar-logout.png">
                 <p>Log Out</p>
               </a>
