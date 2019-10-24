@@ -22,11 +22,11 @@
            <span class="line-right"></span>
        </div>
        <div class="other-login">
-           <div class="google-login">
+           <div class="google-login" @click="google_login">
                <img src="@/assets/google.png" alt="">
                 <span>Google</span>
            </div>
-           <div class="facebook-login">
+           <div class="facebook-login" @click="facebook_login">
                <img src="@/assets/facebook.png" alt="">
                <span>Facebook</span>
            </div>
@@ -202,6 +202,25 @@
             },
             gotoRegister(){
                 this.$router.push({name: 'Register'});
+            },
+            facebook_login(){
+                var provider = new this.firebase.auth.FacebookAuthProvider();
+                this.firebase.auth().signInWithPopup(provider).then(function(result) {
+                    console.log(result,11111)
+                }).catch(function(error) {
+
+                });
+            },
+            google_login(){
+                var provider = new this.firebase.auth.GoogleAuthProvider();
+                provider.setCustomParameters({
+                'display': 'popup'
+                });
+                this.firebase.auth().signInWithPopup(provider).then(function(result) {
+                    console.log(result,11111)
+                }).catch(function(error) {
+
+                });
             }
         }
     }
