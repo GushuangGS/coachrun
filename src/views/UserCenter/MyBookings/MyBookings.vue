@@ -1045,6 +1045,7 @@
         line-height:40px;
         font-size: $Body1Size;
         border-bottom: 1px solid #EBEEF5;
+        padding-left: 10px;
       }
       .rack-Bus-Status{
           background-color: #FF9A0D;

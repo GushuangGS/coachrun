@@ -353,6 +353,7 @@
       line-height: 40px;
       font-size: $Body1Size;
       border-bottom: 1px solid #EBEEF5;
+      padding-left: 10px;
     }
 </style>
 

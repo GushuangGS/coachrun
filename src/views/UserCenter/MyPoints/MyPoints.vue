@@ -344,5 +344,6 @@
   }
   >>> .el-table__empty-text{
     line-height: 40px;
+    padding-left: 10px;
   }
 </style>
