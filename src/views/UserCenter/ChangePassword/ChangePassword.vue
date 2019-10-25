@@ -50,7 +50,7 @@
         </el-main>
       </el-container>
       <!-- <my-date-picker></my-date-picker> -->
-      <!-- <my-button width="200px" height="100px" btnBgc="skyblue" btnBrds="10px"></my-button> -->
+      <!-- <my-button width="200px" height="100px" btnBgc="red" btnBrds="10px" btnColor="#ffffff" fontSize="20px"></my-button> -->
     </div>
 </template>
 
