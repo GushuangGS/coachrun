@@ -179,7 +179,7 @@ export default {
       this.isLogin = this.$store.state.isLogin;
     }
   },
-  mounted() {    
+  mounted() {
     this.shopNum = VueCookie.get("IvyCustomer_ShoppingItems");
     // this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
   },
@@ -427,7 +427,7 @@ export default {
 
 @media screen and (max-width: 992px) {
   .header-left{
-    margin-top:-8px;
+    margin-top:0px;
   }
 
   .hidden {
@@ -445,7 +445,7 @@ export default {
     display: block !important;
   }
   .header{
-    height: 60px;
+    height: 56px;
   }
   html{
     overflow-y: hidden !important;
