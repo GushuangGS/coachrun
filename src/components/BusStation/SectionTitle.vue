@@ -106,5 +106,16 @@
       .line-title {
         font-size: 16px;
       }
+      .line-left,.line-right{
+        display: none;
+      }
+      .title{
+        justify-content: center;
+      }
+    }
+    @media screen and (max-width: 991px){
+      .line-left,.line-right{
+        width:28%;
+      }
     }
   </style>
