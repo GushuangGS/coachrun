@@ -205,19 +205,29 @@
             },
             facebook_login(){
                 var provider = new this.firebase.auth.FacebookAuthProvider();
+                provider.addScope('email');
+                provider.addScope('public_profile');
+                provider.setCustomParameters({
+                'display': 'popup'
+                });
                 this.firebase.auth().signInWithPopup(provider).then(function(result) {
-                    console.log(result,11111)
+                    console.log(result,"facebook");
+                    result.user.getIdToken(false).then(function(idToken) {
+                        console.log(idToken,"facebook");
+                    }).catch(function(error) {
+                    });
                 }).catch(function(error) {
 
                 });
             },
             google_login(){
                 var provider = new this.firebase.auth.GoogleAuthProvider();
-                provider.setCustomParameters({
-                'display': 'popup'
-                });
                 this.firebase.auth().signInWithPopup(provider).then(function(result) {
-                    console.log(result,11111)
+                    console.log(result,"google");
+                    result.user.getIdToken(false).then(function(idToken) {
+                        console.log(idToken,"google");
+                    }).catch(function(error) {
+                    });
                 }).catch(function(error) {
 
                 });
