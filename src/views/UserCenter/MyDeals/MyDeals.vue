@@ -8,6 +8,7 @@
         <el-main>
             <div class="content containerPosition">
                 <h2 class="deals-title UIFontTextStyleTitle1">My Deals</h2>
+                <a href="https://www.coachrun.com/promotion-policy/" class="promotion">Promotion Policy &nbsp;>></a>
                 <div class="products">
                         <el-row :gutter="20">
                             <el-col :span="8" v-for="(listInfo,index) in dataList" :key="index">
@@ -80,6 +81,16 @@
     .deals-title{
         font-size: $SubheadlineSize;
         margin-top: 0;
+        display: inline-block;
+    }
+    .promotion{
+        margin-left: 20px;
+        color: #333333;
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .promotion:hover{
+        color: #00A2FF;
     }
     .none-deals{
        display: flex;

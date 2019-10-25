@@ -104,7 +104,18 @@
   <style scoped>
     @media screen and (max-width: 768px) {
       .line-title {
-        font-size: 16px;
+        font-size: 18px;
+      }
+      .line-left,.line-right{
+        display: none;
+      }
+      .title{
+        justify-content: center;
+      }
+    }
+    @media screen and (max-width: 991px){
+      .line-left,.line-right{
+        width:28%;
       }
     }
   </style>
