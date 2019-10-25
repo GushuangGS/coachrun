@@ -104,7 +104,7 @@
   <style scoped>
     @media screen and (max-width: 768px) {
       .line-title {
-        font-size: 16px;
+        font-size: 18px;
       }
       .line-left,.line-right{
         display: none;
