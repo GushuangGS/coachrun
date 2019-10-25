@@ -1,5 +1,7 @@
 <template>
-    <el-button :style="{width: width,height:height,backgroundColor:btnBgc,borderRadius:btnBrds}">btnTextadsss</el-button>
+    <el-button :style="{width: width,height:height,backgroundColor:btnBgc,borderRadius:btnBrds,color:btnColor,fontSize:fontSize}">
+        btnTextadsss
+    </el-button>
 </template>
 
 <script>
@@ -21,13 +23,16 @@
             btnBrds:{
                 type:String,
                 default:'4px'
+            },
+            btnColor:{
+                type:String,
+                default:'#666'
+            },
+            fontSize:{
+                type:String,
+                default:'14px'
             }
         }
     }
 
 </script>
-
-<style>
-
-
-</style>
