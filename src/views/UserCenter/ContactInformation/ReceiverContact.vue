@@ -70,7 +70,7 @@
                                             :default-country-code="countryFir"
                                             @update="onUpdate"
                                             ref="phone_number"
-                                            clearable="true"
+                                            :clearable="true"
                                             />
                                         </el-form-item>
                                     </el-col>
@@ -82,7 +82,7 @@
                                                 :default-country-code="countrySec" 
                                                 @update="onUpdateAgain"
                                                 ref="phone2_number"
-                                                clearable="true"
+                                                :clearable="true"
                                                 />
                                         </el-form-item>
                                     </el-col>
@@ -346,15 +346,9 @@
     
     </script>
     
-    <style scoped>
+    <style lang="scss" scoped>
     .edit-contact {
         flex: 1;
-    }
-    >>> .el-main {
-        padding-top: 0;
-        padding-left: 20px;
-        padding-right: 20px;
-        height: 620px;
     }
     .content {
         background-color: #FCFCFC;
@@ -366,10 +360,37 @@
     .form-wrapper {
         width: 500px;
         height: 420px;
-        font-size: 16px;
+        font-size: $Body1Size;
     }
-    
-      >>> .country-selector.has-value .field-label{
+      .btns{
+          margin-top: 15px;
+      }
+      .cancel-btn{
+        width:72px;
+          height: 30px;
+          padding: 7px 10px;
+      }
+      .save-btn{
+          width:72px;
+          height: 30px;
+          padding: 7px 10px;
+        background:#FF9A0D;
+        color:rgba(255,255,255,1);
+        border: none;
+      }
+      .isDefault{
+        margin-top: 10px;
+      }
+    </style>
+
+    <style scoped>
+    >>> .el-main {
+        padding-top: 0;
+        padding-left: 20px;
+        padding-right: 20px;
+        height: 620px;
+    }
+    >>> .country-selector.has-value .field-label{
         line-height: normal;
         pointer-events: none;
       }
@@ -391,25 +412,7 @@
       >>> .el-switch__label.is-active{
         color: #606266;
       }
-      .btns{
-          margin-top: 15px;
-      }
-      .cancel-btn{
-        width:72px;
-          height: 30px;
-          padding: 7px 10px;
-      }
-      .save-btn{
-          width:72px;
-          height: 30px;
-          padding: 7px 10px;
-        background:#FF9A0D;
-        color:rgba(255,255,255,1);
-        border: none;
-      }
-      .isDefault{
-        margin-top: 10px;
-      } 
+      
       >>> .field.vue-input-ui{
           left: 1px;
       }

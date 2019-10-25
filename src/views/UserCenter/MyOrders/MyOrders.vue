@@ -181,13 +181,11 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   div.my-orders {
     flex: 1;
   }
   .content {
-    /* margin-top: 10px; */
-    /* padding-left: 20px; */
     min-height: 850px;
   }
   .content>h2 {
@@ -202,9 +200,7 @@
     height: 150px;
     padding-top: 28px;
     padding-bottom: 28px;
-    /* border: 1px solid #aaa; */
     display: flex;
-    /* cursor: pointer; */
   }
   .account-brief::before, .account-brief::after {
     display: table;
@@ -227,7 +223,7 @@
     margin-right: 20px;
   }
   .points{
-    font-size: 14px;
+    font-size: $Body2Size;
     color: #333333;
     display: flex;
     width: 260px;
@@ -235,13 +231,12 @@
   }
   .points-num{
     color: #29507D;
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     line-height: 24px;
     margin-left: 10px;
     font-weight:bold;
   }
   .account-brief>.right {
-    /* width: 489px; */
     width: 185px;
     display: flex;
     flex-direction: column;
@@ -257,12 +252,10 @@
     text-align: center;
   }
   .right-img{
-    /* width: 16px;
-    height: 16px; */
     color: #666;
   }
   .right-span{
-    font-size: 14px;
+    font-size: $Body2Size;
     color: #666666;
     margin-left: 15px;
     font-weight: bold;
@@ -283,13 +276,13 @@
     margin-bottom: 18px;
   }
   .bookings-header>h4 {
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 0;
   }
   .bookings-header>span {
-    font-size: 14px;
+    font-size: $Body2Size;
     color: #29507D;
     cursor: pointer;
   }
@@ -304,26 +297,11 @@
   .column-first {
     margin-left: 30px;
   }
-  >>> .el-collapse {
-
-  }
-  >>> .el-collapse-item {
-    padding-left: 3px;
-    padding-right: 3px;
-  }
-  >>> .el-collapse-item{
-    background-color: #f9f9f9;
-    margin-bottom: 20px;
-  }
-  >>> .el-collapse-item__header {
-    border-bottom: none;
-    background-color: inherit;
-  }
   .bookings-item-brief {
     display: flex;
     align-items: center;
     line-height: 18px;
-    font-size: 16px;
+    font-size: $Body1Size;
   }
   .bookings-item-brief>img {
     margin-left: 20px;
@@ -348,11 +326,11 @@
     background-color: #fff;
   }
   div.money {
-    font-size: 16px;
+    font-size: $Body1Size;
     color: #333;
   }
   div.order-status {
-    font-size: 14px;
+    font-size: $Body2Size;
     color: #458A8E;
     font-weight: bold;
   }
@@ -361,9 +339,6 @@
     white-space: nowrap;
     font-weight: normal;
   }
-  >>> .el-collapse-item__content {
-    padding-bottom: 0;
-  }
   div.actions {
     padding-top: 8px;
     padding-bottom: 8px;
@@ -371,6 +346,31 @@
     justify-content:space-between;
     padding-right: 120px;
     padding-left: 30px;
+  }
+  .no-bookings{
+      color:rgba(51,51,51,1); 
+      height: 40px;
+      line-height: 40px;
+      font-size: $Body1Size;
+      border-bottom: 1px solid #EBEEF5;
+    }
+</style>
+
+<style scoped>
+  >>> .el-collapse-item {
+    padding-left: 3px;
+    padding-right: 3px;
+  }
+  >>> .el-collapse-item{
+    background-color: #f9f9f9;
+    margin-bottom: 20px;
+  }
+  >>> .el-collapse-item__header {
+    border-bottom: none;
+    background-color: inherit;
+  }
+  >>> .el-collapse-item__content {
+    padding-bottom: 0;
   }
   .bookings-item-content >>> .el-row {
     font-size: 14px;
@@ -385,11 +385,4 @@
     border-left: 10px solid #f9f9f9;
     border-right: 10px solid #f9f9f9;
   }
-  .no-bookings{
-      color:rgba(51,51,51,1); 
-      height: 40px;
-      line-height: 40px;
-      font-size: 16px;
-      border-bottom: 1px solid #EBEEF5;
-    }
 </style>

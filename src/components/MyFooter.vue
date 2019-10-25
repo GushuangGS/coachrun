@@ -53,7 +53,7 @@
         }
     </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .net-link {
         text-decoration: none;
         color: white;
@@ -70,7 +70,7 @@
       width: 100%;
       display: flex;
       flex-direction: column;
-      font-size: 14px;
+      font-size: $Body2Size;
       color:rgba(255,255,255,1);
       line-height: 20px;
       margin: 0 auto;
@@ -82,7 +82,7 @@
     }
     .bot-title{
       color:rgba(255,255,255,1);
-      font-size:16px;
+      font-size:$Body1Size;
       font-weight: bold;
       margin-bottom: 20px;
       margin-top: 0px;
@@ -94,7 +94,7 @@
     .bot-link a{
       text-decoration: none;
       color:rgba(255,255,255,1);
-      font-size:14px;
+      font-size:$Body2Size;
       line-height:28px;
     }
 
@@ -122,7 +122,7 @@
         font-weight:400;
         color:rgba(255,255,255,1);
         line-height: 43px;
-        font-size: 13px;
+        font-size: $Body3Size;
       padding-right: 3px;
         box-shadow: 0px 1px 2px 0px rgba(255,255,255,1)
     }

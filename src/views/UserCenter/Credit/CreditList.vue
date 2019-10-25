@@ -205,12 +205,9 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .credit {
     flex: 1;
-  }
-  .content {
-    /* padding-left: 20px; */
   }
   .credits {
     display: flex;
@@ -218,7 +215,7 @@
     align-items: flex-start;
   }
   .credits>h2 {
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     line-height: 1;
     margin-top: 0;
   }
@@ -260,32 +257,23 @@
     min-width: 120px;
     margin-right: 30px;
     line-height: 38px;
-    font-size: 14px;
+    font-size: $Body2Size;
   }
   .description {
     min-width: 150px;
     margin-right: 30px;
     line-height: 38px;
-    font-size: 14px;
+    font-size: $Body2Size;
   }
   .description>span {
-    font-size: 14px;
+    font-size: $Body2Size;
     color: #FF9A0D;
     margin-left: 22px;
   }
   .operation {
     line-height: 38px;
-    font-size: 14px;
-  }
-  .operation >>> button>span {
-    color: #29507D;
-    font-weight: bold;
-    font-size: 14px;
-  }
-  .operation >>> button:not(:last-child)>span {
-    padding-right: 10px;
-    border-right: 1px solid #979797;
-  }
+    font-size: $Body2Size;
+  }  
   .add-credit {
     margin-top: 5px;
   }
@@ -293,7 +281,7 @@
     margin-top: 0;
     margin-bottom: 20px;
     line-height: 1;
-    font-size: 16px;
+    font-size: $Body1Size;
     font-weight: bold;
   }
   .add-credit>div.detail {
@@ -303,7 +291,7 @@
   .add-credit>div.detail>.text {
     flex: 2.2;
     margin-right: 30px;
-    font-size: 16px;
+    font-size: $Body1Size;
     color: #333333;
   }
   .add-credit>div.detail>.img-wrapper {
@@ -319,7 +307,7 @@
     height: 30px;
     padding: 7px 0;
     line-height: 1;
-    font-size: 14px;
+    font-size: $Body2Size;
     background-color: #FF9A0D;
     color: #fff;
     border: none;
@@ -330,7 +318,7 @@
   .delete-body>div.item {
     height: 38px;
     line-height: 38px;
-    font-size: 20px;
+    font-size: $HeadlineSize;
     margin-bottom: 20px;
     display: flex;
   }
@@ -346,8 +334,26 @@
   }
   .delete-body>p {
     margin: 0;
-    font-size: 14px;
+    font-size: $Body2Size;
     color: #666666;
+  }
+  .remove-btn{
+    background: #FF9A0D;
+    color: #FFFFFF;
+    border: none;
+    height: 40px;
+    margin-left: 10px !important;
+  }
+</style>
+<style scoped>
+  .operation >>> button:not(:last-child)>span {
+    padding-right: 10px;
+    border-right: 1px solid #979797;
+  }
+  .operation >>> button>span {
+    color: #29507D;
+    font-weight: bold;
+    font-size: 14px;
   }
   >>> .el-dialog{
     background: none;
@@ -366,17 +372,9 @@
   >>> .el-dialog__footer{
     background: #FFFFFF;
   }
-  .remove-btn{
-    background: #FF9A0D;
-    color: #FFFFFF;
-    border: none;
-    height: 40px;
-    margin-left: 10px !important;
-  }
   >>> .el-button{
     padding: 7px 5px;
     height: 30px;
-    /* border: none; */
   }
   >>> .el-button+.el-button{
     margin-left: 0px;

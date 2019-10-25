@@ -203,52 +203,20 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .contact-list {
     flex: 1;
   }
-  .container {
-    /* padding-left: 20px; */
-  }
   .container>h2 {
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     font-weight: bold;
     line-height: 1;
     margin-top: 0;
     margin-bottom: 18px;
   }
-  >>> .el-table__header th {
-    background-color: #E5EFFA;
-    color: #29507D;
-  }
-  >>> .el-table__header th>div.cell {
-    font-size: 16px;
-  }
-  >>> .el-table__body td>div.cell{
-    font-size: 14px;
-  }
-  >>> .el-table tr{
-    height: 40px;
-  }
   span.default {
     color: #FF9A0D;
     margin-left: 8px;
-  }
-  >>> .el-table__body td>div.cell>button>span {
-    color: #29507D;
-    font-weight: bold;
-    font-size: 14px;
-  }
-  >>> .el-table__body td>div.cell>button:not(:last-child)>span {
-    /* padding-right: 10px; */
-    /* border-right: 1px solid #979797; */
-  }
-  >>> .el-table__body td>div.cell>button:not(:first-child)>span{
-    padding-left: 10px;
-    border-left: 1px solid #979797;
-  }
-  >>> .el-table__empty-block{
-    display: none;
   }
   .none-data{
     height: 72px;
@@ -265,21 +233,57 @@
     margin-right: 20px;
   }
   .none-data>span{
-    font-size: 14px;
+    font-size: $Body2Size;
     color:rgba(51,51,51,1);
   }
   .add-btn{
     width: 100%;
     display: flex;
-    /* justify-content: flex-end; */
     margin-top: 10px;
   }
   .add-info{
     background: #FF9A0D;
     color: #FFFFFF;
-    font-size: 14px;
+    font-size: $Body2Size;
     border: none;
     padding: 7px 8px !important;
+  }
+  .delete-body{
+    color: #666666;
+  }
+  .remove-btn{
+    background: #FF9A0D;
+    color: #FFFFFF;
+    font-size: $Body2Size;
+    border: none;
+    margin-left: 10px !important;
+  }
+</style>
+<style scoped>
+  >>> .el-table__header th {
+    background-color: #E5EFFA;
+    color: #29507D;
+  }
+  >>> .el-table__header th>div.cell {
+    font-size: 16px;
+  }
+  >>> .el-table__body td>div.cell{
+    font-size: 14px;
+  }
+  >>> .el-table tr{
+    height: 40px;
+  }
+  >>> .el-table__body td>div.cell>button>span {
+    color: #29507D;
+    font-weight: bold;
+    font-size: 14px;
+  }
+  >>> .el-table__body td>div.cell>button:not(:first-child)>span{
+    padding-left: 10px;
+    border-left: 1px solid #979797;
+  }
+  >>> .el-table__empty-block{
+    display: none;
   }
   >>> .el-dialog{
     background: none;
@@ -298,23 +302,12 @@
   >>> .el-dialog__footer{
     background: #FFFFFF;
   }
-  .delete-body{
-    color: #666666;
-  }
   >>> .el-button{
     padding: 7px 5px;
     height: 30px;
-    /* border: none; */
   }
   >>> .el-button+.el-button{
     margin-left: 0px;
-  }
-  .remove-btn{
-    background: #FF9A0D;
-    color: #FFFFFF;
-    font-size: 14px;
-    border: none;
-    margin-left: 10px !important;
   }
   >>> .el-table--mini td, .el-table--mini th{
     padding: 4px 0;

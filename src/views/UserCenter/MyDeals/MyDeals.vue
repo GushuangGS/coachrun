@@ -70,23 +70,16 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .my-deals {
         flex: 1;
     }
     .content{
-        font-size: 18px;
+        font-size: $SubheadlineSize;
     }
     .deals-title{
-        font-size: 18px;
+        font-size: $SubheadlineSize;
         margin-top: 0;
-    }
-    >>> .el-row{
-        display: flex;
-        flex-wrap: wrap;
-    }
-    >>> .el-collapse-item__arrow{
-        display: none;
     }
     .none-deals{
        display: flex;
@@ -99,8 +92,17 @@
         height: auto;
     }
     .none-deals-tips{
-        font-size: 16px;
+        font-size: $Body1Size;
         margin-top: 20px;
         color: #333333;
+    }
+</style>
+<style scoped>
+    >>> .el-row{
+        display: flex;
+        flex-wrap: wrap;
+    }
+    >>> .el-collapse-item__arrow{
+        display: none;
     }
 </style>

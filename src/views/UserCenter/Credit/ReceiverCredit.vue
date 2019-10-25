@@ -496,7 +496,7 @@
         }
     </script>
     
-    <style scoped>
+    <style lang="scss" scoped>
       .add-credit {
         flex: 1;
       }
@@ -516,7 +516,7 @@
         width: 540px;
         height: 38px;
         line-height: 19px;
-        font-size: 16px;
+        font-size: $Body1Size;
         float: left;
         margin-right: 30px;
         color: #333;
@@ -548,18 +548,12 @@
       }
       .form-wrapper>.info>span {
         color: #1CAD78;
-        font-size: 16px;
+        font-size: $Body1Size;
         font-weight: bold;
       }
       .info-list{
           padding-left: 124px;
           padding-right: 114px;
-      }
-      >>> .el-form-item__label{
-        padding: 0;
-      }
-      >>> .el-form-item {
-        margin-bottom: 12px;
       }
       #icon-tip{
         position: absolute;
@@ -582,7 +576,7 @@
         margin-bottom: 36px;
       }
       .card-address{
-        font-size:14px;
+        font-size:$Body2Size;
         color: #333;
       }
       .cancel-btn{
@@ -602,10 +596,19 @@
         margin-bottom: 15px;
         margin-top: 10px;
       }
+    </style>
+    <style scoped>
+      >>> .el-form-item__label{
+        padding: 0;
+      }
+      >>> .el-form-item {
+        margin-bottom: 12px;
+      }
       >>> .el-switch__label{
         color: #606266;
       }
       >>> .el-switch__label.is-active{
         color: #606266;
       }
+    
     </style>
