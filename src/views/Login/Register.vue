@@ -213,7 +213,7 @@
         .register-bg{
             width: 100%;
             height: 100%;
-            background: #F5F5F5;
+            background: #eeeeee;
             /* margin-top: 20px; */
             padding: 50px;
         }
