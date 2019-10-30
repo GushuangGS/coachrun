@@ -4,7 +4,7 @@
             <el-row :gutter="24">
                 <el-col :xs="6" :sm="6">
                     <div class="bot-logo">
-                        <img src="@/assets/coachrunlogo.png" alt="">
+                        <img src="@/assets/whitecoachrunlogo.png" alt="">
                     </div>
                 </el-col>
                 <el-col :xs="6" :sm="6">
@@ -56,14 +56,13 @@
 <style lang="scss" scoped>
     .net-link {
         text-decoration: none;
-        color: #333;
+        color: white;
     }
     .net-link:hover{
-        color: #009FEA;
+        color: #22ffff;
     }
     .footer{
-        /*background: #00A2FF;*/
-      background-color: #f5f5f5;
+        background: #00A2FF;
     }
     .footer-top{
       height: 232px;
@@ -72,7 +71,7 @@
       display: flex;
       flex-direction: column;
       font-size: $Body2Size;
-      color:#333;
+      color:rgba(255,255,255,1);
       line-height: 20px;
       margin: 0 auto;
       padding-top: 40px;
@@ -82,7 +81,7 @@
       margin-left: 14px;
     }
     .bot-title{
-      color:#333;
+      color:rgba(255,255,255,1);
       font-size:$Body1Size;
       font-weight: bold;
       margin-bottom: 20px;
@@ -94,7 +93,7 @@
     }
     .bot-link a{
       text-decoration: none;
-      color:#333;
+      color:rgba(255,255,255,1);
       font-size:$Body2Size;
       line-height:28px;
     }
@@ -121,11 +120,11 @@
         height: 43px;
         text-align: center;
         font-weight:400;
-        color:#333;
+        color:rgba(255,255,255,1);
         line-height: 43px;
         font-size: $Body3Size;
       padding-right: 3px;
-        box-shadow: 0px 1px 2px 0px #333
+        box-shadow: 0px 1px 2px 0px rgba(255,255,255,1)
     }
     @media screen and (max-width:768px){
         .footer-top {
