@@ -114,7 +114,7 @@
         <span @click="login">Login</span>
       </div>
       <div class="show-name" v-else>
-        <span class="user-name" @click="gotoMine">
+        <span class="user-name subThemeStyle" @click="gotoMine">
           <i class="icon-user-circle backgr"></i>
           {{getUserName()}}
         </span>
@@ -351,7 +351,7 @@ export default {
 }
 
 .user-name {
-  color: #00a2ff;
+  // color: #00a2ff;
   white-space: nowrap;
   display: flex;
   align-items: center;
