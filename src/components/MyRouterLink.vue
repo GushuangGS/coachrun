@@ -1,19 +1,19 @@
 <template>
-    <div>
-        <router-link style="color: inherit;" :to="hrefLink" v-if="status">{{domText}}</router-link>
-        <a style="color: inherit;" :href="hrefLink" v-else>{{domText}}</a>
-    </div>
+    <span>
+        <router-link style="color: inherit;" :to="link" v-if="router">{{text}}</router-link>
+        <a style="color: inherit;" :href="link" v-else>{{text}}</a>
+    </span>
 </template>
   
   <script>
     export default {
       props: {
-        status: {
+        router: {
             type: Boolean,
             default: true // true => router-link, false => a标签
         },
-        hrefLink:'',
-        domText:''
+        link:'',
+        text:''
       },
       name: 'MyRouterLink'
     }
