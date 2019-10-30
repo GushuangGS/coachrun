@@ -208,8 +208,8 @@
             //     provider.addScope('email');
             //     provider.addScope('public_profile');
             //     var auth=this.firebase.auth();
-            //     var d = new Device()
-            //     if(d.isMobile()){
+            //     // var d = new Device()
+            //     if(false){
             //         auth.signInWithRedirect(provider);
             //         auth.getRedirectResult().then(function(result) {
             //             result.user.getIdToken(false).then(function(idToken) {
@@ -235,8 +235,8 @@
             // google_login(){
             //     var provider = new this.firebase.auth.GoogleAuthProvider();
             //     var auth=this.firebase.auth();
-            //     var d = new Device()
-            //     if(d.isMobile()){
+            //     // var d = new Device()
+            //     if(false){
             //         auth.signInWithRedirect(provider);
             //         auth.getRedirectResult().then(function(result) {
             //             result.user.getIdToken(false).then(function(idToken) {
