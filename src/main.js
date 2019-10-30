@@ -32,6 +32,7 @@ import './styles/common.css'
 
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
+import $ from 'jquery'
 
 // Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);

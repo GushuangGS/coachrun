@@ -28,7 +28,12 @@ module.exports = {
           test: /\.js$|\.htm$|\.css/,
           threshold: 10240,
           deleteOriginalAssets: false
-        })]
+        }),
+        new webpack.ProvidePlugin({
+          $:"jquery",
+           jQuery:"jquery",
+           "windows.jQuery":"jquery"
+          })]
       }
     }
   },
