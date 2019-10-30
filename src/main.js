@@ -20,15 +20,22 @@ import './styles/css/index.css'
 
 import './styles/common.css'
 
-import * as firebase from "firebase/app";
-import "firebase/auth";
+// import * as firebase from "firebase/app";
+// import "firebase/auth";
+// firebase.initializeApp(firebaseConfig)
+// Vue.prototype.firebase = firebase
+
+
+// import Device from "browser-device-js"
+
+import { VueHammer } from 'vue2-hammer'
+Vue.use(VueHammer)
 
 var firebaseConfig = {
   apiKey: "AIzaSyBBcB6htx6yN66aYrzE8yNgaqwcntPZX2c",
   authDomain: "fir-coachrun.firebaseapp.com"
 }
-firebase.initializeApp(firebaseConfig)
-Vue.prototype.firebase = firebase
+
 
 
 // Vue.use(ElementUI,{ locale });
@@ -45,6 +52,8 @@ Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://testwww.coachrun.com/';
 axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
 Vue.prototype.$api = api;
+
+
 
 import { Message } from 'element-ui';
 
