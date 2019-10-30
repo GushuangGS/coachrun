@@ -22,19 +22,18 @@ import './styles/common.css'
 
 // import * as firebase from "firebase/app";
 // import "firebase/auth";
+
+// var firebaseConfig = {
+//   apiKey: "AIzaSyBBcB6htx6yN66aYrzE8yNgaqwcntPZX2c",
+//   authDomain: "fir-coachrun.firebaseapp.com"
+// }
 // firebase.initializeApp(firebaseConfig)
 // Vue.prototype.firebase = firebase
-
-
-// import Device from "browser-device-js"
 
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
 
-var firebaseConfig = {
-  apiKey: "AIzaSyBBcB6htx6yN66aYrzE8yNgaqwcntPZX2c",
-  authDomain: "fir-coachrun.firebaseapp.com"
-}
+// import device from "devicejs"
 
 
 
