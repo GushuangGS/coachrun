@@ -10,6 +10,7 @@
   </div>
 </template>
 <script>
+import $ from 'jquery'
 import MyHeader from '@/components/MyHeader'
 import MyFooter from '@/components/MyFooter'
 import chat from '@/components/chat'
