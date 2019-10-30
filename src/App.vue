@@ -5,23 +5,25 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
+    <chat></chat>
     <my-footer></my-footer>
   </div>
 </template>
 <script>
 import MyHeader from '@/components/MyHeader'
 import MyFooter from '@/components/MyFooter'
-
+import chat from '@/components/chat'
 export default {
   name: 'app',
   components: {
     MyHeader,
-    MyFooter
+    MyFooter,
+    chat
   }
 }
 </script>
 
-<style>
+<style lang="scss">
  @import "./styles/fonts/css/a.css";
 body{
     padding: 0;

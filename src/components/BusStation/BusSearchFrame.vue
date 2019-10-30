@@ -226,7 +226,7 @@
       trigger="manual"
       ref="arrivalCityPopover"
       v-model="arrivalCityVisible"
-      content="Please select a arrival city"
+      content="Please select an arrival city"
       popper-class="tip_style"
     ></el-popover>
     <el-popover
@@ -1053,6 +1053,13 @@
   }
 
   @media screen and (max-width: 991px){
+    .search-submit {
+      display: flex;
+      justify-content: center;
+    }
+    .search-submit button{
+      width: 100px!important;
+    }
     .arrive-city .el-select .el-input .el-input__suffix {
       right: 3px!important;
     }
