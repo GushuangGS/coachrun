@@ -183,7 +183,7 @@
     
     </script>
     
-    <style scoped>
+    <style lang="scss" scoped>
         .wrap-bg{
             width: 100%;
             height: 100%;
@@ -199,11 +199,11 @@
             padding: 20px 24px 30px 24px;
         }
         .title{
-            font-size: 16px;
+            font-size: $Body1Size;
            color: #333333;
         }
         .discrib{
-            font-size: 14px;
+            font-size: $Body2Size;
            color: #333333;
         }
         .email{
@@ -211,13 +211,13 @@
         }
         .email-discrib{
             color: #333333;
-            font-size: 14px;
+            font-size: $Body2Size;
         }
         .email-input{
             margin-left: 10px;
             width: 210px;
             height: 40px;
-            font-size: 14px;
+            font-size: $Body2Size;
         }
         #recaptcha{
             margin-top: 20px;
@@ -242,7 +242,7 @@
            position: relative;
            left: 196px;
            top: -41px;
-           font-size: 12px;
+           font-size: $CaptionSize;
            border-top-left-radius: 0;
            border-bottom-left-radius: 0;
            padding: 6px 10px;
@@ -256,7 +256,7 @@
         .click-tip{
             margin-top: -50px;
             width: 225px;
-            font-size: 12px;
+            font-size: $CaptionSize;
             color: #666666;
             margin-left: 120px;
        }
@@ -276,7 +276,7 @@
             text-align: center;
             line-height: 59px;
             color: #333333;
-            font-size: 14px;
+            font-size: $Body2Size;
        }
        .right-tips-span{
            color: #208291;
@@ -292,9 +292,10 @@
             text-align: center;
             line-height: 59px;
             color: #333333;
-            font-size: 14px;
+            font-size: $Body2Size;
        }
-
+    </style>
+    <style scoped>
         >>> .el-input__inner{
            width: 206px;
            height: 40px;

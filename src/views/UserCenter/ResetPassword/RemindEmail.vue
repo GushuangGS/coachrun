@@ -39,7 +39,7 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .wrap-box{
         width: 886px;
         min-height: 525px;
@@ -68,13 +68,13 @@
     }
     .title{
         color: #8A6D3B;
-        font-size: 18px;
+        font-size: $SubheadlineSize;
         font-weight: bold;
     }
     .main{
         width: 779px;
         height: auto;
-        font-size: 14px;
+        font-size: $Body2Size;
         color: #8A6D3B;
         line-height: 20px;
     }

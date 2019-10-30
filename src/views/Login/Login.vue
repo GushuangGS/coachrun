@@ -275,7 +275,7 @@
         height: 100%;
         background: #F5F5F5;
         /* margin-top: 20px; */
-        padding: 50px;
+        padding: 100px;
     }
     .login-form{
         width: 100%;
@@ -283,7 +283,7 @@
     }
     .login{
         width: 448px;
-        min-height: 525px;
+        min-height: 475px;
         background:rgba(255,255,255,1);
         /* background: skyblue; */
         border-radius:2px;
@@ -381,7 +381,7 @@
         color: $fontColor2;
     }
     .other-login{
-        padding: 15px 20px;
+        padding: 0 20px;
         display: flex;
         justify-content: space-between;
     }

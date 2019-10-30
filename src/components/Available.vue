@@ -103,7 +103,7 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .product-card{
         width:284px;
         /* height:253px; */
@@ -111,7 +111,6 @@
         box-shadow:2px 4px 12px 0px rgba(51,51,51,0.16);
         margin-bottom: 40px;
         position: relative;
-        /* z-index: 1; */
     }
     .left-ridus,.right-ridus{
         width: 20px;
@@ -154,7 +153,7 @@
     .product-tltle1{
         /* width:65px; */
         height:20px;
-        font-size:18px;
+        font-size:$SubheadlineSize;
         font-weight:normal;
         color:#FF9A0D;
         line-height:21px;
@@ -170,7 +169,7 @@
     .product-tltle3{
         /* width:35px; */
         height:25px;
-        font-size:18px;
+        font-size:$SubheadlineSize;
         font-weight:400;
         color:#FF9A0D;
         line-height:25px;
@@ -187,13 +186,13 @@
         display: block;
     }
     .product-intro1{
-        font-size:14px;
+        font-size:$Body2Size;
         font-weight:bold;
         margin-top: 12px;
         display: inline-block;
     }
     .product-intro2{
-        font-size:12px;
+        font-size:$CaptionSize;
         margin-top: 8px;
         white-space: nowrap;
         overflow: hidden;
@@ -201,17 +200,15 @@
     }
     .product-intro3{
         margin-top: 2px;
-        font-size: 12px;
+        font-size: $CaptionSize;
     }
     .product-intro4{
         margin-top: 2px;
-        font-size: 12px;
+        font-size: $CaptionSize;
     }
     .product-details{
         padding-left:8px; 
-        /* ---------------------- */
-        /* height:15px; */
-        font-size:13px;
+        font-size:$Body3Size;
         color:#2D5687;
         margin-top: 10px;
         line-height:15px;
@@ -221,9 +218,11 @@
     }
     .infiDes{
         color:rgba(51,51,51,1);
-        font-size: 12px;
+        font-size: $CaptionSize;
         line-height: 16px;
     }
+</style>
+<style scoped>
     >>> .el-collapse{
         border-top: none;
         border-bottom: none;
@@ -234,9 +233,6 @@
         color:#29507D;
         border-bottom: none;
         font-size: 12px;
-    }
-    >>> .el-collapse-item__wrap{
-        /* z-index: 100; */
     }
     >>> .el-collapse-item__content{
         padding-bottom: 10px;

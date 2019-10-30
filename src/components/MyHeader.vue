@@ -179,7 +179,7 @@ export default {
       this.isLogin = this.$store.state.isLogin;
     }
   },
-  mounted() {    
+  mounted() {
     this.shopNum = VueCookie.get("IvyCustomer_ShoppingItems");
     // this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
   },
@@ -331,7 +331,7 @@ export default {
   padding: 0 15px;
   border: 1px solid #cdcdcd;
   display: flex;
-  font-size: 14px;
+  font-size: $Body2Size;
   border-radius: 4px;
   color: rgba(51, 51, 51, 1);
 }
@@ -342,7 +342,7 @@ export default {
   // margin-left: 150px;
   padding: 0 0 0 15px;
   display: flex;
-  font-size: 14px;
+  font-size: $Body2Size;
   color: rgba(51, 51, 51, 1);
 }
 
@@ -363,7 +363,7 @@ export default {
 
 .logout {
   margin-left: 16px;
-  font-size: 14px;
+  font-size: $Body2Size;
   padding: 0 15px;
 }
 
@@ -381,7 +381,7 @@ export default {
 
 .shopping-cart {
   margin-left: 16px;
-  font-size: 18px;
+  font-size: $SubheadlineSize;
 }
 
 .shopping-cart a,
@@ -392,7 +392,7 @@ export default {
 
 .live-chat {
   margin-left: 16px;
-  font-size: 18px;
+  font-size: $SubheadlineSize;
 }
 
 .header-title {
@@ -406,7 +406,7 @@ export default {
   white-space: nowrap;
   margin-left: 30px;
   text-align: center;
-  font-size: 16px;
+  font-size: $Body1Size;
   color: #333;
   padding: 15px;
 }
@@ -422,12 +422,12 @@ export default {
 
 .backgr {
   color: #333;
-  font-size: 18px;
+  font-size: $SubheadlineSize;
 }
 
 @media screen and (max-width: 992px) {
   .header-left{
-    margin-top:-8px;
+    margin-top:0px;
   }
 
   .hidden {
@@ -445,7 +445,7 @@ export default {
     display: block !important;
   }
   .header{
-    height: 60px;
+    height: 56px;
   }
   html{
     overflow-y: hidden !important;
@@ -472,7 +472,7 @@ nav {
     padding: 33.5px 0px;
     padding-left: 8%;
     background-color: #f2f2f2;
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     color: #232323;
 
     .nav-not-login {
@@ -499,7 +499,7 @@ nav {
           padding-left: 16px;
 
           .userName {
-            font-size: 18px;
+            font-size: $SubheadlineSize;
             font-weight: bold;
             color: #333333;
           }
@@ -513,7 +513,7 @@ nav {
         .accountButton {
           width: 40%;
           height: 40px;
-          font-size: 18px;
+          font-size: $SubheadlineSize;
           color: white;
           margin-top: 31px;
           background-color: #00a2ff;
@@ -525,7 +525,7 @@ nav {
           width: 40%;
           height: 40px;
           background-color: #fff;
-          font-size: 18px;
+          font-size: $SubheadlineSize;
           margin-top: 31px;
           margin-left: 10%;
           border-radius: 8px;
@@ -554,7 +554,7 @@ nav {
       p {
         color: #2c3e50;
         text-decoration: none;
-        font-size: 16px;
+        font-size: $Body1Size;
         margin-left: 13px;
       }
 

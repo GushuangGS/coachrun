@@ -796,7 +796,7 @@
       }
     </script>
     
-    <style scoped>
+    <style lang="scss" scoped>
       div.my-orders {
         flex: 1;
         min-height: 850px;
@@ -806,11 +806,11 @@
         /* padding-left: 20px; */
       }
       .content>h2 {
-        font-size: 18px;
+        font-size: $SubheadlineSize;
         margin-top: 0;
       }
       .dateTitle{
-        font-size:16px;
+        font-size:$Body1Size;
         color:rgba(51,51,51,1);
         margin-right: 10px;
       }
@@ -830,7 +830,7 @@
         margin-left: 25px;
       }
       .guest-tips{
-        font-size: 13px;
+        font-size: $Body3Size;
         margin-left: 12px;
         color: #333333;
       }
@@ -856,23 +856,14 @@
         display: flex;
         align-items: center;
       }
-      >>> .el-collapse-item:not(:last-child) {
-        background-color: #F5F5F5;
-        margin-bottom: 20px;
-      }
-      >>> .el-collapse-item__header {
-        border-bottom: none;
-        background-color: #f9f9f9;
-        height: 80px;
-      } 
       .total-pay{
         /* margin-left: 100px; */
-        font-size: 14px;
+        font-size: $Body2Size;
         color:rgba(51,51,51,1);
         line-height: 30px;
       }
       .total-money{
-        font-size: 14px;
+        font-size: $Body2Size;
         font-weight: bold;
       }
       .title-bookings{
@@ -883,7 +874,7 @@
         display: flex;
         align-items: center;
         line-height: 18px;
-        font-size: 14px;
+        font-size: $Body2Size;
         margin-bottom: 10px;
         margin-top: 10px;
       }
@@ -937,7 +928,7 @@
         width: 86px;
         height: 20px;
         border-radius:4px;
-        font-size: 12px;
+        font-size: $CaptionSize;
         line-height: 20px;
         text-align: center;
         margin-left: 10px;
@@ -958,16 +949,16 @@
         color:rgba(255,130,44,1);
       }
       div.money {
-        font-size: 14px;
+        font-size: $Body2Size;
         color: #333;
       }
       div.order-status {
-        font-size: 14px;
+        font-size: $Body2Size;
         color: #333;
         font-weight: bold;
       }
       div.order-status2{
-        font-size: 14px;
+        font-size: $Body2Size;
         color:#999;
         font-weight: bold;
       }
@@ -991,12 +982,12 @@
       .details-left{
           display: inline-block;
         width: 94px;
-        font-size: 14px;
+        font-size: $Body2Size;
         margin-right: 15px;
         color:rgba(102,102,102,1);
       }
       .details-left2{
-        font-size: 14px;
+        font-size: $Body2Size;
         color:rgba(102,102,102,1);
         display: flex;
         flex-direction: column;
@@ -1013,11 +1004,11 @@
         font-weight: bold;
       }
       .details-icon1{
-          font-size: 14px;
+          font-size: $Body2Size;
         color:rgba(51,51,51,1);
       }
       .details-icon2{
-          font-size: 14px;
+          font-size: $Body2Size;
         color:rgba(51,51,51,1);
         font-weight: bold;
       }
@@ -1025,9 +1016,6 @@
         display: inline-block;
         width: 420px;
         white-space:normal;
-      }
-      >>> .el-collapse-item__content {
-        padding-bottom: 0;
       }
       div.actions {
         padding-top: 8px;
@@ -1039,22 +1027,6 @@
         /* height: 180px; */
         align-items: center;
       }
-      .bookings-item-content >>> .el-row {
-        font-size: 14px;
-        line-height: 74px;
-        display: flex;
-        align-items: center;
-        color: #333;
-        min-height: 64px;
-        border-bottom: 1px dashed #F2F6FB;
-      }
-      >>> .el-collapse-item__wrap {
-        background-color: #f9f9f9;
-        border: 0px;
-        border-left: 10px solid #f9f9f9;
-        border-right: 10px solid #f9f9f9;
-      }
-
       .pagination-wrapper {
           display: flex;
           flex-direction: column;
@@ -1071,29 +1043,14 @@
         color:rgba(51,51,51,1); 
         height: 40px;
         line-height:40px;
-        font-size: 16px;
+        font-size: $Body1Size;
         border-bottom: 1px solid #EBEEF5;
+        padding-left: 10px;
       }
       .rack-Bus-Status{
           background-color: #FF9A0D;
           color: #ffffff;
           border:none;
-      }
-      >>> .el-range-editor--small .el-range-separator{
-        width: 20px;
-      }
-      >>> .el-input__inner{
-        font-size: 14px;
-        color: #333333;
-        cursor: pointer;
-      }
-
-      >>> .el-icon-arrow-right:before{
-        content: '';
-      }
-      >>> .el-button{
-        height: 30px;
-        padding: 7px 8px;
       }
       .gray{
         color: #999999 !important;
@@ -1112,7 +1069,6 @@
     .el-date-editor .el-range-input::-webkit-input-placeholder { /* WebKit browsers */
       color: #333333;
     }
-
     .el-date-range-picker.has-sidebar{
       width: 896px;
     }
@@ -1125,5 +1081,50 @@
     .bookings-item-content[data-v-19d485cc] .el-row{
       border-bottom:1px dashed #EBEEF5;
     }
+    </style>
+
+    <style scoped>
+      >>> .el-collapse-item:not(:last-child) {
+        background-color: #F5F5F5;
+        margin-bottom: 20px;
+      }
+      >>> .el-collapse-item__header {
+        border-bottom: none;
+        background-color: #f9f9f9;
+        height: 80px;
+      } 
+      >>> .el-collapse-item__content {
+        padding-bottom: 0;
+      }
+      >>> .el-collapse-item__wrap {
+        background-color: #f9f9f9;
+        border: 0px;
+        border-left: 10px solid #f9f9f9;
+        border-right: 10px solid #f9f9f9;
+      }
+      .bookings-item-content >>> .el-row {
+        font-size: 14px;
+        line-height: 74px;
+        display: flex;
+        align-items: center;
+        color: #333;
+        min-height: 64px;
+        border-bottom: 1px dashed #F2F6FB;
+      }
+      >>> .el-range-editor--small .el-range-separator{
+        width: 20px;
+      }
+      >>> .el-input__inner{
+        font-size: 14px;
+        color: #333333;
+        cursor: pointer;
+      }
+      >>> .el-icon-arrow-right:before{
+        content: '';
+      }
+      >>> .el-button{
+        height: 30px;
+        padding: 7px 8px;
+      }
     </style>
     

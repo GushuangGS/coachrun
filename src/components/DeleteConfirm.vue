@@ -52,7 +52,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .delete-confirm {
     position: fixed;
     left: 0;
@@ -88,7 +88,7 @@
     position: relative;
   }
   .header>h2 {
-    font-size: 20px;
+    font-size: $HeadlineSize;
     line-height: 1;
     margin: 0;
     position: absolute;
@@ -96,7 +96,7 @@
     top: 24px;
   }
   .header>span {
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     position: absolute;
     right: 30px;
     top: 17px;
@@ -124,7 +124,7 @@
     height: 44px;
     padding: 0;
     border-radius: 4px;
-    font-size: 20px;
+    font-size: $HeadlineSize;
     line-height: 43px;
     text-align: center;
     float: right;

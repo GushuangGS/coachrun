@@ -124,7 +124,7 @@
 
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
     .wrap{
         width: 100%;
         height: 100%;
@@ -141,7 +141,7 @@
     }
     .title{
         color: #333333;
-        font-size: 16px;
+        font-size: $Body1Size;
         font-weight: bold;
         margin-left: 12px;
     }
@@ -154,11 +154,11 @@
     }
     .emali-lab{
         color: #666666;
-        font-size: 13px;
+        font-size: $Body3Size;
     }
     .email-name{
         color: #333333;
-        font-size: 14px;
+        font-size: $Body2Size;
         margin-left: 13px;
     }
     .login-btn{
@@ -171,6 +171,12 @@
         margin-left: 67px;
         border: none;
     }
+    
+    .el-button{
+        padding: 10px 20px;
+    }
+</style>
+<style scoped>
     >>> .el-form-item__label:before{
         display: none;
     }
@@ -180,8 +186,5 @@
     }
     >>> .el-form-item__error{
         position: inherit;
-    }
-    .el-button{
-        padding: 10px 20px;
     }
 </style>

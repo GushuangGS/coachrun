@@ -50,6 +50,7 @@
         </el-main>
       </el-container>
       <!-- <my-date-picker></my-date-picker> -->
+      <!-- <my-button width="200px" height="100px" btnBgc="red" btnBrds="10px" btnColor="#ffffff" fontSize="20px"></my-button> -->
     </div>
 </template>
 
@@ -59,6 +60,7 @@
   import SuccessBox from '@/components/SuccessBox'
 
   import MyDatePicker from '@/components/DatePicker'
+  import MyButton from '@/components/MyButton'
 
   export default {
     data() {
@@ -187,7 +189,8 @@
     components: {
       ItemHeader,
       SuccessBox,
-      MyDatePicker
+      MyDatePicker,
+      MyButton
     },
     name: 'ChangePassword'
   }

@@ -172,12 +172,9 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
   .my-points {
     flex: 1;
-  }
-  >>> .el-main {
-    padding-top: 0;
   }
   .content {
     padding-top: 4px;
@@ -202,7 +199,7 @@
   }
   .brief>.brief-left>.brief-left-up {
     line-height: 1;
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     text-align: center;
     margin-bottom: 10px;
   }
@@ -230,7 +227,7 @@
     margin-bottom: 12px;
   }
   .brief>.brief-right>.brief-right-item>h4 {
-    font-size: 16px;
+    font-size: $Body1Size;
     line-height: 16px;
     margin-top: 0;
     margin-bottom: 8px;
@@ -240,7 +237,7 @@
   }
   .brief>.brief-right>.brief-right-item>p {
     /* font-size: 18px; */
-    font-size: 14px;
+    font-size: $Body2Size;
     text-align: center;
     color: #666666;
     margin: 0;
@@ -250,7 +247,7 @@
     line-height: 53px;
     text-align: center;
     cursor: pointer;
-    font-size: 14px;
+    font-size: $Body2Size;
   }
   .help:hover{
     color: #00A2FF;
@@ -261,7 +258,7 @@
     width: 720px;
   }
   .detail>.table-title {
-    font-size: 18px;
+    font-size: $SubheadlineSize;
     font-weight: bold;
     margin-top: 0;
     margin-bottom: 18px;
@@ -272,6 +269,36 @@
     flex-direction: column;
     align-items: flex-end;
     margin-top: 15px;
+  }
+  .positive {
+    color: #FF9D0D;
+    /* font-weight: bold; */
+    font-size: 14px;
+  }
+  .negtive {
+    color: #0BA76E;
+    /* font-weight: bold; */
+    font-size: $Body2Size;
+  }
+  .pending {
+    opacity: .5;
+  }
+  .text-pending {
+    font-size: $Body2Size;
+    color: #333;
+    font-weight: normal;
+    position: absolute;
+    /* right: 0; */
+    margin-left: 15px;
+  }
+  .pagination-wrapper {
+    margin-top: 20px;
+  }
+</style>
+
+<style scoped>
+  >>> .el-main {
+    padding-top: 0;
   }
   >>> .el-table__header th {
     background-color: #E5EFFA;
@@ -290,19 +317,6 @@
     font-size: 14px;
     color: #999;
   }
-  .positive {
-    color: #FF9D0D;
-    /* font-weight: bold; */
-    font-size: 14px;
-  }
-  .negtive {
-    color: #0BA76E;
-    /* font-weight: bold; */
-    font-size: 14px;
-  }
-  .pending {
-    opacity: .5;
-  }
   >>> .cell {
     position: relative;
   }
@@ -311,17 +325,6 @@
   }
   >>> .el-table .cell{
     font-size: 14px;
-  }
-  .text-pending {
-    font-size: 14px;
-    color: #333;
-    font-weight: normal;
-    position: absolute;
-    /* right: 0; */
-    margin-left: 15px;
-  }
-  .pagination-wrapper {
-    margin-top: 20px;
   }
   .pagination-wrapper >>> .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #419EFF;
@@ -341,5 +344,6 @@
   }
   >>> .el-table__empty-text{
     line-height: 40px;
+    padding-left: 10px;
   }
 </style>

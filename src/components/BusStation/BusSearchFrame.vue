@@ -188,7 +188,7 @@
                 <el-col :xs="24" class="passenger-people">
                   <div>
                     <i class="icon-child fa"></i>
-                    <span>Children</span>
+                    <span style="margin-left: 8px">Children</span>
                   </div>
                   <el-input-number
                     v-model="childrenNum"
@@ -226,7 +226,7 @@
       trigger="manual"
       ref="arrivalCityPopover"
       v-model="arrivalCityVisible"
-      content="Please select a arrival city"
+      content="Please select an arrival city"
       popper-class="tip_style"
     ></el-popover>
     <el-popover
@@ -583,8 +583,9 @@
     justify-items: center;
     height: 360px;
     position: relative;
-    background-size: 100% 100%;
     background-image: url("https://www.coachrun.com/client-resource/images/search-box-bg.png");
+    background-size: 100% 100%;
+    max-width: none!important;
   }
   >>> .fa {
     left: 5px!important;
@@ -696,26 +697,6 @@
   }
   >>> .el-input-number {
     float: right;
-  }
-  >>> .search-box-container input::-webkit-input-placeholder {
-    height:17px;
-    font-size:14px;
-    line-height:17px;
-  }
-  >>> .search-box-container input:-ms-input-placeholder {
-    height:17px;
-    font-size:14px;
-    line-height:17px;
-  }
-  >>> .search-box-container input::-moz-placeholder {
-    height:17px;
-    font-size:14px;
-    line-height:17px;
-  }
-  >>> .search-box-container input:-moz-placeholder {
-    height:17px;
-    font-size:14px;
-    line-height:17px;
   }
   >>> .search-table .el-icon-arrow-up:before {
     content: "\e78f";
@@ -1002,6 +983,9 @@
     max-width: 220px;
   }
   @media screen and (max-width: 991px){
+    .track-bus-btn {
+      padding: 0 3%;
+    }
     .search-city-col,.change-date-col,.change-passenger-col,.search-submit-col {
       max-width: none;
     }
@@ -1010,8 +994,8 @@
     }
     .search-box-frame {
       /* height: 232px; */
-      height: 210px;
-      padding-top: 50px;
+      height: 225px;
+      padding-top: 60px;
       display: flex;
       flex-direction: column-reverse;
     }
@@ -1028,13 +1012,16 @@
       margin-top: 0px;
       margin-bottom: 0px;
     }
+    .city_passenger,.change-date-div,.passenger-people {
+      margin-bottom: 10px;
+    }
   }
   @media screen and (max-width: 767px){
     .service {
       display: none!important;
     }
     .search-box-frame {
-      height: 351px;
+      height: 390px;
     }
   }
 </style>
@@ -1055,7 +1042,7 @@
   }
   .passenger-people>div span {
     color: #606266;
-    margin-left: 4px;
+    margin-left: 9px;
   }
   .passenger-people .el-input-number {
     height: 42px;
@@ -1066,6 +1053,13 @@
   }
 
   @media screen and (max-width: 991px){
+    .search-submit {
+      display: flex;
+      justify-content: center;
+    }
+    .search-submit button{
+      width: 100px!important;
+    }
     .arrive-city .el-select .el-input .el-input__suffix {
       right: 3px!important;
     }
@@ -1078,7 +1072,7 @@
       display: none!important;
     }
     .arrow img {
-      top: -12px!important;
+      top: -17px!important;
       left: -12px!important;
       transform: rotate(90deg);
     }
@@ -1092,16 +1086,19 @@
       display: none;
     }
     .arrive-city .el-select .el-input .el-input__inner {
-      padding-left: 39px!important;
+      padding-left: 34px!important;
     }
     .change-passenger {
       display: none!important;
     }
     .search-frame {
-      height: 410px;
+      height: 450px;
     }
     .passenger-people {
       display: flex;
+    }
+    .search-box .search-box-container {
+      padding: 0px 5%;
     }
   }
   @media screen and (min-width: 992px) and (max-width: 1200px){
@@ -1173,10 +1170,10 @@
     top: 9px;
   }
   .passenger-people .el-input-number>span.el-input-number__decrease {
-    left: 20px;
+    left: 40px;
   }
   .passenger-people .el-input-number>span.el-input-number__increase {
-    right: 20px;
+    right: 40px;
   }
   .passenger-people .el-input-number>div .el-input__inner{
     height: 40px;
@@ -1193,7 +1190,7 @@
   }
   @media screen and (max-width: 767px){
     .arrive-city .el-select .el-input .el-input__inner {
-      padding-left: 39px!important;
+      padding-left: 34px!important;
     }
     .return-date-cancel {
       right: 15px!important;
