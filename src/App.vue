@@ -5,7 +5,7 @@
       <router-view v-if="$route.meta.keepAlive"></router-view>
     </keep-alive>
     <router-view v-if="!$route.meta.keepAlive"></router-view>
-    <chat></chat>
+    <!-- <chat></chat> -->
     <my-footer></my-footer>
   </div>
 </template>
