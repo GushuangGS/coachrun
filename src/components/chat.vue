@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="ask-question-icon" v-hammer:pan="move" v-hammer:tap="chat_click" v-hammer:panend="onPanEnd">
+    <div class="ask-question-icon" v-hammer:pan="move" v-hammer:tap="chat_click">
       <i class="icon-chat"></i>
     </div>
     <div class="ask-question-slider" ref="chat">
@@ -19,7 +19,6 @@
     </div>
   </div>
 </template>
-
 <script>
 import $ from 'jquery'
 export default {
@@ -30,6 +29,9 @@ export default {
       loading_show:true,
       iframe_show:false
     };
+  },
+  created(){
+    console.log($(".ask-question-slider"))
   },
   methods: {
     load_finish(){
@@ -63,9 +65,6 @@ export default {
       icon.style.right = maxW - Left + "px";
       icon.style.bottom = maxH - Top + "px";
     },
-    onPanEnd(){
-
-    }
   }
 };
 </script>

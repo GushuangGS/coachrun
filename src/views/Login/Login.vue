@@ -59,6 +59,7 @@
 </template>
 
 <script>
+    import MobileDetect  from "mobile-detect"
     import VueCookie from 'vue-cookie';
     export default{
         name:'Login',
@@ -204,20 +205,19 @@
                 this.$router.push({name: 'Register'});
             },
             // facebook_login(){
+            //     var md = new MobileDetect(window.navigator.userAgent);
             //     var provider = new this.firebase.auth.FacebookAuthProvider();
             //     provider.addScope('email');
             //     provider.addScope('public_profile');
             //     var auth=this.firebase.auth();
-            //     // var d = new Device()
-            //     if(false){
+            //     if(md.mobile()){
             //         auth.signInWithRedirect(provider);
             //         auth.getRedirectResult().then(function(result) {
             //             result.user.getIdToken(false).then(function(idToken) {
             //                 console.log(idToken,result);
             //             }).catch(function(error) {
             //             });
-            //         }).catch(function(error) {
-                    
+            //         }).catch(function(error) {                   
             //         });
             //     }else{
             //         auth.signInWithPopup(provider).then(function(result) {
@@ -226,25 +226,22 @@
             //             }).catch(function(error) {
             //             });
             //         }).catch(function(error) {
-
             //         });
             //     }
-          
-
             // },
+
             // google_login(){
+            //     var md = new MobileDetect(window.navigator.userAgent);
             //     var provider = new this.firebase.auth.GoogleAuthProvider();
             //     var auth=this.firebase.auth();
-            //     // var d = new Device()
-            //     if(false){
+            //     if(md.mobile()){
             //         auth.signInWithRedirect(provider);
             //         auth.getRedirectResult().then(function(result) {
             //             result.user.getIdToken(false).then(function(idToken) {
             //                 console.log(idToken,result);
             //             }).catch(function(error) {
             //             });
-            //         }).catch(function(error) {
-                    
+            //         }).catch(function(error) {                  
             //         });
             //     }else{
             //         auth.signInWithPopup(provider).then(function(result) {
@@ -253,7 +250,6 @@
             //             }).catch(function(error) {
             //             });
             //         }).catch(function(error) {
-
             //         });
             //     }
             // }
