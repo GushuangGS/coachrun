@@ -30,9 +30,6 @@ export default {
       iframe_show:false
     };
   },
-  created(){
-    console.log($(".ask-question-slider"))
-  },
   methods: {
     load_finish(){
       this.iframe_show=true
@@ -41,7 +38,6 @@ export default {
       }
     },
     chat_click() {
-      console.log(1)
       this.chat_url = "https://www.coachrun.com/chat/live-coachrun.html";
       this.$refs.chat.style.display="block";
     },

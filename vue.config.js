@@ -21,7 +21,7 @@ module.exports = {
     }
   },
   configureWebpack: config => {
-    if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'sandbox') {
+    if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'sandbox' || process.env.NODE_ENV === 'development') {
       return {
         plugins: [new CompressionPlugin({
             test: /\.js$|\.htm$|\.css/,
@@ -29,7 +29,9 @@ module.exports = {
             deleteOriginalAssets: false
           }),
           new webpack.ProvidePlugin({
-            $: 'jquery'
+            $:"jquery",
+            jQuery:"jquery",
+            "windows.jQuery":"jquery"
           })
         ]
       }
