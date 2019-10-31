@@ -21,6 +21,7 @@
 </template>
 <script>
 import $ from 'jquery'
+import MobileDetect  from "mobile-detect"
 export default {
   data() {
     return {
@@ -38,8 +39,12 @@ export default {
       }
     },
     chat_click() {
+      var md = new MobileDetect(window.navigator.userAgent);
       this.chat_url = "https://www.coachrun.com/chat/live-coachrun.html";
       this.$refs.chat.style.display="block";
+      if(md.mobile()){
+        document.getElementsByTagName("body")[0].style.overflow="hidden"
+      }
     },
     move(e) {
       var icon = document.querySelector(".ask-question-icon");
