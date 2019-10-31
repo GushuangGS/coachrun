@@ -3,7 +3,7 @@
     <div class="ask-question-icon" v-hammer:pan="move" v-hammer:tap="chat_click">
       <i class="icon-chat"></i>
     </div>
-    <div class="ask-question-slider" ref="chat">
+    <div class="ask-question-slider" ref="chat" id="ask-question-slider">
       <div class="loading" v-show="loading_show">
         <img src="@/assets/large-loading.gif" />
       </div>
