@@ -16,7 +16,7 @@
             </div> -->
             <el-button native-type="submit" @click.native.prevent="login" class="login-btn uiButtonBackground">Log In</el-button>
        </el-form>
-       <!-- <div class="line">
+       <div class="line">
            <span class="line-left"></span>
            <span class="line-title">or</span>
            <span class="line-right"></span>
@@ -34,8 +34,8 @@
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
            <span class="to-register" @click="gotoRegister">Register</span>
-       </div> -->
-       <div class="hr"></div>
+       </div>
+       <!-- <div class="hr"></div>
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
            <span class="to-register" @click="gotoRegister">Register</span>
@@ -53,7 +53,7 @@
                 <img class="intro-img" src="@/assets/chechkouts.png" alt="">
                 <span class="intro-info">Faster Checkouts</span>
             </div>  
-       </div>
+       </div> -->
     </div>
     </div>
 </template>
@@ -84,6 +84,22 @@
         created(){
             if(this.$route.path.indexOf('logout')!=-1 && VueCookie.get('IvyCustomer_LoginCookie')){
                 this.logout();
+            }
+            var md = new MobileDetect(window.navigator.userAgent);
+            var auth=this.firebase.auth();
+            if(md.mobile()){
+                auth.getRedirectResult().then((result)=> {
+                    result.user.getIdToken(true).then((idToken)=> {
+                        console.log(idToken,result);
+                        if(result.additionalUserInfo.providerId == "google.com"){
+                            this.httpLogin(1,idToken,result);
+                        }else if(result.additionalUserInfo.providerId == "facebook.com"){
+                            this.httpLogin(3,idToken,result);
+                        }
+                    }).catch(function(error) {
+                    });
+                }).catch(function(error) {                   
+                });
             }
         },
         methods:{
@@ -138,6 +154,7 @@
                 // }
             },
             login(){
+                console.log('login')
                 // console.log(this.item);//true 则选择记住密码
                 this.$refs.loginForm.validate((valid)=>{
                     if (valid){
@@ -146,7 +163,7 @@
                             .then((data) => {
                                 console.log(data);
                                 if(data.data.code==200){
-                                    this.pageUrl = this.getId("pageUrl");
+                                    // this.pageUrl = this.getId("pageUrl");
                                     
                                     let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
                                     if(loginCookie == undefined) return
@@ -162,33 +179,34 @@
                                         }
                                     }
                                     console.log(process.env.NODE_ENV);
-                                    if (process.env.NODE_ENV == 'development'){
-                                        localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
-                                        localStorage.setItem("loginName", data.data.data.user.email);
-                                        if(this.pageUrl){
-                                            window.location.href = this.pageUrl;
-                                        }else{
-                                            this.$router.push({name: 'MyOrders'});
-                                        }
-                                    }else if(process.env.NODE_ENV == 'sandbox'){
-                                        if(this.pageUrl){
-                                            window.location.href = this.pageUrl;
-                                        }else{
-                                            this.$router.push({name: 'MyOrders'});
-                                        }
-                                    }else{
-                                        if(this.pageUrl){
-                                            window.location.href = this.pageUrl;
-                                        }else{
-                                            if(VueCookie.get('IvyCustomer_role')>=3){
-                                                window.location.href = 'https://www.coachrun.com/app/member/account';
-                                            }else{
-                                                this.$router.push({name: 'MyOrders'});
-                                            }
-                                        }
-                                    }
-                                    this.$cookie.set('front-sessionId', data.data.data.user.id);
-                                    this.$store.commit('login'); 
+                                    this.processEnv(data);
+                                    // if (process.env.NODE_ENV == 'development'){
+                                    //     localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                                    //     localStorage.setItem("loginName", data.data.data.user.email);
+                                    //     if(this.pageUrl){
+                                    //         window.location.href = this.pageUrl;
+                                    //     }else{
+                                    //         this.$router.push({name: 'MyOrders'});
+                                    //     }
+                                    // }else if(process.env.NODE_ENV == 'sandbox'){
+                                    //     if(this.pageUrl){
+                                    //         window.location.href = this.pageUrl;
+                                    //     }else{
+                                    //         this.$router.push({name: 'MyOrders'});
+                                    //     }
+                                    // }else{
+                                    //     if(this.pageUrl){
+                                    //         window.location.href = this.pageUrl;
+                                    //     }else{
+                                    //         if(VueCookie.get('IvyCustomer_role')>=3){
+                                    //             window.location.href = 'https://www.coachrun.com/app/member/account';
+                                    //         }else{
+                                    //             this.$router.push({name: 'MyOrders'});
+                                    //         }
+                                    //     }
+                                    // }
+                                    // this.$cookie.set('front-sessionId', data.data.data.user.id);
+                                    // this.$store.commit('login'); 
 
                                 }else if(data.data.code==500){
                                     this.$message({
@@ -204,55 +222,96 @@
             gotoRegister(){
                 this.$router.push({name: 'Register'});
             },
-            // facebook_login(){
-            //     var md = new MobileDetect(window.navigator.userAgent);
-            //     var provider = new this.firebase.auth.FacebookAuthProvider();
-            //     provider.addScope('email');
-            //     provider.addScope('public_profile');
-            //     var auth=this.firebase.auth();
-            //     if(md.mobile()){
-            //         auth.signInWithRedirect(provider);
-            //         auth.getRedirectResult().then(function(result) {
-            //             result.user.getIdToken(false).then(function(idToken) {
-            //                 console.log(idToken,result);
-            //             }).catch(function(error) {
-            //             });
-            //         }).catch(function(error) {                   
-            //         });
-            //     }else{
-            //         auth.signInWithPopup(provider).then(function(result) {
-            //             result.user.getIdToken(false).then(function(idToken) {
-            //                 console.log(idToken,result);
-            //             }).catch(function(error) {
-            //             });
-            //         }).catch(function(error) {
-            //         });
-            //     }
-            // },
+            facebook_login(){
+                var md = new MobileDetect(window.navigator.userAgent);
+                var provider = new this.firebase.auth.FacebookAuthProvider();
+                provider.addScope('email');
+                provider.addScope('public_profile');
+                var auth=this.firebase.auth();
+                if(md.mobile()){
+                    auth.signInWithRedirect(provider);
+                }else{
+                    auth.signInWithPopup(provider).then((result)=> {
+                        result.user.getIdToken(true).then((idToken)=> {
+                            console.log(idToken,result);
+                            this.httpLogin(3,idToken,result);
+                        }).catch(function(error) {
+                        });
+                    }).catch(function(error) {
+                    });
+                }
+            },
 
-            // google_login(){
-            //     var md = new MobileDetect(window.navigator.userAgent);
-            //     var provider = new this.firebase.auth.GoogleAuthProvider();
-            //     var auth=this.firebase.auth();
-            //     if(md.mobile()){
-            //         auth.signInWithRedirect(provider);
-            //         auth.getRedirectResult().then(function(result) {
-            //             result.user.getIdToken(false).then(function(idToken) {
-            //                 console.log(idToken,result);
-            //             }).catch(function(error) {
-            //             });
-            //         }).catch(function(error) {                  
-            //         });
-            //     }else{
-            //         auth.signInWithPopup(provider).then(function(result) {
-            //             result.user.getIdToken(false).then(function(idToken) {
-            //                 console.log(idToken,result);
-            //             }).catch(function(error) {
-            //             });
-            //         }).catch(function(error) {
-            //         });
-            //     }
-            // }
+            google_login(){//gushuang0@gmail.com
+                var md = new MobileDetect(window.navigator.userAgent);
+                var provider = new this.firebase.auth.GoogleAuthProvider();
+                var auth=this.firebase.auth();
+                if(md.mobile()){
+                    auth.signInWithRedirect(provider);
+                    // auth.getRedirectResult().then((result)=> {
+                    //     result.user.getIdToken(true).then((idToken)=> {
+                    //         console.log(idToken,result);
+                    //         this.httpLogin(1,idToken,result);
+                    //     }).catch((error)=> {
+                    //     });
+                    // }).catch((error)=> {                  
+                    // });
+                }else{
+                    auth.signInWithPopup(provider).then((result)=> {
+                        result.user.getIdToken(true).then((idToken)=> {
+                            console.log(idToken,result);
+                            this.httpLogin(1,idToken,result);
+                        }).catch((error)=> {
+                        });
+                    }).catch((error)=> {
+                    });
+                }
+            },
+
+            httpLogin(linkType,idToken,result){
+                this.$http.post(this.$api.loginWithProvider,
+                    { linkType: linkType, firebaseToken:idToken,result:result})
+                    .then((data)=>{
+                        console.log(data);
+                        if(data.data.code==200){
+                            this.processEnv(data);
+                        }
+                    })
+                // axios.post('http://sandbox.gotobus.com/api/users/login-with-provider',{linkType: linkType,firebaseToken:idToken,result:result})
+                //     .then((data)=>{
+                //         console.log(data);
+                //     })
+            },
+            processEnv(data){
+                this.pageUrl = this.getId("pageUrl");
+                if (process.env.NODE_ENV == 'development'){
+                    localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
+                    localStorage.setItem("loginName", data.data.data.user.email);
+                    if(this.pageUrl){
+                        window.location.href = this.pageUrl;
+                    }else{
+                        this.$router.push({name: 'MyOrders'});
+                    }
+                }else if(process.env.NODE_ENV == 'sandbox'){
+                    if(this.pageUrl){
+                        window.location.href = this.pageUrl;
+                    }else{
+                        this.$router.push({name: 'MyOrders'});
+                    }
+                }else{
+                    if(this.pageUrl){
+                        window.location.href = this.pageUrl;
+                    }else{
+                        if(VueCookie.get('IvyCustomer_role')>=3){
+                            window.location.href = 'https://www.coachrun.com/app/member/account';
+                        }else{
+                            this.$router.push({name: 'MyOrders'});
+                        }
+                    }
+                }
+                this.$cookie.set('front-sessionId', data.data.data.user.id);
+                                    this.$store.commit('login');
+            }
         }
     }
 </script>

@@ -32,6 +32,8 @@ export default {
     guestRequest:'api/users/guest-bookings/request-reclaim',
     guestSubmit:'api/users/guest-bookings/submit-reclaim',
     //authorization
-    authorization:'api/users/authorization'
+    authorization:'api/users/authorization',
+    //loginWithProvider
+    loginWithProvider:'api/users/login-with-provider'
   };
   
