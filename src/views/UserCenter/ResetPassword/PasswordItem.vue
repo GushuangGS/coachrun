@@ -190,6 +190,8 @@
             background: #eeeeee;
             /* margin-top: 20px; */
             padding: 50px;
+            height: 610px;
+            padding: 85px;
         }
         .wrap{
             margin: 0px auto;
