@@ -16,7 +16,7 @@
             </div> -->
             <el-button native-type="submit" @click.native.prevent="login" class="login-btn uiButtonBackground">Log In</el-button>
        </el-form>
-       <!-- <div class="line">
+       <div class="line">
            <span class="line-left"></span>
            <span class="line-title">or</span>
            <span class="line-right"></span>
@@ -34,8 +34,8 @@
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
            <span class="to-register" @click="gotoRegister">Register</span>
-       </div> -->
-       <div class="hr"></div>
+       </div>
+       <!-- <div class="hr"></div>
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
            <span class="to-register" @click="gotoRegister">Register</span>
@@ -53,7 +53,7 @@
                 <img class="intro-img" src="@/assets/chechkouts.png" alt="">
                 <span class="intro-info">Faster Checkouts</span>
             </div>  
-       </div>
+       </div> -->
     </div>
     </div>
 </template>
@@ -257,6 +257,14 @@
                     // }).catch((error)=> {                  
                     // });
                 }else{
+                    // this.$loading({
+                    //     lock: true,
+                    //     text: 'Loading',
+                    //     spinner: 'el-icon-loading',
+                    //     background: 'rgba(0, 0, 0, 0.7)',
+                    //     target: document.querySelector('.google-login')
+                    // });
+                    // loading.close();
                     auth.signInWithPopup(provider).then((result)=> {
                         result.user.getIdToken(true).then((idToken)=> {
                             console.log(idToken,result);
