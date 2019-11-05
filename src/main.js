@@ -34,6 +34,15 @@ Vue.prototype.firebase = firebase
 
 import { VueHammer } from 'vue2-hammer'
 Vue.use(VueHammer)
+
+import VueMatomo from 'vue-matomo'
+Vue.use(VueMatomo,{
+  host: 'https://owa.taketours.com/piwik/',
+  siteId: 34,
+  trackerFileName: 'piwik',
+  router: router
+})
+
 // Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
 Vue.use(VuePhoneNumberInput);
