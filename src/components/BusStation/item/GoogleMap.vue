@@ -1,5 +1,5 @@
 <template>
-    <div id="google-map" style="padding: 20px;height: 100%;"></div>
+  <div id="google-map" style="padding: 3%;height: 100%;"></div>
 </template>
 <script>
   import country from "../../../configs/country.json"
@@ -25,7 +25,7 @@
       this.getCountry(country)
     },
     methods:{
-       getCountry(data) {
+      getCountry(data) {
         let newdata = {}
         for (let n in data) {
           let item = data[n]
@@ -89,10 +89,10 @@
   }
 </script>
 <style>
->>> .gm-style{
-  font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
-}
-.gm-style .gm-style-iw {
+  >>> .gm-style{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  .gm-style .gm-style-iw {
     font-weight: 400!important;
-}
+  }
 </style>

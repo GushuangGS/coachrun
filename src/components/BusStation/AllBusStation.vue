@@ -4,12 +4,12 @@
     <el-main class="flex">
       <!-- <ul class="station-list">
         <li is="BusStationItem" v-for="(item,index) in city.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
-        
+
       </ul> -->
       <el-row :gutter="10">
         <el-col :xs="24" :sm="12" class="station-list">
           <li is="BusStationItem" v-for="(item,index) in city.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
-          
+
         </el-col>
         <el-col :xs="24" :sm="12" class="station-list">
           <li is="BusStationItem" v-for="(item,index) in city2.city" @show="showMap" :station-item="item.items" :key="index" :city-name="item.cityname"></li>
@@ -19,8 +19,8 @@
     <el-dialog
       :title="title"
       :visible.sync="dialogVisible"
-      width="680px"
-      height="538px"
+      width="90vw"
+      height="80vw"
       :before-close="closeDialog"
     >
       <google-map-item ref="googlemap" :positions="positions" :index="index"></google-map-item>
@@ -39,17 +39,20 @@
         default:[{city:[]},{city:[]}]
       }
     },
+    mounted(){
+      console.log(this.items,1)
+    },
     computed:{
-      
+
     },
     watch:{
       items(){
-          if(this.items.length>0){
+        if(this.items.length>0){
           this.city = this.items[0];
-      }
-      if(this.items.length>1){
-        this.city2 = this.items[1];
-      }
+        }
+        if(this.items.length>1){
+          this.city2 = this.items[1];
+        }
       }
     },
     data() {
@@ -110,17 +113,16 @@
   .flex {
     display: flex;
   }
-
-  >>> .el-message-box {
-    width: 680px;
-    height: 538px;
-  }
   >>> .el-dialog {
     background: transparent;
+    height: 80vw;
+    max-width: 680px;
+    max-height: 552px;
   }
   >>> .el-dialog__header {
     padding: 0px;
-    height: 54px;
+    height: 10%;
+    max-height: 54px;
     background:#f2f2f2;
     display: flex;
     align-items: center;
@@ -129,6 +131,8 @@
     font-weight: bold;
     border-top-left-radius: 4px;
     border-top-right-radius: 4px;
+    align-items: center;
+    justify-content: space-between;
   }
   >>> .el-dialog__title {
     height:20px;
@@ -141,13 +145,16 @@
   >>> .el-dialog__headerbtn {
     height: 16px;
     width: 16px;
+    position: static!important;
+    margin-right: 3%;
   }
   >>> .el-icon-close {
     font-size: 16px;
   }
   >>> .el-dialog__body {
     background: white;
-    height: 498px;
+    height: 90%;
+    max-height: 498px;
     padding: 0px;
   }
 </style>
@@ -169,7 +176,7 @@
     }
   }
 </style>
-<style scoped> 
+<style scoped>
   @media screen and (max-width:768px){
     .el-dialog {
       width: 70% !important;
@@ -178,7 +185,7 @@
 
   @media screen and (min-width:768px) and (max-width:769px){
     .el-col-sm-12 {
-        width: 100% !important;
+      width: 100% !important;
     }
   }
 
