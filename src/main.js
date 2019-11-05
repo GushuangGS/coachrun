@@ -26,7 +26,7 @@ import "firebase/auth";
 // ---------fir-coachrun.firebaseapp.com------------
 var firebaseConfig = {
   apiKey: "AIzaSyBBcB6htx6yN66aYrzE8yNgaqwcntPZX2c",
-  authDomain: "auth.coachrun.com"
+  authDomain: "fir-coachrun.firebaseapp.com"
 }
 firebase.initializeApp(firebaseConfig)
 Vue.prototype.firebase = firebase
