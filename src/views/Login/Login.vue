@@ -22,13 +22,14 @@
            <span class="line-right"></span>
        </div>
        <div class="other-login">
-           <div class="google-login" @click="google_login">
-               <img src="@/assets/google.png" alt="">
-                <span>Google</span>
-           </div>
            <div class="facebook-login" @click="facebook_login">
-               <img src="@/assets/facebook.png" alt="">
+               <!-- <img src="@/assets/facebook.png" alt=""> -->
+               <i class="icon-facebook-official facebook-icon"></i>
                <span>Facebook</span>
+           </div>
+           <div class="google-login" @click="google_login">
+                <img src="@/assets/google.png" alt="">
+                <span>Google</span>
            </div>
        </div>
        <div class="register">
@@ -462,22 +463,21 @@
         justify-content: center;
         cursor: pointer;
     }
-    .google-login{
+    .google-login,.facebook-login{
         border:1px solid #DFDFDF;
-    }
-    .facebook-login{
-        background: #3B5998;
-        border:1px solid;
     }
     .google-login>img,.facebook-login>img{
         margin-right: 11px;
+        width: 18px;
+        height: 18px;
     }
-    .google-login>span{
+    .google-login>span,.facebook-login>span{
         color: #333;
         font-size: $Body2Size;
     }
-    .facebook-login>span{
-        color: #ffffff;
-        font-size: $Body2Size;
+    .facebook-icon{
+        color: #3B5998;
+        font-size: 18px;
+        margin-right: 11px;
     }
 </style>
