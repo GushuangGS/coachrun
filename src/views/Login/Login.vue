@@ -22,15 +22,22 @@
            <span class="line-right"></span>
        </div>
        <div class="other-login">
-           <div class="facebook-login" @click="facebook_login">
-               <!-- <img src="@/assets/facebook.png" alt=""> -->
+           <!-- <div class="facebook-login" @click="facebook_login">
                <i class="icon-facebook-official facebook-icon"></i>
                <span>Facebook</span>
            </div>
            <div class="google-login" @click="google_login">
                 <img src="@/assets/google.png" alt="">
                 <span>Google</span>
-           </div>
+           </div> -->
+           <el-button class="facebook-login" @click="facebook_login" :disabled="disabledFb">
+               <i class="icon-facebook-official facebook-icon"></i>
+               <span class="fb-font">Facebook</span>
+           </el-button>
+           <el-button class="google-login" @click="google_login" :disabled="disabledGg">
+                <img class="googl-img" src="@/assets/google.png" alt="">
+                <span class="gg-font">Google</span>
+           </el-button>
        </div>
        <div class="register">
            <span class="register-info">Not a CoachRun member?</span>
@@ -80,6 +87,9 @@
                 userId:'',
                 pageUrl:'',
                 err:'',
+                loading:Object,
+                disabledFb:false,
+                disabledGg:false
             }
         },
         created(){
@@ -97,9 +107,9 @@
                         }else if(result.additionalUserInfo.providerId == "facebook.com"){
                             this.httpLogin(3,idToken,result);
                         }
-                    }).catch(function(error) {
+                    }).catch((error)=> {
                     });
-                }).catch(function(error) {                   
+                }).catch((error)=> {               
                 });
             }
         },
@@ -232,13 +242,21 @@
                 if(md.mobile()){
                     auth.signInWithRedirect(provider);
                 }else{
+                    this.openFullScreenFacebook();
+                    this.disabledFb = true;
                     auth.signInWithPopup(provider).then((result)=> {
                         result.user.getIdToken(true).then((idToken)=> {
                             console.log(idToken,result);
+                            this.disabledFb = false;
+                            this.closeFullScreen();
                             this.httpLogin(3,idToken,result);
-                        }).catch(function(error) {
+                        }).catch((error)=> {
+                            this.disabledFb = false;
+                            this.closeFullScreen();
                         });
-                    }).catch(function(error) {
+                    }).catch((error)=> {
+                        this.disabledFb = false;
+                        this.closeFullScreen();
                     });
                 }
             },
@@ -258,30 +276,45 @@
                     // }).catch((error)=> {                  
                     // });
                 }else{
+                    this.openFullScreenGoogle();
+                    this.disabledGg = true;
                     auth.signInWithPopup(provider).then((result)=> {
                         result.user.getIdToken(true).then((idToken)=> {
                             console.log(idToken,result);
+                            this.disabledGg = false;
+                            this.closeFullScreen();
                             this.httpLogin(1,idToken,result);
                         }).catch((error)=> {
+                            this.disabledGg = false;
+                            this.closeFullScreen();
                         });
                     }).catch((error)=> {
+                        this.disabledGg = false;
+                        this.closeFullScreen();
                     });
                 }
             },
-            openFullScreen(){
-                const loading =this.$loading({
+            openFullScreenGoogle(){
+                this.loading =this.$loading({
                     lock: true,
-                    text: 'Loading',
                     spinner: 'el-icon-loading',
-                    background: 'rgba(0, 0, 0, 0.7)',
+                    background: '#fff',
                     target: document.querySelector('.google-login')
                 });
-                return loading;
+                return this.loading;
             },
-            closeFullScreen(loading){
-                    loading.close();
+            openFullScreenFacebook(){
+                this.loading =this.$loading({
+                    lock: true,
+                    spinner: 'el-icon-loading',
+                    background: '#fff',
+                    target: document.querySelector('.facebook-login')
+                });
+                return this.loading;
             },
-
+            closeFullScreen(){
+                this.loading.close();
+            },
             httpLogin(linkType,idToken,result){
                 this.$http.post(this.$api.loginWithProvider,
                     { linkType: linkType, firebaseToken:idToken,result:result})
@@ -291,10 +324,6 @@
                             this.processEnv(data);
                         }
                     })
-                // axios.post('http://sandbox.gotobus.com/api/users/login-with-provider',{linkType: linkType,firebaseToken:idToken,result:result})
-                //     .then((data)=>{
-                //         console.log(data);
-                //     })
             },
             processEnv(data){
                 this.pageUrl = this.getId("pageUrl");
@@ -462,16 +491,17 @@
         align-items: center;
         justify-content: center;
         cursor: pointer;
+        position: relative;
     }
     .google-login,.facebook-login{
         border:1px solid #DFDFDF;
     }
-    .google-login>img,.facebook-login>img{
+    .googl-img{
         margin-right: 11px;
         width: 18px;
         height: 18px;
     }
-    .google-login>span,.facebook-login>span{
+    .fb-font,.gg-font{
         color: #333;
         font-size: $Body2Size;
     }
@@ -479,5 +509,14 @@
         color: #3B5998;
         font-size: 18px;
         margin-right: 11px;
+    }
+</style>
+<style scoped>
+    >>> .google-login>span{
+        display: flex;
+        align-items: center;
+    }
+    >>> .el-loading-spinner{
+        top: 90%;
     }
 </style>
