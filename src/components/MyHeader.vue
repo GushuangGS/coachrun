@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i>
-    <el-drawer :size="'70%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose" custom-class="dd">
+    <el-drawer :size="'70%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose" custom-class="show-drawer">
       <nav class="navbar">
         <div class="user-header-box">
           <div class="nav-not-login" v-if="!$store.state.isLogin">
@@ -310,7 +310,6 @@ export default {
   justify-content: space-between;
   padding: 0 15px;
 }
-
 .logo {
   width: 132px;
   height: 26px;
@@ -596,5 +595,8 @@ nav {
   transform: none;
   padding: 0px;
   border: 0px;
+}
+.show-drawer{
+  max-width: 300px;
 }
 </style>
