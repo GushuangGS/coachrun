@@ -495,7 +495,8 @@
         justify-content: space-between;
     }
     .google-login,.facebook-login{
-        width: 156px;
+        // width: 156px;
+        width: 48%;
         height: 40px;
         border-radius: 4px;
         display: flex;
