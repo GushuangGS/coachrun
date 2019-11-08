@@ -95,6 +95,16 @@
   .section {
     margin: 0 auto 60px;
   }
+  @media screen and (max-width: 767px){
+    .section {
+      margin: 0 auto 40px;
+    }
+  }
+  @media screen and (max-width: 414px){
+    .section {
+      margin: 0 auto 30px;
+    }
+  }
   .ellipsis{
     overflow: hidden;
     text-overflow:ellipsis;

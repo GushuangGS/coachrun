@@ -16,57 +16,6 @@
     name:"SectionTitle"
   }
 </script>
-<!-- <style lang="scss" scoped>
-  .section {
-    margin: 0 auto 60px;
-  }
-  .ellipsis{
-    overflow: hidden;
-    text-overflow:ellipsis;
-    white-space: nowrap;
-  }
-  ul{
-    list-style: none;
-    padding: 0px;
-  }
-  body {
-    padding: 0px;
-  }
-  .flex {
-    display: flex;
-  }
-
-  .el-header {
-    padding-bottom: 30px;
-  }
-  ul{
-    list-style: none;
-    padding: 0px;
-  }
-  .title {
-    display: flex;
-    justify-content:space-between;
-    align-items: center;
-    height: 20px!important;
-  }
-  .line-title {
-    font-size:18px;
-    font-weight: 500;
-    color:#333;
-    height: 20px;
-    line-height: 20px;
-  }
-  .line-left {
-    width:400px;
-    height:1.1px;
-    background:linear-gradient(270deg,rgba(255,201,30,1) 0%,rgba(255,153,13,0) 100%);
-  }
-  .line-right {
-    width:400px;
-    height:1.1px;
-    background:linear-gradient(90deg,rgba(255,201,30,1) 0%,rgba(255,153,13,0) 100%);
-  }
-</style> -->
 <style lang="scss" scoped>
     .el-header {
       padding: 0px!important;
@@ -102,7 +51,7 @@
     }
   </style>
   <style scoped>
-    @media screen and (max-width: 768px) {
+    @media screen and (max-width: 767px) {
       .line-title {
         font-size: 18px;
       }
@@ -111,11 +60,18 @@
       }
       .title{
         justify-content: center;
+        margin-bottom: 20px;
       }
     }
     @media screen and (max-width: 991px){
       .line-left,.line-right{
         width:28%;
+      }
+    }
+
+    @media screen and (max-width: 414px) {
+      .title {
+        margin-bottom: 15px;
       }
     }
   </style>

@@ -1,16 +1,16 @@
 <template>
   <div class="header">
     <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i>
-    <el-drawer :size="'63%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose">
+    <el-drawer :size="'70%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose" custom-class="dd">
       <nav class="navbar">
         <div class="user-header-box">
           <div class="nav-not-login" v-if="!$store.state.isLogin">
             <img src="@/assets/sidebar-notlogin.png">
-            <p><a href="/render/user/login" style="color: #232323;">Login | Resigter</a></p>
+            <p><a href="/render/user/login" style="color: #232323;">Login | Register</a></p>
           </div>
           <div class="nav-login" v-else>
             <div class="row">
-              <img class="headImg" src="@/assets/sidebar-login.png" />
+              <img class="headImg" src="@/assets/home_head.png" />
               <div class="userDisplay" v-if="getUserName()">
                 <span class="userName">{{getUserName()}}</span>
                 <span class="userEmail">{{getUserEmail()}}</span>
@@ -30,7 +30,7 @@
             <div class="sidebar-content">
               <a>
                 <img src="@/assets/sidebar-home.png">
-                <p>Home</p>
+                <span>Home</span>
               </a>
             </div>
           </div>
@@ -38,7 +38,7 @@
             <div class="sidebar-content">
               <a href="/bus-stations">
                 <img src="@/assets/sidebar-bus-station.png">
-                <p>Bus Stations</p>
+                <span>Bus Stations</span>
               </a>
             </div>
           </div>
@@ -46,7 +46,7 @@
             <div class="sidebar-content">
               <a href="https://www.gotocharter.com">
                 <img src="@/assets/sidebar-bus-rental.png">
-                <p>Bus Rental</p>
+                <span>Bus Rental</span>
               </a>
             </div>
           </div>
@@ -54,7 +54,7 @@
             <div class="sidebar-content">
               <a href="https://www.coachrun.com/track-bus-status/">
                 <img src="@/assets/sidebar-track-bus-status.png">
-                <p>Track Bus Status</p>
+                <span>Track Bus Status</span>
               </a>
             </div>
           </div>
@@ -62,7 +62,7 @@
             <div class="sidebar-content">
               <a href="https://www.coachrun.com/hotels/">
                 <img src="@/assets/sidebar-hotel.png">
-                <p>Hotels</p>
+                <span>Hotels</span>
               </a>
             </div>
           </div>
@@ -70,7 +70,7 @@
             <div class="sidebar-content">
               <a href="https://www.coachrun.com/ticket-policy/">
                 <img src="@/assets/sidebar-ticket-policy.png">
-                <p>Ticket Policy</p>
+                <span>Ticket Policy</span>
               </a>
             </div>
           </div>
@@ -78,7 +78,7 @@
             <div class="sidebar-content" @click="logout">
               <a>
                 <img src="@/assets/sidebar-logout.png">
-                <p>Log Out</p>
+                <span>Log Out</span>
               </a>
             </div>
           </div>
@@ -430,7 +430,7 @@ export default {
   }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 767px) {
   .xs-hidden {
     display: none;
   }
@@ -440,7 +440,15 @@ export default {
     display: block !important;
   }
   .header{
-    height: 56px;
+    height: 44px;
+    padding: 0 7px;
+  }
+  .logo {
+    height: 20px;
+    width: auto;
+  }
+  .logo img {
+    height: 20px;
   }
   html{
     overflow-y: hidden !important;
@@ -464,12 +472,12 @@ nav {
   }
 
   .user-header-box {
-    padding: 27px 0px 27px 18px;
     background-color: #f2f2f2;
     font-size: $SubheadlineSize;
     color: #232323;
 
     .nav-not-login {
+      padding: 32px 0px 32px 6%;
       display: flex;
       align-items: center;
       height: 100%;
@@ -480,50 +488,55 @@ nav {
       flex-direction: column;
       justify-content: flex-start;
       align-content: center;
-
+      padding: 20px 0px 0px 6%;
       .row {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-
+        img {
+          height: 24px!important;
+          width: 24px!important;
+        }
         .userDisplay {
           display: flex;
           flex-direction: column;
-          padding-left: 16px;
+          padding-left: 8px;
 
           .userName {
-            font-size: $SubheadlineSize;
+            height: 18px;
+            font-size: 16px;
             font-weight: bold;
             color: #333333;
           }
 
           .userEmail {
-            font-size: 16px;
+            height: 14px;
+            font-size: 14px;
             color: #999999;
           }
         }
 
         .accountButton {
           width: 40%;
-          height: 40px;
-          font-size: $SubheadlineSize;
+          height: 28px;
+          font-size: 14px;
           color: white;
-          margin-top: 31px;
+          margin: 15.5px 0px;
           background-color: #00a2ff;
-          border-radius: 8px;
+          border-radius: 4px;
           border-width: 0;
         }
 
         .bookingButton {
           width: 40%;
-          height: 40px;
+          height: 28px;
           background-color: #fff;
-          font-size: $SubheadlineSize;
-          margin-top: 31px;
-          margin-left: 10%;
-          border-radius: 8px;
+          font-size: 14px;
+          margin: 15.5px 0px 15.5px 21px;
+          border-radius: 4px;
           border-width: 0;
+          color: #00a2ff;
         }
       }
     }
@@ -535,6 +548,7 @@ nav {
 
     p {
       padding-left: 8px;
+      margin: 0px!important;
     }
   }
 
@@ -543,13 +557,14 @@ nav {
       display: flex;
       height: 50px;
       align-items: center;
-      padding-left: 21px;
+      padding-left: 6%;
 
-      p {
+      span {
         color: #2c3e50;
         text-decoration: none;
         font-size: $Body1Size;
         margin-left: 13px;
+        height: 16px;
       }
 
       img {

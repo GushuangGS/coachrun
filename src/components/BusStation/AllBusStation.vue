@@ -190,3 +190,16 @@
   }
 
 </style>
+<style scoped>
+  @media screen and (max-width: 767px){
+    .el-main {
+      padding: 0 3.2% !important;
+    }
+    .station-list {
+      padding: 0px!important;
+    }
+    .station-list>li {
+      margin-bottom: 0px!important;
+    }
+  }
+</style>
