@@ -17,7 +17,6 @@ import 'ele-calendar/dist/vue-calendar.css' //引入css
 // 引入font-awesome图标字体
 import 'font-awesome/css/font-awesome.min.css'
 import './styles/css/index.css'
-
 import './styles/common.css'
 
 import * as firebase from "firebase/app";
@@ -42,36 +41,8 @@ Vue.use(VueMatomo,{
   trackerFileName: 'piwik',
   router: router
 })
-//bus station
-import {Field, Stepper, Popup, Search, List, Cell, Button, Toast} from 'vant';
-Vue.use(Field).use(Stepper).use(Popup).use(Search).use(List).use(Cell).use(Button)
-  .use(Toast)
-import 'vant/lib/index.css';
-// Vue.use(Vant);
-import ivyCompanyBase from 'ivy-company-base'
-Vue.use(ivyCompanyBase)
-import * as VueGoogleMaps from 'vue2-google-maps'
-Vue.use(VueGoogleMaps, {
-  load: {
-    // test:AIzaSyD08dDbUoxkc2oP-UDrAcVe_KwplfAveIs
-    key: 'AIzaSyDtQRB-nYo06O-eb_c922r2xQJ2ZWksaao',
-    libraries: 'places',
-    language: 'US',
-  },
-  installComponents: true
-})
-import './plugins/flexiable.js'
-import Calendar from "ivy_nutui/dist/packages/calendar/calendar.js";
-import "@nutui/nutui/dist/nutui.css"
-Vue.use(Calendar,)
 
-import NutUI from '@nutui/nutui';
-NutUI.install(Vue);
-import enUS from '@/plugins/en-US';
-Vue.use(NutUI, {
-    locale: 'en-US',
-    lang: enUS
-  });
+import './plugins/busStation.js'
 
 // Vue.use(ElementUI,{ locale });
 Vue.use(VueCookie);
