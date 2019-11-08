@@ -109,7 +109,7 @@
                         }
                     }).catch((error)=> {
                     });
-                }).catch((error)=> {               
+                }).catch((error)=> {       
                 });
             }
         },
@@ -240,6 +240,8 @@
                 provider.addScope('public_profile');
                 var auth=this.firebase.auth();
                 if(md.mobile()){
+                    this.openFullScreenFacebook();
+                    this.disabledFb = true;
                     auth.signInWithRedirect(provider);
                 }else{
                     this.openFullScreenFacebook();
@@ -266,6 +268,8 @@
                 var provider = new this.firebase.auth.GoogleAuthProvider();
                 var auth=this.firebase.auth();
                 if(md.mobile()){
+                    this.openFullScreenGoogle();
+                    this.disabledGg = true;
                     auth.signInWithRedirect(provider);
                     // auth.getRedirectResult().then((result)=> {
                     //     result.user.getIdToken(true).then((idToken)=> {
@@ -322,6 +326,12 @@
                         console.log(data);
                         if(data.data.code==200){
                             this.processEnv(data);
+                        }else{
+                            this.$message({
+                                message: data.data.msg,
+                                type: 'warning',
+                                center: true
+                            });
                         }
                     })
             },
