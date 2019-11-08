@@ -1600,6 +1600,7 @@
   }
   .passenger-people .el-input-number>div .el-input__inner{
     height: 40px;
+    line-height: normal !important;
   }
   .passenger-people input {
     height: 40px!important;
