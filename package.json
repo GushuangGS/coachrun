@@ -9,6 +9,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@nutui/nutui": "^2.2.8",
     "axios": "^0.19.0",
     "blueimp-md5": "^2.11.0",
     "browser-device-js": "^1.0.7",
@@ -18,11 +19,14 @@
     "firebase": "^7.2.1",
     "font-awesome": "^4.7.0",
     "google": "^2.1.0",
+    "ivy-company-base": "^1.0.4",
+    "ivy_nutui": "^2.1.6",
     "jquery": "^3.4.1",
     "libphonenumber-js": "^1.7.22",
     "mobile-detect": "^1.4.4",
     "moment": "^2.24.0",
     "qs": "^6.7.0",
+    "vant": "^2.2.12",
     "vue": "^2.6.10",
     "vue-cookie": "^1.1.4",
     "vue-matomo": "^3.12.0-4",

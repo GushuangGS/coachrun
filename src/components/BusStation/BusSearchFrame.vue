@@ -1,6 +1,7 @@
 <template>
-  <div class="wrap section search-frame">
+  <div class="wrap section search-frame searchBoxwrapper" style="background-image:url('https://www.coachrun.com/client-resource/images/search-box-bg.png')">
     <div class="search-box">
+      <div class="search-box-title">Find Bus Tickets</div>
       <div class="search-img-car">
         <img src="@/assets/search-box-car.png">
       </div>
@@ -11,31 +12,42 @@
         <div class="search-box-container">
           <div class="search-table flex">
             <el-form :model="formData" ref="form" style="display: flex" action="https://www.coachrun.com/search/bus.do" method="post">
-              <el-row>
+              <el-row class="search-box-table">
                 <el-col :md="10" :sm="24" :xs="24" class="search-city-col">
                   <el-row>
-                    <el-col :sm = "12" :xs = "24"class="departure-city city_passenger">
+                    <el-col :sm = "12" :xs = "24" class="departure-city city_passenger">
                       <i class="fa icon-direction" @click="openDepartCity"></i>
                       <el-select
-                        v-model="depart_City"
-                        filterable
-                        placeholder="Departure City"
-                        default-first-option
-                        @change="getCityReturn"
-                        :filter-method="matchData"
-                        ref="departCity"
-                        v-popover:departCityPopover
-                        @focus="hiddenPopover"
+                              v-model="depart_City"
+                              filterable
+                              placeholder="Departure City"
+                              default-first-option
+                              @change="getCityReturn"
+                              :filter-method="matchData"
+                              ref="departCity"
+                              v-popover:departCityPopover
+                              @focus="hiddenPopover"
+                              v-if="!showVant"
                       >
                         <el-option
-                          v-for="(item,index) in depart_options.cities"
-                          :key="index"
-                          :label="depart_options.citiesTemp[index]"
-                          :value="depart_options.citiesTemp[index]"
-                          v-html="item"
+                                v-for="(item,index) in depart_options.cities"
+                                :key="index"
+                                :label="depart_options.citiesTemp[index]"
+                                :value="depart_options.citiesTemp[index]"
+                                v-html="item"
                         >
                         </el-option>
                       </el-select>
+                      <!-- ----------------------------------------------------- -->
+                      <el-input
+                              ref="departureInput"
+                              size="small"
+                              placeholder="Departure Date"
+                              @focus="changeDepatureCity"
+                              v-model="depart_City"
+                              v-else
+                      ></el-input>
+                      <!-- ----------------------------------------------------- -->
                     </el-col>
                     <el-col :sm = "12" :xs = "24" class="arrive-city city_passenger" >
                       <div class="arrow" @click="this.getCityBack">
@@ -43,129 +55,168 @@
                       </div>
                       <i class="fa icon-location" @click="openReturnCity"></i>
                       <el-select
-                        ref="arrSeclect"
-                        v-model="arrive_City"
-                        filterable
-                        placeholder="Arrival City"
-                        style="padding-left: 0px;"
-                        default-first-option
-                        :disabled="arrive_options==''?true:false"
-                        :filter-method="arriveMatchData"
-                        @click="openReturnCity"
-                        v-popover:arrivalCityPopover
-                        @focus="hiddenPopover"
+                              ref="arrSeclect"
+                              v-model="arrive_City"
+                              filterable
+                              placeholder="Arrival City"
+                              style="padding-left: 0px;"
+                              default-first-option
+                              :disabled="arrive_options==''?true:false"
+                              :filter-method="arriveMatchData"
+                              @click="openReturnCity"
+                              v-popover:arrivalCityPopover
+                              @focus="hiddenPopover"
+                              v-if="!showVant"
                       >
                         <el-option
-                          v-for="(item,index) in arrive_options.cities"
-                          :key="index"
-                          :label="arrive_options.citiesTemp[index]"
-                          :value="arrive_options.citiesTemp[index]"
-                          v-html="item"
+                                v-for="(item,index) in arrive_options.cities"
+                                :key="index"
+                                :label="arrive_options.citiesTemp[index]"
+                                :value="arrive_options.citiesTemp[index]"
+                                v-html="item"
                         >
                         </el-option>
                       </el-select>
+                      <!-- ------------------- -->
+                      <el-input
+                              class="returnCity"
+                              ref="returnInput"
+                              v-model="arrive_City"
+                              size="small"
+                              placeholder="Arrival City"
+                              @focus="changeReturnCity"
+                              v-else
+                      ></el-input>
+                      <!-- --------------------- -->
                     </el-col>
                   </el-row>
                 </el-col>
                 <el-col :md="4" :sm="7" :xs="12" class="change-date-div">
                   <i class="fa icon-calendar" @click="openDepartSelect"></i>
                   <el-select
-                    placeholder="Departure"
-                    prefix-icon="el-icon-date"
-                    v-model="depart_date"
-                    class="date-in"
-                    ref="departSelect"
-                    popper-class="date-popper"
-                    v-popover:departDatePopover
-                    @focus="hiddenPopover"
+                          placeholder="Departure"
+                          prefix-icon="el-icon-date"
+                          v-model="depart_date"
+                          class="date-in"
+                          ref="departSelect"
+                          popper-class="date-popper"
+                          v-popover:departDatePopover
+                          @focus="hiddenPopover"
+                          v-if="!showVant"
                   >
                     <el-option
-                      class="option-calendar"
-                      :value="depart_date"
+                            class="option-calendar"
+                            :value="depart_date"
                     >
                       <div @click.stop>
                         <ele-calendar
-                          :render-content="depRenderContent"
-                          :data="depart_datedef"
-                          :prop="prop"
-                          @pick = "datePickDepart"
-                          :disabled-date = "disabledDateDep"
-                          lang="en"
+                                :render-content="depRenderContent"
+                                :data="depart_datedef"
+                                :prop="prop"
+                                @pick = "datePickDepart"
+                                :disabled-date = "disabledDateDep"
+                                lang="en"
                         ></ele-calendar>
                       </div>
                     </el-option>
                   </el-select>
+                  <!-- ---------------------------- -->
+                  <el-input
+                          ref="departureDate"
+                          v-model="formateDepatureDate"
+                          size="large"
+                          placeholder="Departure Date"
+                          @focus="changeDepatureDate"
+                          v-else>
+                  </el-input>
+                  <!-- ---------------------------- -->
                 </el-col>
                 <el-col :md="4" :sm="7" :xs="12" class="change-date-div">
                   <i class="fa icon-calendar" @click="openReturnSelect"></i>
                   <el-select
-                    placeholder="Return"
-                    prefix-icon="el-icon-date"
-                    v-model="return_date"
-                    class="date-in return-date"
-                    ref="returnSelect"
-                    popper-class="date-popper"
-                    @focus="hiddenPopover"
+                          placeholder="Return"
+                          prefix-icon="el-icon-date"
+                          v-model="return_date"
+                          class="date-in return-date"
+                          ref="returnSelect"
+                          popper-class="date-popper"
+                          @focus="hiddenPopover"
+                          v-if="!showVant"
                   >
                     <el-option
-                      class="option-calendar"
-                      :value="return_date"
+                            class="option-calendar"
+                            :value="return_date"
                     >
                       <div @click.stop>
                         <ele-calendar
-                          :render-content="arrRenderContent"
-                          :data="arrval_datedef"
-                          :prop="prop"
-                          @pick = "datePickReturn"
-                          :disabled-date = "disabledDate"
-                          lang="en"
+                                :render-content="arrRenderContent"
+                                :data="arrval_datedef"
+                                :prop="prop"
+                                @pick = "datePickReturn"
+                                :disabled-date = "disabledDate"
+                                lang="en"
                         ></ele-calendar>
                       </div>
                     </el-option>
                   </el-select>
+                  <!-- --------------------- -->
+                  <el-input
+                          ref="returnDate"
+                          v-model="formateReturnDate"
+                          size="large"
+                          placeholder="Return"
+                          class="returnDate"
+                          @focus="changeReturnDate"
+                          v-else></el-input>
+                  <!-- -------------------------- -->
+
+
                   <i class="el-icon-circle-close return-date-cancel" v-show="return_date" @click="clearReturnDate"></i>
                 </el-col>
                 <el-col :md="4" :sm="10" :xs="24" class="change-passenger city_passenger">
                   <i class="fa icon-user" @click="openPassenger"></i>
                   <el-select
-                    v-model="passengerNum1"
-                    ref="passenger"
-                    popper-class="passenger-popper"
-                    @focus="hiddenPopover"
+                          v-model="passengerNum1"
+                          ref="passenger"
+                          popper-class="passenger-popper"
+                          @focus="hiddenPopover"
                   >
                     <el-option
-                      class="option-inpnumber"
-                      :value="passengerNum1"
+                            class="option-inpnumber"
+                            :value="passengerNum1"
                     >
-                      <div @click.stop>
-                        <span style="float: left">Adults</span>
+                      <div @click.stop class="passenger-people">
+                        <div>
+                          <span style="margin-left: 12px">Adults</span>
+                        </div>
                         <el-input-number
-                          v-model="adultsNum"
-                          :min="1"
-                          :max="50"
-                          @input.native="inputCount($event)"
-                          @blur="blurPassenger"
+                                v-model="adultsNum"
+                                :min="1"
+                                :max="50"
+                                @input.native="inputCount($event)"
+                                @blur="blurPassenger"
                         ></el-input-number>
                       </div>
                     </el-option>
                     <el-option
-                      class="option-inpnumber"
-                      :value="passengerNum1"
+                            class="option-inpnumber"
+                            :value="passengerNum1"
                     >
-                      <div @click.stop>
-                        <span style="float: left">Children</span>
+                      <div @click.stop class="passenger-people">
+                        <div>
+                          <span style="margin-left: 12px">Children</span>
+                        </div>
                         <el-input-number
-                          v-model="childrenNum"
-                          :min="0"
-                          :max="50"
-                          @input.native="inputCount($event)"
-                          @blur="blurPassenger"
+                                v-model="childrenNum"
+                                :min="0"
+                                :max="50"
+                                @input.native="inputCount($event)"
                         ></el-input-number>
                       </div>
                     </el-option>
                     <el-option
-                      class="option-inpnumber"
-                      :value="passengerNum1"
+                            class="option-inpnumber"
+                            :value="passengerNum1"
                     >
                       <div @click.stop>
                         <el-button @click = "hiddenPassengerBox" id="passenger-btn">Done</el-button>
@@ -173,28 +224,28 @@
                     </el-option>
                   </el-select>
                 </el-col>
-                <el-col :xs="24" class="passenger-people">
+                <el-col :xs="24" class="passenger-people passenger-input-height">
                   <div>
                     <i class="icon-male fa"></i>
                     <span>Adults</span>
                   </div>
                   <el-input-number
-                    v-model="adultsNum"
-                    :min="1"
-                    :max="50"
-                    @input.native="inputCount($event)"
+                          v-model="adultsNum"
+                          :min="1"
+                          :max="50"
+                          @input.native="inputCount($event)"
                   ></el-input-number>
                 </el-col>
-                <el-col :xs="24" class="passenger-people">
+                <el-col :xs="24" class="passenger-people passenger-input-height">
                   <div>
                     <i class="icon-child fa"></i>
-                    <span style="margin-left: 8px">Children</span>
+                    <span style="margin-left: 4px">Children</span>
                   </div>
                   <el-input-number
-                    v-model="childrenNum"
-                    :min="0"
-                    :max="50"
-                    @input.native="inputCount($event)"
+                          v-model="childrenNum"
+                          :min="0"
+                          :max="50"
+                          @input.native="inputCount($event)"
                   ></el-input-number>
                 </el-col>
                 <el-col :md="2" :sm="24" :xs="24" class="search-submit">
@@ -214,39 +265,102 @@
       </div>
     </div>
     <el-popover
-      placement="bottom"
-      trigger="manual"
-      ref="departCityPopover"
-      v-model="departCityVisible"
-      content="Please select a departure city"
-      popper-class="tip_style"
+            placement="bottom"
+            trigger="manual"
+            ref="departCityPopover"
+            v-model="departCityVisible"
+            content="Please select a departure city"
+            popper-class="tip_style"
     ></el-popover>
     <el-popover
-      placement="bottom"
-      trigger="manual"
-      ref="arrivalCityPopover"
-      v-model="arrivalCityVisible"
-      content="Please select an arrival city"
-      popper-class="tip_style"
+            placement="bottom"
+            trigger="manual"
+            ref="arrivalCityPopover"
+            v-model="arrivalCityVisible"
+            content="Please select an arrival city"
+            popper-class="tip_style"
     ></el-popover>
     <el-popover
-      placement="bottom"
-      trigger="manual"
-      ref="departDatePopover"
-      v-model="departDateVisible"
-      content="Please select a departure date"
-      popper-class="tip_style1"
+            placement="bottom"
+            trigger="manual"
+            ref="departDatePopover"
+            v-model="departDateVisible"
+            content="Please select a departure date"
+            popper-class="tip_style1"
     ></el-popover>
+      <van-popup
+              v-model="isShowCityList"
+              position="bottom"
+              :style="{ height: '100%' }"
+              class="popView"
+              @close="cityChooseClosed"
+              @open="cityChoosePopup"
+      >
+        <div class="navigationBar">
+          <img src="@/assets/close.png" @click="close" />
+          <p class="title">{{searchPlaceHolder}}</p>
+          <p></p>
+        </div>
+        <search-list-view
+          v-model="selectPlace"
+                :dataArray="cityArray"
+                @select="selectItem"
+                :clearInput="clearInputFlag"
+                :requireLocation="requireLocation"
+                :locationPlace="locationPlace"
+                :locationSuccess="locationSuccess"
+                @refreshLocation="refreshLocation"
+        >
+        </search-list-view>
+      </van-popup>
+      <nut-calendar
+              title="Departure Date"
+              :is-visible="isVisibleDepature"
+              :default-value="departureDate"
+              :is-auto-back-fill="true"
+              :startDate="disableDate"
+              @close="switchPicker"
+              @choose="setDepatureDate"
+      >
+        <template v-slot:default="calendar">
+          <span class="nut-calendar-price" :class="tipsDayClass(calendar.day, calendar.month,true)">{{getCalendarDayPrice(calendar.day,calendar.month,true)}}</span>
+        </template>
+      </nut-calendar>
+      <nut-calendar
+              title="Return Date"
+              :is-visible="isVisibleReturn"
+              :is-auto-back-fill="true"
+              :startDate="disableReturnDate"
+              :default-value="returnDate"
+              @close="switchPicker"
+              @choose="setReturnDate"
+      >
+        <template v-slot:default="calendar">
+          <span class="nut-calendar-price" :class="tipsDayClass(calendar.day, calendar.month,false)">{{getCalendarDayPrice(calendar.day,calendar.month,false)}}</span>
+        </template>
+      </nut-calendar>
   </div>
 </template>
 <script>
+  // import { Field, Stepper, Popup, Search, List, Cell, Button, Toast } from "vant";
   import eleCalendar from 'ele-calendar'
   import 'ele-calendar/dist/vue-calendar.css' //引入css
   import moment from 'moment'
-  import '../../styles/fonts/css/a.css'
+  import { gmapApi } from "vue2-google-maps";
+  import geoLocation from "@/plugins/GeoLocation";
+  import getLocationName from "@/plugins/countryCode";
+  // import Calendar from "ivy_nutui/dist/packages/calendar/calendar.js";
+  import Utils from "@/plugins/date";
+  import axios from 'axios'
   export default {
     props:{
-      section:Object
+      section:Object,
+      initialDepatureCity: String,
+      initialArrivalCity: String,
+      initialDepatureDate: String,
+      initialReturnDate: String,
+      initialAdultNum: Number,
+      initialChildNum: Number
     },
     data(){
       return {
@@ -284,7 +398,26 @@
         },
         departCityVisible:false,
         arrivalCityVisible:false,
-        departDateVisible:false
+        departDateVisible:false,
+        // ------vant------
+        departureCity: this.initialDepatureCity,
+        isShowCityList: false,
+        showVant:false,
+        searchPlaceHolder: "Departure City",
+        selectPlace: "",
+        cityArray: null,
+        clearInputFlag: false,
+        requireLocation: true,
+        locationPlace: "",
+        locationSuccess: false,
+        firstLocation: true,
+        arrivalCity: this.initialArrivalCity,
+        isVisibleDepature: false,
+        departureDate: this.initialDepatureDate,
+        disableDate: null,
+        returnDate: this.initialReturnDate,
+        isVisibleReturn: false,
+        disableReturnDate: null,
       }
     },
     mounted(){
@@ -294,47 +427,48 @@
         this.depart_options1 = b_cities;
         clearTimeout(this.timer);
       },0);
+
+      if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+        this.showVant = true;
+      } else {
+        this.showVant = false;
+      }
     },
     computed : {
+      google: gmapApi,
+      formateDepatureDate() {
+        return moment(this.departureDate).format("ddd, MMM D");
+      },
+      departureDatePrice() {
+        if (this.depart_datedef) {
+          return this.depart_datedef;
+        }
+        return null;
+      },
+      returnDatePrice() {
+        if (this.arrval_datedef) {
+          return this.arrval_datedef;
+        }
+        return null;
+      },
+      formateReturnDate() {
+        if (this.returnDate) {
+          return moment(this.returnDate).format("ddd, MMM D");
+        }
+        return "";
+      }
     },
     watch:{
       depart_City:function () {
-        if (this.arrive_City!=''&&g_bus[this.depart_City].indexOf(this.arrive_City)==-1){//到达城市不为空且新的route列表中没有之前选中的到达城市
-          this.arrive_City = '';
-        }
+          if (this.arrive_City!=''&&g_bus[this.depart_City].indexOf(this.arrive_City)==-1){//到达城市不为空且新的route列表中没有之前选中的到达城市
+              this.arrive_City = '';
+          }
+        this.arrive_options.citiesTemp = g_bus[this.depart_City]
+        this.arrive_options.cities = g_bus[this.depart_City]
         this.changeFormData()
       },
-      arrive_City:function(){
-        if (this.arrive_City&&this.depart_City){
-          this.$axios("https://search.gotobus.com/search/get-lowest-price-embed-json.do",{
-            params:{
-              vendorId:1350154,
-              fromCity:this.depart_City,
-              toCity:this.arrive_City,
-            }
-          }).then(res => {
-            this.depart_datedef = [];
-            this.arrval_datedef = [];
-            console.log(res.data)
-            for (let key in res.data.Departure) {
-              this.depart_datedef.push({
-                date:key,
-                price:res.data.Departure[key],
-                cid:key
-              });
-            }
-            for (let key in res.data.Return) {
-              this.arrval_datedef.push({
-                date:key,
-                price:res.data.Return[key],
-                cid:key
-              });
-            }
-            this.dep_min_price = res.data.DepartureLowest;
-            this.ret_min_price = res.data.ReturnLowest;
-          })
-        }
-        this.changeFormData()
+      arrive_City:function () {
+        this.getPrice()
       },
       depart_date:function(){
         this.judgeDate();
@@ -364,7 +498,208 @@
         this.changeFormData()
       }
     },
+    created() {
+      this.departureDate = Utils.date2Str(new Date());
+      this.disableDate = this.departureDate;
+    },
     methods:{
+      changeDepatureCity() {
+        this.selectPlace = this.depart_City;
+        this.isShowCityList = true;
+        this.isChooseDepatureCity = true;
+        this.searchPlaceHolder = "Departure City";
+        this.cityArray = b_cities;
+        this.$refs.departureInput.blur();
+      },
+      cityChooseClosed() {
+        this.clearInputFlag = true;
+      },
+      cityChoosePopup() {
+        if (this.firstLocation) {
+          this.firstLocation = false;
+          this.$gmapApiPromiseLazy().then(() => {
+            this.requestLocation(false);
+          });
+        }
+        this.clearInputFlag = false;
+      },
+      close() {
+        this.isShowCityList = false;
+      },
+      selectItem(item) {
+        this.isShowCityList = false;
+        if (this.isChooseDepatureCity) {
+          this.depart_City = item;
+          if (this.arrive_City) {
+            this.arrive_City = null;
+          }
+        } else {
+          this.arrive_City = item;
+          this.getPrice();
+        }
+      },
+      refreshLocation() {
+        this.requestLocation(true);
+      },
+      requestLocation(isRefresh) {
+        this.locationPlace = "";
+        this.locationSuccess = false;
+        let requestMap = new Map();
+        requestMap.set("locality", true);
+        requestMap.set("administrativeArea", true);
+        requestMap.set("countryCode", true);
+        requestMap.set("country", true);
+        geoLocation(requestMap, this.locationCallBack, this.google, isRefresh);
+      },
+      locationCallBack(resultMap, error) {
+        if (error) {
+          this.locationPlace = error;
+          return;
+        }
+        let locality = resultMap.get("locality");
+        let administrativeArea = resultMap.get("administrativeArea");
+        let countryCode = resultMap.get("countryCode");
+        let country = resultMap.get("country");
+        let result = getLocationName(
+                locality,
+                administrativeArea,
+                countryCode,
+                country
+        );
+        this.locationPlace = result.result;
+        this.locationSuccess = result.success;
+      },
+      changeReturnCity() {
+        if (!this.depart_City) {
+          this.$toast("Please choose the departure city");
+          this.$refs.returnInput.blur();
+          return;
+        }
+        this.selectPlace = this.arrive_City;
+        this.isChooseDepatureCity = false;
+        this.isShowCityList = true;
+        this.searchPlaceHolder = "Arrival City";
+        this.cityArray = g_bus[this.depart_City];
+        this.$refs.returnInput.blur();
+      },
+      getPrice() {
+        if (!this.depart_City || !this.arrive_City) return;
+        axios("https://search.gotobus.com/search/get-lowest-price-embed-json.do",{
+          params:{
+            vendorId:1350154,
+            fromCity:this.depart_City,
+            toCity:this.arrive_City,
+          }
+        }).then(res => {
+          this.depart_datedef = [];
+          this.arrval_datedef = [];
+          for (let key in res.data.Departure) {
+            this.depart_datedef.push({
+              date:key,
+              price:res.data.Departure[key],
+              cid:key
+            });
+          }
+          for (let key in res.data.Return) {
+            this.arrval_datedef.push({
+              date:key,
+              price:res.data.Return[key],
+              cid:key
+            });
+          }
+          this.dep_min_price = res.data.DepartureLowest;
+          this.ret_min_price = res.data.ReturnLowest;
+        })
+      },
+      changeDepatureDate() {
+        this.isVisibleDepature = true;
+        this.$refs.departureDate.blur();
+      },
+      switchPicker() {
+        this.isVisibleDepature = false;
+        this.isVisibleReturn = false;
+        if (this.departureDate && this.returnDate) {
+          if (!Utils.compareDate(this.departureDate, this.returnDate)) {
+            let date = this.departureDate;
+            this.departureDate = this.returnDate;
+            this.returnDate = date;
+          }
+        }
+      },
+      setDepatureDate(value) {
+        this.departureDate = value[3];
+      },
+      getCalendarDayPrice(day,monthsData,isDepature){
+        let priceDateMap = null
+        if(isDepature){
+          priceDateMap = this.depart_datedef;
+        }else{
+          priceDateMap = this.arrval_datedef;
+        }
+        if (!priceDateMap) return
+        if (day.type != 'curr') return
+        let year = parseInt(monthsData.curData[0]);
+        let month = parseInt(monthsData.curData[1].toString().replace(/^0/, ''));
+        let date  = `${year}-${Utils.getNumTwoBit(month)}-${Utils.getNumTwoBit(day.day)}`;
+        let price = priceDateMap[priceDateMap.findIndex((item)=>{
+          return item.date == date
+        })]
+        if(price){
+          return   `$`+price.price
+        }
+      },
+      tipsDayClass(day,monthsData,isDepature){
+        let specialDate = this.getSpecialDate(isDepature);
+        if(!specialDate) return ''
+        if (day.type != 'curr') return
+        let year = parseInt(monthsData.curData[0]);
+        let month = parseInt(monthsData.curData[1].toString().replace(/^0/, ''));
+        let date  = `${year}-${Utils.getNumTwoBit(month)}-${Utils.getNumTwoBit(day.day)}`;
+        for (const speDate of specialDate) {
+          if(speDate == date){
+            return 'nut-calendar-specialDate';
+          }
+        }
+      },
+      getSpecialDate(isDepature) {
+        let lowestDateArray = Array();
+        let lowestDate = null;
+        let datePrice = null;
+        if (isDepature) {
+          lowestDate = this.dep_min_price;
+          datePrice = this.depart_datedef;
+        } else {
+          lowestDate = this.ret_min_price;
+          datePrice = this.arrval_datedef;
+        }
+        // for (const date in datePrice) {
+        //   if (datePrice[date] == lowestDate) {
+        //     lowestDateArray.push(date);
+        //   }
+        // }
+        lowestDateArray = datePrice.map((item,index)=>{
+          if (item.price == lowestDate) {
+            return item.date
+          }
+        })
+        return lowestDateArray;
+      },
+      changeReturnDate() {
+        if (!this.returnDate) {
+          this.returnDate = moment(this.departureDate, "YYYY-MM-DD")
+                  .add(1, "days")
+                  .format("YYYY-MM-DD");
+        }
+        this.disableReturnDate = moment(this.departureDate, "YYYY-MM-DD")
+                .add(1, "days")
+                .format("YYYY-MM-DD");
+        this.isVisibleReturn = true;
+        this.$refs.returnDate.blur();
+      },
+      setReturnDate(value) {
+        this.returnDate = value[3];
+      },
+      // ---------------------------------
       changeFormData(){
         this.formData.depart_City = this.depart_City
         this.formData.arrive_City = this.arrive_City
@@ -431,7 +766,6 @@
       blurPassenger(ev){
         if (ev.target.value==""){
           ev.target.value = ev.target.min;
-          console.log(ev.target.value);
         }
       },
       clearReturnDate(){
@@ -461,28 +795,48 @@
         this.departDateVisible = false
       },
       onSubmit(){
-        console.log(this.formData)
-        let flag = true
-        if (this.depart_City==""||this.depart_options1.indexOf(this.depart_City)==-1){
-          this.departCityVisible = true
-          flag = false
-        }
-        if (this.arrive_City==""||this.arrive_options1.indexOf(this.arrive_City)==-1){
-          this.arrivalCityVisible = true
-          flag = false
-        }
-        if (this.depart_date==""){
-          this.departDateVisible = true
-          flag = false
-        }
-        if (flag){
-          let url = "https://www.coachrun.com/search/bus.do"
-          if (this.return_date) {
-            url += encodeURI(`?nm=1350154&st=1350154&bus_from=${this.depart_City}&bus_to=${this.arrive_City}&is_roundtrip=1&filter_date=${this.depart_date}&return_date=${this.return_date}&adult_num=${this.adultsNum}&child_num=${this.childrenNum}`);
-          }else {
-            url += encodeURI(`?nm=1350154&st=1350154&bus_from=${this.depart_City}&bus_to=${this.arrive_City}&filter_date=${this.depart_date}&adult_num=${this.adultsNum}&child_num=${this.childrenNum}`);
+        if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+          let is_roundtrip = 0;
+          if (this.returnDate) {
+            is_roundtrip = 1;
           }
-          window.location.href = url
+          let bus_from = encodeURIComponent(this.depart_City);
+          let bus_to = encodeURIComponent(this.arrive_City);
+          if(this.depart_City && this.arrive_City && this.departureDate){
+            // console.log(is_roundtrip,bus_from,bus_to,this.departureDate,this.returnDate,this.adultsNum,this.childrenNum)
+            window.location.href = ` https://www.coachrun.com/search/bus.do?nm=1350154&st=1350154&is_roundtrip=${is_roundtrip}&bus_from=${bus_from}&bus_to=${bus_to}&filter_date=${this.departureDate}&return_date=${this.returnDate}&adult_num=${this.adultsNum}&child_num=${this.childrenNum}&is_mobile=1`;
+          }
+          if(!this.depart_City){
+            this.$toast("Please choose the departure city");
+            return;
+          }
+          if(!this.arrive_City){
+            this.$toast("Please choose the Arrival city");
+            return;
+          }
+        } else {
+          let flag = true
+          if (this.depart_City==""){
+            this.departCityVisible = true
+            flag = false
+          }
+          if (this.arrive_City==""){
+            this.arrivalCityVisible = true
+            flag = false
+          }
+          if (this.depart_date==""){
+            this.departDateVisible = true
+            flag = false
+          }
+          if (flag){
+            let url = "https://www.coachrun.com/search/bus.do"
+            if (this.return_date) {
+              url += encodeURI(`?nm=1350154&st=1350154&bus_from=${this.depart_City}&bus_to=${this.arrive_City}&is_roundtrip=1&filter_date=${this.depart_date}&return_date=${this.return_date}&adult_num=${this.adultsNum}&child_num=${this.childrenNum}`);
+            }else {
+              url += encodeURI(`?nm=1350154&st=1350154&bus_from=${this.depart_City}&bus_to=${this.arrive_City}&filter_date=${this.depart_date}&adult_num=${this.adultsNum}&child_num=${this.childrenNum}`);
+            }
+            window.location.href = url
+          }
         }
       },
       datePickDepart(date,event,row,dome){//出发日历pick事件
@@ -496,55 +850,58 @@
         this.$refs.returnSelect.visible = false;
       },
       getCityBack(){//出发与到达城市互换
-        const temp = this.depart_City;
-        if (b_cities.indexOf(this.arrive_City)!=-1&&g_bus[this.arrive_City].indexOf(temp)!=-1) {
-          this.depart_City = this.arrive_City;
-          this.arrive_City = temp;
-        }
+          const temp = this.depart_City;
+          if (b_cities.indexOf(this.arrive_City)!=-1&&g_bus[this.arrive_City].indexOf(temp)!=-1) {
+            this.depart_City = this.arrive_City;
+            this.arrive_City = temp;
+          }else if (b_cities.indexOf(this.arrive_City)!=-1&&g_bus[this.arrive_City].indexOf(temp)==-1) {
+            this.depart_City = this.arrive_City;
+            this.arrive_City = "";
+          }
       },
       depRenderContent(h,parmas) {//出发日历内容渲染
         const loop = data =>{
           return(
-            data.defvalue.value?(data.defvalue.value.price==this.dep_min_price?
-              (<div style="display: flex;flex-direction: column;">
-                <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
-                <span class="font-green">${data.defvalue.value.price}</span>
-              </div>):
-              (<div style="display: flex;flex-direction: column;">
-                <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
-                <span class="cf60">${data.defvalue.value.price}</span>
-              </div>)):(
-              <div>
-                <div style="line-height:20px;font-size:14px" class="lheight46">{data.defvalue.text}</div>
-              </div>
-            )
+                  data.defvalue.value?(data.defvalue.value.price==this.dep_min_price?
+                          (<div style="display: flex;flex-direction: column;">
+                            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
+                            <span class="font-green">${data.defvalue.value.price}</span>
+                          </div>):
+                          (<div style="display: flex;flex-direction: column;">
+                            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
+                            <span class="cf60">${data.defvalue.value.price}</span>
+                          </div>)):(
+                          <div>
+                            <div style="line-height:20px;font-size:14px" class="lheight46">{data.defvalue.text}</div>
+                          </div>
+                  )
           )
         };
         return (
-          <div>
-            {loop(parmas)}
-          </div>
+                <div>
+                  {loop(parmas)}
+                </div>
         );
       },
       arrRenderContent(h,parmas) {//到达日历内容渲染
         const loop = data =>{
           return(
-            data.defvalue.value?(data.defvalue.value.price==this.ret_min_price?
-              (<div style="display: flex;flex-direction: column;">
-                <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
-                <span class="font-green">${data.defvalue.value.price}</span>
-              </div>):
-              (<div style="display: flex;flex-direction: column;">
-                <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
-                <span class="cf60">${data.defvalue.value.price}</span>
-              </div>)):
-              <div style="line-height:20px;font-size:14px" class="lheight46">{data.defvalue.text}</div>
+                  data.defvalue.value?(data.defvalue.value.price==this.ret_min_price?
+                          (<div style="display: flex;flex-direction: column;">
+                            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
+                            <span class="font-green">${data.defvalue.value.price}</span>
+                          </div>):
+                          (<div style="display: flex;flex-direction: column;">
+                            <div style="line-height:20px;font-size:14px">{data.defvalue.text}</div>
+                            <span class="cf60">${data.defvalue.value.price}</span>
+                          </div>)):
+                          <div style="line-height:20px;font-size:14px" class="lheight46">{data.defvalue.text}</div>
           )
         };
         return (
-          <div>
-            {loop(parmas)}
-          </div>
+                <div>
+                  {loop(parmas)}
+                </div>
         );
       },
       judgeDate(){//日期比较
@@ -572,24 +929,21 @@
 <style scoped>
   .search-img-car {
     position: absolute;
-    top: 31px;
-    left: 18%;
+    top: -66px;
+    left: 8%;
   }
   .search-frame {
-    padding: 0 3%;
+    padding: 0 3.2%;
     padding-top: 0px!important;
     display: flex;
     align-items: center;
-    justify-items: center;
     height: 360px;
     position: relative;
-    background-image: url("https://www.coachrun.com/client-resource/images/search-box-bg.png");
     background-size: 100% 100%;
     max-width: none!important;
   }
   >>> .fa {
-    left: 5px!important;
-    top: 17px!important;
+    left: 12px!important;
   }
   >>> .return-date-cancel {
     position: absolute;
@@ -606,12 +960,6 @@
     position: relative;
     height: 48px;
   }
-  >>> .change-date-div .icon-calendar {
-    position: absolute;
-    left: 10px;
-    top: 14px;
-    z-index: 1;
-  }
   >>> .date-in .el-input__suffix{
     display: none;
   }
@@ -623,9 +971,6 @@
   }
   >>> .return-date .el-input__suffix .el-icon-arrow-up {
     display: none;
-  }
-  >>> .date-in input {
-    padding-left: 34px!important;
   }
   >>> .cf60,>>>.font-green {
     display: inline-block;
@@ -674,14 +1019,14 @@
     padding: 0 6px;
   }
   >>> .change-passenger .el-input__inner {
-    padding: 0px 25px 0px 37px;
+    /*padding: 0px 25px 0px 37px;*/
     width: 100%;
     font-size:14px;
     color:#606266;
     line-height:14px;
   }
   >>> .el-form .change-passenger .el-input__inner {
-    padding-right: 25px!important;
+    /*padding-right: 25px!important;*/
   }
   >>> .icon-bus {
     font-size: 14px;
@@ -743,18 +1088,15 @@
     color: #606266;
   }
   >>> .city_passenger .el-select .el-input .el-input__inner {
-    padding-left: 34px;
+    /*padding-left: 34px;*/
     width: 100%;
-    padding-right: 30px;
-  }
-  >>> .arrive-city .el-select .el-input .el-input__inner {
-    padding-left: 50px;
+    /*padding-right: 30px;*/
   }
   >>> .city_passenger .el-select .el-input span.el-input__suffix {
     right: 10px;
   }
   >>> .city_passenger .el-select .el-input span.el-input__suffix i {
-    color: rgba(56,56,56,1);
+    color: #333333;
   }
   >>> #passenger-btn {
     font-size: 14px;
@@ -763,8 +1105,44 @@
     line-height: 14px;
     float: right;
   }
+  .search-box-title {
+    position: absolute;
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    top: -45px;
+    left: 45%;
+  }
 </style>
 <style lang="scss" scoped>
+  .popView {
+    .navigationBar {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      height: 41px;
+      img {
+        width: 16px;
+        height: 16px;
+        margin-left: 12px;
+      }
+      .cancleButton {
+        background-color: #ff9a0d;
+        color: white;
+      }
+      .title {
+        font-size: 18px;
+        color: #333333;
+      }
+    }
+    .line {
+      height: 1px;
+      width: 100%;
+      background-color: #e5e5e5;
+    }
+  }
+  // ------------------------------
   .search-submit .el-button {
     width: 100%;
     height: 48px;
@@ -795,6 +1173,7 @@
     }
   }
   .search-box {
+    position: relative;
     max-width:1185px;
     background:rgba(255,255,255,1);
     box-shadow:2px 4px 20px 0px rgba(51,51,51,0.67);
@@ -811,9 +1190,12 @@
       position: relative;
       .search-table {
         width: 100%;
-        font-size:14px;
+        font-size: 14px !important;
         color:rgba(129,129,129,1);
         display: flex;
+        .el-input__inner {
+          font-size: 14px !important;
+        }
         .search-city {
 
         }
@@ -821,7 +1203,7 @@
       .arrive-city {
         position: relative;
         .icon-location {
-          left: 20px!important;
+          /*left: 20px!important;*/
         }
         .el-select {
           .el-input {
@@ -841,19 +1223,6 @@
       .change-passenger {
 
       }
-    }
-  }
-  .departure-city,.arrive-city,.change-passenger {
-    .icon-direction,.icon-location {
-      color: #999;
-      font-size: 14px;
-      z-index: 11;
-      position: absolute;
-      top: 17px;
-      left: 10px;
-    }
-    .el-select {
-      width: 100%;
     }
   }
   .service {
@@ -878,6 +1247,9 @@
   }
 </style>
 <style>
+  .search-table .el-input__inner {
+    font-size: 14px !important;
+  }
   .el-select-dropdown__item.selected {
     color: #606266;
     font-weight: normal;
@@ -971,6 +1343,22 @@
     width: auto!important;
     margin-top: 0px!important;
   }
+  .departure-city,.arrive-city,.change-passenger,.change-date-div{
+    .icon-direction,.icon-location,.icon-calendar {
+      color: #818181;
+      font-size: 14px;
+      z-index: 11;
+      position: absolute;
+      top: 17px;
+      left: 12px;
+    }
+    .el-select {
+      width: 100%;
+    }
+    input{
+      padding: 0px 30px 0px 40px;
+    }
+  }
 </style>
 <style scoped>
   .search-city-col {
@@ -1001,12 +1389,13 @@
     }
     .search-img-car {
       font-size: 0px;
+      top: -53px;
+    }
+    .search-box-title {
+      top: -42px;
     }
     .search-img-car img {
       height: 59px;
-    }
-    .search-img-car {
-      top: 14px;
     }
     .track-bus-btn{
       margin-top: 0px;
@@ -1021,6 +1410,7 @@
       display: none!important;
     }
     .search-box-frame {
+      padding-top: 0px!important;
       height: 390px;
     }
   }
@@ -1033,16 +1423,12 @@
     justify-content: space-between;
     padding: 0px 7px;
   }
-  .passenger-people>div {
-    /*position: relative;*/
-    line-height: 48px;
-  }
   .passenger-people>div i {
     font-size: 16px;
   }
   .passenger-people>div span {
     color: #606266;
-    margin-left: 9px;
+    margin-left: 5px;
   }
   .passenger-people .el-input-number {
     height: 42px;
@@ -1051,75 +1437,118 @@
     display: flex;
     margin-top: 1px;
   }
-
-  @media screen and (max-width: 991px){
-    .search-submit {
-      display: flex;
-      justify-content: center;
-    }
-    .search-submit button{
-      width: 100px!important;
-    }
-    .arrive-city .el-select .el-input .el-input__suffix {
-      right: 3px!important;
-    }
-  }
-  @media screen and (max-width: 767px) {
-    .city_passenger .el-select .el-input span.el-input__suffix{
-      right: 3px!important;
-    }
-    .search-img-car {
-      display: none!important;
-    }
-    .arrow img {
-      top: -17px!important;
-      left: -12px!important;
-      transform: rotate(90deg);
-    }
-    .search-box .search-box-frame .search-box-container .arrive-city .icon-location {
-      left: 5px!important;
-    }
-    .search-box-frame {
-      padding-top: 25px!important;
-    }
-    .track-bus-btn {
-      display: none;
-    }
-    .arrive-city .el-select .el-input .el-input__inner {
-      padding-left: 34px!important;
-    }
-    .change-passenger {
-      display: none!important;
-    }
-    .search-frame {
-      height: 450px;
-    }
-    .passenger-people {
-      display: flex;
-    }
-    .search-box .search-box-container {
-      padding: 0px 5%;
-    }
-  }
   @media screen and (min-width: 992px) and (max-width: 1200px){
-    /*.change-passenger {*/
-    /*    min-width: 180px;*/
-    /*}*/
-    /*.change-date-div {*/
-    /*    max-width: 144px;*/
-    /*}*/
     .search-frame {
       padding: 0 2%;
     }
     .search-box .search-box-container {
       padding: 0 30px;
     }
-    >>> .change-passenger .el-input__suffix {
-      right: 3px!important;
+  }
+  @media screen and (max-width: 991px){
+    .search-submit {
+      display: flex;
+      justify-content: center;
     }
-    /*.search-city-col {*/
-    /*    max-width: 370px;*/
-    /*}*/
+    .search-frame {
+      height: 450px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    .search-frame {
+      align-items: flex-end;
+    }
+    .search-img-car {
+      left: 0px;
+      top: -37px;
+    }
+    .search-img-car img {
+      height: 40px;
+    }
+    .arrow img {
+      top: -17px!important;
+      left: 4px!important;
+      transform: rotate(90deg);
+    }
+    .track-bus-btn {
+      display: none;
+    }
+    .change-passenger {
+      display: none!important;
+    }
+    .search-frame {
+      height: 454px;
+    }
+    .passenger-people {
+      display: flex;
+      position: relative;
+    }
+    .search-box .search-box-container {
+      padding:16px;
+    }
+    .search-submit .el-button {
+      border-radius: 6px;
+    }
+    .search-frame {
+      background-image: url("../../assets/search-small-bg.jpg") !important;
+      background-size: cover;
+      background-position: left top;
+      padding-bottom: 3.2%;
+    }
+    .passenger-people>div:nth-of-type(1)>i {
+      top: 10px!important;
+    }
+    .departure-city .icon-direction, .arrive-city .icon-location {
+      display: none;
+    }
+    .search-box .search-box-container {
+      padding: 12px!important;
+    }
+    .city_passenger, .change-date-div, .passenger-people {
+      margin-bottom: 8px;
+    }
+    .change-date-div {
+      height: 40px;
+    }
+    .search-box-table div:nth-of-type(6) {
+      margin-bottom: 0px;
+    }
+    .search-submit {
+      margin-top: 12px;
+    }
+    .search-box-title {
+      top: -67px;
+      left: 0px;
+    }
+    .arrive-city .arrow img{
+      content: url("../../assets/return-arrow.png") !important;
+      transform: none;
+    }
+  }
+  @media screen and (max-width: 414px){
+    .passenger-input-height {
+      height: 40px!important;
+    }
+    .search-box-frame {
+      padding-top: 0px!important;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .search-box-frame {
+      height: auto!important;
+      padding-top: 0px!important;
+      border-radius: 6px;
+    }
+    .city_passenger, .change-date-div, .passenger-people {
+      margin-bottom: 8px;
+    }
+    .change-date-div{
+      width: 49%;
+      height: 40px;
+    }
+    .search-submit>button{
+      border-radius: 6px!important;
+    }
   }
 </style>
 <style>
@@ -1169,14 +1598,74 @@
     align-items: center;
     top: 9px;
   }
-  .passenger-people .el-input-number>span.el-input-number__decrease {
-    left: 40px;
-  }
-  .passenger-people .el-input-number>span.el-input-number__increase {
-    right: 40px;
-  }
   .passenger-people .el-input-number>div .el-input__inner{
     height: 40px;
+  }
+  .passenger-people input {
+    height: 40px!important;
+    background-color: #f8f8f8!important;
+    border: 0px!important;
+  }
+  .passenger-people .el-input-number{
+    width: 100px;
+    margin-right: 12px;
+    height: 40px!important;
+  }
+  .passenger-people .el-input-number .el-input {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+  }
+  .passenger-people .el-input-number>span {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #646464;
+  }
+  .passenger-people .el-input-number>span i:before{
+    color: white;
+  }
+  .passenger-people .el-input-number>span.is-disabled{
+    background-color: white;
+  }
+  .passenger-people .el-input-number>span.is-disabled i:before{
+    color: #646464;
+  }
+  .passenger-people .el-input-number .el-input-number__decrease{
+    left: 0px!important;
+  }
+  .passenger-people .el-input-number .el-input-number__increase{
+    right: 0px!important;
+  }
+  .passenger-people .el-input-number input{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px!important;
+    height: 20px!important;
+    width: 40px!important;
+    border: 1px solid #999!important;
+    margin-bottom: 2px;
+  }
+  .passenger-people {
+    height: 40px!important;
+    background-color: #f8f8f8!important;
+    border: 0px!important;
+    border-radius: 6px!important;
+    margin-bottom: 8px;
+    padding: 0px!important;
+  }
+  .passenger-people>div {
+    line-height: 40px!important;
+  }
+  .passenger-people div i+span{
+    margin-left: 40px!important;
+  }
+  .passenger-people>div:nth-of-type(1)>i {
+    position: absolute;
+    left: 10px!important;
+    top: 15.5px!important;
   }
   .tip_style .popper__arrow::after, .tip_style1 .popper__arrow::after{
     border-bottom-color:#333333!important;
@@ -1188,15 +1677,152 @@
     color: white;
     border: none;
   }
+  .option-inpnumber .passenger-people {
+    display: flex;
+  }
+  .option-inpnumber .passenger-people input {
+    border-radius: 0px!important;
+  }
   @media screen and (max-width: 767px){
-    .arrive-city .el-select .el-input .el-input__inner {
-      padding-left: 34px!important;
-    }
     .return-date-cancel {
       right: 15px!important;
     }
     .passenger-people {
       padding: 0 3px!important;
     }
+    .search-box .search-box-frame .search-box-container .search-table .city_passenger input,.search-table .change-date-div input {
+      height: 40px!important;
+      background-color: #f8f8f8!important;
+      border: 0px!important;
+      border-radius: 6px!important;
+      padding-left: 40px!important;
+    }
+    .departure-city .icon-direction, .departure-city .icon-location, .departure-city .icon-calendar, .arrive-city .icon-direction, .arrive-city .icon-location, .arrive-city .icon-calendar, .change-passenger .icon-direction, .change-passenger .icon-location, .change-passenger .icon-calendar, .change-date-div .icon-direction, .change-date-div .icon-location, .change-date-div .icon-calendar {
+      top: 13px!important;
+    }
+    .search-box-table>div:nth-of-type(2) {
+      margin-right: 2%;
+    }
+    .change-date-div{
+      width: 49%;
+      height: 40px;
+    }
+    .search-box-frame {
+      height: auto !important;
+    }
+    .search-box .el-input__inner {
+      height: 40px!important;
+    }
+    .city_passenger .el-select .el-input span.el-input__suffix i {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .search-box .search-box-frame .search-box-container .search-table .city_passenger input,.search-table .change-date-div input {
+      height: 40px!important;
+      background-color: #f8f8f8!important;
+      border: 0px!important;
+      border-radius: 6px!important;
+      padding-left: 40px!important;
+    }
+  }
+</style>
+
+<style lang="css" scoped>
+  .searchBoxwrapper
+  /deep/
+  .nut-calendar-months
+  .nut-calendar-month-con
+  .nut-calendar-month-day {
+    width: 20%;
+    height: 1.6rem;
+    font-size: .426667rem;
+    color: #333333;
+  }
+
+  .searchBoxwrapper /deep/  .nut-calendar-months
+  .nut-calendar-month-con .nut-calendar-month-day-active{
+    color: #ffffff;
+  }
+
+  .searchBoxwrapper /deep/   .nut-calendar-months
+  .nut-calendar-month-con .nut-calendar-month-day-disabled{
+    color: #cdcdcd;
+  }
+
+  .nut-swiper {
+    height: 4rem !important;
+  }
+  .searchBoxwrapper /deep/ .nut-calendar-months .nut-calendar-month-title {
+    height: 1.2rem;
+    line-height: 1.2rem;
+    font-size: .373333rem;
+    color: #333333;
+  }
+
+  .searchBoxwrapper /deep/ .nut-calendar-control .nut-calendar-week span {
+    font-size: .373333rem;
+  }
+  .searchBoxwrapper /deep/ .nut-calendar-week {
+    background-color: #fff;
+    height: .666667rem !important;
+    color: #333333;
+  }
+  .searchBoxwrapper /deep/ .nut-calendar-control {
+    height: 1.12rem;
+    padding-bottom: .16rem;
+  }
+
+  /* .searchBoxwrapper /deep/ .nut-calendar-months {
+    margin-top: 75px;
+  } */
+  .searchBoxwrapper /deep/ .nut-calendar-months .nut-calendar-loading-tip {
+    display: none;
+  }
+  .searchBoxwrapper
+  /deep/
+  .nut-calendar-months
+  .nut-calendar-month-con
+  .nut-calendar-month-day-active {
+    background-color: #00a2ff;
+  }
+  .searchBoxwrapper
+  /deep/
+  .nut-calendar-months
+  .nut-calendar-month-con
+  .nut-calendar-month-day-choose {
+    background-color: #00a2ff;
+  }
+  .searchBoxwrapper /deep/ .nut-calendar-control .nut-calendar-week span:first-child,
+  .searchBoxwrapper /deep/ .nut-calendar-control .nut-calendar-week span:last-child {
+    color: #333333;
+  }
+
+  .searchBoxwrapper /deep/ .nut-calendar-control .nut-calendar-title {
+    font-size: .506667rem;
+    line-height: 1.093333rem;
+    color: #333333;
+  }
+  .searchBoxwrapper /deep/ .nut-calendar-control .nut-calendar-cancel-btn{
+    /* padding-left: 24px; */
+    position: absolute;
+    width: .426667rem;
+    height: .426667rem;
+    top: .346667rem;
+    left: .32rem;
+  }
+
+  .searchBoxwrapper /deep/ .nut-calendar-control .nut-calendar-confirm-btn{
+    width: 0;
+    height: 0;
+  }
+
+  .searchBoxwrapper
+  /deep/
+  .nut-calendar-months
+  .nut-calendar-month-con
+  .nut-calendar-month-day
+  .nut-calendar-day-tip {
+    font-size: .266667rem;
   }
 </style>
