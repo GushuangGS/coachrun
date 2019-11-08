@@ -133,8 +133,8 @@
         </el-badge>
       </div>
     </div>
-    <a href="/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154">
-      <i class="icon-basket basket" style="font-size: 26px;color:#333;"></i>
+    <a href="/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154" class="basket">
+      <i class="icon-basket" style="font-size: 26px;color:#333;"></i>
     </a>
   </div>
 </template>
