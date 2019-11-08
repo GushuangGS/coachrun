@@ -409,8 +409,9 @@
         color:rgba(0,162,255,1);
         text-align: end;
         cursor: pointer;
-        margin-left: 220px;
-        width: 120px;
+        text-align: right;
+        // margin-left: 220px;
+        // width: 120px;
     }
     .check{
         display: flex;
@@ -509,6 +510,31 @@
         color: #3B5998;
         font-size: 18px;
         margin-right: 11px;
+    }
+
+    @media screen and (max-width: 768px){
+        .login-bg{
+            background: #fff;
+            box-shadow: 0px 1px 2px 0px #333;
+            padding: 20px 0 20px 0;
+        }
+        .login{
+            width: 280px;
+            max-width: 448px;
+            padding: 20px 5px 30px 5px;
+        }
+        .login-form{
+            padding: 0;
+        }
+        .line{
+            padding: 20px 0;
+        }
+        .other-login{
+            padding: 0;
+        }
+        .login-title{
+            margin-left: 0;
+        }
     }
 </style>
 <style scoped>

@@ -117,7 +117,7 @@
       line-height: 28px;
     }
     .copy{
-        height: 43px;
+        // height: 43px;
         text-align: center;
         font-weight:400;
         color:#333;

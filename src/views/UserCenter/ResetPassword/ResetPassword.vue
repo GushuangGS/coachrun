@@ -177,6 +177,23 @@
     .el-button{
         padding: 10px 20px;
     }
+
+    @media screen and (max-width: 768px){
+        .wrap{
+            background: #fff;
+            box-shadow: 0px 1px 2px 0px #333;
+            padding: 85px 0;
+        }
+        .box{
+            width: 280px;
+            max-width: 448px;
+            padding: 20px 5px 30px 5px;
+        }
+        .login-btn{
+            margin-left: 48px;
+            width: 140px;
+        }
+    }
 </style>
 <style scoped>
     >>> .el-form-item__label:before{

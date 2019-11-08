@@ -292,6 +292,33 @@
             color:rgba(102,102,102,1);
             margin-top: 10px;
         }
+
+
+        @media screen and (max-width: 768px){
+            .register-bg{
+                background: #fff;
+                box-shadow: 0px 1px 2px 0px #333;
+                padding: 20px 0 20px 0;
+            }
+            .login{
+                width: 280px;
+                max-width: 448px;
+                padding: 20px 5px 30px 5px;
+            }
+            .login-title{
+                margin-left: 0;
+            }
+            .login-form{
+                padding: 0;
+            }
+            .hr{
+                width: 100%;
+                margin-left: 0;
+            }
+            .intro-info{
+                text-align: center;
+            }
+        }
     </style>
     <style scoped>
         >>> .el-form-item__label{
@@ -321,5 +348,21 @@
         >>> .field.vue-input-ui .field-clear__effect{
             width: 25px;
             border-radius: 50%;
+        }
+
+        @media screen and (max-width: 768px){
+            >>> .field.vue-input-ui .field-clear>span:not(.field-clear__effect){
+                top: -3px;
+                left: -2px;
+            }
+
+            >>> .field.vue-input-ui .field-clear__effect{
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+            }
+            >>> .field.vue-input-ui .field-clear{
+                top: 15px;
+            }
         }
     </style>

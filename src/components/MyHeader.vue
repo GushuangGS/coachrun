@@ -1,7 +1,7 @@
 <template>
   <div class="header">
     <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i>
-    <el-drawer :size="'45%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose">
+    <el-drawer :size="'63%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose">
       <nav class="navbar">
         <div class="user-header-box">
           <div class="nav-not-login" v-if="!$store.state.isLogin">
@@ -133,7 +133,9 @@
         </el-badge>
       </div>
     </div>
-    <i class="icon-basket basket" style="font-size: 26px"></i>
+    <a href="/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154">
+      <i class="icon-basket basket" style="font-size: 26px;color:#333;"></i>
+    </a>
   </div>
 </template>
 
@@ -462,8 +464,7 @@ nav {
   }
 
   .user-header-box {
-    padding: 33.5px 0px;
-    padding-left: 8%;
+    padding: 27px 0px 27px 18px;
     background-color: #f2f2f2;
     font-size: $SubheadlineSize;
     color: #232323;

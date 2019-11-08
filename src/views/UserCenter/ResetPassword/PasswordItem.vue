@@ -1,20 +1,20 @@
 <template>
         <div class="wrap-bg">
             <div class="wrap">
-                <h3 class="title">Password Retrieval</h3>
+                <div class="title">Password Retrieval</div>
                 <span class="discrib">
                     Forgot your password? Enter your
                     email address for us to email you the 
                     instructions to reset your password.
                 </span>
-                <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" :show-message="false" label-width="120px">
+                <el-form class="form-rule" :model="ruleForm" :rules="rules" ref="ruleForm" :show-message="false">
                     <el-form-item
                         prop="email"
-                        :label="labelName"
                     >
-                        <el-input class="input-email" v-model="ruleForm.email" @input="focus"></el-input>
+                    <!-- :label="labelName" -->
+                        <el-input class="input-email" placeholder="Login Email" v-model="ruleForm.email" @input="focus"></el-input>
                         <el-button id="submit" size="mini" type="primary" class="btn" :disabled="canClick" v-show="sendAuthCode" @click="resetPass">
-                            Get Verfication Code
+                            Send Email
                         </el-button>
                         <el-button class="btn2" size="medium" type="primary" plain disabled v-show="!sendAuthCode">
                             ({{auth_time}}s Expires) 
@@ -33,13 +33,13 @@
                 <div class="click-tip" :class="{red:showRed==true}">
                     {{tips}}
                 </div>
-                <el-form class="code-rule" :model="ruleCode" :rules="code" ref="ruleCode" label-width="120px">
+                <el-form class="code-rule" :model="ruleCode" :rules="code" ref="ruleCode">
                     <el-form-item
                         prop="code"
-                        label="Verfication Code:"
                         :error="err"
                     >
-                        <el-input v-model="ruleCode.code" @input="focusCode"></el-input>
+                    <!-- label="Verfication Code:" -->
+                        <el-input v-model="ruleCode.code" placeholder="Verfication Code" @input="focusCode"></el-input>
                     </el-form-item>
                     <el-button @click="clickToPas" id="submit" size="medium" type="warning" class="btnCode" :disabled="codeClick">
                             Next
@@ -82,7 +82,7 @@
                     verify:'',
                     canClick:true,
                     codeClick:true,
-                    tips:'Click “ Get Verfication Code ” for us to send a code to your login email.',
+                    tips:'Click “ Send Email ” for us to send a code to your login email.',
                     showRight:false,
                     showError:false,
                     err:'',
@@ -134,7 +134,7 @@
                                     if (this.auth_time <= 0) {
                                         this.sendAuthCode = true;
                                         this.showRed = false;
-                                        this.tips = 'Click “ Get Verfication Code ” for us to send a code to your login email.';
+                                        this.tips = 'Click “ Send Email ” for us to send a code to your login email.';
                                         clearInterval(auth_timetimer);
                                     }
                                 }, 1000);
@@ -196,13 +196,17 @@
         .wrap{
             margin: 0px auto;
             background:rgba(255,255,255,1);
-            width: 568px;
-            min-height: 414px;
-            padding: 20px 24px 30px 24px;
+            // width: 568px;
+            width: 448px;
+            // min-height: 414px;
+            padding: 20px 50px 30px 50px;
         }
         .title{
             font-size: $Body1Size;
-           color: #333333;
+            color: #333333;
+            font-weight: 600;
+            margin-bottom: 10px;
+            margin-top: 10px;
         }
         .discrib{
             font-size: $Body2Size;
@@ -225,12 +229,12 @@
             margin-top: 20px;
         }
         .form-rule{
-            margin-top: 50px;
+            margin-top: 20px;
         }
         .btn{
            height: 40px;
            position: relative;
-           left: 205px;
+           left: 266px;
            top: -41px;
            font-size: 12px;
            border-top-left-radius: 0;
@@ -252,15 +256,17 @@
            border-bottom-right-radius: 4px;
         }
         .btnCode{
-            width: 25%;
-            margin-left: 120px;
+            width: 200px;
+            height: 36px;
+            margin-left: 74px;
+            // margin-left: 120px;
         }
         .click-tip{
             margin-top: -50px;
             width: 225px;
             font-size: $CaptionSize;
             color: #666666;
-            margin-left: 120px;
+            // margin-left: 120px;
        }
        .red{
            color: #f56c6c;
@@ -296,10 +302,31 @@
             color: #333333;
             font-size: $Body2Size;
        }
+        @media screen and (max-width: 768px){
+            .wrap-bg{
+                background: #fff;
+                box-shadow: 0px 1px 2px 0px #333;
+                padding: 20px 0 20px 0;
+            }
+            .wrap{
+                padding: 20px 5px 20px 5px;
+                width: 300px;
+                max-width: 448px;
+            }
+            .btn{
+                width: 120px;
+                display: flex;
+                justify-content: center;
+                left: 175px;
+            }
+            .btnCode{
+                margin-left: 45px;
+            }
+        }
     </style>
     <style scoped>
         >>> .el-input__inner{
-           width: 206px;
+           width: 348px;
            height: 40px;
            border-top-right-radius: 0;
            border-bottom-right-radius: 0;
@@ -333,6 +360,12 @@
         }
         >>> .el-form-item__label:before{
             display: none;
+        }
+
+        @media screen and (max-width: 768px){
+            >>> .el-input__inner{
+                width: 290px;
+            }
         }
     </style>
     
