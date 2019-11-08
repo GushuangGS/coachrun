@@ -18,13 +18,13 @@ Vue.use(VueGoogleMaps, {
 })
 import '@/plugins/flexiable.js'
 import Calendar from "ivy_nutui/dist/packages/calendar/calendar.js";
-import "@nutui/nutui/dist/nutui.css"
+import "ivy_nutui/dist/nutui.css"
 Vue.use(Calendar,)
 
-import NutUI from '@nutui/nutui';
+import NutUI from 'ivy_nutui';
 NutUI.install(Vue);
 import enUS from '@/plugins/en-US';
 Vue.use(NutUI, {
-    locale: 'en-US',
-    lang: enUS
-  });
+  locale: 'en-US',
+  lang: enUS
+});
