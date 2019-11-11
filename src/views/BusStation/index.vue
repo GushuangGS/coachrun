@@ -73,11 +73,12 @@
           }
           for (let m = 0 ; m<mapData2[0].city.length ; m++){
             count1 = count1 + mapData2[0].city[m].items.length
-            if ((m+1)*2+count1>(mapData2[0].city.length*2+data.length)/2){
+            if ((m+1)+count1>(mapData2[0].city.length+data.length)/2){
               count2 = m
               break;
             }
           }
+          console.log(count2)
           mapData1[0].city = mapData2[0].city.slice(0,count2)
           mapData1[1].city = mapData2[0].city.slice(count2,-1)
           this.data = mapData1

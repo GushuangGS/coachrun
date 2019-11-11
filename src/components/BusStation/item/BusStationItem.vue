@@ -6,11 +6,6 @@
           </span>
         </div>
         <ul class="content-list">
-<!--          <li v-for="(item,index) in data"-->
-<!--              :key="index"-->
-<!--              class="content-item"-->
-<!--              @click="showMap(item.lat,item.lng,'aa')"-->
-<!--          >-->
           <li
               v-for="(item,index) in StationItem"
               :key="index"
@@ -66,29 +61,13 @@
   }
 
   >>> .el-card__body {
-    padding: 10px 12px;
+    padding:10px;
     margin: auto;
   }
-  >>> .el-card__body:hover {
-     background:#f9f9f9;
-     box-shadow:2px 4px 12px 0px rgba(0,0,0,0.1);
-     border-radius:4px;
-   }
 </style>
 <style lang="scss" scoped>
   .el-card.is-always-shadow {
     box-shadow: none;
-  }
-  .box-item {
-    margin-bottom: 20px;
-  }
-  .box-card {
-    /* width: 524px; */
-    &:hover{
-      background: #fafafa;
-      box-shadow: 2px 4px 12px 0 rgba(0,0,0,.1);
-      border-radius: 4px;
-    }
   }
   .el-card {
     border: none;
@@ -117,17 +96,22 @@
         .content-item {
           display: flex;
           cursor: pointer;
+          padding: 3px 0px;
           i {
             margin-right: 12px;
             font-size: 14px;
-            padding-top: 3px;
+            padding-top: 1px;
             color: #009FEA;
           }
           p {
-            font-size:15px;
+            font-size:14px;
             color:#666;
-            line-height:21px;
+            line-height:18px;
+            display: inline-table;
             margin: 0px;
+            &:hover {
+              color: #00A2FF;
+            }
           }
         }
       }
@@ -143,6 +127,18 @@
   @media screen and (min-width:768px) and (max-width:769px){
     .el-col-sm-12 {
         width: 100% !important;
+    }
+  }
+  @media screen and (max-width: 414px){
+    .el-card .clearfix {
+      margin-bottom: 6px;
+    }
+  }
+</style>
+<style>
+  @media screen and (max-width: 414px) {
+    .station-list .box-item .el-card__body {
+      padding: 6px 0px;
     }
   }
 </style>

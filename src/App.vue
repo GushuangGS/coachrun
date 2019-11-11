@@ -28,6 +28,7 @@ export default {
  @import "./styles/fonts/css/a.css";
 body{
     padding: 0;
+    margin-right: 0px!important;
     margin: 0;
     overflow: auto;
   }

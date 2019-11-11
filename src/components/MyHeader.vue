@@ -290,7 +290,7 @@ export default {
 .header-left {
   display: flex;
   align-items: baseline;
-  margin-top: 8px;
+  margin-top: 4px;
 }
 
 .header-right {
@@ -300,7 +300,7 @@ export default {
 
 .header {
   height: 80px;
-  max-width: 1170px;
+  max-width: 1200px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -308,7 +308,6 @@ export default {
   background: rgba(255, 255, 255, 1);
   padding: 15px 0;
   justify-content: space-between;
-  padding: 0 15px;
 }
 .logo {
   width: 132px;
@@ -393,20 +392,14 @@ export default {
   display: flex;
   align-items: center;
   margin: 0;
-  padding-left: 30px;
 }
 
 .header-title li {
   white-space: nowrap;
-  margin-left: 30px;
+  margin-left: 40px;
   text-align: center;
   font-size: $Body1Size;
   color: #333;
-  padding: 15px;
-}
-
-.header-title li:first-child {
-  margin-left: 0;
 }
 
 .header-title li a {
