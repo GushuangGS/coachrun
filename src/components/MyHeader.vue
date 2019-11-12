@@ -306,7 +306,7 @@ export default {
   align-items: center;
   cursor: pointer;
   background: rgba(255, 255, 255, 1);
-  padding: 15px 0;
+  padding: 15px 20px;
   justify-content: space-between;
 }
 .logo {

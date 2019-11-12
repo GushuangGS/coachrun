@@ -89,8 +89,9 @@
       color:#333;
       line-height: 20px;
       margin: 0 auto;
-      padding-top: 30px;
-      padding-bottom: 30px;
+      // padding-top: 30px;
+      // padding-bottom: 30px;
+      padding: 30px 10px;
     }
     .bot-logo{
         margin-top: 50px;
