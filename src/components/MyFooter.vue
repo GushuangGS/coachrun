@@ -161,6 +161,7 @@
   .coachrun-footer .el-col {
     padding-left: 3px!important;
     padding-right: 3px!important;
+    margin: auto 2px;
   }
   .footer-logo {
     padding-left: 0px!important;
