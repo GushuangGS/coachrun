@@ -34,15 +34,15 @@
                   <div class="local-media">
                     <p class="bot-title">Social Media </p>
                     <div class="local-media-icon-box">
-                      <span>
+                      <a href="https://www.facebook.com/CoachRunBus/">
                         <i class="icon-facebook-squared"></i>
-                      </span>
-                      <span>
+                      </a>
+                      <a href="https://www.instagram.com/coachrunbus/">
                         <i class="icon-instagram"></i>
-                      </span>
-                      <span>
+                      </a>
+                      <a href="https://twitter.com/coachrunbus/">
                         <i class="icon-twitter-squared"></i>
-                      </span>
+                      </a>
                     </div>
                   </div>
                 </el-col>
@@ -126,6 +126,12 @@
         display: flex;
         justify-content: space-between;
     }
+    .local-media-icon-box a{
+        text-decoration: none;
+        color:#333;
+        font-size:14px;
+        line-height:24px;
+    }
     .local-media-icon-box i {
       font-size: 24px;
     }
@@ -167,4 +173,29 @@
   .footer-logo {
     padding-left: 0px!important;
   }
+</style>
+
+<style scoped>
+/* .pub-wrap{
+	line-height: 1.5rem;
+}
+.pub-wrap h4 {
+	margin-bottom: 0;
+	line-height: 1.5rem;
+}
+.pub-wrap .wrap-txt{
+	margin:5px 0;
+	line-height: 1.5rem;
+}
+.pub-wrap h2.font14{
+	padding-left: 0;
+}
+.pub-wrap ul.no_list_style {
+	padding-left:10px;
+	padding-right: 10px;
+	line-height:1.5em;
+}
+.pub-wrap ul li {
+	margin-top: 2px;	
+} */
 </style>
