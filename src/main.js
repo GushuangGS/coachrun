@@ -36,7 +36,7 @@ Vue.use(VueHammer)
 
 import VueMatomo from 'vue-matomo'
 Vue.use(VueMatomo,{
-  host: 'https://owa.taketours.com/piwik/',
+  host: 'https://owa.taketours.com/piwik',
   siteId: 34,
   trackerFileName: 'piwik',
   router: router
