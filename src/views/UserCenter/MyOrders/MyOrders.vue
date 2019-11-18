@@ -222,6 +222,9 @@
     height: 80px;
     margin-right: 20px;
   }
+  .account-points{
+    font-size: 16px;
+  }
   .points{
     font-size: $Body2Size;
     color: #333333;
@@ -250,6 +253,7 @@
   .right-icon{
     width: 20px;
     text-align: center;
+    font-size: 16px;
   }
   .right-img{
     color: #666;
@@ -264,7 +268,7 @@
     width: 978px;
     border-top: 1px solid #EBEEF5;
     margin-top: 20px;
-    margin-bottom: 58px;
+    margin-bottom: 30px;
   }
   .recent-bookings {
     width: 978px;

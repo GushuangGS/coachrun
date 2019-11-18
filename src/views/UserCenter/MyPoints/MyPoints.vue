@@ -324,7 +324,7 @@
     font-size: 16px;
   }
   >>> .el-table .cell{
-    font-size: 14px;
+    font-size: 14px !important;
   }
   .pagination-wrapper >>> .el-pagination.is-background .el-pager li:not(.disabled).active {
     background-color: #419EFF;

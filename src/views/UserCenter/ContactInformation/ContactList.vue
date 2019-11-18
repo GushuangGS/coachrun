@@ -265,7 +265,7 @@
     color: #29507D;
   }
   >>> .el-table__header th>div.cell {
-    font-size: 16px;
+    font-size: 14px;
   }
   >>> .el-table__body td>div.cell{
     font-size: 14px;

@@ -850,6 +850,7 @@
         line-height: 40px;
         border-left: 10px solid #E5EFFA;
         border-right: 10px solid #E5EFFA;
+        font-size: 14px;
       }
       .column-first {
         margin-left: 30px;
