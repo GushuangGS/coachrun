@@ -222,7 +222,7 @@
   .credits>.credit-list {
     list-style: none;
     padding-left: 0;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #cdcdcd;
   }
   .credits>.credit-list>.credit-list-item {
@@ -275,7 +275,7 @@
     font-size: $Body2Size;
   }  
   .add-credit {
-    margin-top: 5px;
+    margin-top: 20px;
   }
   .add-credit>h2.title {
     margin-top: 0;
@@ -283,6 +283,7 @@
     line-height: 1;
     font-size: $Body1Size;
     font-weight: bold;
+    color: #333;
   }
   .add-credit>div.detail {
     display: flex;
@@ -301,7 +302,7 @@
     margin-right: 15px;
   }
   .add-btn {
-    margin-top: 20px;
+    margin-top: 10px;
     box-sizing: border-box;
     width: 92px;
     height: 30px;

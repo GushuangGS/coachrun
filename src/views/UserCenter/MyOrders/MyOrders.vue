@@ -224,6 +224,7 @@
   }
   .account-points{
     font-size: 16px;
+    color: #333;
   }
   .points{
     font-size: $Body2Size;
@@ -355,7 +356,7 @@
       color:rgba(51,51,51,1); 
       height: 40px;
       line-height: 40px;
-      font-size: $Body1Size;
+      font-size: $Body2Size;
       border-bottom: 1px solid #EBEEF5;
       padding-left: 10px;
     }
