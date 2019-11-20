@@ -918,7 +918,7 @@
         if (ev.target.value.length>1){
           ev.target.value = ev.target.value.replace(/^0{1,}/g,'');//数字有两位以上，不能以0开头
         }
-        ev.target.value = parseInt(ev.target.value) > ev.target.max?parseInt(new Number(ev.target.value)/10):ev.target.value;//大于最大值，则等于当前值
+        ev.target.value = parseInt(ev.target.value) > ev.target.max?ev.target.max:ev.target.value;//大于最大值，则等于当前值
       },
       hiddenPassengerBox(){
         this.$refs.passenger.visible = false;
