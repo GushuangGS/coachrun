@@ -171,7 +171,7 @@
                   <!-- -------------------------- -->
 
 
-                  <i class="el-icon-circle-close return-date-cancel" v-show="return_date" @click="clearReturnDate"></i>
+                  <i class="el-icon-circle-close return-date-cancel" v-show="return_date||returnDate" @click="clearReturnDate"></i>
                 </el-col>
                 <el-col :md="4" :sm="10" :xs="24" class="change-passenger city_passenger">
                   <i class="fa icon-user" @click="openPassenger"></i>
@@ -772,6 +772,7 @@
         }
       },
       clearReturnDate(){
+        this.returnDate = "";
         this.return_date = "";
       },
       disabledDateDep (today) {
