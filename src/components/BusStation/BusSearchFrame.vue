@@ -211,6 +211,7 @@
                                 :min="0"
                                 :max="50"
                                 @input.native="inputCount($event)"
+                                @blur="blurPassenger"
                         ></el-input-number>
                       </div>
                     </el-option>
@@ -234,6 +235,7 @@
                           :min="1"
                           :max="50"
                           @input.native="inputCount($event)"
+                          @blur="blurPassenger"
                   ></el-input-number>
                 </el-col>
                 <el-col :xs="24" class="passenger-people passenger-input-height">
@@ -246,6 +248,7 @@
                           :min="0"
                           :max="50"
                           @input.native="inputCount($event)"
+                          @blur="blurPassenger"
                   ></el-input-number>
                 </el-col>
                 <el-col :md="2" :sm="24" :xs="24" class="search-submit">
@@ -1687,6 +1690,7 @@
   @media screen and (max-width: 767px){
     .return-date-cancel {
       right: 15px!important;
+      top: 13px!important;
     }
     .passenger-people {
       padding: 0 3px!important;
