@@ -784,7 +784,7 @@
           },
           eticket(data){
             // window.open(`http://testwww.coachrun.com/cgi-bin/ce.cgi?a=view_confirmation&eid=${data.entityId}`, '_blank');
-            let url = `${websiteDomain('ce')}?a=view_confirmation&eid=${data.entityId}`;
+            let url = `${websiteDomain('ce')}?a=view_sold&s_eid=${data.entityId}`;
             window.open(url, '_blank');
           },
           trackBus(data){
