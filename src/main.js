@@ -134,6 +134,7 @@ axios.interceptors.request.use(
       // console.log(VueCookie.get('IvyCustomer_LoginCookie'))
       let loginCookie = null; 
       let ivyCookie = VueCookie.get('IvyCustomer_LoginCookie');
+      console.log(ivyCookie);
       if(ivyCookie !=undefined && ivyCookie !=null&& ivyCookie!=''){
         if(ivyCookie.indexOf('undefind') ==-1 && ivyCookie.indexOf('null') ==-1) {
           loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
