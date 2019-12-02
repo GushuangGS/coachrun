@@ -132,31 +132,28 @@ axios.interceptors.request.use(
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
       // console.log(VueCookie.get('IvyCustomer_LoginCookie'))
-      // if(VueCookie.get('IvyCustomer_LoginCookie') !=undefined && VueCookie.get('IvyCustomer_LoginCookie') != null){
-
-        let loginCookie = null; 
-        let ivyCookie = VueCookie.get('IvyCustomer_LoginCookie');
-        if(ivyCookie !=undefined && ivyCookie !=null&& ivyCookie!=''){
-          if(ivyCookie.indexOf('undefind') ==-1 && ivyCookie.indexOf('null') ==-1) {
-            loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
-          }
+      let loginCookie = null; 
+      let ivyCookie = VueCookie.get('IvyCustomer_LoginCookie');
+      if(ivyCookie !=undefined && ivyCookie !=null&& ivyCookie!=''){
+        if(ivyCookie.indexOf('undefind') ==-1 && ivyCookie.indexOf('null') ==-1) {
+          loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
         }
-        // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
-        let token = loginCookie.split('+|+')[2];
-        if(token){
-          token = localStorage.getItem('IvyCustomer_LoginToken');
+      }
+      // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+      let token = loginCookie.split('+|+')[2];
+      if(token){
+        token = localStorage.getItem('IvyCustomer_LoginToken');
+      }
+      config.data = JSON.stringify(config.data);
+      config.headers['Content-Type'] ='application/json';
+      // console.log(config.url.indexOf('login')==-1);
+      if(config.url.indexOf('api')!=-1){
+        config.headers['X-Api-Key'] = btoa(apiKey);
+        if(token != null){
+          config.headers['Authorization'] = token;
         }
-        config.data = JSON.stringify(config.data);
-        config.headers['Content-Type'] ='application/json';
-        // console.log(config.url.indexOf('login')==-1);
-        if(config.url.indexOf('api')!=-1){
-          config.headers['X-Api-Key'] = btoa(apiKey);
-          if(token != null){
-            config.headers['Authorization'] = token;
-          }
-        }
-        showFullScreenLoading();
-      // }   
+      }
+      showFullScreenLoading();
       return config;
   },
   error => {
