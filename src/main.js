@@ -132,8 +132,14 @@ axios.interceptors.request.use(
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
       // console.log(VueCookie.get('IvyCustomer_LoginCookie'))
-      if(VueCookie.get('IvyCustomer_LoginCookie') !=undefined && VueCookie.get('IvyCustomer_LoginCookie') != null){
-        let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+      // if(VueCookie.get('IvyCustomer_LoginCookie') !=undefined && VueCookie.get('IvyCustomer_LoginCookie') != null){
+        let loginCookie = '';
+        if(VueCookie.get('IvyCustomer_LoginCookie').search("undefind") != -1){
+          loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+        }else{
+          loginCookie = '';
+        }
+        // console.log(localStorage.getItem('IvyCustomer_LoginToken'))
         let token = loginCookie.split('+|+')[2];
         if(token==undefined){
           token = localStorage.getItem('IvyCustomer_LoginToken');
@@ -148,7 +154,7 @@ axios.interceptors.request.use(
           }
         }
         showFullScreenLoading();
-      }   
+      // }   
       return config;
   },
   error => {
