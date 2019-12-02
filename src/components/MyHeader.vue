@@ -167,6 +167,7 @@ export default {
     if (process.env.NODE_ENV == "development") {
       name = localStorage.getItem("IvyCustomer_LoginToken");
     } else {
+      console.log(VueCookie.get("IvyCustomer_LoginCookie"))
       name = VueCookie.get("IvyCustomer_LoginCookie");
     }
     if (name) {
