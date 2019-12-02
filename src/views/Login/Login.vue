@@ -112,6 +112,7 @@
                 }).catch((error)=> {       
                 });
             }
+
         },
         methods:{
             blurInp(){
@@ -138,13 +139,13 @@
                 return null;
             },
             logout(){
-                let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
-                let token = loginCookie.split('+|+')[2];
-                // console.log(token)
-                if(token==undefined){
-                    token = localStorage.getItem('IvyCustomer_LoginToken');
-                }
-                console.log(token);
+                // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+                // let token = loginCookie.split('+|+')[2];
+                // // console.log(token)
+                // if(token==undefined){
+                //     token = localStorage.getItem('IvyCustomer_LoginToken');
+                // }
+                // console.log(token);
                 // if(token!=null){
                     this.$http.delete(this.$api.logout)
                     .then((data) => {
@@ -190,6 +191,7 @@
                                     //             })
                                     //     }
                                     // }
+                                    VueCookie.set('IvyCustomer_LoginCookie','null%2B%7C%undefined2B%2B%7C%2Bundefined');
                                     console.log(process.env.NODE_ENV);
                                     this.processEnv(data);
                                     // if (process.env.NODE_ENV == 'development'){

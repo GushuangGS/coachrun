@@ -133,15 +133,17 @@ axios.interceptors.request.use(
       // let apiKey = "1:0:0:1";
       // console.log(VueCookie.get('IvyCustomer_LoginCookie'))
       // if(VueCookie.get('IvyCustomer_LoginCookie') !=undefined && VueCookie.get('IvyCustomer_LoginCookie') != null){
-        let loginCookie = '';
-        if(VueCookie.get('IvyCustomer_LoginCookie').search("undefind") != -1){
-          loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
-        }else{
-          loginCookie = '';
+
+        let loginCookie = null; 
+        let ivyCookie = VueCookie.get('IvyCustomer_LoginCookie');
+        if(ivyCookie !=undefined && ivyCookie !=null&& ivyCookie!=''){
+          if(ivyCookie.indexOf('undefind') ==-1 && ivyCookie.indexOf('null') ==-1) {
+            loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+          }
         }
-        // console.log(localStorage.getItem('IvyCustomer_LoginToken'))
+        // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
         let token = loginCookie.split('+|+')[2];
-        if(token==undefined){
+        if(token){
           token = localStorage.getItem('IvyCustomer_LoginToken');
         }
         config.data = JSON.stringify(config.data);
