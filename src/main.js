@@ -142,7 +142,9 @@ axios.interceptors.request.use(
       // console.log(config.url.indexOf('login')==-1);
       if(config.url.indexOf('api')!=-1){
         config.headers['X-Api-Key'] = btoa(apiKey);
-        config.headers['Authorization'] = token;
+        if(token != null){
+          config.headers['Authorization'] = token;
+        }
       }
       showFullScreenLoading();
       return config;
