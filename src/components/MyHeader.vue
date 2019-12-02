@@ -140,7 +140,6 @@
 </template>
 
 <script>
-import VueCookie from "vue-cookie";
 import Cookies from 'js-cookie'
 // "element-ui": "^2.4.5",
 export default {

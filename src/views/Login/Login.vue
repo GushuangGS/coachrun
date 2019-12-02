@@ -68,7 +68,6 @@
 
 <script>
     import MobileDetect  from "mobile-detect"
-    import VueCookie from 'vue-cookie';
     import Cookies from 'js-cookie'
     export default{
         name:'Login',
@@ -140,7 +139,7 @@
                 return null;
             },
             logout(){
-                // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+                // let loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
                 // let token = loginCookie.split('+|+')[2];
                 // // console.log(token)
                 // if(token==undefined){
@@ -154,7 +153,7 @@
                         if(data.data.code==200){
                             localStorage.removeItem("IvyCustomer_LoginToken");
                             localStorage.removeItem("loginName");
-                            Cookies.delete('IvyCustomer_LoginCookie');
+                            Cookies.remove('IvyCustomer_LoginCookie');
                             this.$store.commit('logout');
                         }else if(data.data.code==500){
                             this.$message({
@@ -179,7 +178,7 @@
                                 if(data.data.code==200){
                                     // this.pageUrl = this.getId("pageUrl");
                                     
-                                    // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+                                    // let loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
                                     // if(loginCookie == undefined) return
                                     //     let token = loginCookie.split('+|+')[2]
                                     // if (process.env.NODE_ENV == 'production'){
@@ -188,11 +187,11 @@
                                     //             .then( res => {
                                     //                 let token = res.data.token;
                                     //                 let newLoginCookie = `${loginCookie}+|++|+${token}`
-                                    //                 // VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
+                                    //                 // Cookies.set('IvyCustomer_LoginCookie',newLoginCookie);
                                     //             })
                                     //     }
                                     // }
-                                    // VueCookie.set('IvyCustomer_LoginCookie','null%2B%7C%undefined2B%2B%7C%2Bundefined');
+                                    // Cookies.set('IvyCustomer_LoginCookie','null%2B%7C%undefined2B%2B%7C%2Bundefined');
                                     console.log(process.env.NODE_ENV);
                                     
                                     this.processEnv(data);
@@ -214,7 +213,7 @@
                                     //     if(this.pageUrl){
                                     //         window.location.href = this.pageUrl;
                                     //     }else{
-                                    //         if(VueCookie.get('IvyCustomer_role')>=3){
+                                    //         if(Cookies.get('IvyCustomer_role')>=3){
                                     //             window.location.href = 'https://www.coachrun.com/app/member/account';
                                     //         }else{
                                     //             this.$router.push({name: 'MyOrders'});
