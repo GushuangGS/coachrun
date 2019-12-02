@@ -164,16 +164,16 @@ export default {
   },
   created() {
     var name;
-    if (process.env.NODE_ENV == "development") {
-      name = localStorage.getItem("IvyCustomer_LoginToken");
-    } else {
-      console.log(VueCookie.get("IvyCustomer_LoginCookie"))
-      name = VueCookie.get("IvyCustomer_LoginCookie");
-    }
-    if (name) {
-      this.$store.commit("login");
-      this.isLogin = this.$store.state.isLogin;
-    }
+    // if (process.env.NODE_ENV == "development") {
+    //   name = localStorage.getItem("IvyCustomer_LoginToken");
+    // } else {
+    //   console.log(VueCookie.get("IvyCustomer_LoginCookie"))
+    //   name = VueCookie.get("IvyCustomer_LoginCookie");
+    // }
+    // if (name) {
+    //   this.$store.commit("login");
+    //   this.isLogin = this.$store.state.isLogin;
+    // }
   },
   mounted() {
     this.shopNum = VueCookie.get("IvyCustomer_ShoppingItems");
