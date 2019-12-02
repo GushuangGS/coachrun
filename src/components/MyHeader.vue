@@ -141,6 +141,7 @@
 
 <script>
 import VueCookie from "vue-cookie";
+import Cookies from 'js-cookie'
 // "element-ui": "^2.4.5",
 export default {
   name: "MyHeader",
@@ -167,7 +168,7 @@ export default {
     if (process.env.NODE_ENV == "development") {
       name = localStorage.getItem("IvyCustomer_LoginToken");
     } else {
-      name = VueCookie.get("IvyCustomer_LoginCookie");
+      name = Cookies.get("IvyCustomer_LoginCookie");
     }
     if (name) {
       this.$store.commit("login");
@@ -175,8 +176,8 @@ export default {
     }
   },
   mounted() {
-    this.shopNum = VueCookie.get("IvyCustomer_ShoppingItems");
-    // this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
+    this.shopNum = Cookies.get("IvyCustomer_ShoppingItems");
+    // this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
   },
   methods: {
     handleClose() {
@@ -187,15 +188,15 @@ export default {
     },
     getUserEmail(){
       if(process.env.NODE_ENV !== "development"){
-        return this.userEmail = VueCookie.get("IvyCustomer_LoginEmail");
+        return this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
       }
     },
     getUserName() {
-      // this.userName = VueCookie.get("IvyCustomer_FirstName");
+      // this.userName = Cookies.get("IvyCustomer_FirstName");
       // if (this.userName == null || this.userName == undefined) {
-      //   // this.userName =VueCookie.get("IvyCustomer_LoginEmail") != null? VueCookie.get("IvyCustomer_LoginEmail"): localStorage.getItem("loginName");
-      //   if(VueCookie.get("IvyCustomer_LoginEmail") != null || VueCookie.get("IvyCustomer_LoginEmail") != undefined){
-      //      this.userName = VueCookie.get("IvyCustomer_LoginEmail");
+      //   // this.userName =Cookies.get("IvyCustomer_LoginEmail") != null? Cookies.get("IvyCustomer_LoginEmail"): localStorage.getItem("loginName");
+      //   if(Cookies.get("IvyCustomer_LoginEmail") != null || Cookies.get("IvyCustomer_LoginEmail") != undefined){
+      //      this.userName = Cookies.get("IvyCustomer_LoginEmail");
       //   }else{
       //     this.userName =localStorage.getItem("loginName");
       //   }
@@ -205,9 +206,9 @@ export default {
       if(process.env.NODE_ENV === "development"){
         return  this.userName =localStorage.getItem("loginName");
       }else{
-        this.userName = VueCookie.get("IvyCustomer_FirstName");
+        this.userName = Cookies.get("IvyCustomer_FirstName");
         if(this.userName == null || this.userName == undefined){
-          this.userName = VueCookie.get("IvyCustomer_LoginEmail");
+          this.userName = Cookies.get("IvyCustomer_LoginEmail");
         }
         return this.userName;
       }
@@ -235,7 +236,7 @@ export default {
       );
     },
     gotoMine() {
-      if (VueCookie.get("IvyCustomer_role") >= 3) {
+      if (Cookies.get("IvyCustomer_role") >= 3) {
         window.location.href = "https://www.coachrun.com/app/member/account";
       } else {
         this.$router.push({ name: "MyOrders" });
@@ -255,8 +256,8 @@ export default {
             localStorage.removeItem("IvyCustomer_LoginToken");
             localStorage.removeItem("loginName");
           }
-          VueCookie.delete("IvyCustomer_LoginCookie");
-          VueCookie.delete("front-sessionId");
+          Cookies.delete("IvyCustomer_LoginCookie");
+          Cookies.delete("front-sessionId");
           this.$store.commit("logout");
           this.$router.push({ name: "Login" });
         } else if (data.data.code == 500) {
@@ -269,14 +270,14 @@ export default {
       });
     },
     gotoAcount() {
-      if (VueCookie.get("IvyCustomer_role") >= 3) {
+      if (Cookies.get("IvyCustomer_role") >= 3) {
         window.location.href = "https://www.coachrun.com/app/member/account";
       } else {
         this.$router.push({ name: "MyOrders" });
       }
     },
     gotoBooking() {
-      if (VueCookie.get("IvyCustomer_role") >= 3) {
+      if (Cookies.get("IvyCustomer_role") >= 3) {
         window.location.href = "https://www.coachrun.com/app/member/account";
       } else {
         this.$router.push({ name: "MyBookings" });
