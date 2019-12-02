@@ -136,17 +136,22 @@ axios.interceptors.request.use(
       // console.log(VueCookie.get('IvyCustomer_LoginCookie'))
       let loginCookie = null; 
       let ivyCookie = Cookies.get('IvyCustomer_LoginCookie');
+      let token = null;
       //null%2B%7C%undefined2B%2B%7C%2Bundefined
       if(ivyCookie !=undefined && ivyCookie !=null&& ivyCookie!=''){
         if(ivyCookie.indexOf('undefined') ==-1 && ivyCookie.indexOf('null') ==-1) {
           loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
+          token = loginCookie.split('+|+')[2];
+          if(token){
+            token = localStorage.getItem('IvyCustomer_LoginToken');
+          }
         }
       }
       // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
-      let token = loginCookie.split('+|+')[2];
-      if(token){
-        token = localStorage.getItem('IvyCustomer_LoginToken');
-      }
+      // let token = loginCookie.split('+|+')[2];
+      // if(token){
+      //   token = localStorage.getItem('IvyCustomer_LoginToken');
+      // }
       config.data = JSON.stringify(config.data);
       config.headers['Content-Type'] ='application/json';
       // console.log(config.url.indexOf('login')==-1);
