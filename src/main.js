@@ -131,24 +131,24 @@ axios.interceptors.request.use(
       loginLoadTime = config.url.indexOf('api/users/login')!=-1?true:false;
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
-      console.log(VueCookie.get('IvyCustomer_LoginCookie'))
-      let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
-      console.log(loginCookie)
-      let token = loginCookie.split('+|+')[2];
-      if(token==undefined){
-        token = localStorage.getItem('IvyCustomer_LoginToken');
-      }
-      // console.log(token);
-      config.data = JSON.stringify(config.data);
-      config.headers['Content-Type'] ='application/json';
-      // console.log(config.url.indexOf('login')==-1);
-      if(config.url.indexOf('api')!=-1){
-        config.headers['X-Api-Key'] = btoa(apiKey);
-        if(token != null){
-          config.headers['Authorization'] = token;
+      // console.log(VueCookie.get('IvyCustomer_LoginCookie'))
+      if(VueCookie.get('IvyCustomer_LoginCookie') !=undefined && VueCookie.get('IvyCustomer_LoginCookie') != null){
+        let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+        let token = loginCookie.split('+|+')[2];
+        if(token==undefined){
+          token = localStorage.getItem('IvyCustomer_LoginToken');
         }
-      }
-      showFullScreenLoading();
+        config.data = JSON.stringify(config.data);
+        config.headers['Content-Type'] ='application/json';
+        // console.log(config.url.indexOf('login')==-1);
+        if(config.url.indexOf('api')!=-1){
+          config.headers['X-Api-Key'] = btoa(apiKey);
+          if(token != null){
+            config.headers['Authorization'] = token;
+          }
+        }
+        showFullScreenLoading();
+      }   
       return config;
   },
   error => {
