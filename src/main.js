@@ -22,6 +22,8 @@ import './styles/common.css'
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
+import Cookies from 'js-cookie'
+
 // ---------fir-coachrun.firebaseapp.com-------auth.coachrun.com-----
 var firebaseConfig = {
   apiKey: "AIzaSyBBcB6htx6yN66aYrzE8yNgaqwcntPZX2c",
@@ -133,11 +135,11 @@ axios.interceptors.request.use(
       // let apiKey = "1:0:0:1";
       // console.log(VueCookie.get('IvyCustomer_LoginCookie'))
       let loginCookie = null; 
-      let ivyCookie = VueCookie.get('IvyCustomer_LoginCookie');
-      console.log(ivyCookie);
+      let ivyCookie = Cookies.get('IvyCustomer_LoginCookie');
+      //null%2B%7C%undefined2B%2B%7C%2Bundefined
       if(ivyCookie !=undefined && ivyCookie !=null&& ivyCookie!=''){
-        if(ivyCookie.indexOf('undefind') ==-1 && ivyCookie.indexOf('null') ==-1) {
-          loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+        if(ivyCookie.indexOf('undefined') ==-1 && ivyCookie.indexOf('null') ==-1) {
+          loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
         }
       }
       // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
