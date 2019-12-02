@@ -69,6 +69,7 @@
 <script>
     import MobileDetect  from "mobile-detect"
     import VueCookie from 'vue-cookie';
+    import Cookies from 'js-cookie'
     export default{
         name:'Login',
         data(){
@@ -93,7 +94,7 @@
             }
         },
         created(){
-            if(this.$route.path.indexOf('logout')!=-1 && VueCookie.get('IvyCustomer_LoginCookie')){
+            if(this.$route.path.indexOf('logout')!=-1 && Cookies.get('IvyCustomer_LoginCookie')){
                 this.logout();
             }
             var md = new MobileDetect(window.navigator.userAgent);
@@ -153,7 +154,7 @@
                         if(data.data.code==200){
                             localStorage.removeItem("IvyCustomer_LoginToken");
                             localStorage.removeItem("loginName");
-                            VueCookie.delete('IvyCustomer_LoginCookie');
+                            Cookies.delete('IvyCustomer_LoginCookie');
                             this.$store.commit('logout');
                         }else if(data.data.code==500){
                             this.$message({
@@ -359,7 +360,7 @@
                     if(this.pageUrl){
                         window.location.href = this.pageUrl;
                     }else{
-                        if(VueCookie.get('IvyCustomer_role')>=3){
+                        if(Cookies.get('IvyCustomer_role')>=3){
                             window.location.href = 'https://www.coachrun.com/app/member/account';
                         }else{
                             this.$router.push({name: 'MyOrders'});
