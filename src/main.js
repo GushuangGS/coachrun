@@ -131,7 +131,9 @@ axios.interceptors.request.use(
       loginLoadTime = config.url.indexOf('api/users/login')!=-1?true:false;
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
+      console.log(VueCookie.get('IvyCustomer_LoginCookie'))
       let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+      console.log(loginCookie)
       let token = loginCookie.split('+|+')[2];
       if(token==undefined){
         token = localStorage.getItem('IvyCustomer_LoginToken');
