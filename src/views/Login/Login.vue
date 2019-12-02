@@ -177,19 +177,19 @@
                                 if(data.data.code==200){
                                     // this.pageUrl = this.getId("pageUrl");
                                     
-                                    let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
-                                    if(loginCookie == undefined) return
-                                        let token = loginCookie.split('+|+')[2]
-                                    if (process.env.NODE_ENV == 'production'){
-                                        if(!token && loginCookie){
-                                            this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
-                                                .then( res => {
-                                                    let token = res.data.token;
-                                                    let newLoginCookie = `${loginCookie}+|+${token}`
-                                                    VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
-                                                })
-                                        }
-                                    }
+                                    // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+                                    // if(loginCookie == undefined) return
+                                    //     let token = loginCookie.split('+|+')[2]
+                                    // if (process.env.NODE_ENV == 'production'){
+                                    //     if(!token && loginCookie){
+                                    //         this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
+                                    //             .then( res => {
+                                    //                 let token = res.data.token;
+                                    //                 let newLoginCookie = `${loginCookie}+|++|+${token}`
+                                    //                 // VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
+                                    //             })
+                                    //     }
+                                    // }
                                     console.log(process.env.NODE_ENV);
                                     this.processEnv(data);
                                     // if (process.env.NODE_ENV == 'development'){
