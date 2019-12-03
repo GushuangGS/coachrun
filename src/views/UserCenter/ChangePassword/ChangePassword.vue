@@ -55,7 +55,6 @@
 </template>
 
 <script>
-  import VueCookie from 'vue-cookie';
   import ItemHeader from '@/components/ItemHeader'
   import SuccessBox from '@/components/SuccessBox'
 

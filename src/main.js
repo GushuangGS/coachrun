@@ -8,7 +8,6 @@ import store from './store'
 import './plugins/element.js'
 import axios from 'axios'
 import api from './configs/api'
-import VueCookie from 'vue-cookie';
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
 
@@ -47,7 +46,6 @@ Vue.use(VueMatomo,{
 import './plugins/busStation.js'
 
 // Vue.use(ElementUI,{ locale });
-Vue.use(VueCookie);
 Vue.use(VuePhoneNumberInput);
 Vue.use(eleCalendar);
 
@@ -133,7 +131,7 @@ axios.interceptors.request.use(
       loginLoadTime = config.url.indexOf('api/users/login')!=-1?true:false;
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
-      // console.log(VueCookie.get('IvyCustomer_LoginCookie'))
+      // console.log(Cookies.get('IvyCustomer_LoginCookie'))
       let loginCookie = null; 
       let ivyCookie = Cookies.get('IvyCustomer_LoginCookie');
       let token = null;
@@ -149,7 +147,7 @@ axios.interceptors.request.use(
           }
         }
       }
-      // let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+      // let loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
       // let token = loginCookie.split('+|+')[2];
       // if(token){
       //   token = localStorage.getItem('IvyCustomer_LoginToken');

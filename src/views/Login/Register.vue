@@ -53,7 +53,7 @@
 </template>
     
     <script>
-        import VueCookie from 'vue-cookie';
+        import Cookies from 'js-cookie'
         import VuePhoneNumberInput from 'vue-phone-number-input'
         export default{
             name:'Register',
@@ -159,16 +159,13 @@
                             .then((data) => {
                                 console.log(data);
                                 if(data.data.code==200){
-                                    let loginCookie = decodeURI(VueCookie.get('IvyCustomer_LoginCookie'));
+                                    let loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
                                     if(loginCookie == undefined) return
                                         let token = loginCookie.split('+|+')[2]
                                     if (process.env.NODE_ENV === 'production'){
                                         if(!token){
                                             this.$http.post(this.$api.authorization,{loginCookie:loginCookie})
                                                 .then( res => {
-                                                    let token = res.data.token;
-                                                    let newLoginCookie = `${loginCookie}+|+${token}`
-                                                    VueCookie.set('IvyCustomer_LoginCookie',newLoginCookie);
                                                     console.log(newLoginCookie);
                                                     console.log(res);
                                                 })

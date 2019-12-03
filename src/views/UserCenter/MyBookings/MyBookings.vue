@@ -362,7 +362,7 @@
       import moment from "moment"
       import ItemHeader from '@/components/ItemHeader'
       import MyDatePicker from '@/components/DatePicker'
-      import VueCookie from 'vue-cookie';
+      import Cookies from 'js-cookie'
       import {websiteDomain} from "../../../configs/siteConfig"
 
       export default {
@@ -497,7 +497,7 @@
             pagesize:10,    //每页的数据
             bookingsList:[],
             activeNames: [],
-            userId:VueCookie.get("front-sessionId"),
+            userId:Cookies.get("front-sessionId"),
             timeDefaultShow:'',
             selectedItinerary: null,
             bookingsApi:'api/orders/list',//DatePicker
@@ -698,7 +698,7 @@
             },
           orderList(){
             // this.userId = sessionStorage.getItem("userLogin_id");
-            // this.userId = VueCookie.get("front-sessionId");
+            // this.userId = Cookies.get("front-sessionId");
             // console.log(this.userId)
             // this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId},headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
             this.$http.get(this.$api.bookingList,{params:{dateRange:16,userId:this.userId}})

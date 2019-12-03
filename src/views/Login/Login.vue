@@ -366,8 +366,8 @@
                         }
                     }
                 }
-                this.$cookie.set('front-sessionId', data.data.data.user.id);
-                                    this.$store.commit('login');
+                Cookies.set('front-sessionId', data.data.data.user.id);
+                this.$store.commit('login');
             }
         }
     }
