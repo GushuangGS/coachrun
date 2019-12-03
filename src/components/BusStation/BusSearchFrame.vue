@@ -1251,6 +1251,7 @@
   }
 </style>
 <style>
+  .base_div{height: calc(100% - 41px)!important;}
   .search-table .el-input__inner {
     font-size: 14px !important;
   }
