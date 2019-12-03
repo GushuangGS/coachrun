@@ -391,12 +391,12 @@ export default {
 .header-title {
   display: flex;
   align-items: center;
-  margin: 0;
+  margin: 0px 0px 0px 20px ;
 }
 
 .header-title li {
   white-space: nowrap;
-  margin-left: 40px;
+  padding: 0px 10px;
   text-align: center;
   font-size: $Body1Size;
   color: #333;
@@ -405,6 +405,7 @@ export default {
 .header-title li a {
   text-decoration: none;
   color: #333;
+  font-weight: 700;
 }
 
 .backgr {
