@@ -186,7 +186,7 @@
     flex: 1;
   }
   .content {
-    min-height: 850px;
+    min-height: 550px;
   }
   .content>h2 {
     margin-top: 0;

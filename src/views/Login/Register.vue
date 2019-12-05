@@ -175,7 +175,7 @@
                                         localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                                         localStorage.setItem("loginName", data.data.data.user.email);
                                     }
-                                    this.$cookie.set('front-sessionId', data.data.data.user.id);
+                                    Cookies.set('front-sessionId', data.data.data.user.id);
                                     this.$store.commit('login'); 
                                     this.$router.push({name: 'MyOrders'});
                                 }else{

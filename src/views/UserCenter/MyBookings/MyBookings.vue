@@ -799,7 +799,7 @@
     <style lang="scss" scoped>
       div.my-orders {
         flex: 1;
-        min-height: 850px;
+        min-height: 550px;
       }
       .content {
         /* margin-top: 20px; */
