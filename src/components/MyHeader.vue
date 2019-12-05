@@ -416,6 +416,7 @@ export default {
 
 .header-title li {
   white-space: nowrap;
+  margin-top: 12px;
   padding: 10px;
   text-align: center;
   font-size: $Body1Size;
