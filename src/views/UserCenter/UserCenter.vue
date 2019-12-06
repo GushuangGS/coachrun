@@ -67,7 +67,7 @@ export default {
 
 <style scoped>
   .content {
-    width: 1200px;
+    width: 1160px;
     min-height: 615px;
     margin: 0 auto;
   }

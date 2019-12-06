@@ -106,6 +106,12 @@
         <li>
           <a href="https://www.coachrun.com/ticket-policy/">Ticket Policy</a>
         </li>
+        <li class="show-tour">
+          <a href="https://www.taketours.com">
+            Tours
+            <div class="tour-list-box" ref="tourList" v-html="tourHtml"></div>
+          </a>
+        </li>
       </ul>
     </div>
 
@@ -159,10 +165,12 @@ export default {
       shopNum: 0,
       showMenu: false,
       userEmail: "",
-      loginFlag:false
+      loginFlag:false,
+      tourHtml:"",
     };
   },
   created() {
+    console.log("header created")
     var name;
     if (process.env.NODE_ENV == "development") {
       name = localStorage.getItem("IvyCustomer_LoginToken");
@@ -172,7 +180,19 @@ export default {
     if (name) {
       this.$store.commit("login");
       this.isLogin = this.$store.state.isLogin;
-    }
+    };
+    this.$http.get("http://testwww.coachrun.com/api/pages/toolbars",
+      {
+        params:{
+          ids:1
+        }
+      }
+    ).then((res) => {
+      if (res.data.code==200) {
+        this.tourHtml = res.data.data[1];
+      }
+      console.log(res)
+    })
   },
   mounted() {
     this.shopNum = Cookies.get("IvyCustomer_ShoppingItems");
@@ -396,7 +416,8 @@ export default {
 
 .header-title li {
   white-space: nowrap;
-  padding: 0px 10px;
+  margin-top: 12px;
+  padding: 10px;
   text-align: center;
   font-size: $Body1Size;
   color: #333;
@@ -567,6 +588,19 @@ nav {
     }
   }
 }
+
+.show-tour {
+  position: relative;
+}
+.show-tour div {
+  position: absolute;
+  top: 35px;
+  display: none;
+}
+.show-tour:hover .tour-list-box {
+  display: block;
+  z-index: 20;
+}
 </style>
 <style>
 .el-drawer__header {
@@ -593,4 +627,45 @@ nav {
 .show-drawer{
   max-width: 300px;
 }
+</style>
+<style lang="scss">
+  .dropdown-menu {
+    padding: 10px;
+    border: 1px solid rgba(0,0,0,.15);
+    background-color: white;
+    box-shadow: 0 6px 12px rgba(0,0,0,.175);
+    font-size: 14px;
+    text-align: left;
+    list-style: none;
+    float: left;
+    z-index: 1000;
+    .sublist {
+      padding: 5px;
+      margin-right: 0;
+      margin-left: 14px;
+      float: left;
+      padding-bottom: 0;
+    }
+    li {
+      height: 30px;
+      a {
+        color: #2344a8;
+        font-weight: normal;
+        padding: 6px 0px;
+      }
+    }
+    .more {
+      background-color: #eee;
+      clear: both;
+      a {
+        text-align: right;
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+        font-weight: 400;
+        line-height: 24px;
+        white-space: nowrap;
+      }
+    }
+  }
 </style>
