@@ -362,7 +362,10 @@
                         if(Cookies.get('IvyCustomer_role')>=3){
                             window.location.href = 'https://www.coachrun.com/app/member/account';
                         }else{
-                            this.$router.push({name: 'MyOrders'});
+                            // this.$router.push({name: 'MyOrders'});
+                            setTimeout(() => {
+                                this.$router.push({name: 'MyOrders'});
+                            }, 500);
                         }
                     }
                 }
