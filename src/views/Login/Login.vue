@@ -365,7 +365,7 @@
                             // this.$router.push({name: 'MyOrders'});
                             setTimeout(() => {
                                 this.$router.push({name: 'MyOrders'});
-                            }, 500);
+                            }, 250);
                         }
                     }
                 }
