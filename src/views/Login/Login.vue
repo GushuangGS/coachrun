@@ -153,7 +153,7 @@
                         if(data.data.code==200){
                             localStorage.removeItem("IvyCustomer_LoginToken");
                             localStorage.removeItem("loginName");
-                            Cookies.remove('IvyCustomer_LoginCookie');
+                            // Cookies.remove('IvyCustomer_LoginCookie');
                             this.$store.commit('logout');
                         }else if(data.data.code==500){
                             this.$message({
