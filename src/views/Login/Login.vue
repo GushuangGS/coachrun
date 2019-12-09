@@ -193,11 +193,7 @@
                                     // }
                                     // Cookies.set('IvyCustomer_LoginCookie','null%2B%7C%undefined2B%2B%7C%2Bundefined');
                                     console.log(process.env.NODE_ENV);
-                                    
-                                    setTimeout(() => {
-                                        this.processEnv(data);
-                                    }, 1000);
-                                    // this.processEnv(data);
+                                    this.processEnv(data);
 
                                     // if (process.env.NODE_ENV == 'development'){
                                     //     localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
@@ -333,10 +329,7 @@
                     .then((data)=>{
                         console.log(data);
                         if(data.data.code==200){
-                            // this.processEnv(data);
-                            setTimeout(() => {
-                                this.processEnv(data);
-                            }, 1000);
+                            this.processEnv(data);
                         }else{
                             this.$message({
                                 message: data.data.msg,
@@ -370,9 +363,6 @@
                             window.location.href = 'https://www.coachrun.com/app/member/account';
                         }else{
                             this.$router.push({name: 'MyOrders'});
-                            // setTimeout(() => {
-                            //     this.$router.push({name: 'MyOrders'});
-                            // }, 250);
                         }
                     }
                 }
