@@ -147,7 +147,8 @@
                                                 <span>Adult{{index+1}}: </span>
                                                 <span>{{adult.name}} </span>
                                                 <span>(CN: {{adult.cn}})</span>
-                                                <span v-if="adult.description!=''">&nbsp;{{adult.description}}</span>
+                                                <!-- 123 -->
+                                                <!-- <span v-if="adult.description!=''">&nbsp;{{adult.description}}</span> -->
                                             </div>
                                           </div>
                                           <!-- <div v-if="item.passengers.filter(name=>name.type=='Child').length!=0"> -->
@@ -158,7 +159,7 @@
                                                   <span>{{Child.name}} </span>
                                                   <span v-if="Child.age!=undefined && Child.age!=''">(Age: {{Child.age}}) </span>
                                                   <span>(CN: {{Child.cn}})</span>
-                                                  <span v-if="Child.description!=''">&nbsp;{{Child.description}}</span>
+                                                  <!-- <span v-if="Child.description!=''">&nbsp;{{Child.description}}</span> -->
                                               </div>                                                  
                                           </div>
                                           <!-- <div v-if="item.passengers.filter(name=>name.type=='Infant').length!=0"> -->
@@ -168,7 +169,7 @@
                                                   <span>Infant{{index+1}}: </span>
                                                   <span>{{Infant.name}}</span>
                                                   <span>(CN: {{Infant.cn}})</span>
-                                                  <span v-if="Infant.description!=''">&nbsp;{{Infant.description}}</span>
+                                                  <!-- <span v-if="Infant.description!=''">&nbsp;{{Infant.description}}</span> -->
                                               </div>                                                  
                                           </div>
                                           <!-- <div v-if="item.passengers.filter(name=>name.type=='Senior').length!=0"> -->
@@ -178,7 +179,7 @@
                                                   <span>Senior{{index+1}}: </span>
                                                   <span>{{Senior.name}}</span>
                                                   <span>(CN: {{Senior.cn}})</span>
-                                                  <span v-if="Senior.description!=''">&nbsp;{{Senior.description}}</span>
+                                                  <!-- <span v-if="Senior.description!=''">&nbsp;{{Senior.description}}</span> -->
                                               </div>                                                  
                                           </div>
                                           <!-- <div v-if="item.passengers.filter(name=>name.type=='Junior').length!=0"> -->
@@ -188,7 +189,7 @@
                                                   <span>Junior{{index+1}}: </span>
                                                   <span>{{Junior.name}}</span>
                                                   <span>(CN: {{Junior.cn}})</span>
-                                                  <span v-if="Junior.description!=''">&nbsp;{{Junior.description}}</span>
+                                                  <!-- <span v-if="Junior.description!=''">&nbsp;{{Junior.description}}</span> -->
                                               </div>                                                  
                                           </div>
                                           <!-- <div v-if="item.passengers.filter(name=>name.type=='Student').length!=0"> -->
@@ -198,7 +199,7 @@
                                                   <span>Student{{index+1}}: </span>
                                                   <span>{{Student.name}}</span>
                                                   <span>(CN: {{Student.cn}})</span>
-                                                  <span v-if="Student.description!=''">&nbsp;{{Student.description}}</span>
+                                                  <!-- <span v-if="Student.description!=''">&nbsp;{{Student.description}}</span> -->
                                               </div>                                                  
                                           </div>
                                           <!-- <div v-if="item.passengers.filter(name=>name.type=='Military').length!=0"> -->
@@ -208,7 +209,7 @@
                                                   <span>Military{{index+1}}: </span>
                                                   <span>{{Military.name}}</span>
                                                   <span>(CN: {{Military.cn}})</span>
-                                                  <span v-if="Military.description!=''">&nbsp;{{Military.description}}</span>
+                                                  <!-- <span v-if="Military.description!=''">&nbsp;{{Military.description}}</span> -->
                                               </div>                                                  
                                           </div>
                                           <div v-if="item.abnormalPassengers.length!=0">

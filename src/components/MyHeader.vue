@@ -106,12 +106,12 @@
         <li>
           <a href="https://www.coachrun.com/ticket-policy/">Ticket Policy</a>
         </li>
-        <li class="show-tour">
+        <!-- <li class="show-tour">
           <a href="https://www.taketours.com">
             Tours
             <div class="tour-list-box" ref="tourList" v-html="tourHtml"></div>
           </a>
-        </li>
+        </li> -->
       </ul>
     </div>
 
