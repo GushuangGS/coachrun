@@ -181,18 +181,18 @@ export default {
       this.$store.commit("login");
       this.isLogin = this.$store.state.isLogin;
     };
-    this.$http.get("http://testwww.coachrun.com/api/pages/toolbars",
-      {
-        params:{
-          ids:1
-        }
-      }
-    ).then((res) => {
-      if (res.data.code==200) {
-        this.tourHtml = res.data.data[1];
-      }
-      console.log(res)
-    })
+    // this.$http.get("http://testwww.coachrun.com/api/pages/toolbars",
+    //   {
+    //     params:{
+    //       ids:1
+    //     }
+    //   }
+    // ).then((res) => {
+    //   if (res.data.code==200) {
+    //     this.tourHtml = res.data.data[1];
+    //   }
+    //   console.log(res)
+    // })
   },
   mounted() {
     this.shopNum = Cookies.get("IvyCustomer_ShoppingItems");
