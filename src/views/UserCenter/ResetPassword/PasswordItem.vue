@@ -246,7 +246,7 @@
         .btn2{
             height: 40px;
            position: relative;
-           left: 196px;
+           left: 254px;
            top: -41px;
            font-size: $CaptionSize;
            border-top-left-radius: 0;
