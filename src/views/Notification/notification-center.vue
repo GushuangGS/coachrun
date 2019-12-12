@@ -320,7 +320,7 @@
           var str = {id: item, status: 2};
           this.markList.push(str);
         })
-        this.$http.patch('${apiDomain}/api/users/notifications/bulk', this.markList, {}).then((res) => {
+        this.$http.patch('/api/users/notifications/bulk', this.markList, {}).then((res) => {
           console.log(res);
           if (res.data && res.data.code == 200) {
             this.currentPage = 0;
