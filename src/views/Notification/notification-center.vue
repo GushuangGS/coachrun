@@ -291,10 +291,10 @@
             this.allMsgList = res.data.data.pagination.currentResults;
             // console.log(this.allMsgList[0].id,this.allMsgList[1].id,this.allMsgList[2].id);
             this.MsgList.new = res.data.data.pagination.currentResults.filter((item) => {
-              return Date.parse(item.timestamp) >= res.data.data.today;
+              return !res.data.data.lastReceiveTime || Date.parse(item.timestamp) > res.data.data.lastReceiveTime;
             })
             this.MsgList.early = res.data.data.pagination.currentResults.filter((item) => {
-              return Date.parse(item.timestamp) < res.data.data.today;
+              return res.data.data.lastReceiveTime && Date.parse(item.timestamp) < res.data.data.lastReceiveTime;
             })
           } else if (res.data && res.data.code == 401) {
             // set_cookie("IvyCustomer_LoginToken", "");
