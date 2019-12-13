@@ -54,9 +54,9 @@ Vue.config.productionTip = false;
 //配置axios 挂载到实例化对象上
 Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
-// axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
+axios.defaults.baseURL = 'http://sandbox.gotobus.com/api';
 // axios.defaults.baseURL = 'http://testwww.coachrun.com/';
-axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
+// axios.defaults.baseURL = process.env.VUE_APP_API_DOMAIN;
 Vue.prototype.$api = api;
 
 
@@ -132,7 +132,7 @@ axios.interceptors.request.use(
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
       // console.log(Cookies.get('IvyCustomer_LoginCookie'))
-      let loginCookie = null; 
+      let loginCookie = null;
       let ivyCookie = Cookies.get('IvyCustomer_LoginCookie');
       let token = null;
       //null%2B%7C%undefined2B%2B%7C%2Bundefined
