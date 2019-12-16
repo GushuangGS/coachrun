@@ -7,8 +7,8 @@
         <div class="message-notify">
           <div class="message-title">
             <span>Notifications</span>
-            <div class="settings">
-              <div @click="setting">
+            <div class="settings" v-if="IvyCustomer_role<3">
+              <div @click="setting" class="setting-btn-box">
                 <i class="icon-cog"></i>
                 <span>Settings</span>
               </div>
@@ -50,9 +50,10 @@
             <div class="message-list-table">
               <div class="msg-list-group" v-show="MsgList.new.length!=0">
                 <div class="message-table-title">New</div>
-                <div class="message-table-item" :class="{'read':item.status==2}" @mouseleave="showSet=false"
+                <div class="message-table-item" :class="{'read':item.status==2,'msg-item-checked':checkModel.indexOf(item.id)>=0}" @mouseleave="showSet=false"
                      v-for="(item,index) in MsgList.new" :key="index"
-                     @click="item.status==1?setMessage(item.id,item.status):false">
+                     @click="item.status==1?setMessage(item.id,item.status):false"
+                >
                   <div class="message-table-check">
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
@@ -139,6 +140,7 @@
 </template>
 
 <script>
+  import jsCookie from "js-cookie";
   export default {
     data() {
       return {
@@ -163,14 +165,20 @@
         markList: [],
         currentPage: 1, //初始页
         pagesize: 10,    //每页的数据
+        lvyCustomer_role:false,
       }
     },
     created() {
       this.getMsgList();
       this.getMsgSettingList();
     },
+    mounted(){
+      console.log(jsCookie.get("IvyCustomer_role"),document.cookie);
+      this.IvyCustomer_role=jsCookie.get("IvyCustomer_role");
+    },
     watch: {
       checkModel() {
+        console.log(this.checkModel,typeof this.checkModel,this.checkModel.indexOf(1001))
         if (this.checkModel.length == this.allMsgList.length&&this.checkModel.length!=0) {
           this.checked = true;
         } else {
@@ -199,7 +207,7 @@
         }else if (type==3) {
           status = 3
         }
-        this.$http.patch(`/users/notifications/${this.id}`,
+        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/${this.id}`,
           {
             id,
             status
@@ -240,7 +248,10 @@
         } else {
           disabledType = 1;
         }
-        this.$http.put(`/users/notifications/settings?templateId=${id}&disabled=${disabledType}`, {},).then((res) => {
+        this.$http.put(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/settings`, {
+          templateId:id,
+          disabled:disabledType
+        },).then((res) => {
           console.log(res);
           this.currentPage = 0;
           // this.getMsgList(1);
@@ -267,7 +278,7 @@
         }
         this.checked = false;
         this.checkModel = [];
-        this.$http.get('/users/notifications/notification-center', {
+        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/notification-center`, {
           params: {
             pageNo: this.nowPage,
             pageSize: this.pagesize
@@ -303,7 +314,7 @@
       },
       //settings
       getMsgSettingList() {
-        this.$http.get('/users/notifications/settings', {}).then((res) => {
+        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/settings`, {}).then((res) => {
           // console.log(res);
           if (res.data && res.data.code == 200) {
             this.setList = res.data.data;
@@ -319,7 +330,7 @@
           var str = {id: item, status: 2};
           this.markList.push(str);
         })
-        this.$http.patch('/users/notifications/bulk', this.markList, {}).then((res) => {
+        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
           console.log(res);
           if (res.data && res.data.code == 200) {
             this.currentPage = 0;
@@ -339,7 +350,7 @@
           this.removeList.push(str);
         })
         console.log(this.removeList)
-        this.$http.patch('/users/notifications/bulk', this.removeList, {}).then((res) => {
+        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
           console.log(res);
           if (res.data && res.data.code == 200) {
             console.log(this.nowPage)
@@ -371,7 +382,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid #ddd;
   }
 
   .message-title > span {
@@ -393,7 +404,7 @@
   .message-nav-bar {
     display: flex;
     padding: 10px 0px 10px 10px;
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid #ddd;
   }
 
   .message-nav-bar .all-msg-box {
@@ -445,13 +456,13 @@
     padding: 5px 0px 5px 28px;
     font-size: 12px;
     color: #666;
-    border-bottom: 1px solid #bababa;
+    border-bottom: 1px solid #ddd;
   }
 
   .message-list-table .message-table-item {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #bababa;
+    border-bottom: 1px solid #ddd;
     /* background-color: white;*/
     background: #edf5ff;
   }
@@ -554,11 +565,13 @@
     white-space: nowrap;
   }
 
-  .msg-setting-box span:hover {
+  .msg-setting-box span:hover{
     background-color: #f5f7fa;
     /*color: white;*/
   }
-
+  .msg-item-checked {
+    background-color: #f5f7fa!important;
+  }
   .message-list-table .message-table-check {
     display: flex;
     align-items: center;
@@ -575,7 +588,7 @@
   }
 
   .message-list-table .message-table-item:hover {
-    background-color: #f5f7fa;
+    background-color: #cbe2ff!important;
   }
 
   .message-table-item:hover .icon-ellipsis {
@@ -642,6 +655,9 @@
     top: 0;
     bottom: 0;
     right: 0;
+  }
+  .setting-btn-box:hover i,.setting-btn-box:hover span{
+    color: #f60;
   }
   .el-main {
     overflow: inherit;
