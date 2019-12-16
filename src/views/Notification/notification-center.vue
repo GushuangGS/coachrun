@@ -278,12 +278,11 @@
         }
         this.checked = false;
         this.checkModel = [];
-        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/users/notifications/notification-center`, {
-          params: {
+        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/users/notifications/notification-center`,
+          {
             pageNo: this.nowPage,
             pageSize: this.pagesize
-          }
-        }).then((res) => {
+          }).then((res) => {
           console.log(res,"数据请求一次");
           if (res.data && res.data.code == 200) {
             if (res.data.data.pagination.totalCount == 0) {
