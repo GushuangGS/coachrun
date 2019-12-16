@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="margin-bottom: 30px">
     <el-main>
       <div class="floatR message-list" id="message-system">
         <!-- safe -->
@@ -18,9 +18,9 @@
                 </div>
                 <div class="set-list" v-for="item in setList" :key="item.templateId">
                   <!-- <img src="./img/setting-booking.png" alt=""> -->
-                  <img :src="`https://res.gotobus.com/images/icon-notification-type-\${item.templateType}.png`"
+                  <img :src="require(`@/assets/icon-notification-type-${item.templateType}.png`)"
                        v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
-                  <img :src="`https://res.gotobus.com/images/icon-notification-type-0.png`" v-else/>
+                  <img :src="require(`@/assets/icon-notification-type-0.png`)" v-else/>
                   <span>{{item.templateName}}</span>
                   <input class="set-check" type="checkbox" v-model="item.disabled"
                          @click="settingCheck(item.templateId,item.disabled)">
@@ -58,9 +58,9 @@
                   </div>
                   <div class="message-table-content">
                     <div class="message-table-type">
-                      <img :src="`https://res.gotobus.com/images/icon-notification-type-\${item.templateType}.png`"
+                      <img :src="require(`@/assets/icon-notification-s28-type-${item.templateType}.png`)"
                            v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
-                      <img :src="`https://res.gotobus.com/images/icon-notification-type-0.png`" v-else/>
+                      <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                       <!-- <img src="./img/backup-busbooking.png" alt=""> -->
                     </div>
                     <div class="message-table-schedule">
@@ -94,9 +94,9 @@
                   <div class="message-table-content">
                     <div class="message-table-type">
                       <!-- <img src="./img/backup-busbooking.png" alt=""> -->
-                      <img :src="`https://res.gotobus.com/images/icon-notification-type-\${item.templateType}.png`"
+                      <img :src="`https://res.gotobus.com/images/icon-notification-s28-type-\${item.templateType}.png`"
                            v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
-                      <img :src="`https://res.gotobus.com/images/icon-notification-type-0.png`" v-else/>
+                      <img :src="`https://res.gotobus.com/images/icon-notification-s28-type-0.png`" v-else/>
                     </div>
                     <div class="message-table-schedule">
                       <div class="message-schedule-title">
@@ -130,7 +130,6 @@
             :page-size="pagesize"
             :current-page="currentPage"
             @current-change="getMsgList"
-            hide-on-single-page
           >
           </el-pagination>
         </div>
@@ -172,7 +171,7 @@
     },
     watch: {
       checkModel() {
-        if (this.checkModel.length == this.allMsgList.length) {
+        if (this.checkModel.length == this.allMsgList.length&&this.checkModel.length!=0) {
           this.checked = true;
         } else {
           this.checked = false;
@@ -200,13 +199,13 @@
         }else if (type==3) {
           status = 3
         }
-        this.$http.patch(`/api/users/notifications/${this.id}`,
+        this.$http.patch(`/users/notifications/${this.id}`,
           {
             id,
             status
           }).then((res) => {
           // console.log(res);
-          if (res.status == 200) {
+          if (res.data && res.data.code == 200) {
             let updateItemInd = 0;
             let ind = 0;
             for (let i in this.MsgList) {
@@ -241,7 +240,7 @@
         } else {
           disabledType = 1;
         }
-        this.$http.put(`/api/users/notifications/settings?templateId=${id}&disabled=${disabledType}`, {},).then((res) => {
+        this.$http.put(`/users/notifications/settings?templateId=${id}&disabled=${disabledType}`, {},).then((res) => {
           console.log(res);
           this.currentPage = 0;
           // this.getMsgList(1);
@@ -268,13 +267,13 @@
         }
         this.checked = false;
         this.checkModel = [];
-        this.$http.get('/api/users/notifications/notification-center', {
+        this.$http.get('/users/notifications/notification-center', {
           params: {
             pageNo: this.nowPage,
             pageSize: this.pagesize
           }
         }).then((res) => {
-          console.log(res);
+          console.log(res,"数据请求一次");
           if (res.data && res.data.code == 200) {
             if (res.data.data.pagination.totalCount == 0) {
               this.noMsg = true;
@@ -304,7 +303,7 @@
       },
       //settings
       getMsgSettingList() {
-        this.$http.get('/api/users/notifications/settings', {}).then((res) => {
+        this.$http.get('/users/notifications/settings', {}).then((res) => {
           // console.log(res);
           if (res.data && res.data.code == 200) {
             this.setList = res.data.data;
@@ -320,7 +319,7 @@
           var str = {id: item, status: 2};
           this.markList.push(str);
         })
-        this.$http.patch('/api/users/notifications/bulk', this.markList, {}).then((res) => {
+        this.$http.patch('/users/notifications/bulk', this.markList, {}).then((res) => {
           console.log(res);
           if (res.data && res.data.code == 200) {
             this.currentPage = 0;
@@ -340,7 +339,7 @@
           this.removeList.push(str);
         })
         console.log(this.removeList)
-        this.$http.patch('/api/users/notifications/bulk', this.removeList, {}).then((res) => {
+        this.$http.patch('/users/notifications/bulk', this.removeList, {}).then((res) => {
           console.log(res);
           if (res.data && res.data.code == 200) {
             console.log(this.nowPage)
@@ -355,7 +354,7 @@
     },
     name: 'notification-center'
   }
-</script>.setting-box
+</script>
 
 <style scoped>
   .message-list {
@@ -386,13 +385,9 @@
     cursor: pointer;
   }
 
-  .message-title div i {
-    margin-right: 5px;
-  }
-
   .settings > div > i, .settings > div > span {
     font-size: 12px;
-    color: #2f5db5;
+    color: #333;
   }
 
   .message-nav-bar {
@@ -464,16 +459,11 @@
   .message-list-table .message-table-type {
     width: 28px;
     height: 28px;
-    border-radius: 50%;
-    background-color: #1A6EDC;
+    /*border-radius: 50%;*/
+    /*background-color: #1A6EDC;*/
     display: flex;
     align-items: center;
     margin-right: 20px;
-  }
-
-  .message-list-table .message-table-type i {
-    font-size: 20px;
-    color: white;
   }
 
   .message-list-table .message-table-content {
@@ -565,8 +555,8 @@
   }
 
   .msg-setting-box span:hover {
-    background-color: #6787dd;
-    color: white;
+    background-color: #f5f7fa;
+    /*color: white;*/
   }
 
   .message-list-table .message-table-check {
@@ -585,7 +575,7 @@
   }
 
   .message-list-table .message-table-item:hover {
-    background-color: #cbe2ff;
+    background-color: #f5f7fa;
   }
 
   .message-table-item:hover .icon-ellipsis {
@@ -652,5 +642,8 @@
     top: 0;
     bottom: 0;
     right: 0;
+  }
+  .el-main {
+    overflow: inherit;
   }
 </style>
