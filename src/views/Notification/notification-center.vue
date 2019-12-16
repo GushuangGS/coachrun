@@ -7,7 +7,7 @@
         <div class="message-notify">
           <div class="message-title">
             <span>Notifications</span>
-            <div class="settings" v-if="IvyCustomer_role<3">
+            <div class="settings" v-if="lvyCustomer_role<3">
               <div @click="setting" class="setting-btn-box">
                 <i class="icon-cog"></i>
                 <span>Settings</span>
@@ -169,12 +169,12 @@
       }
     },
     created() {
+      this.lvyCustomer_role = Cookies.get("lvyCustomer_role");
       this.getMsgList();
       this.getMsgSettingList();
     },
     mounted(){
-      console.log(Cookies.get("IvyCustomer_role"));
-      this.IvyCustomer_role=Cookies.get("IvyCustomer_role");
+      console.log(Cookies.get(),this.lvyCustomer_role);
     },
     watch: {
       checkModel() {
