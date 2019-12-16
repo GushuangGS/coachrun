@@ -140,7 +140,7 @@
 </template>
 
 <script>
-  import jsCookie from "js-cookie";
+  import Cookies from "js-cookie";
   export default {
     data() {
       return {
@@ -173,8 +173,8 @@
       this.getMsgSettingList();
     },
     mounted(){
-      console.log(jsCookie.get("IvyCustomer_role"));
-      this.IvyCustomer_role=jsCookie.get("IvyCustomer_role");
+      console.log(Cookies.get("IvyCustomer_role"));
+      this.IvyCustomer_role=Cookies.get("IvyCustomer_role");
     },
     watch: {
       checkModel() {
