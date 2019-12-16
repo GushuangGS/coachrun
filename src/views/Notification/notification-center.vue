@@ -173,7 +173,7 @@
       this.getMsgSettingList();
     },
     mounted(){
-      console.log(jsCookie.get("IvyCustomer_role"),document.cookie);
+      console.log(jsCookie.get("IvyCustomer_role"));
       this.IvyCustomer_role=jsCookie.get("IvyCustomer_role");
     },
     watch: {
@@ -278,7 +278,7 @@
         }
         this.checked = false;
         this.checkModel = [];
-        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/notification-center`, {
+        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/users/notifications/notification-center`, {
           params: {
             pageNo: this.nowPage,
             pageSize: this.pagesize
