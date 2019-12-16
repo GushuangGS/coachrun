@@ -7,7 +7,7 @@
         <div class="message-notify">
           <div class="message-title">
             <span>Notifications</span>
-            <div class="settings" v-if="lvyCustomer_role<3">
+            <div class="settings" v-if="ivyCustomer_role<3">
               <div @click="setting" class="setting-btn-box">
                 <i class="icon-cog"></i>
                 <span>Settings</span>
@@ -165,16 +165,16 @@
         markList: [],
         currentPage: 1, //初始页
         pagesize: 10,    //每页的数据
-        lvyCustomer_role:false,
+        ivyCustomer_role:false,
       }
     },
     created() {
-      this.lvyCustomer_role = Cookies.get("lvyCustomer_role");
+      this.ivyCustomer_role = Cookies.get("IvyCustomer_role");
       this.getMsgList();
       this.getMsgSettingList();
     },
     mounted(){
-      console.log(Cookies.get(),this.lvyCustomer_role);
+      console.log(Cookies.get(),this.ivyCustomer_role);
     },
     watch: {
       checkModel() {
