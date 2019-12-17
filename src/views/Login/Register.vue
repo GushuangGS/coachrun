@@ -136,15 +136,15 @@
                     console.log(payload);
                     console.log(payload.phoneNumber)
                     this.canSave = payload.isValid;
-                    if(payload.phoneNumber != undefined){
-                        if(this.canSave == false){
-                            this.errPhone = 'Please enter a right phone number.';
-                        }else{
-                            this.errPhone = '';
-                        }
-                    }else{
-                        this.errPhone = 'Please enter a phone number.';
-                    }
+                    // if(payload.phoneNumber != undefined){
+                    //     if(this.canSave == false){
+                    //         this.errPhone = 'Please enter a right phone number.';
+                    //     }else{
+                    //         this.errPhone = '';
+                    //     }
+                    // }else{
+                    //     this.errPhone = 'Please enter a phone number.';
+                    // }
                     
                     // this.results = payload;
                     // console.log(payload);
