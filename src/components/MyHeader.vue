@@ -11,9 +11,12 @@
           <div class="nav-login" v-else>
             <div class="row">
               <img class="headImg" src="@/assets/home_head.png" />
-              <div class="userDisplay" v-if="getUserName()">
-                <span class="userName">{{getUserName()}}</span>
-                <span class="userEmail">{{getUserEmail()}}</span>
+<!--              <div class="userDisplay" v-if="getUserName()">-->
+              <div class="userDisplay" v-if="userNames">
+                <span class="userName">{{userNames}}</span>
+<!--                <span class="userName">{{getUserName()}}</span>-->
+                <span class="userEmail">{{userNames}}</span>
+<!--                <span class="userEmail">{{getUserEmail()}}</span>-->
               </div>
               <div class="userDisplay" v-else>
                 <span class="userName">{{getUserEmail()}}</span>
@@ -122,7 +125,8 @@
       <div class="show-name" v-else>
         <span class="user-name subThemeStyle" @click="gotoMine">
           <i class="icon-user-circle backgr"></i>
-          {{getUserName()}}
+          {{userNames}}
+<!--          {{getUserName()}}-->
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
@@ -167,6 +171,7 @@ export default {
       userEmail: "",
       loginFlag:false,
       tourHtml:"",
+      userNames:"",
     };
   },
   created() {
@@ -181,6 +186,16 @@ export default {
       this.$store.commit("login");
       this.isLogin = this.$store.state.isLogin;
     };
+
+    if (Cookies.get("IvyCustomer_FirstName")){
+      this.userNames = unescape(Cookies.get("IvyCustomer_FirstName"));
+    }else if (Cookies.get("IvyCustomer_Uid")){
+      this.userNames = unescape(Cookies.get("IvyCustomer_Uid"));
+    } else if (Cookies.get("IvyCustomer_LoginEmail")) {
+      this.userNames = unescape(Cookies.get("IvyCustomer_LoginEmail"));
+    }else {
+      this.userNames = "";
+    }
     // this.$http.get("http://testwww.coachrun.com/api/pages/toolbars",
     //   {
     //     params:{
