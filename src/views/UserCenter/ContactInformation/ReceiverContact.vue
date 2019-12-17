@@ -247,7 +247,9 @@
                     this.canSave = payload.isValid;
                     if(payload.formatInternational !== undefined){
                         const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
+                        console.log(addPhoneFir)
                         this.sendPhone1 = "+"+ addPhoneFir.countryCallingCode+ " " + addPhoneFir.nationalNumber;
+                        console.log(this.sendPhone1)
                     }
                 },
                 onUpdateAgain(payload){
@@ -427,8 +429,8 @@
         top: -3px;
       }
       >>> .field.vue-input-ui .field-clear>span:not(.field-clear__effect){
-            top: -1px;
-            left: 1px;
+            top: -8px;
+            left: 0px;
         }
         >>> .field.vue-input-ui .field-clear__effect{
             width: 25px;
