@@ -381,7 +381,7 @@
             // this.currentPage = 0;
             // this.nowPage = 1;
             // this.getMsgList();
-
+            console.log(this.nowPage,this.currentPage);
             if(this.checked == true){
               if (this.nowPage==1&&this.currentPage==0) {
                 this.noMsg = true;
