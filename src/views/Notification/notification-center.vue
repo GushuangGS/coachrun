@@ -336,69 +336,73 @@
         })
       },
       markAllCheck() {
-        this.checkModel.forEach((item) => {
-          var str = {id: item, status: 2};
-          this.markList.push(str);
-        })
-        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
-          if (res.data && res.data.code == 200) {
-            for (let i in this.MsgList) {
-              this.MsgList[i].forEach((item, index) => {
-                if (this.checkModel.indexOf(item.id)!= -1) {
-                  this.MsgList[i][index].status = 2;
-                }
-                if (index==this.MsgList[i].length-1){
-                  this.checkModel = [];
-                }
-              })
+        if (this.MsgList.new.length+this.MsgList.early>0) {
+          this.checkModel.forEach((item) => {
+            var str = {id: item, status: 2};
+            this.markList.push(str);
+          })
+          this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
+            if (res.data && res.data.code == 200) {
+              for (let i in this.MsgList) {
+                this.MsgList[i].forEach((item, index) => {
+                  if (this.checkModel.indexOf(item.id)!= -1) {
+                    this.MsgList[i][index].status = 2;
+                  }
+                  if (index==this.MsgList[i].length-1){
+                    this.checkModel = [];
+                  }
+                })
+              }
+              // this.nowPage = 1;
+              // this.getMsgList();
+            } else if (res.data && res.data.code == 401) {
+              // set_cookie("IvyCustomer_LoginToken", "");
+              // this.check_token(this.markAllCheck);
             }
-            // this.nowPage = 1;
-            // this.getMsgList();
-          } else if (res.data && res.data.code == 401) {
-            // set_cookie("IvyCustomer_LoginToken", "");
-            // this.check_token(this.markAllCheck);
-          }
-        });
+          });
+        }
 
       },
       removeAllCheck() {
-        this.checkModel.forEach((item) => {
-          let str = {id: item, status: 3};
-          this.removeList.push(str);
-        });
-        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
-          if (res.data && res.data.code == 200) {
-            if(this.checked == true){//如果当前页全选
-              if (this.nowPage==1) {//第一页
-                if (this.nowPage==this.pageCount)  {//第一页同时是最后一页
-                  this.noMsg = true;
-                }else {
+        if (this.MsgList.new.length+this.MsgList.early>0) {
+          this.checkModel.forEach((item) => {
+            let str = {id: item, status: 3};
+            this.removeList.push(str);
+          });
+          this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
+            if (res.data && res.data.code == 200) {
+              if(this.checked == true){//如果当前页全选
+                if (this.nowPage==1) {//第一页
+                  if (this.nowPage==this.pageCount)  {//第一页同时是最后一页
+                    this.noMsg = true;
+                  }else {
+                    this.getMsgList(this.nowPage);
+                  }
+                } else if (this.nowPage==this.pageCount) {//最后一页
+                  this.nowPage -= 1 ;
+                  this.getMsgList(this.nowPage);
+                }else {//中间页，重新请求当前页
                   this.getMsgList(this.nowPage);
                 }
-              } else if (this.nowPage==this.pageCount) {//最后一页
-                this.nowPage -= 1 ;
-                this.getMsgList(this.nowPage);
-              }else {//中间页，重新请求当前页
-                this.getMsgList(this.nowPage);
-              }
-              this.checked = false;
-            }else{
-              for (let i in this.MsgList) {
-                for (let index = this.MsgList[i].length-1;index>=0; index-- ) {
-                  if (this.checkModel.indexOf(this.MsgList[i][index].id)!= -1) {
-                    this.MsgList[i].splice(index,1);
-                  }
-                  if (index==0){
-                    this.checkModel = [];
+                this.checked = false;
+              }else{
+                for (let i in this.MsgList) {
+                  for (let index = this.MsgList[i].length-1;index>=0; index-- ) {
+                    if (this.checkModel.indexOf(this.MsgList[i][index].id)!= -1) {
+                      this.MsgList[i].splice(index,1);
+                    }
+                    if (index==0){
+                      this.checkModel = [];
+                    }
                   }
                 }
               }
+            } else if (res.data && res.data.code == 401) {
+              // set_cookie("IvyCustomer_LoginToken", "");
+              // this.check_token(this.removeAllCheck);
             }
-          } else if (res.data && res.data.code == 401) {
-            // set_cookie("IvyCustomer_LoginToken", "");
-            // this.check_token(this.removeAllCheck);
-          }
-        })
+          })
+        }
       },
     },
     name: 'notification-center'
