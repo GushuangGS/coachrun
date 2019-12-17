@@ -125,8 +125,8 @@
       <div class="show-name" v-else>
         <span class="user-name subThemeStyle" @click="gotoMine">
           <i class="icon-user-circle backgr"></i>
-          {{userNames}}
-<!--          {{getUserName()}}-->
+<!--          {{userNames}}-->
+          {{getUserName()}}
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
@@ -240,7 +240,7 @@ export default {
       if(process.env.NODE_ENV === "development"){
         return  this.userName =localStorage.getItem("loginName");
       }else{
-        console.log(Cookies.get("IvyCustomer_FirstName"))
+        console.log(Cookies.get("IvyCustomer_FirstName"));
         this.userName = Cookies.get("IvyCustomer_FirstName");
         console.log(this.userName);
         if(this.userName == null || this.userName == undefined){
