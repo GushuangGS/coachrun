@@ -307,6 +307,7 @@
             document.cookie = `IvyCustomer_NewNotificationCount=;domain=".coachrun.com";path=/`;
             //第一次请求成功时获取页数
             this.totalCount = res.data.data.pagination.totalCount;
+            this.pageCount = res.data.data.pagination.pageCount;
             //获取当前页列表
             this.allMsgList = res.data.data.pagination.currentResults;
             // console.log(this.allMsgList[0].id,this.allMsgList[1].id,this.allMsgList[2].id);
@@ -375,7 +376,6 @@
                   this.getMsgList(this.nowPage);
                 }
               } else if (this.nowPage==this.pageCount) {//最后一页
-                console.log("最后一页");
                 this.nowPage -= 1 ;
                 this.getMsgList(this.nowPage);
               }else {//中间页，重新请求当前页
