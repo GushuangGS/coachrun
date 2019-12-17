@@ -95,9 +95,9 @@
                   <div class="message-table-content">
                     <div class="message-table-type">
                       <!-- <img src="./img/backup-busbooking.png" alt=""> -->
-                      <img :src="`https://res.gotobus.com/images/icon-notification-s28-type-\${item.templateType}.png`"
+                      <img :src="require(`@/assets/icon-notification-s28-type-${item.templateType}.png`)"
                            v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
-                      <img :src="`https://res.gotobus.com/images/icon-notification-s28-type-0.png`" v-else/>
+                      <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                     </div>
                     <div class="message-table-schedule">
                       <div class="message-schedule-title">
@@ -295,6 +295,8 @@
             } else {
               this.noMsg = false;
             }
+            //初始化cookie中的IvyCustomer_NewNotificationCount
+            Cookies.set("IvyCustomer_NewNotificationCount","")
             //第一次请求成功时获取页数
             this.totalCount = res.data.data.pagination.totalCount;
             //获取当前页列表
