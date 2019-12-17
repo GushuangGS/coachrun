@@ -207,7 +207,7 @@
         }else if (type==3) {
           status = 3
         }
-        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/${this.id}`,
+        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/${id}`,
           {
             id,
             status
