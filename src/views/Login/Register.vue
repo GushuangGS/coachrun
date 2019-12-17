@@ -55,6 +55,7 @@
     <script>
         import Cookies from 'js-cookie'
         import VuePhoneNumberInput from 'vue-phone-number-input'
+        import { parsePhoneNumberFromString } from 'libphonenumber-js'
         export default{
             name:'Register',
             components: {VuePhoneNumberInput},
@@ -109,7 +110,8 @@
                     yourValue:'',
                     results: {},
                     canSave:false,
-                    err:''
+                    err:'',
+                    sendPhone:''
                 }
             },
             methods:{
@@ -129,14 +131,23 @@
                 onUpdate(payload) {
                     console.log(payload);
                     this.canSave = payload.isValid;
-                    this.results = payload;
-                    console.log(payload);
+                    if(payload.formatInternational !== undefined){
+                        const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
+                        console.log(addPhoneFir)
+                        this.sendPhone = "+"+ addPhoneFir.countryCallingCode+ " " + addPhoneFir.nationalNumber;
+                        console.log(this.sendPhone)
+                    }else{
+                        this.sendPhone = '';
+                    }
+                    // this.results = payload;
+                    // console.log(payload);
                 },
                 register(){
                     this.$refs.loginForm.validate((valid)=>{
                         if (valid){
                             this.$http.post(this.$api.register,
-                                { username: this.loginInfo.email,mobilePhone:this.results.formatInternational ,password:this.loginInfo.password,acceptNewsletter:'true'})
+                                // { username: this.loginInfo.email,mobilePhone:this.results.formatInternational ,password:this.loginInfo.password,acceptNewsletter:'true'})
+                                { username: this.loginInfo.email,mobilePhone:this.sendPhone,password:this.loginInfo.password,acceptNewsletter:'true'})
                                 .then((data) => {
                                     console.log(data);
                                     if(data.data.code == 200){
