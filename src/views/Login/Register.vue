@@ -15,7 +15,7 @@
                     </el-select>
                     <el-input class="phone-num" type="phone" v-model="loginInfo.phone"></el-input>
                 </el-form-item> -->
-                <el-form-item prop="phone">
+                <el-form-item prop="phone" :error="errPhone">
                     <template>
                         <VuePhoneNumberInput v-model="loginInfo.phone" 
                         default-country-code="US" 
@@ -76,8 +76,11 @@
                     if (value == '') {
                         callback(new Error('Please enter a phone number.'));
                     }else{
+                        console.log(this.canSave)
                         if(this.canSave==false){
                             callback(new Error('Please enter a right phone number.'));
+                        }else{
+
                         }
                         callback();
                     }
@@ -111,7 +114,8 @@
                     results: {},
                     canSave:false,
                     err:'',
-                    sendPhone:''
+                    sendPhone:'',
+                    errPhone:''
                 }
             },
             methods:{
@@ -130,14 +134,25 @@
                 },
                 onUpdate(payload) {
                     console.log(payload);
+                    console.log(payload.phoneNumber)
                     this.canSave = payload.isValid;
+                    if(payload.phoneNumber != undefined){
+                        if(this.canSave == false){
+                            this.errPhone = 'Please enter a right phone number.';
+                        }else{
+                            this.errPhone = '';
+                        }
+                    }else{
+                        this.errPhone = 'Please enter a phone number.';
+                    }
+                    
                     // this.results = payload;
                     // console.log(payload);
                     if(payload.formatInternational !== undefined){
                         const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
-                        console.log(addPhoneFir)
+                        // console.log(addPhoneFir)
                         this.sendPhone = "+"+ addPhoneFir.countryCallingCode+ " " + addPhoneFir.nationalNumber;
-                        console.log(this.sendPhone)
+                        // console.log(this.sendPhone)
                     }else{
                         this.sendPhone = '';
                     }
