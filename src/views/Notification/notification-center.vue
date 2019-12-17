@@ -127,10 +127,12 @@
         <div class="pagination-wrapper">
           <el-pagination
             background
+            :hide-on-single-page="true"
             layout="prev, pager, next"
             :total="totalCount"
             :page-size="pagesize"
-            :current-page="currentPage"
+            :current-page="nowPage"
+            :total="totalCount"
             @current-change="getMsgList"
           >
           </el-pagination>
@@ -165,7 +167,7 @@
         removeList: [],
         markList: [],
         currentPage: 1, //初始页
-        pagesize: 10,    //每页的数据
+        pagesize: 3,    //每页的数据
         ivyCustomer_role:false,
       }
     },
@@ -229,20 +231,15 @@
               this.MsgList[ind][updateItemInd].status = status;
             } else {
               if ((this.MsgList.new.length+this.MsgList.early.length)==1) {
-                if (this.currentPage==0) {
+                if (this.nowPage<=1) {
                   this.MsgList[ind].splice(updateItemInd, 1);
-
                 } else {
-                  this.currentPage = this.currentPage - 1 ;
-                  this.getMsgList(this.currentPage + 1);
-
+                  this.nowPage = this.nowPage - 1 ;
+                  this.getMsgList(this.nowPage + 1);
                 }
               } else {
                 this.MsgList[ind].splice(updateItemInd, 1);
               }
-              // this.currentPage = 0;
-              // this.getMsgList(1);
-              // this.nowPage = 1;
             }
 
           }
@@ -264,9 +261,6 @@
           templateId:id,
           disabled:disabledType
         },).then((res) => {
-          console.log(res);
-          this.currentPage = 0;
-          // this.getMsgList(1);
           this.nowPage = 1;
         })
       },
@@ -346,8 +340,6 @@
         })
         this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
           if (res.data && res.data.code == 200) {
-
-            // this.currentPage = 0;
             for (let i in this.MsgList) {
               this.MsgList[i].forEach((item, index) => {
                 if (this.checkModel.indexOf(item.id)!= -1) {
@@ -377,17 +369,11 @@
         this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
           console.log(res);
           if (res.data && res.data.code == 200) {
-            console.log(this.nowPage)
-            // this.currentPage = 0;
-            // this.nowPage = 1;
-            // this.getMsgList();
-            console.log(this.nowPage,this.currentPage);
             if(this.checked == true){
-              if (this.nowPage==1&&this.currentPage==0) {
+              if (this.nowPage==1) {
                 this.noMsg = true;
               } else {
                 this.nowPage -= 1 ;
-                this.currentPage -=1;
                 this.getMsgList();
               }
               this.checked = false;
@@ -418,6 +404,7 @@
   .message-list {
     float: right;
     width: 794px;
+    min-height: 310px;
   }
 
   .message-notify {
