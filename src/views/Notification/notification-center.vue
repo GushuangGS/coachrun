@@ -352,7 +352,6 @@
               this.MsgList[i].forEach((item, index) => {
                 if (this.checkModel.indexOf(item.id)!= -1) {
                   this.MsgList[i][index].status = 2;
-                  console.log(this.MsgList[i][index]);
                 }
                 if (index==this.MsgList[i].length-1){
                   this.checkModel = [];
@@ -371,7 +370,7 @@
       removeAllCheck() {
         console.log(this.checkModel);
         this.checkModel.forEach((item) => {
-          var str = {id: item, status: 3};
+          let str = {id: item, status: 3};
           this.removeList.push(str);
         })
         console.log(this.removeList)
@@ -394,14 +393,14 @@
               this.checked = false;
             }else{
               for (let i in this.MsgList) {
-                this.MsgList[i].forEach((item, index) => {
-                  if (this.checkModel.indexOf(item.id)!= -1) {
-                    this.MsgList[i].splice(index, 1);
+                for (let index = this.MsgList[i].length-1;index>=0; index-- ) {
+                  if (this.checkModel.indexOf(this.MsgList[i][index].id)!= -1) {
+                    this.MsgList[i].splice(index,1);
                   }
-                  if (index==this.MsgList[i].length-1){
+                  if (index==0){
                     this.checkModel = [];
                   }
-                })
+                }
               }
             }
           } else if (res.data && res.data.code == 401) {
