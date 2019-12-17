@@ -7,8 +7,8 @@
         <div class="message-notify">
           <div class="message-title">
             <span>Notifications</span>
-            <div class="settings">
-              <div @click="setting">
+            <div class="settings" v-if="ivyCustomer_role<3">
+              <div @click="setting" class="setting-btn-box">
                 <i class="icon-cog"></i>
                 <span>Settings</span>
               </div>
@@ -48,11 +48,13 @@
         <div class="message-list">
           <div>
             <div class="message-list-table">
+              <div class="no-message" v-show="noMsg">You have no new notifications.</div>
               <div class="msg-list-group" v-show="MsgList.new.length!=0">
                 <div class="message-table-title">New</div>
-                <div class="message-table-item" :class="{'read':item.status==2}" @mouseleave="showSet=false"
+                <div class="message-table-item" :class="{'read':item.status==2,'msg-item-checked':checkModel.indexOf(item.id)>=0}" @mouseleave="showSet=false"
                      v-for="(item,index) in MsgList.new" :key="index"
-                     @click="item.status==1?setMessage(item.id,item.status):false">
+                     @click="item.status==1?setMessage(item.id,item.status):false"
+                >
                   <div class="message-table-check">
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
@@ -94,9 +96,9 @@
                   <div class="message-table-content">
                     <div class="message-table-type">
                       <!-- <img src="./img/backup-busbooking.png" alt=""> -->
-                      <img :src="`https://res.gotobus.com/images/icon-notification-s28-type-\${item.templateType}.png`"
+                      <img :src="require(`@/assets/icon-notification-s28-type-${item.templateType}.png`)"
                            v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
-                      <img :src="`https://res.gotobus.com/images/icon-notification-s28-type-0.png`" v-else/>
+                      <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                     </div>
                     <div class="message-table-schedule">
                       <div class="message-schedule-title">
@@ -125,10 +127,11 @@
         <div class="pagination-wrapper">
           <el-pagination
             background
+            :hide-on-single-page="true"
             layout="prev, pager, next"
             :total="totalCount"
             :page-size="pagesize"
-            :current-page="currentPage"
+            :current-page="nowPage"
             @current-change="getMsgList"
           >
           </el-pagination>
@@ -139,6 +142,7 @@
 </template>
 
 <script>
+  import Cookies from "js-cookie";
   export default {
     data() {
       return {
@@ -162,15 +166,21 @@
         removeList: [],
         markList: [],
         currentPage: 1, //初始页
-        pagesize: 10,    //每页的数据
+        pagesize: 1,    //每页的数据
+        ivyCustomer_role:false,
       }
     },
     created() {
-      this.getMsgList();
+      this.ivyCustomer_role = Cookies.get("IvyCustomer_role");
       this.getMsgSettingList();
+      this.getMsgList();
+    },
+    mounted(){
+
     },
     watch: {
       checkModel() {
+        console.log(this.checkModel);
         if (this.checkModel.length == this.allMsgList.length&&this.checkModel.length!=0) {
           this.checked = true;
         } else {
@@ -199,7 +209,7 @@
         }else if (type==3) {
           status = 3
         }
-        this.$http.patch(`/users/notifications/${this.id}`,
+        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/${id}`,
           {
             id,
             status
@@ -219,10 +229,20 @@
             if (status != 3) {
               this.MsgList[ind][updateItemInd].status = status;
             } else {
-              this.MsgList[ind].splice(updateItemInd, 1);
-              this.currentPage = 0;
-              // this.getMsgList(1);
-              this.nowPage = 1;
+              if ((this.MsgList.new.length+this.MsgList.early.length)==1) {//当前页只有一个item的时候
+                if (this.nowPage<=1) {//第一页
+                  this.MsgList[ind].splice(updateItemInd, 1);
+                  this.noMsg = true;
+                } else if (this.nowPage==this.pageCount) {//最后一页，往前翻一页
+                  this.nowPage = this.nowPage - 1 ;
+                  console.log(this.nowPage);
+                  this.getMsgList(this.nowPage);
+                }else {//重新请求当前页
+                  this.getMsgList(this.nowPage);
+                }
+              } else {
+                this.MsgList[ind].splice(updateItemInd, 1);
+              }
             }
 
           }
@@ -240,10 +260,10 @@
         } else {
           disabledType = 1;
         }
-        this.$http.put(`/users/notifications/settings?templateId=${id}&disabled=${disabledType}`, {},).then((res) => {
-          console.log(res);
-          this.currentPage = 0;
-          // this.getMsgList(1);
+        this.$http.put(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/settings`, {
+          templateId:id,
+          disabled:disabledType
+        },).then((res) => {
           this.nowPage = 1;
         })
       },
@@ -267,7 +287,7 @@
         }
         this.checked = false;
         this.checkModel = [];
-        this.$http.get('/users/notifications/notification-center', {
+        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/notification-center`, {
           params: {
             pageNo: this.nowPage,
             pageSize: this.pagesize
@@ -284,6 +304,9 @@
             } else {
               this.noMsg = false;
             }
+            //初始化cookie中的IvyCustomer_NewNotificationCount
+            // Cookies.set("IvyCustomer_NewNotificationCount","")
+            document.cookie = `IvyCustomer_NewNotificationCount=;domain=".coachrun.com";path=/`;
             //第一次请求成功时获取页数
             this.totalCount = res.data.data.pagination.totalCount;
             //获取当前页列表
@@ -303,7 +326,7 @@
       },
       //settings
       getMsgSettingList() {
-        this.$http.get('/users/notifications/settings', {}).then((res) => {
+        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/settings`, {}).then((res) => {
           // console.log(res);
           if (res.data && res.data.code == 200) {
             this.setList = res.data.data;
@@ -314,37 +337,64 @@
         })
       },
       markAllCheck() {
-        console.log(this.checkModel);
         this.checkModel.forEach((item) => {
           var str = {id: item, status: 2};
           this.markList.push(str);
         })
-        this.$http.patch('/users/notifications/bulk', this.markList, {}).then((res) => {
-          console.log(res);
+        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
           if (res.data && res.data.code == 200) {
-            this.currentPage = 0;
-            this.checkModel = [];
-            // this.getMsgList(1);
-            this.nowPage = 1;
+            for (let i in this.MsgList) {
+              this.MsgList[i].forEach((item, index) => {
+                if (this.checkModel.indexOf(item.id)!= -1) {
+                  this.MsgList[i][index].status = 2;
+                }
+                if (index==this.MsgList[i].length-1){
+                  this.checkModel = [];
+                }
+              })
+            }
+            // this.nowPage = 1;
+            // this.getMsgList();
           } else if (res.data && res.data.code == 401) {
             // set_cookie("IvyCustomer_LoginToken", "");
             // this.check_token(this.markAllCheck);
           }
-        })
+        });
+
       },
       removeAllCheck() {
-        console.log(this.checkModel);
         this.checkModel.forEach((item) => {
-          var str = {id: item, status: 3};
+          let str = {id: item, status: 3};
           this.removeList.push(str);
-        })
-        console.log(this.removeList)
-        this.$http.patch('/users/notifications/bulk', this.removeList, {}).then((res) => {
-          console.log(res);
+        });
+        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
           if (res.data && res.data.code == 200) {
-            console.log(this.nowPage)
-            this.currentPage = 0;
-            this.nowPage = 1;
+            if(this.checked == true){//如果当前页全选
+              if (this.nowPage==1) {//第一页
+                if (this.nowPage==this.pageCount)  {//第一页同时是最后一页
+                  this.noMsg = true;
+                }else {
+                  this.getMsgList(this.nowPage);
+                }
+              } else if (this.nowPage==this.pageCount) {//最后一页
+                this.nowPage -= 1 ;
+                this.getMsgList(this.nowPage);
+              }else {//中间页，重新请求当前页
+                this.getMsgList(this.nowPage);
+              }
+              this.checked = false;
+            }else{
+              for (let i in this.MsgList) {
+                for (let index = this.MsgList[i].length-1;index>=0; index-- ) {
+                  if (this.checkModel.indexOf(this.MsgList[i][index].id)!= -1) {
+                    this.MsgList[i].splice(index,1);
+                  }
+                  if (index==0){
+                    this.checkModel = [];
+                  }
+                }
+              }
+            }
           } else if (res.data && res.data.code == 401) {
             // set_cookie("IvyCustomer_LoginToken", "");
             // this.check_token(this.removeAllCheck);
@@ -360,6 +410,7 @@
   .message-list {
     float: right;
     width: 794px;
+    min-height: 310px;
   }
 
   .message-notify {
@@ -371,7 +422,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid #ddd;
   }
 
   .message-title > span {
@@ -393,7 +444,7 @@
   .message-nav-bar {
     display: flex;
     padding: 10px 0px 10px 10px;
-    border-bottom: 1px solid #D8D8D8;
+    border-bottom: 1px solid #ddd;
   }
 
   .message-nav-bar .all-msg-box {
@@ -445,13 +496,13 @@
     padding: 5px 0px 5px 28px;
     font-size: 12px;
     color: #666;
-    border-bottom: 1px solid #bababa;
+    border-bottom: 1px solid #ddd;
   }
 
   .message-list-table .message-table-item {
     display: flex;
     align-items: center;
-    border-bottom: 1px solid #bababa;
+    border-bottom: 1px solid #ddd;
     /* background-color: white;*/
     background: #edf5ff;
   }
@@ -554,11 +605,13 @@
     white-space: nowrap;
   }
 
-  .msg-setting-box span:hover {
+  .msg-setting-box span:hover{
     background-color: #f5f7fa;
     /*color: white;*/
   }
-
+  .msg-item-checked {
+    background-color: #f5f7fa!important;
+  }
   .message-list-table .message-table-check {
     display: flex;
     align-items: center;
@@ -575,7 +628,7 @@
   }
 
   .message-list-table .message-table-item:hover {
-    background-color: #f5f7fa;
+    background-color: #cbe2ff!important;
   }
 
   .message-table-item:hover .icon-ellipsis {
@@ -643,7 +696,16 @@
     bottom: 0;
     right: 0;
   }
+  .setting-btn-box:hover i,.setting-btn-box:hover span{
+    color: #f60;
+  }
   .el-main {
     overflow: inherit;
   }
+  .no-message {
+    font-size: 14px;
+    padding: 10px;
+    color: #333;
+  }
+
 </style>

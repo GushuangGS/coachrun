@@ -37,9 +37,9 @@
                     <el-menu-item index="/render/member/account/change-password">
                       <router-link :to="{name:'ChangePassword'}" style="color: inherit;">Change Password</router-link>
                     </el-menu-item>
-                    <!-- <el-menu-item index="/render/member/account/notification-center">
+                    <el-menu-item index="/render/member/account/notification-center">
                       <router-link :to="{name:'notification-center'}" style="color: inherit;">My Notifications</router-link>
-                    </el-menu-item> -->
+                    </el-menu-item>
                   </el-menu-item-group>
                 </el-submenu>
               </el-menu>
