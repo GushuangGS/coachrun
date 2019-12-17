@@ -209,8 +209,8 @@ export default {
     //   console.log(res)
     // })
   },
-  computed(){
-    userName:{
+  computed: {
+    userName(){
       let userName = null;
       if(process.env.NODE_ENV === "development"){
         return  localStorage.getItem("loginName");
