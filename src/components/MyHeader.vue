@@ -208,7 +208,7 @@ export default {
     //   console.log(res)
     // })
   },
-  watch: {
+  computed: {
     userName(){
       let userName = null;
       if(process.env.NODE_ENV === "development"){
