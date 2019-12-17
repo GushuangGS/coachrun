@@ -228,9 +228,9 @@
               this.MsgList[ind][updateItemInd].status = status;
             } else {
               this.MsgList[ind].splice(updateItemInd, 1);
-              this.currentPage = 0;
+              // this.currentPage = 0;
               // this.getMsgList(1);
-              this.nowPage = 1;
+              // this.nowPage = 1;
             }
 
           }
@@ -296,7 +296,8 @@
               this.noMsg = false;
             }
             //初始化cookie中的IvyCustomer_NewNotificationCount
-            Cookies.set("IvyCustomer_NewNotificationCount","")
+            // Cookies.set("IvyCustomer_NewNotificationCount","")
+            document.cookie = `IvyCustomer_NewNotificationCount=;domain=".coachrun.com";path=/`;
             //第一次请求成功时获取页数
             this.totalCount = res.data.data.pagination.totalCount;
             //获取当前页列表
@@ -336,10 +337,17 @@
           console.log(res);
           if (res.data && res.data.code == 200) {
 
-            this.currentPage = 0;
+            // this.currentPage = 0;
+            for (let i in this.MsgList) {
+              this.MsgList[i].forEach((item, index) => {
+                this.checkModel.forEach((items) => {
+                  if (items.id==item.id) item.status = 2;
+                })
+              })
+            }
             this.checkModel = [];
-            this.getMsgList(1);
-            this.nowPage = 1;
+            // this.nowPage = 1;
+            // this.getMsgList();
           } else if (res.data && res.data.code == 401) {
             // set_cookie("IvyCustomer_LoginToken", "");
             // this.check_token(this.markAllCheck);
@@ -359,6 +367,7 @@
             console.log(this.nowPage)
             this.currentPage = 0;
             this.nowPage = 1;
+            this.getMsgList();
           } else if (res.data && res.data.code == 401) {
             // set_cookie("IvyCustomer_LoginToken", "");
             // this.check_token(this.removeAllCheck);
