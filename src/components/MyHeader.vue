@@ -11,13 +11,13 @@
           <div class="nav-login" v-else>
             <div class="row">
               <img class="headImg" src="@/assets/home_head.png" />
-              <div class="userDisplay" v-if="getUserName()">
+              <!-- <div class="userDisplay" v-if="getUserName()">
                 <span class="userName">{{getUserName()}}</span>
                 <span class="userEmail">{{getUserEmail()}}</span>
               </div>
               <div class="userDisplay" v-else>
                 <span class="userName">{{getUserEmail()}}</span>
-              </div>
+              </div> -->
             </div>
             <div class="row">
               <button class="accountButton" @click="gotoAcount">Account</button>
