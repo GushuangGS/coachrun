@@ -335,9 +335,10 @@
         this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
           console.log(res);
           if (res.data && res.data.code == 200) {
+
             this.currentPage = 0;
             this.checkModel = [];
-            // this.getMsgList(1);
+            this.getMsgList(1);
             this.nowPage = 1;
           } else if (res.data && res.data.code == 401) {
             // set_cookie("IvyCustomer_LoginToken", "");
