@@ -235,10 +235,10 @@ export default {
     skip(url) {
       window.location.href = url;
     },
-    changeColor(index) {
-      // this.$router.push({name: this.navLists[index].link});
-      window.location.href = this.navLists[index].src;
-    },
+    // changeColor(index) {
+    //   // this.$router.push({name: this.navLists[index].link});
+    //   window.location.href = this.navLists[index].src;
+    // },
     toShopping() {
       if (process.env.NODE_ENV === "production") {
         window.location.href = "https://www.coachrun.com/";

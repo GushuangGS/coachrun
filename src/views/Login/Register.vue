@@ -131,6 +131,8 @@
                 onUpdate(payload) {
                     console.log(payload);
                     this.canSave = payload.isValid;
+                    // this.results = payload;
+                    // console.log(payload);
                     if(payload.formatInternational !== undefined){
                         const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
                         console.log(addPhoneFir)
@@ -139,8 +141,6 @@
                     }else{
                         this.sendPhone = '';
                     }
-                    // this.results = payload;
-                    // console.log(payload);
                 },
                 register(){
                     this.$refs.loginForm.validate((valid)=>{
