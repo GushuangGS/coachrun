@@ -188,11 +188,11 @@ export default {
     };
 
     if (Cookies.get("IvyCustomer_FirstName")){
-      this.userNames = unescape(Cookies.get("IvyCustomer_FirstName"));
+      this.userNames = Cookies.get("IvyCustomer_FirstName");
     }else if (Cookies.get("IvyCustomer_Uid")){
-      this.userNames = unescape(Cookies.get("IvyCustomer_Uid"));
+      this.userNames = Cookies.get("IvyCustomer_Uid");
     } else if (Cookies.get("IvyCustomer_LoginEmail")) {
-      this.userNames = unescape(Cookies.get("IvyCustomer_LoginEmail"));
+      this.userNames = Cookies.get("IvyCustomer_LoginEmail");
     }else {
       this.userNames = "";
     }
