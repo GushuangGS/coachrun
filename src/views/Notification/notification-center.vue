@@ -229,12 +229,15 @@
             if (status != 3) {
               this.MsgList[ind][updateItemInd].status = status;
             } else {
-              if ((this.MsgList.new.length+this.MsgList.early.length)==1) {
-                if (this.nowPage<=1) {
+              if ((this.MsgList.new.length+this.MsgList.early.length)==1) {//当前页只有一个item的时候
+                if (this.nowPage<=1) {//第一页
                   this.MsgList[ind].splice(updateItemInd, 1);
-                } else {
+                  this.noMsg = true;
+                } else if (this.nowPage==this.pageCount) {//最后一页，往前翻一页
                   this.nowPage = this.nowPage - 1 ;
                   this.getMsgList(this.nowPage + 1);
+                }else {//重新请求当前页
+                  this.getMsgList(this.nowPage);
                 }
               } else {
                 this.MsgList[ind].splice(updateItemInd, 1);
@@ -359,21 +362,24 @@
 
       },
       removeAllCheck() {
-        console.log(this.checkModel);
         this.checkModel.forEach((item) => {
           let str = {id: item, status: 3};
           this.removeList.push(str);
-        })
-        console.log(this.removeList)
+        });
         this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
-          console.log(res);
           if (res.data && res.data.code == 200) {
-            if(this.checked == true){
-              if (this.nowPage==1) {
-                this.noMsg = true;
-              } else {
+            if(this.checked == true){//如果当前页全选
+              if (this.nowPage==1) {//第一页
+                if (this.nowPage==this.pageCount)  {//第一页同时是最后一页
+                  this.noMsg = true;
+                }else {
+                  this.getMsgList(this.nowPage);
+                }
+              } else if (this.nowPage==this.pageCount) {//最后一页
                 this.nowPage -= 1 ;
-                this.getMsgList();
+                this.getMsgList(this.nowPage);
+              }else {//中间页，重新请求当前页
+                this.getMsgList(this.nowPage);
               }
               this.checked = false;
             }else{
