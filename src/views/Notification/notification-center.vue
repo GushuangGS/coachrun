@@ -48,6 +48,7 @@
         <div class="message-list">
           <div>
             <div class="message-list-table">
+              <div class="no-message" v-show="noMsg">You have no new notifications.</div>
               <div class="msg-list-group" v-show="MsgList.new.length!=0">
                 <div class="message-table-title">New</div>
                 <div class="message-table-item" :class="{'read':item.status==2,'msg-item-checked':checkModel.indexOf(item.id)>=0}" @mouseleave="showSet=false"
@@ -178,7 +179,7 @@
     },
     watch: {
       checkModel() {
-        console.log(this.checkModel,typeof this.checkModel,this.checkModel.indexOf(1001))
+        console.log(this.checkModel);
         if (this.checkModel.length == this.allMsgList.length&&this.checkModel.length!=0) {
           this.checked = true;
         } else {
@@ -227,7 +228,18 @@
             if (status != 3) {
               this.MsgList[ind][updateItemInd].status = status;
             } else {
-              this.MsgList[ind].splice(updateItemInd, 1);
+              if ((this.MsgList.new.length+this.MsgList.early.length)==1) {
+                if (this.currentPage==0) {
+                  this.MsgList[ind].splice(updateItemInd, 1);
+
+                } else {
+                  this.currentPage = this.currentPage - 1 ;
+                  this.getMsgList(this.currentPage + 1);
+
+                }
+              } else {
+                this.MsgList[ind].splice(updateItemInd, 1);
+              }
               // this.currentPage = 0;
               // this.getMsgList(1);
               // this.nowPage = 1;
@@ -367,9 +379,31 @@
           console.log(res);
           if (res.data && res.data.code == 200) {
             console.log(this.nowPage)
-            this.currentPage = 0;
-            this.nowPage = 1;
-            this.getMsgList();
+            // this.currentPage = 0;
+            // this.nowPage = 1;
+            // this.getMsgList();
+
+            if(this.checked == true){
+              if (this.nowPage==1&&this.currentPage==0) {
+                this.noMsg = true;
+              } else {
+                this.nowPage -= 1 ;
+                this.currentPage -=1;
+                this.getMsgList();
+              }
+              this.checked = false;
+            }else{
+              for (let i in this.MsgList) {
+                this.MsgList[i].forEach((item, index) => {
+                  if (this.checkModel.indexOf(item.id)!= -1) {
+                    this.MsgList[i].splice(index, 1);
+                  }
+                  if (index==this.MsgList[i].length-1){
+                    this.checkModel = [];
+                  }
+                })
+              }
+            }
           } else if (res.data && res.data.code == 401) {
             // set_cookie("IvyCustomer_LoginToken", "");
             // this.check_token(this.removeAllCheck);
@@ -676,4 +710,10 @@
   .el-main {
     overflow: inherit;
   }
+  .no-message {
+    font-size: 14px;
+    padding: 10px;
+    color: #333;
+  }
+
 </style>
