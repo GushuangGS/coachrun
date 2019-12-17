@@ -225,7 +225,9 @@ export default {
       if(process.env.NODE_ENV === "development"){
         return  this.userName =localStorage.getItem("loginName");
       }else{
+        console.log(Cookies.get("IvyCustomer_FirstName"))
         this.userName = Cookies.get("IvyCustomer_FirstName");
+        console.log(this.userName);
         if(this.userName == null || this.userName == undefined){
           this.userName = Cookies.get("IvyCustomer_LoginEmail");
         }
