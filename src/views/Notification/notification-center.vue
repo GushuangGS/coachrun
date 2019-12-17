@@ -180,7 +180,6 @@
     },
     watch: {
       checkModel() {
-        console.log(this.checkModel);
         if (this.checkModel.length == this.allMsgList.length&&this.checkModel.length!=0) {
           this.checked = true;
         } else {
@@ -293,7 +292,6 @@
             pageSize: this.pagesize
           }
         }).then((res) => {
-          console.log(res,"数据请求一次");
           if (res.data && res.data.code == 200) {
             if (res.data.data.pagination.totalCount == 0) {
               this.noMsg = true;
@@ -377,6 +375,7 @@
                   this.getMsgList(this.nowPage);
                 }
               } else if (this.nowPage==this.pageCount) {//最后一页
+                console.log("最后一页");
                 this.nowPage -= 1 ;
                 this.getMsgList(this.nowPage);
               }else {//中间页，重新请求当前页
