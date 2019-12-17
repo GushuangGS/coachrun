@@ -165,7 +165,6 @@ export default {
           src: "https://www.coachrun.com/ticket-policy/"
         }
       ],
-      userName: "",
       shopNum: 0,
       showMenu: false,
       userEmail: "",
