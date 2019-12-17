@@ -1,10 +1,10 @@
 <template>
   <div class="header">
     <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i>
-    <el-drawer :size="'70%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose" custom-class="show-drawer">
+    <!-- <el-drawer :size="'70%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose" custom-class="show-drawer">
       <nav class="navbar">
         <div class="user-header-box">
-          <!-- <div class="nav-not-login" v-if="!$store.state.isLogin">
+          <div class="nav-not-login" v-if="!$store.state.isLogin">
             <img src="@/assets/sidebar-notlogin.png">
             <p><a href="/render/user/login" style="color: #232323;">Login | Register</a></p>
           </div>
@@ -23,7 +23,7 @@
               <button class="accountButton" @click="gotoAcount">Account</button>
               <button class="bookingButton" @click="gotoBooking">Bookings</button>
             </div>
-          </div> -->
+          </div>
         </div>
         <div class="sidebar">
           <div class="sidebar-cell" @click="toShopping">
@@ -84,7 +84,7 @@
           </div>
         </div>
       </nav>
-    </el-drawer>
+    </el-drawer> -->
 
     <div class="header-left">
       <!-- <div class="logo" @click="skip('http://testwww.coachrun.com/')"> -->
