@@ -217,7 +217,7 @@ export default {
         console.log(Cookies.get("IvyCustomer_FirstName"));
         userName = Cookies.get("IvyCustomer_FirstName");
         console.log(userName);
-        if(userName){
+        if(!userName){
           userName = Cookies.get("IvyCustomer_LoginEmail");
         }
         return userName;
