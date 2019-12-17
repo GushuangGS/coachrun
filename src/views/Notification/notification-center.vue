@@ -328,21 +328,20 @@
         })
       },
       markAllCheck() {
-        console.log(this.checkModel);
         this.checkModel.forEach((item) => {
           var str = {id: item, status: 2};
           this.markList.push(str);
         })
         this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
-          console.log(res);
           if (res.data && res.data.code == 200) {
 
             // this.currentPage = 0;
             for (let i in this.MsgList) {
               this.MsgList[i].forEach((item, index) => {
-                this.checkModel.forEach((items) => {
-                  if (items.id==item.id) this.MsgList[i][index].status = 2;
-                })
+                if (this.checkModel.indexOf(item.id)!= -1) {
+                  this.MsgList[i][index].status = 2;
+                  console.log(this.MsgList[i][index]);
+                }
                 if (index==this.MsgList[i].length-1){
                   this.checkModel = [];
                 }
