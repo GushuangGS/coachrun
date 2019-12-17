@@ -4,26 +4,26 @@
     <el-drawer :size="'70%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose" custom-class="show-drawer">
       <nav class="navbar">
         <div class="user-header-box">
-          <div class="nav-not-login" v-if="!$store.state.isLogin">
+          <!-- <div class="nav-not-login" v-if="!$store.state.isLogin">
             <img src="@/assets/sidebar-notlogin.png">
             <p><a href="/render/user/login" style="color: #232323;">Login | Register</a></p>
           </div>
           <div class="nav-login" v-else>
             <div class="row">
               <img class="headImg" src="@/assets/home_head.png" />
-              <!-- <div class="userDisplay" v-if="getUserName()">
+              <div class="userDisplay" v-if="getUserName()">
                 <span class="userName">{{getUserName()}}</span>
                 <span class="userEmail">{{getUserEmail()}}</span>
               </div>
               <div class="userDisplay" v-else>
                 <span class="userName">{{getUserEmail()}}</span>
-              </div> -->
+              </div>
             </div>
             <div class="row">
               <button class="accountButton" @click="gotoAcount">Account</button>
               <button class="bookingButton" @click="gotoBooking">Bookings</button>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="sidebar">
           <div class="sidebar-cell" @click="toShopping">
