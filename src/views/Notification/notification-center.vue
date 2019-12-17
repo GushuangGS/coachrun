@@ -132,7 +132,6 @@
             :total="totalCount"
             :page-size="pagesize"
             :current-page="nowPage"
-            :total="totalCount"
             @current-change="getMsgList"
           >
           </el-pagination>
