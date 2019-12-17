@@ -235,7 +235,7 @@
                   this.noMsg = true;
                 } else if (this.nowPage==this.pageCount) {//最后一页，往前翻一页
                   this.nowPage = this.nowPage - 1 ;
-                  this.getMsgList(this.nowPage + 1);
+                  this.getMsgList(this.nowPage);
                 }else {//重新请求当前页
                   this.getMsgList(this.nowPage);
                 }
