@@ -207,7 +207,8 @@ export default {
     },
     getUserEmail(){
       if(process.env.NODE_ENV !== "development"){
-        return this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
+        // return this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
+        return safe;
       }
     },
     getUserName() {
