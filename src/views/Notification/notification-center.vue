@@ -341,18 +341,21 @@
             for (let i in this.MsgList) {
               this.MsgList[i].forEach((item, index) => {
                 this.checkModel.forEach((items) => {
-                  if (items.id==item.id) item.status = 2;
+                  if (items.id==item.id) this.MsgList[i][index].status = 2;
                 })
+                if (index==this.MsgList[i].length-1){
+                  this.checkModel = [];
+                }
               })
             }
-            this.checkModel = [];
             // this.nowPage = 1;
             // this.getMsgList();
           } else if (res.data && res.data.code == 401) {
             // set_cookie("IvyCustomer_LoginToken", "");
             // this.check_token(this.markAllCheck);
           }
-        })
+        });
+
       },
       removeAllCheck() {
         console.log(this.checkModel);
