@@ -53,7 +53,6 @@
                 <div class="message-table-title">New</div>
                 <div class="message-table-item" :class="{'read':item.status==2,'msg-item-checked':checkModel.indexOf(item.id)>=0}" @mouseleave="showSet=false"
                      v-for="(item,index) in MsgList.new" :key="index"
-                     @click="item.status==1?setMessageRequire(item.id,item.status):false"
                 >
                   <div class="message-table-check" @click.stop>
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
@@ -65,7 +64,9 @@
                       <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                       <!-- <img src="./img/backup-busbooking.png" alt=""> -->
                     </div>
-                    <div class="message-table-schedule">
+                    <div class="message-table-schedule"
+                         @click="item.status==1?setMessageRequire(item.id,item.status):false"
+                    >
                       <div class="message-schedule-title">
                         <span>{{item.title}}</span>
                         <i class="icon-ellipsis" @click.stop="showSetting">
@@ -87,9 +88,8 @@
               </div>
               <div class="msg-list-group" v-show="MsgList.early.length!=0">
                 <div class="message-table-title">Early</div>
-                <div class="message-table-item" :class="{'read':item.status==2}" @mouseleave="showSet=false"
-                     v-for="(item,index) in MsgList.early" :key="index"
-                     @click="item.status==1?setMessageRequire(item.id,item.status):false">
+                <div class="message-table-item" :class="{'read':item.status==2,'msg-item-checked':checkModel.indexOf(item.id)>=0}" @mouseleave="showSet=false"
+                     v-for="(item,index) in MsgList.early" :key="index">
                   <div class="message-table-check" @click.stop>
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
@@ -100,7 +100,9 @@
                            v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
                       <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                     </div>
-                    <div class="message-table-schedule">
+                    <div class="message-table-schedule"
+                         @click="item.status==1?setMessageRequire(item.id,item.status):false"
+                    >
                       <div class="message-schedule-title">
                         <span>{{item.title}}</span>
                         <i class="icon-ellipsis" @click.stop="showSetting">
@@ -208,7 +210,7 @@
         }else if (type==3) {
           status = 3
         }
-        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/${id}`,
+        this.$http.patch(`/api/users/notifications/${id}`,
           {
             id,
             status
@@ -259,7 +261,7 @@
         } else {
           disabledType = 1;
         }
-        this.$http.put(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/settings`, {
+        this.$http.put(`/api/users/notifications/settings`, {
           templateId:id,
           disabled:disabledType
         },).then((res) => {
@@ -286,7 +288,7 @@
         }
         this.checked = false;
         this.checkModel = [];
-        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/notification-center`, {
+        this.$http.get(`/api/users/notifications/notification-center`, {
           params: {
             pageNo: this.nowPage,
             pageSize: this.pagesize
@@ -325,7 +327,7 @@
       },
       //settings
       getMsgSettingList() {
-        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/settings`, {}).then((res) => {
+        this.$http.get(`/api/users/notifications/settings`, {}).then((res) => {
           // console.log(res);
           if (res.data && res.data.code == 200) {
             this.setList = res.data.data;
@@ -341,7 +343,7 @@
             var str = {id: item, status: 2};
             this.markList.push(str);
           })
-          this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
+          this.$http.patch(`/api/users/notifications/bulk`, this.markList, {}).then((res) => {
             if (res.data && res.data.code == 200) {
               for (let i in this.MsgList) {
                 this.MsgList[i].forEach((item, index) => {
@@ -370,7 +372,7 @@
             let str = {id: item, status: 3};
             this.removeList.push(str);
           });
-          this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
+          this.$http.patch(`/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
             if (res.data && res.data.code == 200) {
               if(this.checked == true){//如果当前页全选
                 if (this.nowPage==1) {//第一页
