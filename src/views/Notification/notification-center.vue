@@ -166,7 +166,7 @@
         removeList: [],
         markList: [],
         currentPage: 1, //初始页
-        pagesize: 1,    //每页的数据
+        pagesize: 10,    //每页的数据
         ivyCustomer_role:false,
       }
     },
