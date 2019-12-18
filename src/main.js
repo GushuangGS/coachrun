@@ -29,7 +29,7 @@ var firebaseConfig = {
   authDomain: "auth.coachrun.com"
 }
 firebase.initializeApp(firebaseConfig)
-Vue.prototype.firebase = firebase
+Vue.prototype.firebase = firebase;
 // ---------------
 
 import { VueHammer } from 'vue2-hammer'
