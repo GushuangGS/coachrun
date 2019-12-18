@@ -134,7 +134,6 @@
                     }
                 },
                 inpBlur(){
-                    // console.log(this.loginInfo.phone)
                     if(this.loginInfo.phone == ''){
                         this.errPhone = 'Please enter a phone number.';
                     }
