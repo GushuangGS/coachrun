@@ -172,7 +172,8 @@
                                 .then((data) => {
                                     console.log(data);
                                     if(data.data.code == 200){
-                                        this.logIn();
+                                        // this.logIn();
+                                        this.$router.push({name: 'MyOrders'});
                                     }else{
                                         this.$message({
                                             message: data.data.msg,
