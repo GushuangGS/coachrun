@@ -336,7 +336,7 @@
         })
       },
       markAllCheck() {
-        if (this.MsgList.new.length+this.MsgList.early.length>0) {
+        if (this.checkModel.length>0) {
           this.checkModel.forEach((item) => {
             var str = {id: item, status: 2};
             this.markList.push(str);
@@ -350,6 +350,7 @@
                   }
                   if (index==this.MsgList[i].length-1){
                     this.checkModel = [];
+                    this.markList = [];
                   }
                 })
               }
@@ -364,7 +365,7 @@
 
       },
       removeAllCheck() {
-        if (this.MsgList.new.length+this.MsgList.early.length>0) {
+        if (this.checkModel.length>0) {
           this.checkModel.forEach((item) => {
             let str = {id: item, status: 3};
             this.removeList.push(str);
@@ -393,6 +394,7 @@
                     }
                     if (index==0){
                       this.checkModel = [];
+                      this.removeList = [];
                     }
                   }
                 }
