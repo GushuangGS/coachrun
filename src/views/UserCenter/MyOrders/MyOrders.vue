@@ -125,7 +125,7 @@
 <script>
   import ItemHeader from '@/components/ItemHeader'
   import OrderInfo from '@/components/OrderInfo'
-
+  import Cookies from 'js-cookie'
   export default {
     name: 'MyOrders',
     data() {
