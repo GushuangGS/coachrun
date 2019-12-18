@@ -11,9 +11,7 @@
           <div class="nav-login" v-else>
             <div class="row">
               <img class="headImg" src="@/assets/home_head.png" />
-             <!-- <div class="userDisplay" v-if="getLvyName()"> -->
-             <div class="userDisplay" v-if="getFirName()">
-               <span>{{getFirName()}}</span>
+              <div class="userDisplay" v-if="getLvyName()">
               <!-- <div class="userDisplay" v-if="userName"> -->
                 <!-- <span class="userName">{{userName}}</span> -->
                <span class="userName">{{getLvyName()}}</span>
@@ -171,8 +169,7 @@ export default {
       showMenu: false,
       userEmail: "",
       loginFlag:false,
-      tourHtml:"",
-      lvyName:''
+      tourHtml:""
     };
   },
   created() {
@@ -228,33 +225,21 @@ export default {
     clickMenu(){
       this.showMenu = true;
     },
-    getFirName(){
-      // let showFir = true;
-      if(process.env.NODE_ENV !== "development"){
-        let firName = Cookies.get("IvyCustomer_FirstName");
-        if(firName == null || firName == undefined){
-          return false;
-        }else{
-          return true;
-        }
-      }else{
-        return true;
-      }
-    },
     getUserEmail(){
       if(process.env.NODE_ENV !== "development"){
         return this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
       }
     },
     getLvyName(){
+      let lvyName = null;
       if(process.env.NODE_ENV === "development"){
-        return  this.lvyName =localStorage.getItem("loginName");
+        return lvyName =localStorage.getItem("loginName");
       }else{
-        this.lvyName = Cookies.get("IvyCustomer_FirstName");
-        if(this.lvyName == null || this.lvyName == undefined){
-            this.lvyName = Cookies.get("IvyCustomer_LoginEmail");
+        lvyName = Cookies.get("IvyCustomer_FirstName");
+        if(lvyName == null || lvyName == undefined){
+            lvyName = Cookies.get("IvyCustomer_LoginEmail");
         }
-        return this.lvyName;
+        return lvyName;
       }
     },
     // getUserName() {
