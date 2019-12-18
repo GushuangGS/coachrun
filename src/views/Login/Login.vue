@@ -4,7 +4,7 @@
        <h3 class="login-title">Log In</h3>
        <el-form class="login-form" :model="loginInfo" :rules="rules" ref="loginForm" label-width="0px">
             <el-form-item prop="email" :error="err">
-                <el-input v-model="loginInfo.email" placeholder="Email" @input="blurInp"></el-input>
+                <el-input v-model="loginInfo.email" placeholder="Email" @blur="blurInp"></el-input>
             </el-form-item> 
             <el-form-item prop="password">
                 <el-input type="password" v-model="loginInfo.password" placeholder="Password"></el-input>
