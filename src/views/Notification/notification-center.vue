@@ -53,7 +53,6 @@
                 <div class="message-table-title">New</div>
                 <div class="message-table-item" :class="{'read':item.status==2,'msg-item-checked':checkModel.indexOf(item.id)>=0}" @mouseleave="showSet=false"
                      v-for="(item,index) in MsgList.new" :key="index"
-                     @click="item.status==1?setMessageRequire(item.id,item.status):false"
                 >
                   <div class="message-table-check" @click.stop>
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
@@ -65,7 +64,9 @@
                       <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                       <!-- <img src="./img/backup-busbooking.png" alt=""> -->
                     </div>
-                    <div class="message-table-schedule">
+                    <div class="message-table-schedule"
+                         @click="item.status==1?setMessageRequire(item.id,item.status):false"
+                    >
                       <div class="message-schedule-title">
                         <span>{{item.title}}</span>
                         <i class="icon-ellipsis" @click.stop="showSetting">
@@ -87,9 +88,8 @@
               </div>
               <div class="msg-list-group" v-show="MsgList.early.length!=0">
                 <div class="message-table-title">Early</div>
-                <div class="message-table-item" :class="{'read':item.status==2}" @mouseleave="showSet=false"
-                     v-for="(item,index) in MsgList.early" :key="index"
-                     @click="item.status==1?setMessageRequire(item.id,item.status):false">
+                <div class="message-table-item" :class="{'read':item.status==2,'msg-item-checked':checkModel.indexOf(item.id)>=0}" @mouseleave="showSet=false"
+                     v-for="(item,index) in MsgList.early" :key="index">
                   <div class="message-table-check" @click.stop>
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
@@ -100,7 +100,9 @@
                            v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
                       <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                     </div>
-                    <div class="message-table-schedule">
+                    <div class="message-table-schedule"
+                         @click="item.status==1?setMessageRequire(item.id,item.status):false"
+                    >
                       <div class="message-schedule-title">
                         <span>{{item.title}}</span>
                         <i class="icon-ellipsis" @click.stop="showSetting">
