@@ -55,7 +55,7 @@
                      v-for="(item,index) in MsgList.new" :key="index"
                      @click="item.status==1?setMessageRequire(item.id,item.status):false"
                 >
-                  <div class="message-table-check">
+                  <div class="message-table-check" @click.stop>
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
                   <div class="message-table-content">
@@ -68,7 +68,7 @@
                     <div class="message-table-schedule">
                       <div class="message-schedule-title">
                         <span>{{item.title}}</span>
-                        <i class="icon-ellipsis" @click="showSetting">
+                        <i class="icon-ellipsis" @click.stop="showSetting">
                           <div class="msg-setting-box" v-show="showSet">
                             <span class="msg-read" @click="setMessageRequire(item.id,item.status)">{{item.status==1?'Mark as read':'Mark as unread'}}</span>
                             <span class="msg-remove" @click="setMessageRequire(item.id,3)">Remove this notification</span>
@@ -90,7 +90,7 @@
                 <div class="message-table-item" :class="{'read':item.status==2}" @mouseleave="showSet=false"
                      v-for="(item,index) in MsgList.early" :key="index"
                      @click="item.status==1?setMessageRequire(item.id,item.status):false">
-                  <div class="message-table-check">
+                  <div class="message-table-check" @click.stop>
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
                   <div class="message-table-content">
@@ -103,7 +103,7 @@
                     <div class="message-table-schedule">
                       <div class="message-schedule-title">
                         <span>{{item.title}}</span>
-                        <i class="icon-ellipsis" @click="showSetting">
+                        <i class="icon-ellipsis" @click.stop="showSetting">
                           <div class="msg-setting-box" v-show="showSet">
                             <!-- <span class="msg-read" @click="setMessageRequire(item.id,2)">Mark as read</span> -->
                             <span class="msg-read" @click="setMessageRequire(item.id,item.status)">{{item.status==1?'Mark as read':'Mark as unread'}}</span>
