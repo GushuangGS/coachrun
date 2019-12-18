@@ -11,12 +11,14 @@
           <div class="nav-login" v-else>
             <div class="row">
               <img class="headImg" src="@/assets/home_head.png" />
-             <div class="userDisplay" v-if="getLvyName()">
+             <!-- <div class="userDisplay" v-if="getLvyName()"> -->
+             <div class="userDisplay" v-if="getFirName()">
+               <span>{{getFirName()}}</span>
               <!-- <div class="userDisplay" v-if="userName"> -->
                 <!-- <span class="userName">{{userName}}</span> -->
                <span class="userName">{{getLvyName()}}</span>
-                <span class="userEmail">{{userName}}</span>
-<!--                <span class="userEmail">{{getUserEmail()}}</span>-->
+                <!-- <span class="userEmail">{{userName}}</span> -->
+               <span class="userEmail">{{getUserEmail()}}</span>
               </div>
               <div class="userDisplay" v-else>
                 <span class="userName">{{getUserEmail()}}</span>
@@ -225,6 +227,19 @@ export default {
     },
     clickMenu(){
       this.showMenu = true;
+    },
+    getFirName(){
+      // let showFir = true;
+      if(process.env.NODE_ENV !== "development"){
+        let firName = Cookies.get("IvyCustomer_FirstName");
+        if(firName == null || firName == undefined){
+          return false;
+        }else{
+          return true;
+        }
+      }else{
+        return true;
+      }
     },
     getUserEmail(){
       if(process.env.NODE_ENV !== "development"){
