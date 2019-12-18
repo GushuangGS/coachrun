@@ -170,7 +170,6 @@ export default {
       userEmail: "",
       loginFlag:false,
       tourHtml:"",
-      userNames:"",
     };
   },
   created() {
@@ -186,15 +185,6 @@ export default {
       this.isLogin = this.$store.state.isLogin;
     };
 
-    if (Cookies.get("IvyCustomer_FirstName")){
-      this.userNames = Cookies.get("IvyCustomer_FirstName");
-    }else if (Cookies.get("IvyCustomer_Uid")){
-      this.userNames = Cookies.get("IvyCustomer_Uid");
-    } else if (Cookies.get("IvyCustomer_LoginEmail")) {
-      this.userNames = Cookies.get("IvyCustomer_LoginEmail");
-    }else {
-      this.userNames = "";
-    }
     // this.$http.get("http://testwww.coachrun.com/api/pages/toolbars",
     //   {
     //     params:{

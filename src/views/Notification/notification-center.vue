@@ -53,7 +53,7 @@
                 <div class="message-table-title">New</div>
                 <div class="message-table-item" :class="{'read':item.status==2,'msg-item-checked':checkModel.indexOf(item.id)>=0}" @mouseleave="showSet=false"
                      v-for="(item,index) in MsgList.new" :key="index"
-                     @click="item.status==1?setMessage(item.id,item.status):false"
+                     @click="item.status==1?setMessageRequire(item.id,item.status):false"
                 >
                   <div class="message-table-check">
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
@@ -70,8 +70,8 @@
                         <span>{{item.title}}</span>
                         <i class="icon-ellipsis" @click="showSetting">
                           <div class="msg-setting-box" v-show="showSet">
-                            <span class="msg-read" @click="setMessage(item.id,item.status)">{{item.status==1?'Mark as read':'Mark as unread'}}</span>
-                            <span class="msg-remove" @click="setMessage(item.id,3)">Remove this notification</span>
+                            <span class="msg-read" @click="setMessageRequire(item.id,item.status)">{{item.status==1?'Mark as read':'Mark as unread'}}</span>
+                            <span class="msg-remove" @click="setMessageRequire(item.id,3)">Remove this notification</span>
                           </div>
                         </i>
                       </div>
@@ -89,7 +89,7 @@
                 <div class="message-table-title">Early</div>
                 <div class="message-table-item" :class="{'read':item.status==2}" @mouseleave="showSet=false"
                      v-for="(item,index) in MsgList.early" :key="index"
-                     @click="item.status==1?setMessage(item.id,item.status):false">
+                     @click="item.status==1?setMessageRequire(item.id,item.status):false">
                   <div class="message-table-check">
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
