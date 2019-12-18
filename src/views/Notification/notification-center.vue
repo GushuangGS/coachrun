@@ -198,7 +198,7 @@
       goToUrl(item){
           // console.log(item);
           if(item.status==1){
-              this.setMessageRequire(item.id,2);
+              this.setMessageRequire(item.id,1);
           }
           if(item.data && item.data.absolute_url && item.data.absolute_url!=''){
               window.location.href = item.data.absolute_url;
