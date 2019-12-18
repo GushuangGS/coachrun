@@ -64,9 +64,7 @@
                       <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                       <!-- <img src="./img/backup-busbooking.png" alt=""> -->
                     </div>
-                    <div class="message-table-schedule"
-                         @click="item.status==1?setMessageRequire(item.id,item.status):false"
-                    >
+                    <div class="message-table-schedule">
                       <div class="message-schedule-title">
                         <span>{{item.title}}</span>
                         <i class="icon-ellipsis" @click.stop="showSetting">
@@ -100,9 +98,7 @@
                            v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
                       <img :src="require(`@/assets/icon-notification-s28-type-0.png`)" v-else/>
                     </div>
-                    <div class="message-table-schedule"
-                         @click="item.status==1?setMessageRequire(item.id,item.status):false"
-                    >
+                    <div class="message-table-schedule">
                       <div class="message-schedule-title">
                         <span>{{item.title}}</span>
                         <i class="icon-ellipsis" @click.stop="showSetting">
