@@ -57,7 +57,7 @@
                   <div class="message-table-check" @click.stop>
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
-                  <div class="message-table-content">
+                  <div class="message-table-content" @click="goToUrl(item)">
                     <div class="message-table-type">
                       <img :src="require(`@/assets/icon-notification-s28-type-${item.templateType}.png`)"
                            v-if="[5,9,15,8000].indexOf(item.templateType) >= 0"/>
@@ -93,7 +93,7 @@
                   <div class="message-table-check" @click.stop>
                     <input type="checkbox" v-model="checkModel" :value="item.id"/>
                   </div>
-                  <div class="message-table-content">
+                  <div class="message-table-content" @click="goToUrl(item)">
                     <div class="message-table-type">
                       <!-- <img src="./img/backup-busbooking.png" alt=""> -->
                       <img :src="require(`@/assets/icon-notification-s28-type-${item.templateType}.png`)"
@@ -199,7 +199,15 @@
       showSetting() {
         this.showSet = !this.showSet;
       },
-
+      goToUrl(item){
+          // console.log(item);
+          if(item.status==1){
+              this.setMessageRequire(item.id,2);
+          }
+          if(item.data && item.data.absolute_url && item.data.absolute_url!=''){
+              window.location.href = item.data.absolute_url;
+          }
+      },
       //mark as read
       setMessageRequire(id, type) {
         let status = undefined;
