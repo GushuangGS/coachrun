@@ -11,12 +11,9 @@
           <div class="nav-login" v-else>
             <div class="row">
               <img class="headImg" src="@/assets/home_head.png" />
-<!--              <div class="userDisplay" v-if="getUserName()">-->
-              <div class="userDisplay" v-if="userName">
-                <span class="userName">{{userName}}</span>
-<!--                <span class="userName">{{getUserName()}}</span>-->
-                <span class="userEmail">{{userName}}</span>
-<!--                <span class="userEmail">{{getUserEmail()}}</span>-->
+              <div class="userDisplay" v-if="getLvyName()">
+               <span class="userName">{{getLvyName()}}</span>
+               <span class="userEmail">{{getUserEmail()}}</span>
               </div>
               <div class="userDisplay" v-else>
                 <span class="userName">{{getUserEmail()}}</span>
@@ -125,8 +122,7 @@
       <div class="show-name" v-else>
         <span class="user-name subThemeStyle" @click="gotoMine">
           <i class="icon-user-circle backgr"></i>
-          {{userName}}
-<!--          {{getUserName()}}-->
+          {{getLvyName()}}
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
@@ -169,7 +165,7 @@ export default {
       showMenu: false,
       userEmail: "",
       loginFlag:false,
-      tourHtml:"",
+      tourHtml:""
     };
   },
   created() {
@@ -198,22 +194,6 @@ export default {
     //   console.log(res)
     // })
   },
-  computed: {
-    userName(){
-      let userName = null;
-      if(process.env.NODE_ENV === "development"){
-        return  localStorage.getItem("loginName");
-      }else{
-        console.log(Cookies.get("IvyCustomer_FirstName"));
-        userName = Cookies.get("IvyCustomer_FirstName");
-        console.log(userName);
-        if(!userName){
-          userName = Cookies.get("IvyCustomer_LoginEmail");
-        }
-        return userName;
-      }
-    }
-  },
   mounted() {
     this.shopNum = Cookies.get("IvyCustomer_ShoppingItems");
     // this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
@@ -230,30 +210,18 @@ export default {
         return this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
       }
     },
-    // getUserName() {
-    //   // this.userName = Cookies.get("IvyCustomer_FirstName");
-    //   // if (this.userName == null || this.userName == undefined) {
-    //   //   // this.userName =Cookies.get("IvyCustomer_LoginEmail") != null? Cookies.get("IvyCustomer_LoginEmail"): localStorage.getItem("loginName");
-    //   //   if(Cookies.get("IvyCustomer_LoginEmail") != null || Cookies.get("IvyCustomer_LoginEmail") != undefined){
-    //   //      this.userName = Cookies.get("IvyCustomer_LoginEmail");
-    //   //   }else{
-    //   //     this.userName =localStorage.getItem("loginName");
-    //   //   }
-    //   // }
-    //   // return this.userName;
-    //
-    //   if(process.env.NODE_ENV === "development"){
-    //     return  this.userName =localStorage.getItem("loginName");
-    //   }else{
-    //     console.log(Cookies.get("IvyCustomer_FirstName"));
-    //     this.userName = Cookies.get("IvyCustomer_FirstName");
-    //     console.log(this.userName);
-    //     if(this.userName == null || this.userName == undefined){
-    //       this.userName = Cookies.get("IvyCustomer_LoginEmail");
-    //     }
-    //     return this.userName;
-    //   }
-    // },
+    getLvyName(){
+      let lvyName = null;
+      if(process.env.NODE_ENV === "development"){
+        return localStorage.getItem("loginName");
+      }else{
+        lvyName = Cookies.get("IvyCustomer_FirstName");
+        if(lvyName == null || lvyName == undefined){
+            lvyName = Cookies.get("IvyCustomer_LoginEmail");
+        }
+        return lvyName;
+      }
+    },
     skip(url) {
       window.location.href = url;
     },

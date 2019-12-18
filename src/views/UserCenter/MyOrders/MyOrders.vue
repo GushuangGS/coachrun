@@ -125,7 +125,7 @@
 <script>
   import ItemHeader from '@/components/ItemHeader'
   import OrderInfo from '@/components/OrderInfo'
-
+  import Cookies from 'js-cookie'
   export default {
     name: 'MyOrders',
     data() {
@@ -158,6 +158,10 @@
                     if(res.data.data!=null || res.data.data!=undefined){
                       this.dashDis = res.data.data;
                       this.userEmail = res.data.data.user.email;
+                      if(Cookies.get("front-sessionId") == undefined){
+                        Cookies.set('front-sessionId', res.data.data.user.id);
+                      }
+                      console.log(Cookies.get("front-sessionId"))
                       if(res.data.data.upcomingOrders!=null || res.data.data.upcomingOrders!=undefined){
                         this.dashInfo = res.data.data.upcomingOrders;
                       }

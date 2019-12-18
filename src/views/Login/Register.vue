@@ -134,7 +134,6 @@
                     }
                 },
                 inpBlur(){
-                    // console.log(this.loginInfo.phone)
                     if(this.loginInfo.phone == ''){
                         this.errPhone = 'Please enter a phone number.';
                     }
@@ -173,7 +172,9 @@
                                 .then((data) => {
                                     console.log(data);
                                     if(data.data.code == 200){
-                                        this.logIn();
+                                        // this.logIn();
+                                        this.$store.commit('login'); 
+                                        this.$router.push({name: 'MyOrders'});
                                     }else{
                                         this.$message({
                                             message: data.data.msg,

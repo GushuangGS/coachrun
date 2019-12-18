@@ -4,7 +4,7 @@
        <h3 class="login-title">Log In</h3>
        <el-form class="login-form" :model="loginInfo" :rules="rules" ref="loginForm" label-width="0px">
             <el-form-item prop="email" :error="err">
-                <el-input v-model="loginInfo.email" placeholder="Email" @blur="blurInp"></el-input>
+                <el-input v-model="loginInfo.email" placeholder="Email" @input="changeInp" @blur="blurInp"></el-input>
             </el-form-item> 
             <el-form-item prop="password">
                 <el-input type="password" v-model="loginInfo.password" placeholder="Password"></el-input>
@@ -116,7 +116,11 @@
         },
         methods:{
             blurInp(){
-                // let reg = /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/;
+                if(this.loginInfo.email == ''){
+                    this.err = 'Please enter your full email address.';
+                }
+            },
+            changeInp(){
                 let reg = /^[a-zA-Z0-9.!#$%&'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
                 if(this.loginInfo.email!=''){
                     if(!reg.test(this.loginInfo.email)){
