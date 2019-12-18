@@ -208,7 +208,7 @@
         }else if (type==3) {
           status = 3
         }
-        this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/${id}`,
+        this.$http.patch(`/api/users/notifications/${id}`,
           {
             id,
             status
@@ -259,7 +259,7 @@
         } else {
           disabledType = 1;
         }
-        this.$http.put(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/settings`, {
+        this.$http.put(`/api/users/notifications/settings`, {
           templateId:id,
           disabled:disabledType
         },).then((res) => {
@@ -286,7 +286,7 @@
         }
         this.checked = false;
         this.checkModel = [];
-        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/notification-center`, {
+        this.$http.get(`/api/users/notifications/notification-center`, {
           params: {
             pageNo: this.nowPage,
             pageSize: this.pagesize
@@ -325,7 +325,7 @@
       },
       //settings
       getMsgSettingList() {
-        this.$http.get(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/settings`, {}).then((res) => {
+        this.$http.get(`/api/users/notifications/settings`, {}).then((res) => {
           // console.log(res);
           if (res.data && res.data.code == 200) {
             this.setList = res.data.data;
@@ -341,7 +341,7 @@
             var str = {id: item, status: 2};
             this.markList.push(str);
           })
-          this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.markList, {}).then((res) => {
+          this.$http.patch(`/api/users/notifications/bulk`, this.markList, {}).then((res) => {
             if (res.data && res.data.code == 200) {
               for (let i in this.MsgList) {
                 this.MsgList[i].forEach((item, index) => {
@@ -370,7 +370,7 @@
             let str = {id: item, status: 3};
             this.removeList.push(str);
           });
-          this.$http.patch(`${process.env.VUE_APP_NOTIFICATION_BASEURL}/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
+          this.$http.patch(`/api/users/notifications/bulk`, this.removeList, {}).then((res) => {
             if (res.data && res.data.code == 200) {
               if(this.checked == true){//如果当前页全选
                 if (this.nowPage==1) {//第一页
