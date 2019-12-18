@@ -11,10 +11,10 @@
           <div class="nav-login" v-else>
             <div class="row">
               <img class="headImg" src="@/assets/home_head.png" />
-<!--              <div class="userDisplay" v-if="getUserName()">-->
-              <div class="userDisplay" v-if="userName">
-                <span class="userName">{{userName}}</span>
-<!--                <span class="userName">{{getUserName()}}</span>-->
+             <div class="userDisplay" v-if="getLvyName()">
+              <!-- <div class="userDisplay" v-if="userName"> -->
+                <!-- <span class="userName">{{userName}}</span> -->
+               <span class="userName">{{getLvyName()}}</span>
                 <span class="userEmail">{{userName}}</span>
 <!--                <span class="userEmail">{{getUserEmail()}}</span>-->
               </div>
@@ -125,8 +125,8 @@
       <div class="show-name" v-else>
         <span class="user-name subThemeStyle" @click="gotoMine">
           <i class="icon-user-circle backgr"></i>
-          {{userName}}
-<!--          {{getUserName()}}-->
+          <!-- {{userName}} -->
+         {{getLvyName()}}
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
@@ -170,6 +170,7 @@ export default {
       userEmail: "",
       loginFlag:false,
       tourHtml:"",
+      lvyName:''
     };
   },
   created() {
@@ -228,6 +229,17 @@ export default {
     getUserEmail(){
       if(process.env.NODE_ENV !== "development"){
         return this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
+      }
+    },
+    getLvyName(){
+      if(process.env.NODE_ENV === "development"){
+        return  this.lvyName =localStorage.getItem("loginName");
+      }else{
+        this.lvyName = Cookies.get("IvyCustomer_FirstName");
+        if(this.lvyName == null || this.lvyName == undefined){
+            this.lvyName = Cookies.get("IvyCustomer_LoginEmail");
+        }
+        return this.lvyName;
       }
     },
     // getUserName() {
