@@ -21,11 +21,12 @@
                         default-country-code="US" 
                         @update="onUpdate"
                         :clearable="true"
+                        @phone-number-blur="inpBlur"
                         />
                     </template>
                 </el-form-item> 
                 <el-form-item prop="password" :error="err">
-                    <el-input @input="inputPas" class="password-register" type="password" v-model="loginInfo.password" placeholder="Password"></el-input>
+                    <el-input @input="inputPas" class="password-register" type="password" v-model="loginInfo.password" placeholder="Password" autocomplete="new-password"></el-input>
                 </el-form-item>
                 <el-button @click.native.prevent="register" class="login-btn">Create My Account</el-button>
            </el-form>
@@ -132,19 +133,25 @@
                         this.err = 'Please enter your password.'
                     }
                 },
+                inpBlur(){
+                    // console.log(this.loginInfo.phone)
+                    if(this.loginInfo.phone == ''){
+                        this.errPhone = 'Please enter a phone number.';
+                    }
+                },
                 onUpdate(payload) {
                     console.log(payload);
                     console.log(payload.phoneNumber)
                     this.canSave = payload.isValid;
-                    // if(payload.phoneNumber != undefined){
-                    //     if(this.canSave == false){
-                    //         this.errPhone = 'Please enter a right phone number.';
-                    //     }else{
-                    //         this.errPhone = '';
-                    //     }
-                    // }else{
-                    //     this.errPhone = 'Please enter a phone number.';
-                    // }
+                    if(payload.phoneNumber != undefined){
+                        if(this.canSave == false){
+                            this.errPhone = 'Please enter a right phone number.';
+                        }else{
+                            this.errPhone = '';
+                        }
+                    }else{
+                        this.errPhone = 'Please enter a phone number.';
+                    }
                     
                     // this.results = payload;
                     // console.log(payload);
