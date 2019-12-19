@@ -169,6 +169,7 @@
       }
     },
     created() {
+      console.log("notification-created");
       this.ivyCustomer_role = Cookies.get("IvyCustomer_role");
       this.getMsgSettingList();
       this.getMsgList();
