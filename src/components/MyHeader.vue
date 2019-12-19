@@ -246,7 +246,9 @@ export default {
     },
     gotoMine() {
       if (Cookies.get("IvyCustomer_role") >= 3) {
-        window.location.href = "https://www.coachrun.com/app/member/account";
+        // if(process.env.NODE_ENV === "development")
+        // window.location.href = "https://www.coachrun.com/app/member/account";
+        window.location.href = `${process.env.VUE_APP_WEBSITE_DOMAIN}/app/member/account`;
       } else {
         this.$router.push({ name: "MyOrders" });
       }
