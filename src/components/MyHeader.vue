@@ -269,6 +269,7 @@ export default {
           Cookies.remove("front-sessionId");
           this.$store.commit("logout");
           
+          that.$router.push({ name: "Login" });
           let that = this;
           var auth = this.firebase.auth();
           auth.signOut().then(
@@ -277,7 +278,7 @@ export default {
                 var faceBookProvider = new that.firebase.auth.FacebookAuthProvider();
                 provider.setCustomParameters({ prompt: 'select_account' });
                 faceBookProvider.setCustomParameters({ prompt: 'select_account' });
-                that.$router.push({ name: "Login" });
+                // that.$router.push({ name: "Login" });
             }
           );
         } else if (data.data.code == 500) {
