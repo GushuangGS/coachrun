@@ -173,9 +173,6 @@
       this.getMsgSettingList();
       this.getMsgList();
     },
-    mounted(){
-
-    },
     watch: {
       checkModel() {
         if (this.checkModel.length == this.allMsgList.length&&this.checkModel.length!=0) {
