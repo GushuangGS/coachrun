@@ -268,8 +268,8 @@ export default {
           Cookies.remove("IvyCustomer_LoginCookie");
           Cookies.remove("front-sessionId");
           this.$store.commit("logout");
-          
-          that.$router.push({ name: "Login" });
+
+          this.$router.push({ name: "Login" });
           let that = this;
           var auth = this.firebase.auth();
           auth.signOut().then(
