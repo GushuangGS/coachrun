@@ -5,7 +5,7 @@ import myPointsRouter from './MyPoints/my-points'
 import myOrdersRouter from './MyOrders/my-orders'
 import myDealsRouter from './MyDeals/my-deals'
 import myBookingsRouter from './MyBookings/my-bookings'
-import notificationCenter from './notification'
+import notificationCenter from './notification/notification'
 import receiverContactRouter from './ContactInformation/receiver-contact'
 import receiverCreditRouter from './Credit/receiver-credit'
 
