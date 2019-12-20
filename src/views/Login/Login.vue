@@ -345,6 +345,9 @@
             },
             processEnv(data){
                 this.pageUrl = this.getId("pageUrl");
+                if(data.data.data.user.newNotificationCount){
+                    Cookies.set('IvyCustomer_NewNotificationCount', data.data.data.user.newNotificationCount);
+                }
                 if (process.env.NODE_ENV == 'development'){
                     localStorage.setItem("IvyCustomer_LoginToken", data.data.data.token);
                     localStorage.setItem("loginName", data.data.data.user.email);
