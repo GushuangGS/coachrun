@@ -20,6 +20,7 @@ import './styles/common.css'
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
+// import 'ivy-notification-pc/lib/ivyNotificationPc.css'
 
 import Cookies from 'js-cookie'
 

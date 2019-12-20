@@ -6,7 +6,8 @@
 </template> 
 
 <script>
-    import notificationPc from 'ivy-notification-pc'
+    import notificationPc from 'ivy-notification-pc/lib/ivyNotificationPc.umd'
+    // import notificationPc from 'ivy-notification-pc'
     // import notification from 'ivy-notification-button'
     export default {
         data(){
@@ -19,6 +20,7 @@
         name: 'notification-center',
         components:{notificationPc}
     }
-
-
 </script>  
+<style scoped>
+    
+</style>
