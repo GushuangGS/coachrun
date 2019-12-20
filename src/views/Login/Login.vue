@@ -371,7 +371,7 @@
                     }
                 }
                 console.log(data.data.data.user.newNotificationCount)
-                if(data.data.data.user.newNotificationCount){
+                if(data.data.data.user.newNotificationCount !=undefined && data.data.data.user.newNotificationCount !=null){
                     Cookies.set('IvyCustomer_NewNotificationCount', data.data.data.user.newNotificationCount);
                 }
                 Cookies.set('front-sessionId', data.data.data.user.id);

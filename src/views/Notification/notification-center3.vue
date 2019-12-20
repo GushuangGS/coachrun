@@ -1,6 +1,6 @@
 <template>
     <div>
-        <notification-pc :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl"></notification-pc>
+        <notificationPc :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl"></notificationPc>
         <!-- <notification></notification>    -->
     </div>
 </template> 
