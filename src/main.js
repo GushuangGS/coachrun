@@ -91,7 +91,7 @@ const errorHandle = (status, msg) => {//code判断
             localStorage.removeItem("loginName");
           }
           store.commit('logout');
-          Cookies.remove("IvyCustomer_LoginCookie",{ path: '', domain: '.coachrun.com' });
+          Cookies.remove("IvyCustomer_LoginCookie");
           setTimeout(() => {
               router.replace({name: 'Login',query:{pageUrl:localHref}});
           }, 1000);
