@@ -411,7 +411,7 @@
         }
       },
     },
-    name: 'notification-center'
+    name: 'notification-center2'
   }
 </script>
 
