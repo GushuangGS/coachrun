@@ -58,6 +58,7 @@ Vue.use(eleCalendar);
 Vue.config.productionTip = false;
 
 //配置axios 挂载到实例化对象上
+window.axios = axios;
 Vue.prototype.$http = axios;
 // axios.defaults.baseURL = 'http://192.168.20.7:3000/mock/27/api';
 
