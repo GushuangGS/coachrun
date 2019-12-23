@@ -8,8 +8,8 @@
     export default {
         data(){
             return{
-                apiDomain:'http://sandbox.gotobus.com',
-                apiKey:'123',
+                apiDomain:process.env.VUE_APP_WEBSITE_DOMAIN,
+                apiKey:btoa('7:1350154:0:1'),
                 loginUrl:'render/user/login'
                 // apiDomain:'http://sandbox.gotobus.com',
                 // apiKey:'MTowOjA6MA==',
