@@ -20,9 +20,14 @@ import './styles/common.css'
 
 import * as firebase from "firebase/app";
 import "firebase/auth";
-// import 'ivy-notification-pc/lib/ivyNotificationPc.css'
 
 import Cookies from 'js-cookie'
+window.Cookies = Cookies;
+
+import notificationPc from "ivy-notification-desktop"
+import "ivy-notification-desktop/lib/ivyNotificationDesktop.css"
+Vue.use(notificationPc)
+
 
 // ---------fir-coachrun.firebaseapp.com-------auth.coachrun.com-----
 var firebaseConfig = {
