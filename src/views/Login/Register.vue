@@ -174,6 +174,7 @@
                                     if(data.data.code == 200){
                                         // this.logIn();
                                         this.$store.commit('login'); 
+                                        this.$store.commit('notifiyBtnShow');
                                         Cookies.set('IvyCustomer_NewNotificationCount', 0);
                                         this.$router.push({name: 'MyOrders'});
                                     }else{
