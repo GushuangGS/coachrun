@@ -27,7 +27,6 @@ import BScroll from 'better-scroll'
 window.BScroll =BScroll
 import notification from 'ivy-notification-button'
 Vue.use(notification)
-import  'ivy-notification-button/lib/notification-button.css'
 
 import notificationPc from 'ivy-notification-desktop'
 import 'ivy-notification-desktop/lib/ivyNotificationDesktop.css'
