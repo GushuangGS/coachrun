@@ -142,6 +142,7 @@ export function tryHideFullScreenLoading() {
 let loginLoadTime = false;
 axios.interceptors.request.use(
   config => {
+      console.log(config)
       loginLoadTime = config.url.indexOf('api/users/login')!=-1?true:false;
       let apiKey = "7:1350154:0:1";
       // let apiKey = "1:0:0:1";
