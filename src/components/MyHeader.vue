@@ -126,7 +126,7 @@
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
-      <notification :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl"></notification>
+      <notification :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl" v-show="show"></notification>
       <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
         <el-badge
           :value="shopNum"
@@ -153,8 +153,9 @@ export default {
   name: "MyHeader",
   data() {
     return {
+      show:false,
       apiDomain:process.env.VUE_APP_API_DOMAIN,
-      apiKey:btoa('7:1350154:0:1'),
+      apiKey:'7:1350154:0:1',
       loginUrl:`${process.env.VUE_APP_API_DOMAIN}render/user/login`,
       notificationCenterUrl:`${process.env.VUE_APP_API_DOMAIN}render/member/account/notification-center`,
       navLists: [
@@ -174,7 +175,7 @@ export default {
     };
   },
   created() {
-    console.log("header created")
+    this.show=Cookies.get("IvyCustomer_LoginCookie") ? true : false
     var name;
     if (process.env.NODE_ENV == "development") {
       name = localStorage.getItem("IvyCustomer_LoginToken");
