@@ -182,7 +182,7 @@ export default {
     }
     if (name) {
       this.$store.commit("login");
-      this.$store.commit("notifiyBtnHide");
+      this.$store.commit("notifiyBtnShow");
       this.isLogin = this.$store.state.isLogin;
     };
 
