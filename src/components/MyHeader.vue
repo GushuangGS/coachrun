@@ -153,7 +153,6 @@ export default {
   name: "MyHeader",
   data() {
     return {
-      show:false,
       apiDomain:process.env.VUE_APP_API_DOMAIN,
       apiKey:'7:1350154:0:1',
       loginUrl:`${process.env.VUE_APP_API_DOMAIN}render/user/login`,
@@ -175,7 +174,6 @@ export default {
     };
   },
   created() {
-    this.show=Cookies.get("IvyCustomer_LoginCookie") ? true : false
     var name;
     if (process.env.NODE_ENV == "development") {
       name = localStorage.getItem("IvyCustomer_LoginToken");
