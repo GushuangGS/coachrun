@@ -7,7 +7,6 @@ import store from './store'
 // import locale from './configs/en.js'
 import './plugins/element.js'
 import axios from 'axios'
-window.axios = axios
 import api from './configs/api'
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
@@ -29,6 +28,10 @@ window.BScroll =BScroll
 import notification from 'ivy-notification-button'
 Vue.use(notification)
 import  'ivy-notification-button/lib/notification-button.css'
+
+import notificationPc from 'ivy-notification-desktop'
+import 'ivy-notification-desktop/lib/ivyNotificationDesktop.css'
+Vue.use(notificationPc)
 
 // ---------fir-coachrun.firebaseapp.com-------auth.coachrun.com-----
 var firebaseConfig = {
