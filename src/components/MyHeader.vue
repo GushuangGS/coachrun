@@ -640,7 +640,7 @@ nav {
 </style>
 <style lang="scss">
   .root{
-    margin-left: 20px;
+    margin-left: 10px;
     .message-icon{
       color: #333!important;
     }

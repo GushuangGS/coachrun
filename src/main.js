@@ -7,7 +7,6 @@ import store from './store'
 // import locale from './configs/en.js'
 import './plugins/element.js'
 import axios from 'axios'
-window.axios = axios
 import api from './configs/api'
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
