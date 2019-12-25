@@ -641,6 +641,7 @@ nav {
 <style lang="scss">
   .root{
     margin-left: 10px;
+    margin-top: 2px;
     .message-icon{
       color: #333!important;
     }
