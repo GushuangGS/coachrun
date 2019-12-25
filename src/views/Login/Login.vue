@@ -159,6 +159,7 @@
                             localStorage.removeItem("loginName");
                             // Cookies.remove('IvyCustomer_LoginCookie');
                             this.$store.commit('logout');
+                            this.$store.commit("notifiyBtnHide");
                         }else if(data.data.code==500){
                             this.$message({
                                 message: data.data.msg,
@@ -374,6 +375,7 @@
                 Cookies.set('IvyCustomer_NewNotificationCount', data.data.data.user.newNotificationCount?data.data.data.user.newNotificationCount:0);
                 Cookies.set('front-sessionId', data.data.data.user.id);
                 this.$store.commit('login');
+                this.$store.commit('notifiyBtnShow');
             }
         }
     }

@@ -29,6 +29,10 @@ import notification from 'ivy-notification-button'
 Vue.use(notification)
 import  'ivy-notification-button/lib/notification-button.css'
 
+import notificationPc from 'ivy-notification-desktop'
+import 'ivy-notification-desktop/lib/ivyNotificationDesktop.css'
+Vue.use(notificationPc)
+
 // ---------fir-coachrun.firebaseapp.com-------auth.coachrun.com-----
 var firebaseConfig = {
   apiKey: "AIzaSyBBcB6htx6yN66aYrzE8yNgaqwcntPZX2c",

@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+// import Cookies from 'js-cookie'
 
 Vue.use(Vuex);
 // var contactInfo=JSON.parse(localStorage.getItem("contactInfo"))
@@ -13,6 +14,7 @@ export default new Vuex.Store({
       sendEmail:'',
       // contactName:'',
       // creditName:''
+      notifiyBtn:false
   },
   mutations: {
     // contactInfo(state,data){//编辑
@@ -39,6 +41,12 @@ export default new Vuex.Store({
     },
     sendEmail(state,data){
       state.sendEmail = data;
+    },
+    notifiyBtnShow(state){
+      state.notifiyBtn = true;
+    },
+    notifiyBtnHide(state){
+      state.notifiyBtn = false;
     },
     // contactName(state,data){//编辑或添加信息
     //   state.contactName = data;

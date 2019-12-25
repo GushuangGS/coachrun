@@ -126,7 +126,7 @@
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
-      <notification :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl" v-show="show"></notification>
+      <notification :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl" v-show="$store.state.notifiyBtn"></notification>
       <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
         <el-badge
           :value="shopNum"
@@ -153,7 +153,6 @@ export default {
   name: "MyHeader",
   data() {
     return {
-      show:false,
       apiDomain:process.env.VUE_APP_API_DOMAIN,
       apiKey:'7:1350154:0:1',
       loginUrl:`${process.env.VUE_APP_API_DOMAIN}render/user/login`,
@@ -175,7 +174,6 @@ export default {
     };
   },
   created() {
-    this.show=Cookies.get("IvyCustomer_LoginCookie") ? true : false
     var name;
     if (process.env.NODE_ENV == "development") {
       name = localStorage.getItem("IvyCustomer_LoginToken");
@@ -184,6 +182,7 @@ export default {
     }
     if (name) {
       this.$store.commit("login");
+      this.$store.commit("notifiyBtnShow");
       this.isLogin = this.$store.state.isLogin;
     };
 
@@ -276,6 +275,7 @@ export default {
           Cookies.remove("IvyCustomer_LoginCookie");
           Cookies.remove("front-sessionId");
           this.$store.commit("logout");
+          this.$store.commit("notifiyBtnHide");
           
           let that = this;
           var auth = this.firebase.auth();
