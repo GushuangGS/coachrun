@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 
 Vue.use(Vuex);
 // var contactInfo=JSON.parse(localStorage.getItem("contactInfo"))
@@ -14,7 +14,7 @@ export default new Vuex.Store({
       sendEmail:'',
       // contactName:'',
       // creditName:''
-      notifiyBtn:Cookies.get("IvyCustomer_LoginCookie") ? true : false
+      notifiyBtn:false
   },
   mutations: {
     // contactInfo(state,data){//编辑
