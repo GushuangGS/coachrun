@@ -7,6 +7,7 @@ import store from './store'
 // import locale from './configs/en.js'
 import './plugins/element.js'
 import axios from 'axios'
+window.axios = axios
 import api from './configs/api'
 import VuePhoneNumberInput from 'vue-phone-number-input';
 import 'vue-phone-number-input/dist/vue-phone-number-input.css';
@@ -23,6 +24,12 @@ import "firebase/auth";
 // import 'ivy-notification-pc/lib/ivyNotificationPc.css'
 
 import Cookies from 'js-cookie'
+window.Cookies = Cookies
+import BScroll from 'better-scroll'
+window.BScroll =BScroll
+import notification from 'ivy-notification-button'
+Vue.use(notification)
+import  'ivy-notification-button/lib/notification-button.css'
 
 // ---------fir-coachrun.firebaseapp.com-------auth.coachrun.com-----
 var firebaseConfig = {

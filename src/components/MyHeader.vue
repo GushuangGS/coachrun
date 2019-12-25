@@ -126,6 +126,7 @@
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
+      <notification :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl"></notification>
       <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
         <el-badge
           :value="shopNum"
@@ -152,6 +153,10 @@ export default {
   name: "MyHeader",
   data() {
     return {
+      apiDomain:process.env.VUE_APP_API_DOMAIN,
+      apiKey:btoa('7:1350154:0:1'),
+      loginUrl:`${process.env.VUE_APP_API_DOMAIN}render/user/login`,
+      notificationCenterUrl:`${process.env.VUE_APP_API_DOMAIN}render/member/account/notification-center`,
       navLists: [
         { text: "Bus Stations", src: "/bus-stations" },
         { text: "Bus Rental", src: "https://www.gotocharter.com" },
@@ -305,11 +310,12 @@ export default {
         this.$router.push({ name: "MyBookings" });
       }
     }
-  }
+  },
 };
 </script>
 
 <style scoped lang="scss">
+
 .header-left {
   display: flex;
   align-items: baseline;
@@ -632,6 +638,12 @@ nav {
 }
 </style>
 <style lang="scss">
+  .root{
+    margin-left: 20px;
+    .message-icon{
+      color: #333!important;
+    }
+  }
   .dropdown-menu {
     padding: 10px;
     border: 1px solid rgba(0,0,0,.15);

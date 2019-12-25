@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "better-scroll": "^1.15.2",
     "blueimp-md5": "^2.11.0",
     "browser-device-js": "^1.0.7",
     "core-js": "^2.6.5",
@@ -19,6 +20,7 @@
     "font-awesome": "^4.7.0",
     "google": "^2.1.0",
     "ivy-company-base": "^1.0.4",
+    "ivy-notification-button": "^1.1.2",
     "ivy-notification-pc": "^0.1.1",
     "ivy_nutui": "^2.1.6",
     "jquery": "^3.4.1",
