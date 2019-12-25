@@ -103,6 +103,7 @@ const errorHandle = (status, msg) => {//code判断
           var domain=document.domain.split('.')
           document.cookie=`IvyCustomer_LoginCookie=;domain=.${domain[1]}.${domain[2]};path=/`
           store.commit('logout');
+          store.commit("notifiyBtnHide");
           setTimeout(() => {
               router.replace({name: 'Login',query:{pageUrl:localHref}});
           }, 1000);
