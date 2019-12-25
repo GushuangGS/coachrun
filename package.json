@@ -22,6 +22,7 @@
     "ivy-company-base": "^1.0.4",
     "ivy-notification-button": "^1.1.2",
     "ivy-notification-pc": "^0.1.1",
+    "ivy-notification-desktop": "^0.1.6",
     "ivy_nutui": "^2.1.6",
     "jquery": "^3.4.1",
     "js-cookie": "^2.2.1",

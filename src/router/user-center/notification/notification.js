@@ -1,6 +1,6 @@
 const notification = {//notification-center
   path:'/render/member/account/notification-center',
-  name:'notification-center',
+  name:'NotificationCenter',
   component:()=>import('@/views/Notification/notification-center'),
   // meta:{
   //   keepAlive:true
