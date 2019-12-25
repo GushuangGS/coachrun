@@ -126,7 +126,7 @@
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
-      <notification :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl" v-show="show"></notification>
+      <notification :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl" v-show="$store.state.notifiyBtn"></notification>
       <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
         <el-badge
           :value="shopNum"
@@ -184,6 +184,7 @@ export default {
     }
     if (name) {
       this.$store.commit("login");
+      this.$store.commit("notifiyBtnHide");
       this.isLogin = this.$store.state.isLogin;
     };
 
@@ -276,6 +277,7 @@ export default {
           Cookies.remove("IvyCustomer_LoginCookie");
           Cookies.remove("front-sessionId");
           this.$store.commit("logout");
+          this.$store.commit("notifiyBtnHide");
           
           let that = this;
           var auth = this.firebase.auth();
