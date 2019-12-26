@@ -126,7 +126,7 @@
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
-      <notification :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl" v-show="$store.state.notifiyBtn"></notification>
+      <ivy-notification-button :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl" :notificationCenterUrl="notificationCenterUrl" v-show="$store.state.notifiyBtn"></ivy-notification-button>
       <div class="shopping-cart" @click="skip('/cgi-bin/ivyecom.fcgi?a=shopcart_view&nm=1350154')">
         <el-badge
           :value="shopNum"
