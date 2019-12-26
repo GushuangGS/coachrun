@@ -28,9 +28,8 @@ window.BScroll =BScroll
 import notification from 'ivy-notification-button'
 Vue.use(notification)
 
-import notificationPc from 'ivy-notification-desktop'
-// import 'ivy-notification-desktop/lib/ivyNotificationDesktop.css'
-Vue.use(notificationPc)
+import ivyNotificationDesktop from 'ivy-notification-desktop'
+Vue.use(ivyNotificationDesktop)
 
 // ---------fir-coachrun.firebaseapp.com-------auth.coachrun.com-----
 var firebaseConfig = {

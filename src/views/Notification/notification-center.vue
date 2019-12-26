@@ -1,6 +1,6 @@
 <template>
     <div class="coachrun-notfication">
-        <notification-pc :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl"></notification-pc>
+        <ivy-notification-desktop :apiDomain="apiDomain" :apiKey="apiKey" :loginUrl="loginUrl"></ivy-notification-desktop>
     </div>
 </template> 
 
