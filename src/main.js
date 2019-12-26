@@ -29,7 +29,7 @@ import notification from 'ivy-notification-button'
 Vue.use(notification)
 
 import notificationPc from 'ivy-notification-desktop'
-import 'ivy-notification-desktop/lib/ivyNotificationDesktop.css'
+// import 'ivy-notification-desktop/lib/ivyNotificationDesktop.css'
 Vue.use(notificationPc)
 
 // ---------fir-coachrun.firebaseapp.com-------auth.coachrun.com-----
