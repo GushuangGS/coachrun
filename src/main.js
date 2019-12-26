@@ -154,12 +154,16 @@ axios.interceptors.request.use(
         if(ivyCookie.indexOf('undefined') ==-1 && ivyCookie.indexOf('null') ==-1) {
           loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
           token = loginCookie.split('+|+')[2];
-          if(process.env.NODE_ENV == 'development'){
-            if(token){
-              token = localStorage.getItem('IvyCustomer_LoginToken');
-            }
-          }
+          // if(process.env.NODE_ENV == 'development'){
+          //   if(token){
+          //     token = localStorage.getItem('IvyCustomer_LoginToken');
+          //   }
+          // }
         }
+      }
+      //test
+      if(process.env.NODE_ENV == 'development'){
+          token = localStorage.getItem('IvyCustomer_LoginToken');
       }
       // let loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
       // let token = loginCookie.split('+|+')[2];
