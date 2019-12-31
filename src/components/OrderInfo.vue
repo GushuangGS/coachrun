@@ -389,7 +389,7 @@
 
             getOrderCity(item){
               let passengers;
-              if(item.passengers){
+              if(item.passengers.length>0){
                 passengers = item.passengers;
               }else{
                 passengers = item.abnormalPassengers;
