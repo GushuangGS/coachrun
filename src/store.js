@@ -26,7 +26,7 @@ export default new Vuex.Store({
     // },
     login(state){
       state.isLogin = true;
-      console.log(state)
+      // console.log(state)
     },
     logout(state){
       state.isLogin = false;

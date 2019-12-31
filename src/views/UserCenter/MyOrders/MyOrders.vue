@@ -11,10 +11,27 @@
               <div class="left">
                 <img class="left-img" src="@/assets/touxiang.png">
                 <div class="account-points">
-                  <h4>{{userEmail}}</h4>
+                  <h4>{{displayName}}</h4>
                   <p class="points">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
                 </div>
+                <!-- <member-ship></member-ship> -->
+                <!-- <ivy-membership-card
+                  :displayName="displayName" 
+                  :isMoblie="isMoblie"
+                  :discount="discount"
+                  :expirationDate="expirationDate"
+                  :benefitsUrl="benefitsUrl"
+                >
+                </ivy-membership-card> -->
               </div>
+              <!-- <div class="my-points">
+                <span class="my-points-num">{{dashDis.availablePoints}}</span>
+                <span class="my-points-txt">My Points</span>
+              </div>
+              <div class="my-deals">
+                <span class="my-deals-num">{{dashDis.availableDeals}}</span>
+                <span class="my-deals-txt">My Deals</span>
+              </div> -->
               <div class="right">
                 <div @click="contactInfo" class="img-span">
                   <!-- <img class="right-img" src="@/assets/personInfo.png" alt=""> -->
@@ -29,6 +46,12 @@
                       <i class="icon-credit-card right-img"></i>
                   </div>
                   <span class="right-span">View/Edit Credit Card</span>
+                </div>
+                <div @click="creditcard" class="img-span">
+                  <div class="right-icon">
+                      <i class="icon-credit-card right-img"></i>
+                  </div>
+                  <span class="right-span">Frequent Traveler Info</span>
                 </div>
                 <div @click="changePass" class="img-span">
                     <!-- <img class="right-img" src="@/assets/changePas.png" alt=""> -->
@@ -138,7 +161,12 @@
         ],
         dashInfo:[],//个人信息
         dashDis:{},
-        userEmail:''
+        // userEmail:'',
+        displayName:"",
+        isMoblie:false,
+        discount:'1000',
+        expirationDate:'2020-02-10',
+        benefitsUrl:'https://www.baidu.com'
       }
     },
     components: {
@@ -157,7 +185,7 @@
                   if(res.data.code == 200){
                     if(res.data.data!=null || res.data.data!=undefined){
                       this.dashDis = res.data.data;
-                      this.userEmail = res.data.data.user.email;
+                      this.displayName = res.data.data.user.email;
                       if(Cookies.get("front-sessionId") == undefined){
                         Cookies.set('front-sessionId', res.data.data.user.id);
                       }
@@ -201,10 +229,12 @@
   .account-brief {
     box-sizing: border-box;
     width: 978px;
-    height: 150px;
+    // height: 150px;
+    min-height: 190px;
     padding-top: 28px;
     padding-bottom: 28px;
     display: flex;
+    align-items: center;
   }
   .account-brief::before, .account-brief::after {
     display: table;
@@ -215,6 +245,7 @@
   }
   .account-brief>.left {
     width: 489px;
+    // width: 350px;
     padding-left: 54px;
     padding-right: 54px;
     display: flex;
@@ -251,6 +282,8 @@
     margin-left: 40px;
     justify-content: space-between;
     cursor: pointer;
+    // height: 100px;
+    height: 120px;
   }
   .img-span{
     display: flex;
@@ -363,6 +396,28 @@
       font-size: $Body2Size;
       border-bottom: 1px solid #EBEEF5;
       padding-left: 10px;
+    }
+    .my-points,.my-deals{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      margin-left: 50px;
+      height: 128px;
+    }
+    .my-deals{
+      padding-right: 50px;
+      border-right: 4px solid #E8F1FF;
+    }
+    .my-points-num,.my-deals-num{
+      font-size: 20px;
+      color: #333;
+      font-weight: bold;
+    }
+    .my-points-txt,.my-deals-txt{
+      font-size: 14px;
+      color: #666;
+      margin-top: 10px;
     }
 </style>
 

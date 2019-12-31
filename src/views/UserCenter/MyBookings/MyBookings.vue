@@ -675,7 +675,7 @@
           },
           getNext1Day(item){
               var nextDay;
-              if(item.passengers.length!=0){
+              if(item.passengers && item.passengers.length>0){
                 if( (item.passengers[0].options[0].value)instanceof Object ){
                   nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
                   if(nextDay == 1){
@@ -690,7 +690,7 @@
             },
             getNext2Day(item){
               var nextDay;
-              if(item.passengers.length!=0){
+              if(item.passengers && item.passengers.length>0){
                 if( (item.passengers[0].options[0].value)instanceof Object ){
                   nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
                   if(nextDay == 2){
