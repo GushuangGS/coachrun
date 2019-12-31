@@ -584,7 +584,7 @@
           },
           filterPeopleType(peopleType,item) {
             if(!this.options) return 
-            if(item!=undefined){
+            if(item!=undefined && item.passengers){
               for (let passenger of item.passengers) {
                 if (passenger.type === peopleType) {
                   return true;
