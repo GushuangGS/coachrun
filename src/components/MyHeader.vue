@@ -106,12 +106,12 @@
         <li>
           <a href="https://www.coachrun.com/ticket-policy/">Ticket Policy</a>
         </li>
-        <!-- <li class="show-tour">
+        <li class="show-tour">
           <a href="https://www.taketours.com">
             Tours
             <div class="tour-list-box" ref="tourList" v-html="tourHtml"></div>
           </a>
-        </li> -->
+        </li>
       </ul>
     </div>
 
@@ -186,18 +186,17 @@ export default {
       this.isLogin = this.$store.state.isLogin;
     };
 
-    // this.$http.get("http://testwww.coachrun.com/api/pages/toolbars",
-    //   {
-    //     params:{
-    //       ids:1
-    //     }
-    //   }
-    // ).then((res) => {
-    //   if (res.data.code==200) {
-    //     this.tourHtml = res.data.data[1];
-    //   }
-    //   console.log(res)
-    // })
+    this.$http.get(`${process.env.VUE_APP_API_DOMAIN}api/pages/toolbars`,
+      {
+        params:{
+          ids:1
+        }
+      }
+    ).then((res) => {
+      if (res.data.code==200) {
+        this.tourHtml = res.data.data[1];
+      }
+    })
   },
   mounted() {
     this.shopNum = Cookies.get("IvyCustomer_ShoppingItems");
@@ -276,12 +275,12 @@ export default {
           Cookies.remove("front-sessionId");
           this.$store.commit("logout");
           this.$store.commit("notifiyBtnHide");
-          
+
           let that = this;
           var auth = this.firebase.auth();
           auth.signOut().then(
             function(){
-                var provider = new that.firebase.auth.GoogleAuthProvider(); 
+                var provider = new that.firebase.auth.GoogleAuthProvider();
                 var faceBookProvider = new that.firebase.auth.FacebookAuthProvider();
                 provider.setCustomParameters({ prompt: 'select_account' });
                 faceBookProvider.setCustomParameters({ prompt: 'select_account' });
