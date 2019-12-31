@@ -43,8 +43,8 @@
                                       {{getCity(item)}}
                                     </span>
                                   </el-tooltip>
-                                  <div v-if="getNext1Day(item)" class="icon-night1"></div>
-                                  <div v-if="getNext2Day(item)" class="icon-night2"></div>
+                                  <div v-if="getNextDay(item,1)" class="icon-night1"></div>
+                                  <div v-if="getNextDay(item,2)" class="icon-night2"></div>
                                   <div class="bookings-disc bookings-disc-color2" v-show="item.serviceStatus==3">
                                     Canclled
                                   </div>
@@ -338,70 +338,119 @@
                 return item == index;
               })
             },
+            // getCity(item){
+            //   var firCity,endCity,firTime,endTime,routeLine;
+            //   if(item.product.type==1){
+            //     if(item.passengers.length!=0){
+            //       if(item.passengers[0].options[0].value.station!=undefined){
+            //         if(item.passengers[0].options[0].value.station.address!=undefined){
+            //           firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.station.address.city;
+            //           endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.station.address.city;
+            //           firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.time;
+            //           endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.time;
+            //           // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
+            //           return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
+            //         }else{
+            //           return routeLine = item.product.name;
+            //         }
+            //       }else{
+            //         return routeLine = item.product.name;
+            //       }
+            //     }else if(item.abnormalPassengers.length!=0){
+            //       if(item.abnormalPassengers[0].options[0].value.station!=undefined){
+            //         if(item.abnormalPassengers[0].options[0].value.station.address!=undefined){
+            //           firCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
+            //           endCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
+            //           firTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
+            //           endTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
+            //           return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
+            //         }else{
+            //           return routeLine = item.product.name;
+            //         }
+            //       }else{
+            //         return routeLine = item.product.name;
+            //       }
+            //     }else{
+            //         return routeLine = item.product.name;
+            //     }
+            //   }else{
+            //     return routeLine = item.product.name;
+            //   }
+            // },
+
             getCity(item){
-              var firCity,endCity,firTime,endTime,routeLine;
+              var routeLine;
               if(item.product.type==1){
-                if(item.passengers.length!=0){
-                  if(item.passengers[0].options[0].value.station!=undefined){
-                    if(item.passengers[0].options[0].value.station.address!=undefined){
-                      firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.station.address.city;
-                      endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.station.address.city;
-                      firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.time;
-                      endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.time;
-                      // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
-                      return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
-                    }else{
-                      return routeLine = item.product.name;
-                    }
-                  }else{
-                    return routeLine = item.product.name;
-                  }
-                }else if(item.abnormalPassengers.length!=0){
-                  if(item.abnormalPassengers[0].options[0].value.station!=undefined){
-                    if(item.abnormalPassengers[0].options[0].value.station.address!=undefined){
-                      firCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
-                      endCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
-                      firTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
-                      endTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
-                      return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
-                    }else{
-                      return routeLine = item.product.name;
-                    }
+                if(item.passengers && item.passengers.length>0){
+                  this.getOrderCity(item.passengers);
+                }else if(item.abnormalPassengers && item.abnormalPassengers.length>0){
+                  this.getOrderCity(item.abnormalPassengers);
+                }
+              }else{
+                return routeLine = item.product.name;
+              }
+            },
+
+            getOrderCity(data){
+              var firCity,endCity,firTime,endTime,routeLine;
+              let dataOpt = data[0].options;
+              if(dataOpt.filter(type=>type.type=='bus_stop')>0){
+                if(dataOpt[0].value.station){
+                  if(dataOpt[0].value.station.address){
+                    firCity = dataOpt.filter(type=>type.value.isArrival==0)[0].value.station.address.city;
+                    endCity = dataOpt.filter(type=>type.value.isArrival==1)[0].value.station.address.city;
+                    firTime = dataOpt.filter(type=>type.value.isArrival==0)[0].value.time;
+                    endTime = dataOpt.filter(type=>type.value.isArrival==1)[0].value.time;
+                    return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
                   }else{
                     return routeLine = item.product.name;
                   }
                 }else{
-                    return routeLine = item.product.name;
+                  return routeLine = item.product.name;
                 }
-              }else{
-                return routeLine = item.product.name;
               }
             },
             showRes(item){
               var nowDate = moment(new Date()).add('year',0).format("YYYY-MM-DD");
               return moment(item.serviceDate).isAfter(nowDate);
             },
-            getNext1Day(item){
+            // getNext1Day(item){
+            //   var nextDay;
+            //   if(item.passengers && item.passengers.length>0){
+            //     if( (item.passengers[0].options[0].value)instanceof Object ){
+            //       nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
+            //       if(nextDay == 1){
+            //         return true;
+            //       }
+            //     }else{
+            //       return false;
+            //     }
+            //   }else{
+            //     return false;
+            //   }
+            // },
+            // getNext2Day(item){
+            //   var nextDay;
+            //   if(item.passengers && item.passengers.length>0){
+            //     if( (item.passengers[0].options[0].value)instanceof Object ){
+            //       nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
+            //       if(nextDay == 2){
+            //         return true;
+            //       }
+            //     }else{
+            //       return false;
+            //     }
+            //   }else{
+            //     return false;
+            //   }
+            // },
+
+            getNextDay(item,days){
               var nextDay;
               if(item.passengers && item.passengers.length>0){
                 if( (item.passengers[0].options[0].value)instanceof Object ){
                   nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
-                  if(nextDay == 1){
-                    return true;
-                  }
-                }else{
-                  return false;
-                }
-              }else{
-                return false;
-              }
-            },
-            getNext2Day(item){
-              var nextDay;
-              if(item.passengers && item.passengers.length>0){
-                if( (item.passengers[0].options[0].value)instanceof Object ){
-                  nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
-                  if(nextDay == 2){
+                  if(nextDay == days){
                     return true;
                   }
                 }else{
