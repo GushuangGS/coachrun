@@ -85,7 +85,7 @@
                                     </div>
                                 </el-col>
                               <el-col :span="4" :class="{gray:!showRes(item)}"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col>
-                              <el-col :span="3" :class="{gray:!showRes(item)}"><div>{{item.passengers.length}}</div></el-col>
+                              <el-col :span="3" :class="{gray:!showRes(item)}" v-if="hasPassengers(item)"><div>{{item.passengers.length}}</div></el-col>
                               <el-col :span="3"><div class="money" :class="{gray:!showRes(item)}">${{item.paidAmount}}</div></el-col>
                               <el-col :span="3">
                                 <div v-if="item.status==5" class="order-status" :class="{gray:!showRes(item)}">
@@ -569,7 +569,7 @@
               return peopleNumberArray.join(", ");
             },
           hasPassengers(item){
-            if(item.passengers.length!=0){
+            if(item.passengers && item.passengers.length!=0){
               return true;
             }else{
               return false;
