@@ -338,46 +338,6 @@
                 return item == index;
               })
             },
-            // getCity(item){
-            //   var firCity,endCity,firTime,endTime,routeLine;
-            //   if(item.product.type==1){
-            //     if(item.passengers.length!=0){
-            //       if(item.passengers[0].options[0].value.station!=undefined){
-            //         if(item.passengers[0].options[0].value.station.address!=undefined){
-            //           firCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.station.address.city;
-            //           endCity = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.station.address.city;
-            //           firTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==0)[0].value.time;
-            //           endTime = item.passengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival==1)[0].value.time;
-            //           // return routeLine = firCity + ' '+this.timeChange(firTime) +' -> ' + endCity + ' ' + this.timeChange(endTime);
-            //           console.log(firCity)
-            //           return routeLine = firCity + ' '+this.dateTrans(firTime) +' -> ' + endCity + ' ' + this.dateTrans(endTime);
-            //         }else{
-            //           return routeLine = item.product.name;
-            //         }
-            //       }else{
-            //         return routeLine = item.product.name;
-            //       }
-            //     }else if(item.abnormalPassengers.length!=0){
-            //       if(item.abnormalPassengers[0].options[0].value.station!=undefined){
-            //         if(item.abnormalPassengers[0].options[0].value.station.address!=undefined){
-            //           firCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.station.address.city;
-            //           endCity = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.station.address.city;
-            //           firTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&!type.value.isArrival)[0].value.time;
-            //           endTime = item.abnormalPassengers[0].options.filter(type=>type.type=='bus_stop'&&type.value.isArrival)[0].value.time;
-            //           return routeLine = firCity + ' '+this.dateTrans(firTime) + ` -> ` + endCity + ' ' + this.dateTrans(endTime);
-            //         }else{
-            //           return routeLine = item.product.name;
-            //         }
-            //       }else{
-            //         return routeLine = item.product.name;
-            //       }
-            //     }else{
-            //         return routeLine = item.product.name;
-            //     }
-            //   }else{
-            //     return routeLine = item.product.name;
-            //   }
-            // },
 
             getCity(item){
               var cityStation = item.product.name;
@@ -415,36 +375,6 @@
               var nowDate = moment(new Date()).add('year',0).format("YYYY-MM-DD");
               return moment(item.serviceDate).isAfter(nowDate);
             },
-            // getNext1Day(item){
-            //   var nextDay;
-            //   if(item.passengers && item.passengers.length>0){
-            //     if( (item.passengers[0].options[0].value)instanceof Object ){
-            //       nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
-            //       if(nextDay == 1){
-            //         return true;
-            //       }
-            //     }else{
-            //       return false;
-            //     }
-            //   }else{
-            //     return false;
-            //   }
-            // },
-            // getNext2Day(item){
-            //   var nextDay;
-            //   if(item.passengers && item.passengers.length>0){
-            //     if( (item.passengers[0].options[0].value)instanceof Object ){
-            //       nextDay = item.passengers[0].options.filter(type=>type.type=='bus_stop')[0].value.nextDay;
-            //       if(nextDay == 2){
-            //         return true;
-            //       }
-            //     }else{
-            //       return false;
-            //     }
-            //   }else{
-            //     return false;
-            //   }
-            // },
 
             getNextDay(item,days){
               var nextDay;

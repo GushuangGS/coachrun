@@ -684,4 +684,8 @@ nav {
       }
     }
   }
+
+  .message-num{
+    top: -3px !important;
+  }
 </style>
