@@ -54,7 +54,8 @@
                                 </div>
                             </el-col>
                           <el-col :span="4"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col>
-                          <el-col :span="3" v-if="hasPassengers(item)"><div>{{item.passengers.length}}</div></el-col>
+                          <!-- <el-col :span="3" v-if="hasPassengers(item)"><div>{{item.passengers.length}}</div></el-col> -->
+                          <el-col :span="3"><div>{{item.passengers?item.passengers.length:0}}</div></el-col>
                           <el-col :span="3"><div class="money">${{item.paidAmount}}</div></el-col>
                           <el-col :span="3">
                             <div v-if="item.status==5" class="order-status">
@@ -107,7 +108,7 @@
                                     </span>
                                 </div>
                               </div> -->
-                              <div class="details-info">
+                              <div class="details-info" v-if="hasPassengers(item)">
                                   <span class="details-left">Passengers:</span>
                                   <div class="details-icon1">
                                       <div>
