@@ -47,12 +47,12 @@
                   </div>
                   <span class="right-span">View/Edit Credit Card</span>
                 </div>
-                <div @click="creditcard" class="img-span">
+                <!-- <div @click="creditcard" class="img-span">
                   <div class="right-icon">
                       <i class="icon-credit-card right-img"></i>
                   </div>
                   <span class="right-span">Frequent Traveler Info</span>
-                </div>
+                </div> -->
                 <div @click="changePass" class="img-span">
                     <!-- <img class="right-img" src="@/assets/changePas.png" alt=""> -->
                     <div class="right-icon">
@@ -282,8 +282,8 @@
     margin-left: 40px;
     justify-content: space-between;
     cursor: pointer;
-    // height: 100px;
-    height: 120px;
+    height: 100px;
+    // height: 120px;
   }
   .img-span{
     display: flex;
