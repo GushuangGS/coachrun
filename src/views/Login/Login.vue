@@ -372,7 +372,7 @@
                     }
                 }
                 console.log(data.data.data.user.newNotificationCount)
-                Cookies.set('IvyCustomer_NewNotificationCount', data.data.data.user.newNotificationCount?data.data.data.user.newNotificationCount:0);
+                Cookies.set('IvyCustomer_NewNotificationCount', data.data.data.user.newNotificationCount?data.data.data.user.newNotificationCount:0 , { domain: process.env.VUE_APP_COOKIE_DOMAIN});
                 Cookies.set('front-sessionId', data.data.data.user.id);
                 this.$store.commit('login');
                 this.$store.commit('notifiyBtnShow');

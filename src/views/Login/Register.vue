@@ -175,7 +175,7 @@
                                         // this.logIn();
                                         this.$store.commit('login'); 
                                         this.$store.commit('notifiyBtnShow');
-                                        Cookies.set('IvyCustomer_NewNotificationCount', 0);
+                                        Cookies.set('IvyCustomer_NewNotificationCount', 0 , { domain: process.env.VUE_APP_COOKIE_DOMAIN});
                                         this.$router.push({name: 'MyOrders'});
                                     }else{
                                         this.$message({
