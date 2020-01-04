@@ -271,6 +271,7 @@ export default {
             localStorage.removeItem("IvyCustomer_LoginToken");
             localStorage.removeItem("loginName");
           }
+          localStorage.clear();
           Cookies.remove("IvyCustomer_LoginCookie");
           Cookies.remove("front-sessionId");
           this.$store.commit("logout");

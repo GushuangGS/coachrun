@@ -102,6 +102,7 @@ const errorHandle = (status, msg) => {//code判断
             localStorage.removeItem('IvyCustomer_LoginToken');
             localStorage.removeItem("loginName");
           }
+          localStorage.clear();
           var domain=document.domain.split('.')
           document.cookie=`IvyCustomer_LoginCookie=;domain=.${domain[1]}.${domain[2]};path=/`
           store.commit('logout');
