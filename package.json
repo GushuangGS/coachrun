@@ -21,7 +21,7 @@
     "google": "^2.1.0",
     "ivy-company-base": "^1.0.4",
     "ivy-membership-card": "^0.1.2",
-    "ivy-notification-button": "^1.2.4",
+    "ivy-notification-button": "^1.2.6",
     "ivy-notification-desktop": "^0.2.0",
     "ivy_nutui": "^2.1.6",
     "jquery": "^3.4.1",
