@@ -166,7 +166,7 @@
         isMoblie:false,
         discount:'1000',
         expirationDate:'2020-02-10',
-        benefitsUrl:'https://www.baidu.com'
+        benefitsUrl:'/cgi-bin/ce.cgi?a=manage_membership'
       }
     },
     components: {
