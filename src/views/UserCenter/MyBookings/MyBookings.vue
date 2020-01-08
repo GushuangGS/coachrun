@@ -257,7 +257,7 @@
                                       <div class="details-left2 gray" v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
                                             <div v-show="label.type=='bus_stop'|| label.type=='string'">
                                               <span class="details-name">{{label.name}}:</span>
-                                              <span class="details-wrap" :class="{gray:!showRes(item)}">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
+                                              <span class="details-wrap gray">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
                                             </div>
                                       </div>
                                     </div>
