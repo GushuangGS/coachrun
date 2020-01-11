@@ -9,29 +9,29 @@
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
               <div class="left">
-                <img class="left-img" src="@/assets/touxiang.png">
+                <!-- <img class="left-img" src="@/assets/touxiang.png">
                 <div class="account-points">
                   <h4>{{displayName}}</h4>
                   <p class="points">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
-                </div>
+                </div> -->
                 <!-- <member-ship></member-ship> -->
-                <!-- <ivy-membership-card
+                <ivy-membership-card
                   :displayName="displayName" 
                   :isMoblie="isMoblie"
                   :discount="discount"
                   :expirationDate="expirationDate"
                   :benefitsUrl="benefitsUrl"
                 >
-                </ivy-membership-card> -->
+                </ivy-membership-card>
               </div>
-              <!-- <div class="my-points">
+              <div class="my-points">
                 <span class="my-points-num">{{dashDis.availablePoints}}</span>
                 <span class="my-points-txt">My Points</span>
               </div>
               <div class="my-deals">
                 <span class="my-deals-num">{{dashDis.availableDeals}}</span>
                 <span class="my-deals-txt">My Deals</span>
-              </div> -->
+              </div>
               <div class="right">
                 <div @click="contactInfo" class="img-span">
                   <!-- <img class="right-img" src="@/assets/personInfo.png" alt=""> -->
@@ -164,8 +164,8 @@
         // userEmail:'',
         displayName:"",
         isMoblie:false,
-        discount:'1000',
-        expirationDate:'2020-02-10',
+        discount:0,
+        expirationDate:'',
         benefitsUrl:'/cgi-bin/ce.cgi?a=manage_membership'
       }
     },
@@ -175,6 +175,7 @@
     },
     created(){
       this.orderList();
+      // console.log(this.expirationDate)
     },
     methods: {
       orderList(){
@@ -183,15 +184,26 @@
                 .then((res)=>{
                   console.log(res);
                   if(res.data.code == 200){
-                    if(res.data.data!=null || res.data.data!=undefined){
+                    if(res.data.data){
                       this.dashDis = res.data.data;
                       this.displayName = res.data.data.user.email;
                       if(Cookies.get("front-sessionId") == undefined){
                         Cookies.set('front-sessionId', res.data.data.user.id);
                       }
                       console.log(Cookies.get("front-sessionId"))
-                      if(res.data.data.upcomingOrders!=null || res.data.data.upcomingOrders!=undefined){
+                      if(res.data.data.upcomingOrders){
                         this.dashInfo = res.data.data.upcomingOrders;
+                      }
+
+                      //memberShip
+                      if(res.data.data.membership){
+                        if(res.data.data.membership.discount){
+                          this.discount = res.data.data.membership.discount;
+                        }
+                        if(res.data.data.membership.expirationDate){
+                          this.expirationDate = res.data.data.membership.expirationDate;
+                          console.log(this.expirationDate)
+                        }
                       }
                     }
                   } 
@@ -244,12 +256,12 @@
     clear: both;
   }
   .account-brief>.left {
-    width: 489px;
-    // width: 350px;
-    padding-left: 54px;
-    padding-right: 54px;
+    // width: 489px;
+    width: 350px;
+    // padding-left: 54px;
+    // padding-right: 54px;
     display: flex;
-    border-right: 4px solid #E8F1FF;
+    // border-right: 4px solid #E8F1FF;
     align-items: center;
   }
   .left-img{
@@ -395,7 +407,7 @@
       line-height: 40px;
       font-size: $Body2Size;
       border-bottom: 1px solid #EBEEF5;
-      padding-left: 10px;
+      // padding-left: 10px;
     }
     .my-points,.my-deals{
       display: flex;
@@ -449,5 +461,8 @@
     border: 0px;
     border-left: 10px solid #f9f9f9;
     border-right: 10px solid #f9f9f9;
+  }
+  >>> .save-tips::before{
+    top: 20px;
   }
 </style>

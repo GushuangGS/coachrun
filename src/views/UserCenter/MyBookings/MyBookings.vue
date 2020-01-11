@@ -32,7 +32,7 @@
                 </div>
                 <div class="recent-bookings">
                   <div class="bookings-list">
-                    <div class="column-name">
+                    <!-- <div class="column-name">
                       <el-row style="font-weight: bold">
                         <el-col :span="11"><div class="column-first">Schedule</div></el-col>
                         <el-col :span="4"><div>Departure Date</div></el-col>
@@ -40,7 +40,7 @@
                         <el-col :span="3"><div>Payment</div></el-col>
                         <el-col :span="3"><div>Order Status</div></el-col>
                       </el-row>
-                    </div>
+                    </div> -->
                     <el-collapse v-model="activeNames" v-if="bookingsList.length>0">
 
                       <el-collapse-item v-for="(info,index) in bookingsList" :key="index"  :name="index">
@@ -67,7 +67,7 @@
                         <ul class="bookings-item-contents">
                           <li class="bookings-item-content" v-for="(item,index) in info.entities" :key="index">
                             <el-row>
-                              <el-col :span="11">
+                              <el-col :span="12">
                                   <div class="column-first">
                                       <el-tooltip :content="getCity(item)" effect="light" placement="top-start">
                                         <span class="country-tip" :class="{gray:!showRes(item)}">
@@ -84,10 +84,19 @@
                                       </div>
                                     </div>
                                 </el-col>
-                              <el-col :span="4" :class="{gray:!showRes(item)}"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col>
-                              <el-col :span="3" :class="{gray:!showRes(item)}"><div>{{item.passengers?item.passengers.length:0}}</div></el-col>
-                              <el-col :span="3"><div class="money" :class="{gray:!showRes(item)}">${{item.paidAmount}}</div></el-col>
-                              <el-col :span="3">
+                              <!-- <el-col :span="4" :class="{gray:!showRes(item)}"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col> -->
+                              <el-col :span="4" :class="{gray:!showRes(item)}">
+                                <div v-if="item.passengers&&item.product.type!=5">
+                                  <span>
+                                      {{item.passengers?item.passengers.length:0}}
+                                  </span>
+                                  <span>
+                                      {{item.passengers.length>1?'Passengers':'Passenger'}}
+                                  </span>
+                                </div>
+                              </el-col>
+                              <el-col :span="4"><div class="money" :class="{gray:!showRes(item)}">${{item.paidAmount}}</div></el-col>
+                              <el-col :span="4">
                                 <div v-if="item.status==5" class="order-status" :class="{gray:!showRes(item)}">
                                   Confirmed
                                 </div>
@@ -102,9 +111,13 @@
                                       <span class="details-left" :class="{gray:!showRes(item)}">Itinerary ID:</span>
                                       <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.entityCode}}</span>
                                   </div>
-                                  <div>
+                                  <div v-show="item.product.type!=5">
                                       <span class="details-left" :class="{gray:!showRes(item)}">Schedule ID:</span>
                                       <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.product.code}}</span>
+                                  </div>
+                                  <div v-show="item.product.type!=5">
+                                      <span class="details-left" :class="{gray:!showRes(item)}">Departure Date:</span>
+                                      <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</span>
                                   </div>
                                   <div v-if="hasPassengers(item)">
                                     <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index" :class="{gray:!showRes(item)}">
@@ -233,9 +246,13 @@
                                         <span class="details-left gray">Itinerary ID:</span>
                                         <span class="details-icon1 gray">{{item.entityCode}}</span>
                                     </div>
-                                    <div>
+                                    <div v-show="item.product.type!=5">
                                         <span class="details-left gray">Schedule ID:</span>
                                         <span class="details-icon1 gray">{{item.product.code}}</span>
+                                    </div>
+                                    <div v-show="item.product.type!=5">
+                                      <span class="details-left gray">Departure Date:</span>
+                                      <span class="details-icon1 gray">{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</span>
                                     </div>
                                     <!-- <div class="details-options" v-if="hasAbnormalPassengers(item)">
                                       <div class="left-details">
@@ -972,7 +989,7 @@
       }
       .details-left{
           display: inline-block;
-        width: 94px;
+        width: 100px;
         font-size: $Body2Size;
         margin-right: 15px;
         color:rgba(102,102,102,1);
@@ -987,7 +1004,7 @@
         display: flex;
       }
       .details-name{
-        width: 108px;
+        width: 114px;
       }
       .details-wrap{
         width: 380px;

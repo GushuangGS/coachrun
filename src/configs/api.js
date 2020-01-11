@@ -34,6 +34,8 @@ export default {
     //authorization
     authorization:'api/users/authorization',
     //loginWithProvider
-    loginWithProvider:'api/users/login-with-provider'
+    loginWithProvider:'api/users/login-with-provider',
+    //travellerList
+    travellerList:'api/users/traveller-infos'
   };
   
