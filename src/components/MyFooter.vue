@@ -49,7 +49,7 @@
             </el-row>
         </div>
         <div class="copy">
-            Copyright © 2019 <a class="net-link" href="https://www.coachrun.com">www.coachrun.com.</a>&nbsp;All&nbsp;rights&nbsp;reserved
+            Copyright © {{year}} <a class="net-link" href="https://www.coachrun.com">www.coachrun.com.</a>&nbsp;All&nbsp;rights&nbsp;reserved
         </div>
     </div>
 </template>
@@ -59,10 +59,13 @@
             name:'MyFooter',
             data(){
                 return{
-
+                  year:''
                 }
             },
-            created(){},
+            created(){
+              let date = new Date();
+              this.year = date.getFullYear();
+            },
             methods:{
 
             }
