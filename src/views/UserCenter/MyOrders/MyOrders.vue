@@ -186,7 +186,7 @@
                   if(res.data.code == 200){
                     if(res.data.data){
                       this.dashDis = res.data.data;
-                      this.displayName = res.data.data.user.email;
+                      this.displayName = Cookies.get("IvyCustomer_FirstName")?Cookies.get("IvyCustomer_FirstName"):res.data.data.user.email;
                       if(Cookies.get("front-sessionId") == undefined){
                         Cookies.set('front-sessionId', res.data.data.user.id);
                       }
