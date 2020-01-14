@@ -85,7 +85,7 @@
                                     </div>
                                 </el-col>
                               <!-- <el-col :span="4" :class="{gray:!showRes(item)}"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col> -->
-                              <el-col :span="4" :class="{gray:!showRes(item)}">
+                              <el-col :span="4" :class="{gray:!showRes(item)&&!hasAbnormalPassengers(item)}">
                                 <div v-if="item.passengers&&item.product.type!=5">
                                   <span>
                                       {{item.passengers?item.passengers.length:0}}

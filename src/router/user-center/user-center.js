@@ -8,6 +8,8 @@ import myBookingsRouter from './MyBookings/my-bookings'
 import notificationCenter from './notification/notification'
 import receiverContactRouter from './ContactInformation/receiver-contact'
 import receiverCreditRouter from './Credit/receiver-credit'
+import frequentListRouter from './FrequentTraveller/frequent-traveller'
+
 
 // const UserCenter = resolve => {
 //   import('@/views/UserCenter/UserCenter').then(module => {
@@ -34,7 +36,8 @@ const userCenterRouter = {
     myBookingsRouter,
     receiverContactRouter,
     receiverCreditRouter,
-    notificationCenter
+    notificationCenter,
+    frequentListRouter
   ]
 }
 

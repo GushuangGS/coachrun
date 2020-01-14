@@ -35,7 +35,7 @@ router.beforeEach((to,from,next)=>{
     }else {//没有登录信息
       if(name == "MyDeals" || name == "MyPoints" || name=="CreditList" || name=="ChangePassword" 
           || name == "ContactList" ||name == "MyBookings" ||name == "MyOrders" ||name == "ReceiverCredit"
-          || name == "ReceiverContact" || name == "AddGuest"){
+          || name == "ReceiverContact" || name == "AddGuest" || name == "FrequentList"){
         next({name: 'Login'});
       }
       next();
