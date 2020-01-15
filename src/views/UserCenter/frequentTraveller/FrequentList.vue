@@ -3,7 +3,7 @@
         <el-container>
             <el-main>
                 <div class="container">
-                    <h2>Frequent Traveler List</h2>
+                    <h2>Frequent Traveler Info</h2>
                     <div class="container-list">
                         <div class="container-title">
                             <span class="container-name">Name</span>
