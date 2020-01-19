@@ -8,13 +8,15 @@
           <div class="content containerPosition">
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
-              <div class="left">
-                <!-- <img class="left-img" src="@/assets/touxiang.png">
+              <div class="left" v-show="!showMemberShip">
+                <img class="left-img" src="@/assets/touxiang.png">
                 <div class="account-points">
                   <h4>{{displayName}}</h4>
                   <p class="points">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
-                </div> -->
+                </div>
                 <!-- <member-ship></member-ship> -->
+              </div>
+              <div class="new-left" v-show="showMemberShip">
                 <ivy-membership-card
                   :displayName="displayName" 
                   :isMoblie="isMoblie"
@@ -24,13 +26,13 @@
                 >
                 </ivy-membership-card>
               </div>
-              <div class="my-points">
-                <span class="my-points-num">{{dashDis.availablePoints}}</span>
-                <span class="my-points-txt">My Points</span>
+              <div class="my-points" v-show="showMemberShip">
+                <span class="my-points-num" @click="gotoPoints">{{dashDis.availablePoints}}</span>
+                <span class="my-points-txt" @click="gotoPoints">My Points</span>
               </div>
-              <div class="my-deals">
-                <span class="my-deals-num">{{dashDis.availableDeals}}</span>
-                <span class="my-deals-txt">My Deals</span>
+              <div class="my-deals" v-show="showMemberShip">
+                <span class="my-deals-num" @click="gotoDeals">{{dashDis.availableDeals}}</span>
+                <span class="my-deals-txt" @click="gotoDeals">My Deals</span>
               </div>
               <div class="right">
                 <div @click="contactInfo" class="img-span">
@@ -166,7 +168,8 @@
         isMoblie:false,
         discount:0,
         expirationDate:'',
-        benefitsUrl:'/cgi-bin/ce.cgi?a=manage_membership'
+        benefitsUrl:'/cgi-bin/ce.cgi?a=manage_membership',
+        showMemberShip:false
       }
     },
     components: {
@@ -174,6 +177,8 @@
       OrderInfo
     },
     created(){
+      this.showMemberShip = Cookies.get('IvyCustomer_role') >= 6 ? true : false;
+      console.log(this.showMemberShip)
       this.orderList();
       // console.log(this.expirationDate)
     },
@@ -220,6 +225,12 @@
       },
       myBookings(){//bookings页面
         this.$router.push({name: 'MyBookings'});
+      },
+      gotoPoints(){
+        this.$router.push({name: 'MyPoints'});
+      },
+      gotoDeals(){
+        this.$router.push({name: 'MyDeals'});
       }
     }
   }
@@ -256,12 +267,17 @@
     clear: both;
   }
   .account-brief>.left {
-    // width: 489px;
-    width: 350px;
-    // padding-left: 54px;
-    // padding-right: 54px;
+    width: 489px;
+    // width: 350px;
+    padding-left: 54px;
+    padding-right: 54px;
     display: flex;
-    // border-right: 4px solid #E8F1FF;
+    border-right: 4px solid #E8F1FF;
+    align-items: center;
+  }
+  .new-left{
+    width: 350px;
+    display: flex;
     align-items: center;
   }
   .left-img{
@@ -425,11 +441,13 @@
       font-size: 20px;
       color: #333;
       font-weight: bold;
+      cursor: pointer;
     }
     .my-points-txt,.my-deals-txt{
       font-size: 14px;
       color: #666;
       margin-top: 10px;
+      cursor: pointer;
     }
 </style>
 
