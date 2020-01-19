@@ -57,6 +57,12 @@
             
         },
         methods:{
+            // inputFir(){
+            //     this.showFir = this.firstName ? false : true;
+            // },
+            // blurFir(){
+            //     this.showFir = this.firstName ? false : true;
+            // },
             saveInfo(){
                 if(this.firstName && this.lastName){
                     this.showFir = false;
