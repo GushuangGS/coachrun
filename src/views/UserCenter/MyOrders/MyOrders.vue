@@ -12,7 +12,7 @@
                 <img class="left-img" src="@/assets/touxiang.png">
                 <div class="account-points">
                   <h4>{{displayName}}</h4>
-                  <p class="points">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
+                  <p class="points" @click="gotoPoints">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
                 </div>
                 <!-- <member-ship></member-ship> -->
               </div>
@@ -295,6 +295,7 @@
     display: flex;
     width: 260px;
     align-items: center;
+    cursor: pointer;
   }
   .points-num{
     color: #29507D;
