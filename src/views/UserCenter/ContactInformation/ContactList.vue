@@ -175,8 +175,8 @@
       },
       setDefault(row){
         console.log(row);
-        // this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,{isDefault:true},{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-        this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,{isDefault:true})
+        this.$http.patch(`${this.$api.contactUpdate}/${row.aid}`,
+            {firstName:row.firstName,lastName:row.lastName,phone:row.phone,email:row.email,phone2:row.phone2,isDefault:true})
               .then((res)=>{
                   console.log(res);
                   if(res.data.code == 200){

@@ -169,8 +169,12 @@
       },
       setDefault(info){
         console.log(info);
-        // this.$http.patch(`${this.$api.creditUpdate}/${info.ccid}`,{isDefault:true},{headers:{'Authorization':`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
-        this.$http.patch(`${this.$api.creditUpdate}/${info.ccid}`,{isDefault:true})
+        this.$http.patch(`${this.$api.creditUpdate}/${info.ccid}`,
+              {nameOnCard:info.nameOnCard,cardNumber:info.cardNumber,cardType:info.cardType,expireMonth:info.expireMonth,
+                expireYear:info.expireYear,xCardCode:info.xCardCode,isDefault:true,billingAddress:{
+                  street:info.billingAddress.street,city:info.billingAddress.city,state:info.billingAddress.state,
+                  zipcode:info.billingAddress.zipcode,country:info.billingAddress.country
+                }})
               .then((res)=>{
                   console.log(res);
                   if(res.data.code == 200){
