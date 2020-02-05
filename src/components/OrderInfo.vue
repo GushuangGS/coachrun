@@ -87,7 +87,7 @@
                               </div>
                               <div v-show="item.product.type!=5">
                                   <span class="details-left">Departure Date:</span>
-                                  <span class="details-icon1">{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</span>
+                                  <span class="details-icon1">{{item.serviceDate}} {{getDayOfTheWeek(item.serviceDate)}}</span>
                               </div>
                               <div v-if="hasPassengers(item)">
                                 <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index">
@@ -218,7 +218,7 @@
                               </div>
                               <div v-show="item.product.type!=5">
                                       <span class="details-left gray">Departure Date:</span>
-                                      <span class="details-icon1 gray">{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</span>
+                                      <span class="details-icon1 gray">{{item.serviceDate}} {{getDayOfTheWeek(item.serviceDate)}}</span>
                                     </div>
                               <div class="details-options" v-if="hasAbnormalPassengers(item)">
                                 <div class="left-details">
@@ -262,8 +262,8 @@
 </template>
 
 <script>
-    import moment from "moment"
-    import {websiteDomain} from "@/configs/siteConfig"
+    import moment from "moment";
+    import {websiteDomain} from "@/configs/siteConfig";
 
     export default{
         props:['ticket'],
@@ -438,6 +438,9 @@
               if(date.getDay()==5) week="Fri"
               if(date.getDay()==6) week="Sat"
               return week;
+            },
+            getDayOfTheWeek(date){
+              return moment(date).format('ddd');
             },
             timeChange(str){//时间点转换
               var timeUS;

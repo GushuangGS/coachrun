@@ -117,7 +117,7 @@
                                   </div>
                                   <div v-show="item.product.type!=5">
                                       <span class="details-left" :class="{gray:!showRes(item)}">Departure Date:</span>
-                                      <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</span>
+                                      <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.serviceDate}} {{getDayOfTheWeek(item.serviceDate)}}</span>
                                   </div>
                                   <div v-if="hasPassengers(item)">
                                     <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index" :class="{gray:!showRes(item)}">
@@ -252,7 +252,7 @@
                                     </div>
                                     <div v-show="item.product.type!=5">
                                       <span class="details-left gray">Departure Date:</span>
-                                      <span class="details-icon1 gray">{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</span>
+                                      <span class="details-icon1 gray">{{item.serviceDate}} {{getDayOfTheWeek(item.serviceDate)}}</span>
                                     </div>
                                     <!-- <div class="details-options" v-if="hasAbnormalPassengers(item)">
                                       <div class="left-details">
@@ -757,6 +757,9 @@
             if(date.getDay()==5) week="Fri"
             if(date.getDay()==6) week="Sat"
             return week;
+          },
+          getDayOfTheWeek(date){
+            return moment(date).format('ddd');
           },
           timeChange(str){//时间点转换
             var timeUS;
