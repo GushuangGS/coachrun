@@ -107,7 +107,7 @@
                             </el-row>
                             <div class="actions" v-if="item.status!=8">
                               <div class="order-details">
-                                  <div>
+                                  <div v-show="item.product.type!=5">
                                       <span class="details-left" :class="{gray:!showRes(item)}">Itinerary ID:</span>
                                       <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.entityCode}}</span>
                                   </div>
@@ -123,7 +123,8 @@
                                     <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index" :class="{gray:!showRes(item)}">
                                           <div v-show="label.type=='bus_stop'|| label.type=='string'">
                                             <span class="details-name">{{label.name}}:</span>
-                                            <span class="details-wrap" :class="{gray:!showRes(item)}">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
+                                            <!-- <span class="details-wrap" :class="{gray:!showRes(item)}">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span> -->
+                                            <span class="details-wrap" :class="{gray:!showRes(item)}">{{optionValue(label)}}</span>
                                           </div>
                                     </div>
                                   </div>
@@ -143,7 +144,7 @@
                                         </span>
                                     </div>
                                   </div> -->
-                                  <div class="details-info" v-if="hasPassengers(item)">
+                                  <div class="details-info" v-if="hasPassengers(item) && item.product.type!=5">
                                       <span class="details-left" :class="{gray:!showRes(item)}">Passengers:</span>
                                       <div class="details-icon1" :class="{gray:!showRes(item)}">
                                           <div>
@@ -153,7 +154,6 @@
                                               <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">,Child: </span>
                                               <span v-if="item.passengers.filter(name=>name.type=='Child').length!=0">{{item.passengers.filter(name=>name.type=="Child").length}}</span> -->
                                           </div>
-                                          <!-- <div v-if="item.passengers.filter(name=>name.type=='Adult').length!=0"> -->
                                           <div v-if="filterPeopleType('Adult',item)">
                                             <div v-for="(adult,index) in item.passengers.filter(name=>name.type=='Adult')"
                                                 :key="index">
@@ -163,7 +163,6 @@
                                                 <span class="abnorDes" v-if="adult.description!=''">&nbsp;{{adult.description}}</span>
                                             </div>
                                           </div>
-                                          <!-- <div v-if="item.passengers.filter(name=>name.type=='Child').length!=0"> -->
                                           <div v-if="filterPeopleType('Child',item)">
                                               <div v-for="(Child,index) in item.passengers.filter(name=>name.type=='Child')"
                                                   :key="index">
@@ -174,7 +173,6 @@
                                                   <span class="abnorDes" v-if="Child.description!=''">&nbsp;{{Child.description}}</span>
                                               </div>                                                  
                                           </div>
-                                          <!-- <div v-if="item.passengers.filter(name=>name.type=='Infant').length!=0"> -->
                                           <div v-if="filterPeopleType('Infant',item)">
                                               <div v-for="(Infant,index) in item.passengers.filter(name=>name.type=='Infant')"
                                                   :key="index">
@@ -184,7 +182,6 @@
                                                   <span class="abnorDes" v-if="Infant.description!=''">&nbsp;{{Infant.description}}</span>
                                               </div>                                                  
                                           </div>
-                                          <!-- <div v-if="item.passengers.filter(name=>name.type=='Senior').length!=0"> -->
                                           <div v-if="filterPeopleType('Senior',item)">
                                               <div v-for="(Senior,index) in item.passengers.filter(name=>name.type=='Senior')"
                                                   :key="index">
@@ -194,7 +191,6 @@
                                                   <span class="abnorDes" v-if="Senior.description!=''">&nbsp;{{Senior.description}}</span>
                                               </div>                                                  
                                           </div>
-                                          <!-- <div v-if="item.passengers.filter(name=>name.type=='Junior').length!=0"> -->
                                           <div v-if="filterPeopleType('Junior',item)">
                                               <div v-for="(Junior,index) in item.passengers.filter(name=>name.type=='Junior')"
                                                   :key="index">
@@ -204,7 +200,6 @@
                                                   <span class="abnorDes" v-if="Junior.description!=''">&nbsp;{{Junior.description}}</span>
                                               </div>                                                  
                                           </div>
-                                          <!-- <div v-if="item.passengers.filter(name=>name.type=='Student').length!=0"> -->
                                           <div v-if="filterPeopleType('Student',item)">
                                               <div v-for="(Student,index) in item.passengers.filter(name=>name.type=='Student')"
                                                   :key="index">
@@ -214,7 +209,6 @@
                                                   <span class="abnorDes" v-if="Student.description!=''">&nbsp;{{Student.description}}</span>
                                               </div>                                                  
                                           </div>
-                                          <!-- <div v-if="item.passengers.filter(name=>name.type=='Military').length!=0"> -->
                                           <div v-if="filterPeopleType('Military',item)">
                                               <div v-for="(Military,index) in item.passengers.filter(name=>name.type=='Military')"
                                                   :key="index">
@@ -224,17 +218,36 @@
                                                   <span class="abnorDes" v-if="Military.description!=''">&nbsp;{{Military.description}}</span>
                                               </div>                                                  
                                           </div>
-                                          <div v-if="item.abnormalPassengers.length!=0">
-                                            <div v-for="(abnormal,index) in item.abnormalPassengers" :key="index">
-                                              <span>{{abnormal.name}} </span>
-                                              <span>(CN: {{abnormal.cn}})</span>
-                                              <span class="abnorDes">&nbsp;{{abnormal.description}}</span>
+                                          <div v-if="item.abnormalPassengers">
+                                            <div v-if="item.abnormalPassengers.length!=0">
+                                              <div v-for="(abnormal,index) in item.abnormalPassengers" :key="index">
+                                                <span>{{abnormal.name}} </span>
+                                                <span>(CN: {{abnormal.cn}})</span>
+                                                <span class="abnorDes">&nbsp;{{abnormal.description}}</span>
+                                              </div>
                                             </div>
                                           </div>
                                       </div>
                                   </div>
+
+                                  <!-- membership -->
+                                  <div  v-show="item.product.type==5">
+                                    <div>
+                                        <span class="details-left-member" :class="{gray:!showRes(item)}">Itinerary ID:</span>
+                                        <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.entityCode}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="details-left-member" :class="{gray:!showRes(item)}">Title:</span>
+                                        <span class="details-icon1 member-blod" :class="{gray:!showRes(item)}">{{item.product.name}}</span>
+                                    </div>
+                                    <div v-for="option in item.passengers[0].options" :key="option.name">
+                                        <span class="details-left-member" :class="{gray:!showRes(item)}">{{option.name}}:</span>
+                                        <span class="details-icon1" :class="{gray:!showRes(item)}">{{optionValue(option)}}</span>
+                                    </div>
+                                  </div>
+                                  
                               </div>
-                              <div class="btns">
+                              <div class="btns" v-if="item.product.type!=5">
                                   <el-button @click="eticket(item)" v-if="item.status!=8" class="E-Ticket">E-Ticket</el-button>
                                   <el-button v-if="!(item.status==8&&showRes(item))&&item.product.type==1" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                                   <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3&&item.product.type==1" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
@@ -297,62 +310,6 @@
                                               </span>
                                               <span class="abnorDes" v-if="abnormal.description!=''">&nbsp;{{abnormal.description}}</span>
                                             </div>
-                                            <!-- <div class="line-none" v-if="filterAbnormalPeopleType('Adult')">
-                                              <div v-for="(adult,index) in item.abnormalPassengers.filter(name=>name.type=='Adult')" :key="index">
-                                                  <span>Adult{{index+1}}: </span>
-                                                  <span>{{adult.name}} </span>
-                                                  <span>(CN: {{adult.cn}})</span>
-                                              </div>
-                                            </div>
-                                            <div class="line-none" v-if="filterAbnormalPeopleType('Child')">
-                                                <div v-for="(Child,index) in item.abnormalPassengers.filter(name=>name.type=='Child')"
-                                                    :key="index">
-                                                    <span>Child{{index+1}}: </span>
-                                                    <span>{{Child.name}} </span>
-                                                    <span v-if="Child.age!=undefined && Child.age!=''">(Age: {{Child.age}}) </span>
-                                                    <span>(CN: {{Child.cn}})</span>
-                                                </div>
-                                            </div>
-                                            <div class="line-none" v-if="filterAbnormalPeopleType('Infant')">
-                                                <div v-for="(Infant,index) in item.abnormalPassengers.filter(name=>name.type=='Infant')"
-                                                    :key="index">
-                                                    <span>Infant{{index+1}}: </span>
-                                                    <span>{{Infant.name}}</span>
-                                                    <span>(CN: {{Infant.cn}})</span>
-                                                </div>
-                                            </div>
-                                            <div class="line-none" v-if="filterAbnormalPeopleType('Senior')">
-                                                <div v-for="(Senior,index) in item.abnormalPassengers.filter(name=>name.type=='Senior')"
-                                                    :key="index">
-                                                    <span>Senior{{index+1}}: </span>
-                                                    <span>{{Senior.name}}</span>
-                                                    <span>(CN: {{Senior.cn}})</span>
-                                                </div>
-                                            </div>
-                                            <div class="line-none" v-if="filterAbnormalPeopleType('Junior')">
-                                                <div v-for="(Junior,index) in item.abnormalPassengers.filter(name=>name.type=='Junior')"
-                                                    :key="index">
-                                                    <span>Junior{{index+1}}: </span>
-                                                    <span>{{Junior.name}}</span>
-                                                    <span>(CN: {{Junior.cn}})</span>
-                                                </div>
-                                            </div>
-                                                <div class="line-none" v-if="filterAbnormalPeopleType('Student')">
-                                                <div v-for="(Student,index) in item.abnormalPassengers.filter(name=>name.type=='Student')"
-                                                    :key="index">
-                                                    <span>Student{{index+1}}: </span>
-                                                    <span>{{Student.name}}</span>
-                                                    <span>(CN: {{Student.cn}})</span>
-                                                </div>
-                                            </div>
-                                            <div class="line-none" v-if="filterAbnormalPeopleType('Military')">
-                                                <div v-for="(Military,index) in item.abnormalPassengers.filter(name=>name.type=='Military')"
-                                                    :key="index">
-                                                    <span>Military{{index+1}}: </span>
-                                                    <span>{{Military.name}}</span>
-                                                    <span>(CN: {{Military.cn}})</span>
-                                                </div>
-                                            </div> -->
                                         </div>
                                     </div>
                                 </div>
@@ -560,6 +517,16 @@
           }
         },
         methods: {
+          optionValue(label){
+            if(label.type == "string"){
+              return label.value;
+            }else if(label.type == "option"){
+              return label.value;
+            }else{
+              return this.dateTrans(label.value.time) + ' ' +label.value.station.name;
+            }
+
+          },
           getpeopleNumber(itinerary) {
               if(!this.options) return 
               let peopleTypes = [
@@ -662,7 +629,6 @@
             }else{
               passengers = item.abnormalPassengers;
             }
-            // console.log(passengers)
             if(passengers.length==0) return;
             let firCity,endCity,firTime,endTime;
             let routeLine = item.product.name;
@@ -997,6 +963,13 @@
         margin-right: 15px;
         color:rgba(102,102,102,1);
       }
+      .details-left-member{
+        display: inline-block;
+        width: 115px;
+        font-size: $Body2Size;
+        margin-right: 15px;
+        color:rgba(102,102,102,1);
+      }
       .details-left2{
         font-size: $Body2Size;
         color:rgba(102,102,102,1);
@@ -1005,6 +978,9 @@
       }
       .details-left2>div{
         display: flex;
+      }
+      .member-blod{
+        font-weight: bold;
       }
       .details-name{
         width: 114px;
