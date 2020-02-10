@@ -236,10 +236,6 @@
                                         <span class="details-left-member" :class="{gray:!showRes(item)}">Itinerary ID:</span>
                                         <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.entityCode}}</span>
                                     </div>
-                                    <div>
-                                        <span class="details-left-member" :class="{gray:!showRes(item)}">Title:</span>
-                                        <span class="details-icon1 member-blod" :class="{gray:!showRes(item)}">{{item.product.name}}</span>
-                                    </div>
                                     <div v-for="option in item.passengers[0].options" :key="option.name">
                                         <span class="details-left-member" :class="{gray:!showRes(item)}">{{option.name}}:</span>
                                         <span class="details-icon1" :class="{gray:!showRes(item)}">{{optionValue(option)}}</span>
