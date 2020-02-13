@@ -41,14 +41,14 @@
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="Card Number:" prop="cardNumber">
-                                        <el-input v-model="ruleForm.cardNumber" autocomplete="off"></el-input>
+                                        <el-input v-model="ruleForm.cardNumber" :disabled="isDisabled" autocomplete="off"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
                             <el-row :gutter="20">
                                 <el-col :span="6">
                                     <el-form-item label="Type:" prop="type">
-                                        <el-select v-model="ruleForm.type" @change="selectType">
+                                        <el-select v-model="ruleForm.type" :disabled="isDisabled" @change="selectType">
                                             <el-option 
                                                     v-for="item in types"
                                                     :key="item.value"
@@ -93,7 +93,7 @@
                                                  your Card Security Code.</div>
                                             <div class="el-icon-warning" id="icon-tip2"></div>
                                         </el-tooltip>
-                                        <el-input v-model="ruleForm.CVV" autocomplete="off"></el-input>
+                                        <el-input v-model="ruleForm.CVV" :disabled="isDisabled" autocomplete="off"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -273,7 +273,8 @@
                     infos:{},//编辑的具体信息
                     creditName:'',//具体操作
                     creditId:'',
-                    userState:''
+                    userState:'',
+                    isDisabled:false
                 }
             },
             created(){
@@ -286,10 +287,12 @@
                 //判断编辑或添加
                 // console.log(this.$route.query.ccid);
                 if(this.$route.query.ccid==undefined){
+                    this.isDisabled = false;
                     this.creditName = 'add';
                     this.expiration();
                     this.selectYear();
                 }else{
+                    this.isDisabled = true;
                     this.creditName = 'edit';
                     this.getCreditInfo();
                 }
@@ -456,11 +459,13 @@
                                 console.log(JSON.stringify(this.ruleForm));
                                 this.$http.patch(`${this.$api.creditUpdate}/${this.infos.ccid}`,
                                     {nameOnCard: this.ruleForm.holderName,
-                                        cardNumber: this.ruleForm.cardNumber,
+                                        // cardNumber: this.ruleForm.cardNumber,
+                                        cardNumber: "*",
                                         cardType: this.selectNum,
                                         expireMonth: this.ruleForm.month, 
                                         expireYear: this.ruleForm.year,
-                                        xCardCode: this.ruleForm.CVV,
+                                        // xCardCode: this.ruleForm.CVV,
+                                        xCardCode: "*",
                                         isDefault: this.showDefault,
                                         billingAddress:{
                                         street: this.ruleForm.street,

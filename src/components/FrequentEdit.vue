@@ -18,6 +18,11 @@
                 <p v-show="showLast" class="show-txt">Please enter last name.</p>
             </div>
         </div>
+        <div class="check">
+            <input id="check-default" type="checkbox" class="check-default" v-model="checkDefault"> 
+            <span class="set-default" @click="setDefault">Set as default contact</span>
+            <!-- <label for="check-default" class="set-default" @click="setDefault">Set as default contact</label> -->
+        </div>
         <div class="btns">
             <div class="save-btn" @click="saveInfo">
                 Save
@@ -42,7 +47,8 @@
                 showFir:false,//firName提示
                 showLast:false,//lastName提示
                 showAdd:false,//添加消失
-                showEdit:false//编辑消失
+                showEdit:false,//编辑消失
+                checkDefault:false
             }
         },
         watch:{
@@ -50,6 +56,7 @@
                 handler(val){
                     this.firstName = this.editFreInfo.firstName;
                     this.lastName = this.editFreInfo.lastName;
+                    this.checkDefault = this.editFreInfo.isDefault;
                 }
             }
         },
@@ -63,13 +70,18 @@
             // blurFir(){
             //     this.showFir = this.firstName ? false : true;
             // },
+            setDefault(){                
+                this.checkDefault = !this.checkDefault;
+                console.log(this.checkDefault)
+            },
             saveInfo(){
+                console.log(this.checkDefault)
                 if(this.firstName && this.lastName){
                     this.showFir = false;
                     this.showLast = false;
                     if(this.editFreInfo){
                         console.log(this.firstName,this.lastName)
-                        this.$http.patch(`${this.$api.travellerList}/${this.editFreInfo.id}`,{firstName: this.firstName, lastName:this.lastName})
+                        this.$http.patch(`${this.$api.travellerList}/${this.editFreInfo.id}`,{firstName: this.firstName, lastName:this.lastName,isDefault:this.checkDefault})
                             .then((res)=>{
                                 console.log(res)
                                 if(res.data.code == 200){
@@ -78,7 +90,7 @@
                             })
                     }else{
                         console.log('add');
-                        this.$http.post(this.$api.travellerList,{ firstName: this.firstName, lastName:this.lastName})
+                        this.$http.post(this.$api.travellerList,{ firstName: this.firstName, lastName:this.lastName,isDefault:this.checkDefault})
                             .then((res)=>{
                                 console.log(res);
                                 if(res.data.code == 200){
@@ -176,5 +188,17 @@
         color: #333;
         margin-left: 10px;
     }
-
+    .check{
+        margin-top: 10px;
+        display: flex;
+    }
+    .set-default{
+        font-size: 14px;
+        cursor: pointer;
+    }
+    .check-default{
+        width: 14px;
+        height: 14px;
+        margin-right: 5px;
+    }
 </style>

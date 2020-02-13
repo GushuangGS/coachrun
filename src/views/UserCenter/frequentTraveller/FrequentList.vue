@@ -21,6 +21,9 @@
                     >&nbsp;
                     <span>{{ item.lastName }}</span>
                   </div>
+                  <div class="show-default" v-show="item.isDefault">
+                    [Default]
+                  </div>
                   <div class="user-action">
                     <!-- <span @click="activeInde=index">Edit</span> -->
                     <span @click="editInfo(index, item)">Edit</span>
@@ -180,7 +183,7 @@ export default {
   line-height: 40px;
 }
 .user-name {
-  width: 350px;
+  width: 280px;
 }
 .user-action {
   width: 90px;
@@ -208,5 +211,8 @@ export default {
 }
 .add-list {
   padding: 0 20px;
+}
+.show-default{
+  width: 100px;
 }
 </style>
