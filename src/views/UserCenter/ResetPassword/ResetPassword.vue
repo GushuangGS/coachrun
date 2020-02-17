@@ -16,7 +16,7 @@
                     </el-input>
                 </el-form-item>
                 <el-button type="primary" @click.native.prevent="save" class="login-btn">
-                    Save and Log in
+                    Save
                 </el-button>
             </el-form>
         </div>
