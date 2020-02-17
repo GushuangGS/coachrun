@@ -20,7 +20,7 @@
         </div>
         <div class="check">
             <input id="check-default" type="checkbox" class="check-default" v-model="checkDefault"> 
-            <span class="set-default" @click="setDefault">Set as default contact</span>
+            <span class="set-default" @click="setDefault">Set as default traveler</span>
             <!-- <label for="check-default" class="set-default" @click="setDefault">Set as default contact</label> -->
         </div>
         <div class="btns">
