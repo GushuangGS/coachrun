@@ -219,9 +219,11 @@
                                         this.countryFir = searchPhone1.country;
                                         console.log(this.countryFir)
                                         this.$refs.phone_number.countryCode = this.countryFir;
-                                        this.$refs.phone_number.phoneNumber = searchPhone1.nationalNumber;
+                                        // this.$refs.phone_number.phoneNumber = searchPhone1.nationalNumber;
+                                        this.ruleForm.phone = searchPhone1.nationalNumber;
+                                        //console.log(this.$refs.phone_number.phoneNumber,searchPhone1.nationalNumber,this.ruleForm.phone)
                                     }
-                                    console.log(this.ruleForm.phone2!='')
+                                    // console.log(this.ruleForm.phone2!='')
                                     if(this.ruleForm.phone2!=undefined){
                                         if(this.ruleForm.phone2!='' && this.ruleForm.phone2 !='null'){
                                             const searchPhone2 = parsePhoneNumberFromString(this.ruleForm.phone2);
@@ -229,7 +231,9 @@
                                             this.countrySec = searchPhone2.country;
                                             console.log(this.countrySec)
                                             this.$refs.phone2_number.countryCode = this.countrySec;
-                                            this.$refs.phone2_number.phoneNumber = searchPhone2.nationalNumber;
+                                            // this.$refs.phone2_number.phoneNumber = searchPhone2.nationalNumber;
+                                            this.ruleForm.phone2 = searchPhone2.nationalNumber;
+                                            //console.log(this.$refs.phone2_number.phoneNumber,searchPhone2.nationalNumber,this.ruleForm.phone2)
                                         }else{
                                             this.$refs.phone2_number.phoneNumber='';
                                         }
@@ -249,6 +253,7 @@
                         const addPhoneFir = parsePhoneNumberFromString(payload.formatInternational);
                         console.log(addPhoneFir)
                         this.sendPhone1 = "+"+ addPhoneFir.countryCallingCode+ " " + addPhoneFir.nationalNumber;
+                        // this.sendPhone1 = addPhoneFir.nationalNumber;
                         console.log(this.sendPhone1)
                     }
                 },
