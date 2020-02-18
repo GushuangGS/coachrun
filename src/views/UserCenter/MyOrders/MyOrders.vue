@@ -168,7 +168,7 @@
         isMoblie:false,
         discount:0,
         expirationDate:'',
-        benefitsUrl:'/cgi-bin/ce.cgi?a=manage_membership',
+        benefitsUrl:'',
         showMemberShip:false
       }
     },
@@ -178,6 +178,11 @@
     },
     created(){
       this.showMemberShip = Cookies.get('IvyCustomer_role') >= 6 ? true : false;
+      if(process.env.NODE_ENV == 'production'){
+        this.benefitsUrl = '/cgi-bin/ce.fcgi?a=manage_membership';
+      }else{
+        this.benefitsUrl = '/cgi-bin/ce.cgi?a=manage_membership';
+      }
       console.log(this.showMemberShip)
       this.orderList();
       // console.log(this.expirationDate)
