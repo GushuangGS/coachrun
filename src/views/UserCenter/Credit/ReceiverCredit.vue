@@ -41,7 +41,7 @@
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="Card Number:" prop="cardNumber">
-                                        <el-input v-model="ruleForm.cardNumber" :disabled="isDisabled" autocomplete="off"></el-input>
+                                        <el-input v-model="ruleForm.cardNumber" :disabled="isDisabled" autocomplete="off" @input="changeCardInput()" @focus="focus($event)"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -93,7 +93,7 @@
                                                  your Card Security Code.</div>
                                             <div class="el-icon-warning" id="icon-tip2"></div>
                                         </el-tooltip>
-                                        <el-input v-model="ruleForm.CVV" :disabled="isDisabled" autocomplete="off"></el-input>
+                                        <el-input v-model="ruleForm.CVV" :disabled="isDisabled" autocomplete="off" @input="changeInput()" @focus="focusCvv($event)"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -189,22 +189,22 @@
                         callback(new Error('Card number is required.'));
                     } else {
                         console.log(this.ruleForm.type)
-                        if (this.ruleForm.type =='AmEx') {
+                        if (this.ruleForm.type =='AmEx' && this.isChangeCardNum) {
                             if(this.ruleForm.cardNumber.length!=15){
                                 callback(new Error('Your card number must be 15 characters long.'));
                             }
                             // console.log(this.ruleForm.cardNumber.length);
-                        }else if (this.ruleForm.type =='VISA' || this.ruleForm.type =='Master'){
+                        }else if (this.ruleForm.type =='VISA' && this.isChangeCardNum || this.ruleForm.type =='Master' && this.isChangeCardNum ){
                             if(this.ruleForm.cardNumber.length!=16){
                                 callback(new Error('Your card number must be 16 characters long.'));
                             }
                         }
-                        if (this.ruleForm.type =='3') {
+                        if (this.ruleForm.type =='3' && this.isChangeCardNum) {
                             if(this.ruleForm.cardNumber.length!=15){
                                 callback(new Error('Your card number must be 15 characters long.'));
                             }
                             // console.log(this.ruleForm.cardNumber.length);
-                        }else if (this.ruleForm.type =='2' || this.ruleForm.type =='1'){
+                        }else if (this.ruleForm.type =='2' &&this.isChangeCardNum || this.ruleForm.type =='1'&&this.isChangeCardNum){
                             if(this.ruleForm.cardNumber.length!=16){
                                 callback(new Error('Your card number must be 16 characters long.'));
                             }
@@ -215,9 +215,11 @@
                 let cvvNum = (rule, value, callback) => {
                     let reg = /^[\w]{3,4}$/;
                     if (value == '') {
+                    // if (!value) {
                         callback(new Error('Please enter CVV/CVC.'));
                     }else{
-                        if(!reg.test(value)){
+                        console.log(this.isChangeCvv)
+                        if(!reg.test(value) && this.isChangeCvv){
                             callback(new Error('CVV/CVC should be 3-4 digis.'));
                         }
                         callback();
@@ -274,7 +276,11 @@
                     creditName:'',//具体操作
                     creditId:'',
                     userState:'',
-                    isDisabled:false
+                    isDisabled:false,
+                    isChangeCvv:false,
+                    isChangeCardNum:false,
+                    newCardNum:'',
+                    newCvv:''
                 }
             },
             created(){
@@ -286,18 +292,32 @@
                 });
                 //判断编辑或添加
                 // console.log(this.$route.query.ccid);
-                if(this.$route.query.ccid==undefined){
+                if(this.$route.query.ccid==undefined){//添加
                     this.isDisabled = false;
                     this.creditName = 'add';
                     this.expiration();
                     this.selectYear();
-                }else{
-                    this.isDisabled = true;
+                }else{//编辑
+                    // this.isDisabled = true;
+                    this.isDisabled = false;
                     this.creditName = 'edit';
                     this.getCreditInfo();
                 }
             },
             methods:{
+                changeCardInput(){
+                    this.isChangeCardNum = true;
+                },
+                changeInput(){
+                    this.isChangeCvv = true;
+                },
+                //得到焦点选中
+                focus(event) {
+                    event.currentTarget.select();
+                },
+                focusCvv(event){
+                     event.currentTarget.select();
+                },
                 getId(name){//ccid
                     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
                     var r = window.location.search.substr(1).match(reg);
@@ -352,6 +372,11 @@
                 goBack(){
                     this.$router.go(-1);
                 },
+                getNum(str){
+                    str=String(str);
+                    str = str.substring(str.length-4);
+                    return str = '**** **** **** '+ +str;
+                },
                 getCreditInfo(){
                     this.creditId = this.getId("ccid");
                     console.log(this.creditId);
@@ -363,7 +388,11 @@
                                 this.infos = res.data.data;
                                 this.userState = this.infos.billingAddress.state;//用户的地址
                                 this.ruleForm.holderName = this.infos.nameOnCard;
-                                this.ruleForm.cardNumber = this.infos.cardNumber;
+                                // this.ruleForm.cardNumber = this.infos.cardNumber;
+                                this.newCardNum = this.infos.cardNumber;//-----
+                                this.newCvv = this.infos.xCardCode;
+                                this.ruleForm.cardNumber = this.getNum(this.infos.cardNumber);
+                                console.log(this.ruleForm.cardNumber)
                                 if(this.infos.cardType == 3){
                                     this.ruleForm.type = 'AmEx';
                                 }else if(this.infos.cardType == 2){
@@ -378,7 +407,8 @@
                                     this.ruleForm.month = '0'+this.infos.expireMonth.toString();
                                 }
                                 this.ruleForm.year = this.infos.expireYear;
-                                this.ruleForm.CVV = this.infos.xCardCode;
+                                // this.ruleForm.CVV = this.infos.xCardCode;
+                                this.ruleForm.CVV = '***';
                                 this.ruleForm.street = this.infos.billingAddress.street;
                                 this.ruleForm.city = this.infos.billingAddress.city;
                                 this.ruleForm.state = this.infos.billingAddress.state;
@@ -457,15 +487,27 @@
                         this.$refs[formName].validate((valid) =>{
                             if (valid){
                                 console.log(JSON.stringify(this.ruleForm));
+                                var cardNumber,xCardCode;
+                                if(this.isChangeCardNum){
+                                    cardNumber = this.ruleForm.cardNumber;
+                                }else{
+                                    cardNumber = this.newCardNum;
+                                }
+                                if(this.isChangeCvv){
+                                    xCardCode = this.ruleForm.CVV;
+                                }else{
+                                    xCardCode = this.newCvv;
+                                }
+                                // console.log(this.isChangeCardNum)
                                 this.$http.patch(`${this.$api.creditUpdate}/${this.infos.ccid}`,
                                     {nameOnCard: this.ruleForm.holderName,
                                         // cardNumber: this.ruleForm.cardNumber,
-                                        cardNumber: "*",
+                                        cardNumber: cardNumber,
                                         cardType: this.selectNum,
                                         expireMonth: this.ruleForm.month, 
                                         expireYear: this.ruleForm.year,
                                         // xCardCode: this.ruleForm.CVV,
-                                        xCardCode: "*",
+                                        xCardCode: xCardCode,
                                         isDefault: this.showDefault,
                                         billingAddress:{
                                         street: this.ruleForm.street,
