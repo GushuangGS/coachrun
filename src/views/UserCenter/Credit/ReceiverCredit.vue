@@ -189,7 +189,9 @@
                         callback(new Error('Card number is required.'));
                     } else {
                         console.log(this.ruleForm.type)
-                        if (this.ruleForm.type =='AmEx' && this.isChangeCardNum) {
+                        if(isNaN(value) && this.isChangeCardNum){
+                            callback(new Error('The card number is not valid.'));
+                        }else if (this.ruleForm.type =='AmEx' && this.isChangeCardNum) {
                             if(this.ruleForm.cardNumber.length!=15){
                                 callback(new Error('Your card number must be 15 characters long.'));
                             }
@@ -218,8 +220,10 @@
                     // if (!value) {
                         callback(new Error('Please enter CVV/CVC.'));
                     }else{
-                        console.log(this.isChangeCvv)
-                        if(!reg.test(value) && this.isChangeCvv){
+                        console.log(this.isChangeCvv);
+                        if(isNaN(value) && this.isChangeCvv){
+                            callback(new Error('The CVV/CVC is not valid.'));
+                        }else if(!reg.test(value) && this.isChangeCvv){
                             callback(new Error('CVV/CVC should be 3-4 digis.'));
                         }
                         callback();
@@ -265,8 +269,8 @@
                     months:[],
                     selectMonths: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
                     years:[],
-                    selectYears: ['2019', '2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029',
-                    '2030', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2039'],
+                    selectYears: ['2020', '2021', '2022', '2023', '2024', '2025', '2026', '2027', '2028', '2029',
+                    '2030', '2031', '2032', '2033', '2034', '2035', '2036', '2037', '2038', '2039','2040'],
                     countryOptions,
                     statesOptions,
                     stateChange:'true',
@@ -307,6 +311,15 @@
             methods:{
                 changeCardInput(){
                     this.isChangeCardNum = true;
+                    if(/^5[12345]/.test(this.ruleForm.cardNumber)){
+                        this.ruleForm.type = 'Master';
+                    }else if(/^4/.test(this.ruleForm.cardNumber)){
+                        this.ruleForm.type = 'VISA';
+                    }else if(/^3[47]/.test(this.ruleForm.cardNumber)){
+                        this.ruleForm.type = 'AmEx';
+                    }else{
+                         this.ruleForm.type = '';
+                    }
                 },
                 changeInput(){
                     this.isChangeCvv = true;
@@ -461,7 +474,7 @@
                                                 CVV: '',
                                                 type: 'null',
                                                 month: '01',
-                                                year: '2019',
+                                                year: '2020',
                                                 street: '',
                                                 city: '',
                                                 state: '',
