@@ -41,7 +41,7 @@
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="Card Number:" prop="cardNumber">
-                                        <el-input v-model="ruleForm.cardNumber" :disabled="isDisabled" autocomplete="off" @input="changeCardInput()" @focus="focus($event)"></el-input>
+                                        <el-input v-model="ruleForm.cardNumber" maxlength="16" :disabled="isDisabled" autocomplete="off" @input="changeCardInput()" @focus="focus($event)"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -93,7 +93,7 @@
                                                  your Card Security Code.</div>
                                             <div class="el-icon-warning" id="icon-tip2"></div>
                                         </el-tooltip>
-                                        <el-input v-model="ruleForm.CVV" :disabled="isDisabled" autocomplete="off" @input="changeInput()" @focus="focusCvv($event)"></el-input>
+                                        <el-input v-model="ruleForm.CVV" maxlength="4" :disabled="isDisabled" autocomplete="off" @input="changeInput()" @focus="focusCvv($event)"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -220,12 +220,21 @@
                     // if (!value) {
                         callback(new Error('Please enter CVV/CVC.'));
                     }else{
-                        console.log(this.isChangeCvv);
+                        console.log(this.isChangeCvv,this.ruleForm.type);
                         if(isNaN(value) && this.isChangeCvv){
                             callback(new Error('The CVV/CVC is not valid.'));
-                        }else if(!reg.test(value) && this.isChangeCvv){
-                            callback(new Error('CVV/CVC should be 3-4 digis.'));
+                        }else if(this.ruleForm.type =='AmEx' && this.isChangeCvv){
+                            if(this.ruleForm.CVV.length!=3){
+                                callback(new Error('CVV/CVC should be 3 digis.'));
+                            }
+                        }else{
+                            if(this.ruleForm.CVV.length!=4 && this.isChangeCvv){
+                                callback(new Error('CVV/CVC should be 4 digis.'));
+                            }
                         }
+                        // else if(!reg.test(value) && this.isChangeCvv){
+                        //     callback(new Error('CVV/CVC should be 3-4 digis.'));
+                        // }
                         callback();
                     }
                 }
@@ -385,10 +394,16 @@
                 goBack(){
                     this.$router.go(-1);
                 },
-                getNum(str){
+                getNum(str,len){
                     str=String(str);
-                    str = str.substring(str.length-4);
-                    return str = '**** **** **** '+ +str;
+                    if(len == 3){
+                        str = str.substring(str.length-3);
+                        return str = '************'+str;
+                    }else{
+                        str = str.substring(str.length-4);
+                        return str = '************'+str;
+                    }
+                   
                 },
                 getCreditInfo(){
                     this.creditId = this.getId("ccid");
@@ -404,7 +419,7 @@
                                 // this.ruleForm.cardNumber = this.infos.cardNumber;
                                 this.newCardNum = this.infos.cardNumber;//-----
                                 this.newCvv = this.infos.xCardCode;
-                                this.ruleForm.cardNumber = this.getNum(this.infos.cardNumber);
+                                this.ruleForm.cardNumber = this.getNum(this.infos.cardNumber,this.infos.cardType);
                                 console.log(this.ruleForm.cardNumber)
                                 if(this.infos.cardType == 3){
                                     this.ruleForm.type = 'AmEx';
@@ -421,7 +436,12 @@
                                 }
                                 this.ruleForm.year = this.infos.expireYear;
                                 // this.ruleForm.CVV = this.infos.xCardCode;
-                                this.ruleForm.CVV = '***';
+                                if(this.infos.cardType == 3){
+                                    this.ruleForm.CVV = '***';
+                                }else{
+                                    this.ruleForm.CVV = '****';
+                                }
+                                
                                 this.ruleForm.street = this.infos.billingAddress.street;
                                 this.ruleForm.city = this.infos.billingAddress.city;
                                 this.ruleForm.state = this.infos.billingAddress.state;
