@@ -41,7 +41,7 @@
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="Card Number:" prop="cardNumber">
-                                        <el-input v-model="ruleForm.cardNumber" maxlength="16" :disabled="isDisabled" autocomplete="off" @input="changeCardInput()" @focus="focusCardNum($event)"></el-input>
+                                        <el-input ref="cardNum" v-model="ruleForm.cardNumber" maxlength="16" :disabled="isDisabled" autocomplete="off" @input="changeCardInput()" @click.native="clickCardNum()"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -93,7 +93,7 @@
                                                  your Card Security Code.</div>
                                             <div class="el-icon-warning" id="icon-tip2"></div>
                                         </el-tooltip>
-                                        <el-input v-model="ruleForm.CVV" maxlength="4" :disabled="isDisabled" autocomplete="off" @input="changeInput()" @focus="focusCvv($event)"></el-input>
+                                        <el-input ref="ruleCvv" v-model="ruleForm.CVV" maxlength="4" :disabled="isDisabled" autocomplete="off" @input="changeInput()" @click.native="clickCvv"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -224,7 +224,7 @@
                     // if (!value) {
                         callback(new Error('Please enter CVV/CVC.'));
                     }else{
-                        console.log(this.isChangeCvv,this.ruleForm.type);
+                        // console.log(this.isChangeCvv,this.ruleForm.type);
                         if(isNaN(value) && this.isChangeCvv){
                             callback(new Error('The CVV/CVC is not valid.'));
                         }else if(this.ruleForm.type =='AmEx' && this.isChangeCvv){
@@ -322,6 +322,18 @@
                 }
             },
             methods:{
+                clickCardNum(){
+                    if(this.ruleForm.cardNumber && this.ruleForm.cardNumber.indexOf("*") >= 0)
+                        {
+                            setTimeout(()=> { this.$refs.cardNum.select(); }, 0);
+                        }
+                },
+                clickCvv(){
+                    if(this.ruleForm.CVV && this.ruleForm.CVV.indexOf("*") >= 0)
+                        {
+                            setTimeout(()=> { this.$refs.ruleCvv.select(); }, 0);
+                        }
+                },
                 changeCardInput(){
                     this.isChangeCardNum = true;
                     if(/^5[12345]/.test(this.ruleForm.cardNumber)){
@@ -336,22 +348,6 @@
                 },
                 changeInput(){
                     this.isChangeCvv = true;
-                },
-                //得到焦点选中
-                focusCardNum(event) {
-                    event.currentTarget.select();
-                    // if(this.ruleForm.cardNumber && this.ruleForm.cardNumber.indexOf("*") >= 0)
-                    // {
-                    //     console.log('focus')
-                    //     // setTimeout(function() { event.currentTarget.select(); }, 0);
-                    //     // setTimeout(()=>{
-                    //         event.currentTarget.select();
-                    //     // },0)
-                    // }
-
-                },
-                focusCvv(event){
-                     event.currentTarget.select();
                 },
                 getId(name){//ccid
                     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
