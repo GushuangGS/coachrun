@@ -41,7 +41,7 @@
                                 </el-col>
                                 <el-col :span="12">
                                     <el-form-item label="Card Number:" prop="cardNumber">
-                                        <el-input v-model="ruleForm.cardNumber" maxlength="16" :disabled="isDisabled" autocomplete="off" @input="changeCardInput()" @focus="focus($event)"></el-input>
+                                        <el-input v-model="ruleForm.cardNumber" maxlength="16" :disabled="isDisabled" autocomplete="off" @input="changeCardInput()" @focus="focusCardNum($event)"></el-input>
                                     </el-form-item>
                                 </el-col>
                             </el-row>
@@ -188,27 +188,31 @@
                     if (value === '') {
                         callback(new Error('Card number is required.'));
                     } else {
-                        console.log(this.ruleForm.type)
+                        // console.log(this.ruleForm.type)
                         if(isNaN(value) && this.isChangeCardNum){
                             callback(new Error('The card number is not valid.'));
                         }else if (this.ruleForm.type =='AmEx' && this.isChangeCardNum) {
                             if(this.ruleForm.cardNumber.length!=15){
-                                callback(new Error('Your card number must be 15 characters long.'));
+                                // callback(new Error('Your card number must be 15 characters long.'));
+                                callback(new Error('The card number should be 15 digits.'));
                             }
                             // console.log(this.ruleForm.cardNumber.length);
                         }else if (this.ruleForm.type =='VISA' && this.isChangeCardNum || this.ruleForm.type =='Master' && this.isChangeCardNum ){
                             if(this.ruleForm.cardNumber.length!=16){
-                                callback(new Error('Your card number must be 16 characters long.'));
+                                // callback(new Error('Your card number must be 16 characters long.'));
+                                callback(new Error('The card number should be 16 digits.'));                                
                             }
                         }
                         if (this.ruleForm.type =='3' && this.isChangeCardNum) {
                             if(this.ruleForm.cardNumber.length!=15){
-                                callback(new Error('Your card number must be 15 characters long.'));
+                                // callback(new Error('Your card number must be 15 characters long.'));
+                                callback(new Error('The card number should be 15 digits.'));
                             }
                             // console.log(this.ruleForm.cardNumber.length);
                         }else if (this.ruleForm.type =='2' &&this.isChangeCardNum || this.ruleForm.type =='1'&&this.isChangeCardNum){
                             if(this.ruleForm.cardNumber.length!=16){
-                                callback(new Error('Your card number must be 16 characters long.'));
+                                // callback(new Error('Your card number must be 16 characters long.'));
+                                callback(new Error('The card number should be 16 digits.'));
                             }
                         }
                         callback();
@@ -225,15 +229,15 @@
                             callback(new Error('The CVV/CVC is not valid.'));
                         }else if(this.ruleForm.type =='AmEx' && this.isChangeCvv){
                             if(this.ruleForm.CVV.length!=3){
-                                callback(new Error('CVV/CVC should be 3 digis.'));
+                                callback(new Error('CVV/CVC should be 3 digits.'));
                             }
                         }else{
                             if(this.ruleForm.CVV.length!=4 && this.isChangeCvv){
-                                callback(new Error('CVV/CVC should be 4 digis.'));
+                                callback(new Error('CVV/CVC should be 4 digits.'));
                             }
                         }
                         // else if(!reg.test(value) && this.isChangeCvv){
-                        //     callback(new Error('CVV/CVC should be 3-4 digis.'));
+                        //     callback(new Error('CVV/CVC should be 3-4 digits.'));
                         // }
                         callback();
                     }
@@ -334,8 +338,17 @@
                     this.isChangeCvv = true;
                 },
                 //得到焦点选中
-                focus(event) {
+                focusCardNum(event) {
                     event.currentTarget.select();
+                    // if(this.ruleForm.cardNumber && this.ruleForm.cardNumber.indexOf("*") >= 0)
+                    // {
+                    //     console.log('focus')
+                    //     // setTimeout(function() { event.currentTarget.select(); }, 0);
+                    //     // setTimeout(()=>{
+                    //         event.currentTarget.select();
+                    //     // },0)
+                    // }
+
                 },
                 focusCvv(event){
                      event.currentTarget.select();
@@ -348,6 +361,12 @@
                 },
                 selectType(val){
                     console.log(val);
+                    // if(this.$route.query.ccid && this.ruleForm.cardNumber.indexOf("*") >= 0){
+                    //     this.ruleForm.cardNumber = '';
+                    // }
+                    // if(this.$route.query.ccid && this.ruleForm.CVV.indexOf("*") >= 0){
+                    //     this.ruleForm.CVV = '';
+                    // }
                 },
                 expiration(val){//选择月份
                     var date=new Date;
