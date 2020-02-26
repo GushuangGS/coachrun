@@ -228,8 +228,8 @@
                         if(isNaN(value) && this.isChangeCvv){
                             callback(new Error('The CVV/CVC is not valid.'));
                         }else if(this.ruleForm.type =='AmEx' && this.isChangeCvv){
-                            if(this.ruleForm.CVV.length!=3){
-                                callback(new Error('CVV/CVC should be 3 digits.'));
+                            if(this.ruleForm.CVV.length!=4){
+                                callback(new Error('CVV/CVC should be 4 digits.'));
                             }
                         }else{
                             if(this.ruleForm.CVV.length!=4 && this.isChangeCvv){
