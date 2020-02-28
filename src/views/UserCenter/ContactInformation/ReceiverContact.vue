@@ -108,6 +108,10 @@
                             </el-form>
                         </div>
                     </div>
+                    <!-- <phoneInput   class="intel_div"
+                       >
+                    </phoneInput> -->
+
                 </el-main>
             </el-container>
         </div>
@@ -117,6 +121,7 @@
         import ItemHeader from '@/components/ItemHeader';
         import VuePhoneNumberInput from 'vue-phone-number-input';
         import { parsePhoneNumberFromString } from 'libphonenumber-js'
+        // import phoneInput from 'ivy-company-base'
         export default{
             components: {
                 ItemHeader,
@@ -145,6 +150,7 @@
                     }
                 }
                 return{
+                    componentId: String,
                     status: 1,
                     headerInfo: [
                         ['Edit Contact Information'],
