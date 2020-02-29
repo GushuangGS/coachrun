@@ -231,9 +231,9 @@
                             if(this.ruleForm.CVV.length!=4){
                                 callback(new Error('CVV/CVC should be 4 digits.'));
                             }
-                        }else{
-                            if(this.ruleForm.CVV.length!=4 && this.isChangeCvv){
-                                callback(new Error('CVV/CVC should be 4 digits.'));
+                        }else if(this.ruleForm.type !='AmEx' && this.isChangeCvv) {
+                            if(this.ruleForm.CVV.length!=3) {
+                                callback(new Error('CVV/CVC should be 3 digits.'));
                             }
                         }
                         // else if(!reg.test(value) && this.isChangeCvv){
