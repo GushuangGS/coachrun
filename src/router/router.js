@@ -69,5 +69,8 @@ router.beforeEach((to,from,next)=>{
 
 
   }
+  if (to.meta.title) {//判断是否有标题
+    document.title = to.meta.title;
+  }
   next();
 })
