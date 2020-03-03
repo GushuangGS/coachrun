@@ -369,7 +369,8 @@
                     var year=date.getFullYear(); 
                     var month=date.getMonth();
                     if(val == undefined){
-                        this.ruleForm.month = this.months[month].label;
+                        this.ruleForm.month = '';
+                        // this.ruleForm.month = this.months[month].label;//默认当前月份
                     }
                     if(parseInt(val)<=month && this.ruleForm.year<=year){
                         this.ruleForm.year = year+1;
@@ -382,7 +383,8 @@
                     var month=date.getMonth();
                     // console.log(val)
                     if(val == undefined){
-                        this.ruleForm.year = year;
+                        this.ruleForm.year = '';
+                        // this.ruleForm.year = year;//默认当前年份
                     }else{
                         if(Number(val)<=year && parseInt(this.ruleForm.month)<=month){
                             this.ruleForm.month = this.months[month].label;
