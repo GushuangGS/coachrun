@@ -36,7 +36,10 @@
       initMap() {
         let infowindow = new google.maps.InfoWindow();//信息窗口
         let bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
-        const map = new google.maps.Map(document.getElementById('google-map'));
+        var myOptions = {
+          zoom:15
+        }
+        const map = new google.maps.Map(document.getElementById('google-map'),myOptions);
         function attachMessage(marker, Message) {
           google.maps.event.addListener(marker, 'click', function () {
             infowindow.setContent(Message);
