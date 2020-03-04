@@ -1,5 +1,6 @@
 <template>
-  <div class="wrap section search-frame searchBoxwrapper" style="background-image:url('https://www.coachrun.com/client-resource/images/search-box-bg.png')">
+  <div class="wrap section search-frame searchBoxwrapper" style="background-image:url('https://www.coachrun.com/client-resource/images/search-box-bg.jpg')">
+    <!-- https://www.coachrun.com/client-resource/images/search-box-bg.png -->
     <div class="search-box">
       <div class="search-box-title">Find Bus Tickets</div>
       <div class="search-img-car">
@@ -943,8 +944,11 @@
     align-items: center;
     height: 360px;
     position: relative;
-    background-size: 100% 100%;
+    /* background-size: 100% 100%; */
     max-width: none!important;
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
   }
   >>> .fa {
     left: 12px!important;
@@ -1495,7 +1499,8 @@
       border-radius: 6px;
     }
     .search-frame {
-      background-image: url("../../assets/search-small-bg.jpg") !important;
+      /* background-image: url("../../assets/search-small-bg.jpg") !important; */
+      background-image: url("https://www.coachrun.com/client-resource/images/search-box-bg-m.jpg") !important;
       background-size: cover;
       background-position: left top;
       padding-bottom: 3.2%;
