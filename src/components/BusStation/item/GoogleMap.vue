@@ -37,7 +37,8 @@
         let infowindow = new google.maps.InfoWindow();//信息窗口
         let bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
         var myOptions = {
-          zoom:15
+          zoom:15,
+          clickableIcons:false
         }
         const map = new google.maps.Map(document.getElementById('google-map'),myOptions);
         function attachMessage(marker, Message) {
