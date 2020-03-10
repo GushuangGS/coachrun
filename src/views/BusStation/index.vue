@@ -74,7 +74,11 @@
           for (let m = 0 ; m<mapData2[0].city.length ; m++){
             count1 = count1 + mapData2[0].city[m].items.length
             if ((m+1)+count1>(mapData2[0].city.length+data.length)/2){
-              count2 = m
+              if(mapData2[0].city.length % 2==0){
+                count2 = m
+              }else{
+                count2 = m +1
+              }
               break;
             }
           }
