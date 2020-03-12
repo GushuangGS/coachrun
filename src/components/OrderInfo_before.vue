@@ -1,5 +1,14 @@
 <template>
         <div class="bookings-list">
+                <!-- <div class="column-name">
+                  <el-row style="font-weight: bold">
+                    <el-col :span="11"><div class="column-first">Schedule</div></el-col>
+                    <el-col :span="4"><div>Departure Date</div></el-col>
+                    <el-col :span="3"><div>Passengers</div></el-col>
+                    <el-col :span="3"><div>Payment</div></el-col>
+                    <el-col :span="3"><div>Order Status</div></el-col>
+                  </el-row>
+                </div> -->
                 <el-collapse v-model="activeNames">
                   <el-collapse-item v-for="(info,index) in ticket" :key="index" :name="index">
                     <template slot="title">
@@ -19,6 +28,7 @@
                         </div>
                         <div class="total-points">
                             <span>Total Payment: </span>
+                            <!-- <span class="all-points">${{info.totalAmount}}</span> -->
                             <span class="total-money">${{getTotal(info.entities)}}</span>
                         </div>
                       </div>
@@ -29,7 +39,7 @@
                           <el-col :span="12">
                               <div class="column-first">
                                   <el-tooltip :content="getCity(item)" effect="light" placement="top-start">
-                                    <span class="country-tip" :class="{gray:!showRes(item)}">
+                                    <span class="country-tip">
                                       {{getCity(item)}}
                                     </span>
                                   </el-tooltip>
@@ -43,7 +53,9 @@
                                   </div>
                                 </div>
                             </el-col>
-                          <el-col :span="4" :class="{gray:!showRes(item)&&!hasAbnormalPassengers(item)}">
+                          <!-- <el-col :span="4"><div>{{item.serviceDate}} {{getMyDay(new Date(item.serviceDate))}}</div></el-col> -->
+                          <!-- <el-col :span="3" v-if="hasPassengers(item)"><div>{{item.passengers.length}}</div></el-col> -->
+                          <el-col :span="4">
                             <div v-if="item.passengers&&item.product.type!=5">
                               <span>
                                 {{item.passengers?item.passengers.length:0}}
@@ -53,12 +65,12 @@
                               </span>
                             </div>
                           </el-col>
-                          <el-col :span="4"><div class="money" :class="{gray:!showRes(item)}">${{item.paidAmount}}</div></el-col>
+                          <el-col :span="4"><div class="money">${{item.paidAmount}}</div></el-col>
                           <el-col :span="4">
-                            <div v-if="item.status==5" class="order-status" :class="{gray:!showRes(item)}">
+                            <div v-if="item.status==5" class="order-status">
                               Confirmed
                             </div>
-                            <div v-if="item.status==8" class="order-status2" :class="{gray:!showRes(item)}">
+                            <div v-if="item.status==8" class="order-status2">
                               Cancelled
                             </div>
                           </el-col>
@@ -66,28 +78,52 @@
                         <div class="actions" v-if="item.status!=8">
                           <div class="order-details">
                               <div>
-                                  <span class="details-left" :class="{gray:!showRes(item)}">Itinerary ID:</span>
-                                  <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.entityCode}}</span>
+                                  <span class="details-left">Itinerary ID:</span>
+                                  <span class="details-icon1">{{item.entityCode}}</span>
                               </div>
                               <div v-show="item.product.type!=5">
-                                  <span class="details-left" :class="{gray:!showRes(item)}">Schedule ID:</span>
-                                  <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.product.code}}</span>
+                                  <span class="details-left">Schedule ID:</span>
+                                  <span class="details-icon1">{{item.product.code}}</span>
                               </div>
                               <div v-show="item.product.type!=5">
-                                  <span class="details-left" :class="{gray:!showRes(item)}">Departure Date:</span>
-                                  <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.serviceDate}} {{getDayOfTheWeek(item.serviceDate)}}</span>
+                                  <span class="details-left">Departure Date:</span>
+                                  <span class="details-icon1">{{item.serviceDate}} {{getDayOfTheWeek(item.serviceDate)}}</span>
                               </div>
                               <div v-if="hasPassengers(item)">
-                                <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index" :class="{gray:!showRes(item)}">
+                                <div class="details-left2" v-for="(label,index) in item.passengers[0].options" :key="index">
                                       <div v-show="label.type=='bus_stop'|| label.type=='string'">
                                         <span class="details-name">{{label.name}}:</span>
-                                        <span class="details-wrap" :class="{gray:!showRes(item)}">{{optionValue(label)}}</span>
+                                        <span class="details-wrap">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
                                       </div>
                                 </div>
                               </div>
-                              <div class="details-info" v-if="hasPassengers(item) && item.product.type!=5">
-                                  <span class="details-left" :class="{gray:!showRes(item)}">Passengers:</span>
-                                  <div class="details-icon1" :class="{gray:!showRes(item)}">
+                              <!-- <div v-if="hasAbnormalPassengers(item)">
+                                <div class="details-left2" v-for="(label,index) in item.abnormalPassengers[0].options" :key="index">
+                                      <div v-show="label.type=='bus_stop'|| label.type=='string'">
+                                        <span class="details-name">{{label.name}}:</span>
+                                        <span class="details-wrap">{{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}</span>
+                                      </div>
+                                </div>
+                              </div> -->
+                              <!-- <div class="details-options" v-if="hasPassengers(item)">
+                                <div class="left-details">
+                                    <span class="details-left" v-for="(label,index) in item.passengers[0].options" :key="index">
+                                        <span v-show="label.type=='bus_stop'|| label.type=='string'">
+                                            {{label.name}}:
+                                          </span>
+                                    </span>
+                                </div>
+                                <div class="right-details">
+                                    <span class="details-icon2"  v-for="(label,index) in item.passengers[0].options" :key="index">
+                                        <span v-show="label.type=='bus_stop'|| label.type=='string'">
+                                            {{label.type=="string"?label.value:`${dateTrans(label.value.time)} ${label.value.station.name}`}}
+                                          </span>
+                                    </span>
+                                </div>
+                              </div> -->
+                              <div class="details-info" v-if="hasPassengers(item)">
+                                  <span class="details-left">Passengers:</span>
+                                  <div class="details-icon1">
                                       <div>
                                           {{getpeopleNumber(item)}}
                                       </div>
@@ -154,30 +190,17 @@
                                             <span class="abnorDes" v-if="Military.description!=''">&nbsp;{{Military.description}}</span>
                                         </div>
                                       </div>
-                                      <div v-if="item.abnormalPassengers">
-                                        <div v-if="item.abnormalPassengers.length!=0">
+                                      <div v-if="item.abnormalPassengers.length!=0">
                                           <div v-for="(abnormal,index) in item.abnormalPassengers" :key="index">
                                             <span>{{abnormal.name}} </span>
                                             <span>(CN: {{abnormal.cn}})</span>
                                             <span class="abnorDes">&nbsp;{{abnormal.description}}</span>
                                           </div>
                                         </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- membership -->
-                              <div  v-show="item.product.type==5">
-                                  <div>
-                                      <span class="details-left-member" :class="{gray:!showRes(item)}">Itinerary ID:</span>
-                                      <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.entityCode}}</span>
-                                  </div>
-                                  <div v-for="option in item.passengers[0].options" :key="option.name">
-                                      <span class="details-left-member" :class="{gray:!showRes(item)}">{{option.name}}:</span>
-                                      <span class="details-icon1" :class="{gray:!showRes(item)}">{{optionValue(option)}}</span>
                                   </div>
                               </div>
                           </div>
-                          <div class="btns" v-if="item.product.type!=5">
+                          <div class="btns">
                               <el-button @click="eticket(item)" v-if="item.status!=8" class="E-Ticket">E-Ticket</el-button>
                               <el-button v-if="!(item.status==8&&showRes(item))&&item.product.type==1" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                               <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3&&item.product.type==1" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
@@ -224,7 +247,7 @@
                                             <span>{{abnormal.name}} </span>
                                             <span>(CN: {{abnormal.cn}}) </span>
                                         </span>
-                                        <span class="abnorDes" v-if="abnormal.description!=''">&nbsp;{{abnormal.description}}</span>
+                                        <span class="abnorDes">&nbsp;{{abnormal.description}}</span>
                                       </div>
                                   </div>
                               </div>
@@ -267,15 +290,6 @@
           }
         },
         methods:{
-          optionValue(label){
-            if(label.type == "string"){
-              return label.value;
-            }else if(label.type == "option"){
-              return label.value;
-            }else{
-              return this.dateTrans(label.value.time) + ' ' +label.value.station.name;
-            }
-          },
             getpeopleNumber(itinerary) {
               if(!this.options) return 
               let peopleTypes = [

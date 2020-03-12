@@ -70,73 +70,7 @@
                 <h4>Upcoming Trips</h4>
                 <span class="go-to-bookings" @click="myBookings">See All Bookings</span>
               </div>
-              <order-info :ticket="dashInfo"></order-info>
-              <!-- <div class="bookings-list">
-                <div class="column-name">
-                  <el-row>
-                    <el-col :span="8"><div class="column-first">Schedule</div></el-col>
-                    <el-col :span="4"><div>Departure Date</div></el-col>
-                    <el-col :span="4"><div>Passengers</div></el-col>
-                    <el-col :span="4"><div>Price</div></el-col>
-                    <el-col :span="4"><div>Order Status</div></el-col>
-                  </el-row>
-                </div>
-                <el-collapse @change="handleChange">
-                  <el-collapse-item name="1">
-                    <template slot="title">
-                      <div class="bookings-item-brief">
-                        <img class="down" src="./img/up.png">
-                        <div>OrderId:&nbsp;&nbsp;<span>JT23-600-3427</span></div>
-                        <div>Purchase date:&nbsp;&nbsp;<span>Tue,Jul 23,2019</span></div>
-                      </div>
-                    </template>
-                    <ul class="bookings-item-contents">
-                      <li class="bookings-item-content">
-                        <el-row>
-                          <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
-                          <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                          <el-col :span="4"><div>0</div></el-col>
-                          <el-col :span="4"><div class="money">$0</div></el-col>
-                          <el-col :span="4">
-                            <div class="order-status">
-                              Cofirmed
-                            </div>
-                          </el-col>
-                        </el-row>
-                        <div class="actions">
-                          <div class="order-details">Details &raquo;</div>
-                          <div class="btns">
-                              <el-button class="Reschedule">Reschedule</el-button>
-                              <el-button class="E-Ticket">E-Ticket</el-button>
-                              <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                          </div>
-                        </div>
-                      </li>
-                      <li class="bookings-item-content">
-                        <el-row>
-                          <el-col :span="8"><div class="column-first">Boston 5:50pm  New York 10:00pm</div></el-col>
-                          <el-col :span="4"><div>2019-07-27 Sat</div></el-col>
-                          <el-col :span="4"><div>0</div></el-col>
-                          <el-col :span="4"><div class="money">$0</div></el-col>
-                          <el-col :span="4">
-                            <div class="order-status">
-                              Cofirmed
-                            </div>
-                          </el-col>
-                        </el-row>
-                        <div class="actions">
-                            <div class="order-details">Details &raquo;</div>
-                            <div class="btns">
-                                <el-button class="Reschedule">Reschedule</el-button>
-                                <el-button class="E-Ticket">E-Ticket</el-button>
-                                <el-button type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
-                            </div>
-                        </div>
-                      </li>
-                    </ul>
-                  </el-collapse-item>
-                </el-collapse>
-              </div> -->
+              <order-info :ticket="dashInfo" :ticketName="ticketName"></order-info>
               <div class="no-bookings" v-if="dashInfo.length==0">
                 No Bookings Found!
             </div>
@@ -169,7 +103,8 @@
         discount:0,
         expirationDate:'',
         benefitsUrl:'',
-        showMemberShip:false
+        showMemberShip:false,
+        ticketName:"upcomingTickets"
       }
     },
     components: {
