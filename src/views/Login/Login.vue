@@ -142,6 +142,18 @@
                 if(r != null) return unescape(r[2]);
                 return null;
             },
+            getLvyName(){
+                let lvyName = null;
+                if(process.env.NODE_ENV === "development"){
+                    return localStorage.getItem("loginName");
+                }else{
+                    lvyName = Cookies.get("IvyCustomer_FirstName");
+                    if(lvyName == null || lvyName == undefined){
+                        lvyName = Cookies.get("IvyCustomer_LoginEmail");
+                    }
+                    return lvyName;
+                }
+            },
             logout(){
                 // let loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
                 // let token = loginCookie.split('+|+')[2];
@@ -377,6 +389,7 @@
                 Cookies.set('front-sessionId', data.data.data.user.id);
                 this.$store.commit('login');
                 this.$store.commit('notifiyBtnShow');
+                this.$store.commit('showUserName',this.getLvyName());
             }
         }
     }
