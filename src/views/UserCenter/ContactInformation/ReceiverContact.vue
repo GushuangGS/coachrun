@@ -279,9 +279,13 @@
                     this.$router.go(-1);
                 },
                 setCookieName(setDefault,firName,lastName){
-                    if(setDefault){
+                    if(setDefault && process.env.NODE_ENV === "development"){
+                        localStorage.setItem("loginName",firName);
+                        this.$store.commit('showUserName',firName);
+                    }else if(setDefault && process.env.NODE_ENV == 'sandbox' || setDefault && process.env.NODE_ENV == 'production'){
                         Cookies.set('IvyCustomer_FirstName', firName, { domain: process.env.VUE_APP_COOKIE_DOMAIN});
                         Cookies.set('IvyCustomer_LastName', lastName, { domain: process.env.VUE_APP_COOKIE_DOMAIN});
+                        this.$store.commit('showUserName',firName);
                     }
                 },
                 submitForm(formName) {

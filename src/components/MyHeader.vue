@@ -11,8 +11,10 @@
           <div class="nav-login" v-else>
             <div class="row">
               <img class="headImg" src="@/assets/home_head.png" />
-              <div class="userDisplay" v-if="getLvyName()">
-               <span class="userName">{{getLvyName()}}</span>
+              <!-- <div class="userDisplay" v-if="getLvyName()"> -->
+              <div class="userDisplay" v-if="$store.state.showUserName">
+               <!-- <span class="userName">{{getLvyName()}}</span> -->
+               <span class="userName">{{$store.state.showUserName}}</span>
                <span class="userEmail">{{getUserEmail()}}</span>
               </div>
               <div class="userDisplay" v-else>
@@ -87,7 +89,6 @@
     </el-drawer>
 
     <div class="header-left">
-      <!-- <div class="logo" @click="skip('http://testwww.coachrun.com/')"> -->
       <div class="logo" @click="toShopping">
         <a href="/">
           <img src="@/assets/coachrunlogo.png" />
@@ -122,7 +123,8 @@
       <div class="show-name" v-else>
         <span class="user-name subThemeStyle" @click="gotoMine">
           <i class="icon-user-circle backgr"></i>
-          {{getLvyName()}}
+          <!-- {{getLvyName()}} -->
+          {{$store.state.showUserName}}
         </span>
         <span class="logout" @click="logout">Logout</span>
       </div>
@@ -197,6 +199,8 @@ export default {
         this.tourHtml = res.data.data[1];
       }
     })
+    this.$store.commit('showUserName',this.getLvyName());
+    console.log(this.$store.state.showUserName);
   },
   mounted() {
     this.shopNum = Cookies.get("IvyCustomer_ShoppingItems");

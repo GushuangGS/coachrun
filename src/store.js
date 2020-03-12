@@ -5,25 +5,14 @@ Vue.use(Vuex);
 // var contactInfo=JSON.parse(localStorage.getItem("contactInfo"))
 export default new Vuex.Store({
   state: {
-      // contactInfo:{},
-      // creditInfo:{},
       isLogin:false,//默认没有登录
       loginName:localStorage.getItem('loginName') || '',
       userName:'',
       sendEmail:'',
-      // contactName:'',
-      // creditName:''
-      notifiyBtn:false
+      notifiyBtn:false,
+      showUserName:'',//编辑contact-info更改first-name
   },
   mutations: {
-    // contactInfo(state,data){//编辑
-    //   state.contactInfo=data;   
-    //   localStorage.setItem("contactInfo",JSON.stringify(data));
-    // },
-    // creditInfo(state,data){//编辑信用卡
-    //   state.creditInfo=data;   
-    //   localStorage.setItem("creditInfo",JSON.stringify(data));
-    // },
     login(state){
       state.isLogin = true;
       // console.log(state)
@@ -47,22 +36,11 @@ export default new Vuex.Store({
     notifiyBtnHide(state){
       state.notifiyBtn = false;
     },
-    // contactName(state,data){//编辑或添加信息
-    //   state.contactName = data;
-    //   // localStorage.setItem("contactName",data);
-    // },
-    // creditName(state,data){//编辑或添加信息
-    //   state.creditName = data;
-    //   // localStorage.setItem("creditName",data);
-    // }
+    showUserName(state,data){
+      state.showUserName = data;
+    }
   },
   actions: {
-    // updateContactInfo(context,data){
-    //   context.commit('contactInfo',data);
-    // },
-    // updateCreditInfo(context,data){
-    //   context.commit('creditInfo',data);
-    // },
     updateLoginName(context,data){
       context.commit('loginName',data);
     },
@@ -72,11 +50,8 @@ export default new Vuex.Store({
     updateSendEmail(context,data){
       context.commit('sendEmail',data);
     },
-    // updateContactName(context,data){
-    //   context.commit('contactName',data);
-    // },
-    // updateCreditName(context,data){
-    //   context.commit('creditName',data);
-    // }
+    updateShowUserName(context,data){
+      context.commit('showUserName',data);
+    }
   }
 })
