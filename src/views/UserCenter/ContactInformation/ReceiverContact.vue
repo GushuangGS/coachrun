@@ -278,6 +278,12 @@
                 goBack(){
                     this.$router.go(-1);
                 },
+                setCookieName(setDefault,firName,lastName){
+                    if(setDefault){
+                        Cookies.set('IvyCustomer_FirstName', firName, { domain: process.env.VUE_APP_COOKIE_DOMAIN});
+                        Cookies.set('IvyCustomer_LastName', lastName, { domain: process.env.VUE_APP_COOKIE_DOMAIN});
+                    }
+                },
                 submitForm(formName) {
                     if(this.whereName=='add'){
                         this.$refs[formName].validate((valid) => {
@@ -325,6 +331,7 @@
                                 .then((res)=>{
                                     console.log(res);
                                     if(res.data.code==200){
+                                        this.setCookieName(this.showDefault,this.ruleForm.firstName,this.ruleForm.lastName);
                                         this.$message({
                                             message: 'Saved successfully.',
                                             type: 'success',
