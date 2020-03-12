@@ -186,6 +186,8 @@ export default {
       this.$store.commit("login");
       this.$store.commit("notifiyBtnShow");
       this.isLogin = this.$store.state.isLogin;
+      this.$store.commit('showUserName',this.getLvyName());
+      console.log(this.$store.state.showUserName);
     };
 
     this.$http.get(`${process.env.VUE_APP_API_DOMAIN}api/pages/toolbars`,
@@ -199,8 +201,6 @@ export default {
         this.tourHtml = res.data.data[1];
       }
     })
-    this.$store.commit('showUserName',this.getLvyName());
-    console.log(this.$store.state.showUserName);
   },
   mounted() {
     this.shopNum = Cookies.get("IvyCustomer_ShoppingItems");
