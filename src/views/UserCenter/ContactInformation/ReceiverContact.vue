@@ -295,6 +295,7 @@
                                 .then((res)=>{
                                     console.log(res);
                                     if(res.data.code==200){
+                                        this.setCookieName(this.showDefault,this.ruleForm.firstName,this.ruleForm.lastName);
                                         this.$message({
                                             message: 'Added successfully',
                                             type: 'success',
