@@ -40,34 +40,22 @@ router.beforeEach((to,from,next)=>{
       }
       next();
     }
+  }
+  
+  if(to.name=='ReceiverContact'){
+      if(to.fullPath.indexOf('aid')==-1){
+        to.meta.title = 'Add Contact Information';
+      }else{
+        to.meta.title = 'Edit Contact Information';
+      }
+  }
 
-//     let loginCookie = decodeURI(Cookies.get('IvyCustomer_LoginCookie'));
-//     let token = loginCookie.split('+|+')[2];
-//     if(token==undefined){
-//       token = localStorage.getItem('IvyCustomer_LoginToken');
-//     }
-    
-//     if(token){
-//       if(process.env.NODE_ENV != 'development'){
-//         axios.post('api/users/authorization',{loginCookie:loginCookie})
-//           .then( res => {
-//               console.log(res);
-//               if(res.data.code==401){
-//                 next({name: 'Login'});
-//               }
-//           })
-//       }
-//       next();
-//     }else {//没有登录信息
-//       if(name == "MyDeals" || name == "MyPoints" || name=="CreditList" || name=="ChangePassword" 
-//           || name == "ContactList" ||name == "MyBookings" ||name == "MyOrders" ||name == "ReceiverCredit"
-//           || name == "ReceiverContact" || name == "AddGuest"){
-//         next({name: 'Login'});
-//       }
-//       next();
-//     }
-
-
+  if(to.name=='ReceiverCredit'){
+    if(to.fullPath.indexOf('ccid')==-1){
+      to.meta.title = 'Add Credit Card';
+    }else{
+      to.meta.title = 'Edit Credit Card';
+    }
   }
   if (to.meta.title) {//判断是否有标题
     document.title = to.meta.title;

@@ -196,8 +196,10 @@
                 console.log(this.$route.query.aid);
                 if(this.$route.query.aid==undefined){
                     this.whereName = 'add';
+                    this.headerInfo[0][0] = 'Add Contact Information';
                 }else{
                     this.whereName = 'edit';
+                    this.headerInfo[0][0] = 'Edit Contact Information';
                     this.getUserInfo();
                 }
                 console.log(this.whereName)

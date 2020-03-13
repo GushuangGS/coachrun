@@ -312,12 +312,14 @@
                 if(this.$route.query.ccid==undefined){//添加
                     this.isDisabled = false;
                     this.creditName = 'add';
+                    this.headerInfo[0][0] = 'Add Credit Card';
                     this.expiration();
                     this.selectYear();
                 }else{//编辑
                     // this.isDisabled = true;
                     this.isDisabled = false;
                     this.creditName = 'edit';
+                    this.headerInfo[0][0] = 'Edit Credit Card';
                     this.getCreditInfo();
                 }
             },

@@ -26,7 +26,7 @@
                     <el-menu-item index="/render/member/account/deals">
                       <router-link :to="{name:'MyDeals'}" style="color: inherit;">My Deals</router-link></el-menu-item>
                     <el-menu-item index="/render/member/account/view-point">
-                      <router-link :to="{name:'MyPoints'}" style="color: inherit;">My Points</router-link>
+                      <router-link :to="{name:'MyPoints'}" style="color: inherit;">My Available Points</router-link>
                     </el-menu-item>
                     <el-menu-item index="/render/member/account/traveller-info-list">
                       <router-link :to="{name:'FrequentList'}" style="color: inherit;">Frequent Traveler Info</router-link>

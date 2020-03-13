@@ -186,7 +186,7 @@ export default {
   width: 280px;
 }
 .user-action {
-  width: 90px;
+  width: 80px;
   margin-left: 20px;
   color: #29507d;
   font-weight: bold;
