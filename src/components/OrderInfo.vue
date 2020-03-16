@@ -65,7 +65,7 @@
                         </el-row>
                         <div class="actions" v-if="item.status!=8">
                           <div class="order-details">
-                              <div>
+                              <div v-show="item.product.type!=5">
                                   <span class="details-left" :class="{gray:!showRes(item)}">Itinerary ID:</span>
                                   <span class="details-icon1" :class="{gray:!showRes(item)}">{{item.entityCode}}</span>
                               </div>
@@ -177,8 +177,9 @@
                                   </div>
                               </div>
                           </div>
-                          <div class="btns" v-if="item.product.type!=5">
-                              <el-button @click="eticket(item)" v-if="item.status!=8" class="E-Ticket">E-Ticket</el-button>
+                          <div class="btns">
+                              <el-button @click="eticket(item)" v-if="item.status!=8 && item.product.type!=5" class="E-Ticket">E-Ticket</el-button>
+                              <el-button @click="eticket(item)" v-if="item.status!=8 && item.product.type==5" class="E-Ticket">Receipt</el-button>
                               <el-button v-if="!(item.status==8&&showRes(item))&&item.product.type==1" @click="resche(item)" class="Reschedule">Reschedule</el-button>
                               <el-button @click="trackBus(item)" v-if="item.serviceStatus!=3&&item.product.type==1" type="warning" class="rack-Bus-Status">Track Bus Status</el-button>
                           </div>
@@ -651,6 +652,13 @@
       .details-left{
         display: inline-block;
         width: 100px;
+        font-size: 14px;
+        margin-right: 15px;
+        color:rgba(102,102,102,1);
+      }
+      .details-left-member{
+        display: inline-block;
+        width: 115px;
         font-size: 14px;
         margin-right: 15px;
         color:rgba(102,102,102,1);
