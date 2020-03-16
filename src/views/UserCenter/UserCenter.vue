@@ -23,6 +23,9 @@
                     <el-menu-item index="/render/member/account/booking-list">
                       <router-link :to="{name:'MyBookings'}" style="color: inherit;">My Bookings</router-link>
                     </el-menu-item>
+                    <el-menu-item index="/render/member/account/notification-center">
+                      <router-link :to="{name:'NotificationCenter'}" style="color: inherit;">My Notifications</router-link>
+                    </el-menu-item>
                     <el-menu-item index="/render/member/account/deals">
                       <router-link :to="{name:'MyDeals'}" style="color: inherit;">My Deals</router-link></el-menu-item>
                     <el-menu-item index="/render/member/account/view-point">
@@ -39,9 +42,6 @@
                     </el-menu-item>
                     <el-menu-item index="/render/member/account/change-password">
                       <router-link :to="{name:'ChangePassword'}" style="color: inherit;">Change Password</router-link>
-                    </el-menu-item>
-                    <el-menu-item index="/render/member/account/notification-center">
-                      <router-link :to="{name:'NotificationCenter'}" style="color: inherit;">My Notifications</router-link>
                     </el-menu-item>
                   </el-menu-item-group>
                 </el-submenu>
