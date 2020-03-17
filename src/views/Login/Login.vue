@@ -142,16 +142,19 @@
                 if(r != null) return unescape(r[2]);
                 return null;
             },
-            getLvyName(){
-                let lvyName = null;
+            getIvyName(){
+                let ivyName = null;
                 if(process.env.NODE_ENV === "development"){
                     return localStorage.getItem("loginName");
                 }else{
-                    lvyName = Cookies.get("IvyCustomer_FirstName");
-                    if(lvyName == null || lvyName == undefined){
-                        lvyName = Cookies.get("IvyCustomer_LoginEmail");
+                    ivyName = Cookies.get("IvyCustomer_FirstName");
+                    if(!ivyName){
+                        ivyName = Cookies.get("IvyCustomer_Uid");
+                        if(!ivyName || ivyName.indexOf('_auto_')>-1){
+                            ivyName = Cookies.get("IvyCustomer_LoginEmail");
+                        }
                     }
-                    return lvyName;
+                    return ivyName;
                 }
             },
             logout(){
@@ -389,7 +392,7 @@
                 Cookies.set('front-sessionId', data.data.data.user.id);
                 this.$store.commit('login');
                 this.$store.commit('notifiyBtnShow');
-                this.$store.commit('showUserName',this.getLvyName());
+                this.$store.commit('showUserName',this.getIvyName());
             }
         }
     }
