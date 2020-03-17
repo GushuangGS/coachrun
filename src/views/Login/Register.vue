@@ -163,6 +163,12 @@
                         this.sendPhone = '';
                     }
                 },
+                getId(name){//aid
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+                    var r = window.location.search.substr(1).match(reg);
+                    if(r != null) return unescape(r[2]);
+                    return null;
+                },
                 register(){
                     this.$refs.loginForm.validate((valid)=>{
                         if (valid){
@@ -176,7 +182,12 @@
                                         this.$store.commit('login'); 
                                         this.$store.commit('notifiyBtnShow');
                                         Cookies.set('IvyCustomer_NewNotificationCount', 0 , { domain: process.env.VUE_APP_COOKIE_DOMAIN});
-                                        this.$router.push({name: 'MyOrders'});
+                                        let pageUrl = this.getId("pageUrl");
+                                        if(this.pageUrl){
+                                            window.location.href = this.pageUrl;
+                                        }else{
+                                            this.$router.push({name: 'MyOrders'});
+                                        }
                                     }else{
                                         this.$message({
                                             message: data.data.msg,
