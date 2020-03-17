@@ -169,6 +169,21 @@
                     if(r != null) return unescape(r[2]);
                     return null;
                 },
+                getIvyName(){
+                    let ivyName = null;
+                    if(process.env.NODE_ENV === "development"){
+                        return localStorage.getItem("loginName");
+                    }else{
+                        ivyName = Cookies.get("IvyCustomer_FirstName");
+                        if(!ivyName){
+                            ivyName = Cookies.get("IvyCustomer_Uid");
+                            if(!ivyName || ivyName.indexOf('_auto_')>-1){
+                                ivyName = Cookies.get("IvyCustomer_LoginEmail");
+                            }
+                        }
+                        return ivyName;
+                    }
+                },
                 register(){
                     this.$refs.loginForm.validate((valid)=>{
                         if (valid){
@@ -182,6 +197,7 @@
                                         this.$store.commit('login'); 
                                         this.$store.commit('notifiyBtnShow');
                                         Cookies.set('IvyCustomer_NewNotificationCount', 0 , { domain: process.env.VUE_APP_COOKIE_DOMAIN});
+                                        this.$store.commit('showUserName',this.getIvyName());
                                         let pageUrl = this.getId("pageUrl");
                                         if(this.pageUrl){
                                             window.location.href = this.pageUrl;
