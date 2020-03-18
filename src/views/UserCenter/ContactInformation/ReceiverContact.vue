@@ -223,11 +223,13 @@
                                     this.showDefault = this.ruleForm.isDefault;
                                     const searchPhone1 = parsePhoneNumberFromString(this.ruleForm.phone);
                                     console.log(searchPhone1)
-                                    if(searchPhone1 !==undefined){
+                                    if(searchPhone1){
                                         this.countryFir = searchPhone1.country;
                                         console.log(this.countryFir)
                                         this.$refs.phone_number.countryCode = this.countryFir;
-                                        // this.$refs.phone_number.phoneNumber = searchPhone1.nationalNumber;
+                                        if(this.countryFir == 'US'){
+                                            this.$refs.phone_number.phoneNumber = searchPhone1.nationalNumber;
+                                        }
                                         this.ruleForm.phone = searchPhone1.nationalNumber;
                                         //console.log(this.$refs.phone_number.phoneNumber,searchPhone1.nationalNumber,this.ruleForm.phone)
                                     }
