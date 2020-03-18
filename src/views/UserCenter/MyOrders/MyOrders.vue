@@ -121,7 +121,7 @@
       OrderInfo
     },
     created(){
-      this.showMemberShip = Cookies.get('IvyCustomer_role') >= 6 ? true : true;
+      this.showMemberShip = Cookies.get('IvyCustomer_role') >= 6 ? true : false;
       if(process.env.NODE_ENV == 'production'){
         this.benefitsUrl = '/cgi-bin/ce.fcgi?a=manage_membership';
       }else{
