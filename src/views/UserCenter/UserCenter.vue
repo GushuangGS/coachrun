@@ -31,6 +31,9 @@
                     <el-menu-item index="/render/member/account/view-point">
                       <router-link :to="{name:'MyPoints'}" style="color: inherit;">My Available Points</router-link>
                     </el-menu-item>
+                    <el-menu-item>
+                      <a @click="gotoWallet" style="color: inherit;">My Wallet</a>
+                    </el-menu-item>
                     <el-menu-item index="/render/member/account/traveller-info-list">
                       <router-link :to="{name:'FrequentList'}" style="color: inherit;">Frequent Traveler Info</router-link>
                     </el-menu-item>
@@ -67,6 +70,15 @@ export default {
   },
   created(){
 
+  },
+  methods:{
+    gotoWallet(){
+      if(process.env.NODE_ENV == 'production'){
+        window.location.href = '/cgi-bin/ce.fcgi?a=wallet_report';
+      }else{
+        window.location.href = 'http://testwww.coachrun.com/cgi-bin/ce.cgi?a=wallet_report';
+      }
+    }
   }
 }
 </script>
