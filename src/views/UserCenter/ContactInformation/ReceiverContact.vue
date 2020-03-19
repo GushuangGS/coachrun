@@ -193,7 +193,7 @@
                 }
             },
             created(){
-                console.log(this.$route.query.aid);
+                // console.log(this.$route.query.aid);
                 if(this.$route.query.aid==undefined){
                     this.whereName = 'add';
                     this.headerInfo[0][0] = 'Add Contact Information';
@@ -202,7 +202,7 @@
                     this.headerInfo[0][0] = 'Edit Contact Information';
                     this.getUserInfo();
                 }
-                console.log(this.whereName)
+                // console.log(this.whereName)
             },
             methods: {
                 getId(name){//aid

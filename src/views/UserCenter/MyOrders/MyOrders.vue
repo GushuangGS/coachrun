@@ -8,18 +8,17 @@
           <div class="content containerPosition">
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
-              <div class="left" v-show="!showMemberShip">
+              <!-- <div class="left" v-show="!showMemberShip">
                 <img class="left-img" src="@/assets/touxiang.png">
                 <div class="account-points">
                   <h4>{{displayName}}</h4>
                   <p class="points" @click="gotoPoints">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
                 </div>
-                <!-- <member-ship></member-ship> -->
-              </div>
-              <div class="new-left" v-show="showMemberShip">
+              </div> -->
+              <div class="new-left">
                 <ivy-membership-card
                   :displayName="displayName" 
-                  :isMoblie="isMoblie"
+                  :showMemberShip="showMemberShip"
                   :discount="discount"
                   :expirationDate="expirationDate"
                   :benefitsUrl="benefitsUrl"
@@ -99,7 +98,6 @@
         dashDis:{},
         // userEmail:'',
         displayName:"",
-        isMoblie:false,
         discount:0,
         expirationDate:'',
         benefitsUrl:'',
@@ -217,7 +215,7 @@
     align-items: center;
   }
   .new-left{
-    width: 350px;
+    min-width: 250px;
     display: flex;
     align-items: center;
   }
@@ -375,9 +373,15 @@
       margin-left: 50px;
       height: 128px;
     }
+<<<<<<< HEAD
     .my-deals{
       padding-right: 50px;
       border-right: 4px solid #E8F1FF;
+=======
+    .my-wallet{
+      padding-right: 40px;
+      border-right: 1px solid #E8F1FF;
+>>>>>>> dev
     }
     .my-points-num,.my-deals-num{
       font-size: 20px;
