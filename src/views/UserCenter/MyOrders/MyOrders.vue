@@ -25,14 +25,22 @@
                 >
                 </ivy-membership-card>
               </div>
-              <div class="my-points" v-show="showMemberShip">
-                <span class="my-points-num" @click="gotoPoints">{{dashDis.availablePoints}}</span>
-                <span class="my-points-txt" @click="gotoPoints">My Points</span>
-              </div>
-              <div class="my-deals" v-show="showMemberShip">
+              <div class="my-deals">
                 <span class="my-deals-num" @click="gotoDeals">{{dashDis.availableDeals}}</span>
                 <span class="my-deals-txt" @click="gotoDeals">My Deals</span>
               </div>
+              <div class="my-points">
+                <span class="my-points-num" @click="gotoPoints">{{dashDis.availablePoints}}</span>
+                <span class="my-points-txt" @click="gotoPoints">My Points</span>
+              </div>
+              <div class="my-wallet">
+                <span class="my-points-num" @click="gotoWallet">{{walletBalance}}</span>
+                <span class="my-points-txt" @click="gotoWallet">Wallet Balance</span>
+              </div>
+              <!-- <div class="my-deals" v-show="showMemberShip">
+                <span class="my-deals-num" @click="gotoDeals">{{dashDis.availableDeals}}</span>
+                <span class="my-deals-txt" @click="gotoDeals">My Deals</span>
+              </div> -->
               <div class="right">
                 <div @click="contactInfo" class="img-span">
                   <!-- <img class="right-img" src="@/assets/personInfo.png" alt=""> -->
@@ -102,7 +110,8 @@
         expirationDate:'',
         benefitsUrl:'',
         showMemberShip:false,
-        ticketName:"upcomingTickets"
+        ticketName:"upcomingTickets",
+        walletBalance:0
       }
     },
     components: {
@@ -129,6 +138,11 @@
                   if(res.data.code == 200){
                     if(res.data.data){
                       this.dashDis = res.data.data;
+                      if(this.dashDis.walletBalance){
+                        this.walletBalance = Number(this.dashDis.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
+                      }else{
+                        this.walletBalance = Number(this.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
+                      }
                       // this.displayName = Cookies.get("IvyCustomer_FirstName")?Cookies.get("IvyCustomer_FirstName"):res.data.data.user.email;
                       this.displayName = this.$store.state.showUserName;
                       if(Cookies.get("front-sessionId") == undefined){
@@ -170,6 +184,13 @@
       },
       gotoDeals(){
         this.$router.push({name: 'MyDeals'});
+      },
+      gotoWallet(){
+        if(process.env.NODE_ENV == 'production'){
+          window.location.href = '/cgi-bin/ce.fcgi?a=wallet_report';
+        }else{
+          window.location.href = 'http://testwww.coachrun.com/cgi-bin/ce.cgi?a=wallet_report';
+        }
       }
     }
   }
@@ -365,23 +386,17 @@
       border-bottom: 1px solid #EBEEF5;
       // padding-left: 10px;
     }
-    .my-points,.my-deals{
+    .my-points,.my-deals,.my-wallet{
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      margin-left: 50px;
+      margin-left: 40px;
       height: 128px;
     }
-<<<<<<< HEAD
-    .my-deals{
-      padding-right: 50px;
-      border-right: 4px solid #E8F1FF;
-=======
     .my-wallet{
       padding-right: 40px;
       border-right: 1px solid #E8F1FF;
->>>>>>> dev
     }
     .my-points-num,.my-deals-num{
       font-size: 20px;
