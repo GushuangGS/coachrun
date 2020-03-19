@@ -8,34 +8,33 @@
           <div class="content containerPosition">
             <h2 class="welcome">Welcome to CoachRun</h2>
             <div class="account-brief">
-              <div class="left" v-show="!showMemberShip">
+              <!-- <div class="left" v-show="!showMemberShip">
                 <img class="left-img" src="@/assets/touxiang.png">
                 <div class="account-points">
                   <h4>{{displayName}}</h4>
                   <p class="points" @click="gotoPoints">My Points: <span class="points-num">{{dashDis.availablePoints}}</span></p>
                 </div>
-                <!-- <member-ship></member-ship> -->
-              </div>
-              <div class="new-left" v-show="showMemberShip">
+              </div> -->
+              <div class="new-left">
                 <ivy-membership-card
                   :displayName="displayName" 
-                  :isMoblie="isMoblie"
+                  :showMemberShip="showMemberShip"
                   :discount="discount"
                   :expirationDate="expirationDate"
                   :benefitsUrl="benefitsUrl"
                 >
                 </ivy-membership-card>
               </div>
-              <div class="my-deals" v-show="showMemberShip">
+              <div class="my-deals">
                 <span class="my-deals-num" @click="gotoDeals">{{dashDis.availableDeals}}</span>
                 <span class="my-deals-txt" @click="gotoDeals">My Deals</span>
               </div>
-              <div class="my-points" v-show="showMemberShip">
+              <div class="my-points">
                 <span class="my-points-num" @click="gotoPoints">{{dashDis.availablePoints}}</span>
                 <span class="my-points-txt" @click="gotoPoints">My Points</span>
               </div>
-              <div class="my-wallet" v-show="showMemberShip">
-                <span class="my-points-num" @click="gotoWallet">${{walletBalance}}</span>
+              <div class="my-wallet">
+                <span class="my-points-num" @click="gotoWallet">{{walletBalance}}</span>
                 <span class="my-points-txt" @click="gotoWallet">Wallet Balance</span>
               </div>
               <!-- <div class="my-deals" v-show="showMemberShip">
@@ -107,7 +106,6 @@
         dashDis:{},
         // userEmail:'',
         displayName:"",
-        isMoblie:false,
         discount:0,
         expirationDate:'',
         benefitsUrl:'',
@@ -141,7 +139,9 @@
                     if(res.data.data){
                       this.dashDis = res.data.data;
                       if(this.dashDis.walletBalance){
-                        this.walletBalance = this.dashDis.walletBalance;
+                        this.walletBalance = Number(this.dashDis.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
+                      }else{
+                        this.walletBalance = Number(this.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
                       }
                       // this.displayName = Cookies.get("IvyCustomer_FirstName")?Cookies.get("IvyCustomer_FirstName"):res.data.data.user.email;
                       this.displayName = this.$store.state.showUserName;
@@ -236,7 +236,7 @@
     align-items: center;
   }
   .new-left{
-    width: 350px;
+    min-width: 250px;
     display: flex;
     align-items: center;
   }
@@ -396,7 +396,7 @@
     }
     .my-wallet{
       padding-right: 40px;
-      border-right: 4px solid #E8F1FF;
+      border-right: 1px solid #E8F1FF;
     }
     .my-points-num,.my-deals-num{
       font-size: 20px;
