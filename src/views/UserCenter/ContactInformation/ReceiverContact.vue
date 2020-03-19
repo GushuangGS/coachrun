@@ -241,7 +241,7 @@
                                             this.countrySec = searchPhone2.country;
                                             console.log(this.countrySec)
                                             this.$refs.phone2_number.countryCode = this.countrySec;
-                                            if(this.countryFir == 'US'){
+                                            if(this.countrySec == 'US'){
                                                 this.$refs.phone2_number.phoneNumber = searchPhone2.nationalNumber;
                                             }                                            
                                             this.ruleForm.phone2 = searchPhone2.nationalNumber;
