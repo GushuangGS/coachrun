@@ -193,7 +193,7 @@
                 }
             },
             created(){
-                console.log(this.$route.query.aid);
+                // console.log(this.$route.query.aid);
                 if(this.$route.query.aid==undefined){
                     this.whereName = 'add';
                     this.headerInfo[0][0] = 'Add Contact Information';
@@ -202,7 +202,7 @@
                     this.headerInfo[0][0] = 'Edit Contact Information';
                     this.getUserInfo();
                 }
-                console.log(this.whereName)
+                // console.log(this.whereName)
             },
             methods: {
                 getId(name){//aid
@@ -241,7 +241,7 @@
                                             this.countrySec = searchPhone2.country;
                                             console.log(this.countrySec)
                                             this.$refs.phone2_number.countryCode = this.countrySec;
-                                            if(this.countryFir == 'US'){
+                                            if(this.countrySec == 'US'){
                                                 this.$refs.phone2_number.phoneNumber = searchPhone2.nationalNumber;
                                             }                                            
                                             this.ruleForm.phone2 = searchPhone2.nationalNumber;

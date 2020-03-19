@@ -73,11 +73,12 @@ export default {
   },
   methods:{
     gotoWallet(){
-      if(process.env.NODE_ENV == 'production'){
-        window.location.href = '/cgi-bin/ce.fcgi?a=wallet_report';
-      }else{
-        window.location.href = 'http://testwww.coachrun.com/cgi-bin/ce.cgi?a=wallet_report';
-      }
+      window.location.href = process.env.NODE_ENV == 'production' ? '/cgi-bin/ce.fcgi?a=wallet_report' :'http://testwww.coachrun.com/cgi-bin/ce.cgi?a=wallet_report';
+      // if(process.env.NODE_ENV == 'production'){
+      //   window.location.href = '/cgi-bin/ce.fcgi?a=wallet_report';
+      // }else{
+      //   window.location.href = 'http://testwww.coachrun.com/cgi-bin/ce.cgi?a=wallet_report';
+      // }
     }
   }
 }
