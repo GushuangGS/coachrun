@@ -46,6 +46,14 @@
           </div>
           <div class="sidebar-cell">
             <div class="sidebar-content">
+              <a href="/coachrun/coachrun_exclusive_membership.html">
+                <img src="@/assets/gold-membership.png">
+                <span>Membership</span>
+              </a>
+            </div>
+          </div>
+          <div class="sidebar-cell">
+            <div class="sidebar-content">
               <a href="https://www.gotocharter.com">
                 <img src="@/assets/sidebar-bus-rental.png">
                 <span>Bus Rental</span>
@@ -97,6 +105,9 @@
       <ul class="header-title hidden">
         <li>
           <router-link to="/bus-stations">Bus Stations</router-link>
+        </li>
+        <li>
+          <a href="/coachrun/coachrun_exclusive_membership.html">Membership</a>
         </li>
         <li>
           <a href="https://www.gotocharter.com">Bus Rental</a>
