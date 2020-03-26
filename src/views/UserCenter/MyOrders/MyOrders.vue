@@ -30,7 +30,7 @@
                 <span class="my-deals-txt" @click="gotoDeals">My Deals</span>
               </div>
               <div class="my-points">
-                <span class="my-points-num" @click="gotoPoints">{{dashDis.availablePoints}}</span>
+                <span class="my-points-num" @click="gotoPoints">{{pointTrans(dashDis.availablePoints)}}</span>
                 <span class="my-points-txt" @click="gotoPoints">My Points</span>
               </div>
               <div class="my-wallet">
@@ -92,7 +92,7 @@
   import ItemHeader from '@/components/ItemHeader'
   import OrderInfo from '@/components/OrderInfo'
   import Cookies from 'js-cookie'
-  import { numeralTrans } from "../../../configs/utils";
+  import { numeralTrans,pointTrans } from "../../../configs/utils";
 
   export default {
     name: 'MyOrders',
@@ -121,7 +121,7 @@
       OrderInfo
     },
     created(){
-      this.showMemberShip = Cookies.get('IvyCustomer_role') >= 6 ? true : false;
+      this.showMemberShip = Cookies.get('IvyCustomer_role') >= 6 ? true : true;
       if(process.env.NODE_ENV == 'production'){
         this.benefitsUrl = '/cgi-bin/ce.fcgi?a=manage_membership';
       }else{
@@ -132,6 +132,7 @@
       // console.log(this.expirationDate)
     },
     methods: {
+      pointTrans,
       orderList(){
         // this.$http.get(this.$api.dashboard,{headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
         this.$http.get(this.$api.dashboard)
