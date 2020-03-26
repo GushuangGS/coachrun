@@ -21,6 +21,9 @@ import './styles/common.css'
 import * as firebase from "firebase/app";
 import "firebase/auth";
 
+import numeral from 'numeral'
+window.numeral = numeral
+
 import Cookies from 'js-cookie'
 window.Cookies = Cookies
 import BScroll from 'better-scroll'
