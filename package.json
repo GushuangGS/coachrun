@@ -29,6 +29,7 @@
     "libphonenumber-js": "^1.7.22",
     "mobile-detect": "^1.4.4",
     "moment": "^2.24.0",
+    "numeral": "^2.0.6",
     "qs": "^6.7.0",
     "vant": "^2.2.12",
     "vue": "^2.6.10",

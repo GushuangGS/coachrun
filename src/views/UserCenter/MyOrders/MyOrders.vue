@@ -92,6 +92,7 @@
   import ItemHeader from '@/components/ItemHeader'
   import OrderInfo from '@/components/OrderInfo'
   import Cookies from 'js-cookie'
+  import numeral from 'numeral'
   export default {
     name: 'MyOrders',
     data() {
@@ -139,9 +140,15 @@
                     if(res.data.data){
                       this.dashDis = res.data.data;
                       if(this.dashDis.walletBalance){
-                        this.walletBalance = Number(this.dashDis.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
+                        // this.walletBalance = Number(this.dashDis.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
+                        var number = numeral(Number(this.dashDis.walletBalance));
+                        numeral.defaultFormat('$0,0.00');
+                        this.walletBalance = number.format();
                       }else{
-                        this.walletBalance = Number(this.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
+                        // this.walletBalance = Number(this.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
+                        var number = numeral(Number(this.walletBalance));
+                        numeral.defaultFormat('$0,0.00');
+                        this.walletBalance = number.format();
                       }
                       // this.displayName = Cookies.get("IvyCustomer_FirstName")?Cookies.get("IvyCustomer_FirstName"):res.data.data.user.email;
                       this.displayName = this.$store.state.showUserName;
