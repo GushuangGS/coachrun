@@ -30,7 +30,7 @@
                 <span class="my-deals-txt" @click="gotoDeals">My Deals</span>
               </div>
               <div class="my-points">
-                <span class="my-points-num" @click="gotoPoints">{{pointTrans(dashDis.availablePoints)}}</span>
+                <span class="my-points-num" @click="gotoPoints">{{formatDecimal(dashDis.availablePoints)}}</span>
                 <span class="my-points-txt" @click="gotoPoints">My Points</span>
               </div>
               <div class="my-wallet">
@@ -92,7 +92,7 @@
   import ItemHeader from '@/components/ItemHeader'
   import OrderInfo from '@/components/OrderInfo'
   import Cookies from 'js-cookie'
-  import { numeralTrans,pointTrans } from "../../../configs/utils";
+  import { formatCurrency,formatDecimal } from "../../../configs/utils";
 
   export default {
     name: 'MyOrders',
@@ -132,7 +132,7 @@
       // console.log(this.expirationDate)
     },
     methods: {
-      pointTrans,
+      formatDecimal,
       orderList(){
         // this.$http.get(this.$api.dashboard,{headers:{Authorization:`Bearer ${sessionStorage.getItem('IvyCustomer_LoginToken')}`}})
         this.$http.get(this.$api.dashboard)
@@ -143,9 +143,9 @@
                       this.dashDis = res.data.data;
                       if(this.dashDis.walletBalance){
                         // this.walletBalance = Number(this.dashDis.walletBalance).toLocaleString("en-US",{style:"currency",currency:"USD"});
-                        this.walletBalance = numeralTrans(this.dashDis.walletBalance);
+                        this.walletBalance = formatCurrency(this.dashDis.walletBalance);
                       }else{
-                        this.walletBalance = numeralTrans(this.walletBalance);
+                        this.walletBalance = formatCurrency(this.walletBalance);
                       }
                       // this.displayName = Cookies.get("IvyCustomer_FirstName")?Cookies.get("IvyCustomer_FirstName"):res.data.data.user.email;
                       this.displayName = this.$store.state.showUserName;

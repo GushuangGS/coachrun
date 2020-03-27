@@ -36,7 +36,7 @@
                                   <div v-if="getNextDay(item,1)" class="icon-night1"></div>
                                   <div v-if="getNextDay(item,2)" class="icon-night2"></div>
                                   <div class="bookings-disc bookings-disc-color2" v-show="item.serviceStatus==3">
-                                    Canclled
+                                    CANCELLED 
                                   </div>
                                   <div class="bookings-disc bookings-disc-color1" v-show="item.serviceStatus==1">
                                       SCHEDULED
@@ -53,7 +53,7 @@
                               </span>
                             </div>
                           </el-col>
-                          <el-col :span="4"><div class="money" :class="{gray:!showRes(item)}">${{item.paidAmount}}</div></el-col>
+                          <el-col :span="4"><div class="money" :class="{gray:!showRes(item)}">{{formatCurrency(item.paidAmount)}}</div></el-col>
                           <el-col :span="4">
                             <div v-if="item.status==5" class="order-status" :class="{gray:!showRes(item)}">
                               Confirmed
@@ -242,6 +242,7 @@
 <script>
     import moment from "moment";
     import {websiteDomain} from "@/configs/siteConfig";
+    import { formatCurrency } from "../configs/utils";
 
     export default{
         // props:['ticket'],
@@ -276,6 +277,7 @@
           }
         },
         methods:{
+          formatCurrency,
           optionValue(label){
             if(label.type == "string"){
               return label.value;

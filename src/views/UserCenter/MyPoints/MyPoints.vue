@@ -12,28 +12,28 @@
                 <div class="brief-left-middle">
                   <img src="@/assets/points.png">
                 </div>
-                <div class="brief-left-down">{{resData.availablePoints}}</div>
+                <div class="brief-left-down">{{formatDecimal(resData.availablePoints)}}</div>
               </div>
               <div class="brief-right">
                 <div class="brief-right-item">
                   <h4>Booking</h4>
-                  <p>{{resData.bookingPoints}}</p>
+                  <p>{{formatDecimal(resData.bookingPoints)}}</p>
                 </div>
                 <div class="brief-right-item">
                   <h4>Pending Points</h4>
-                  <p>{{resData.pendingPoints}}</p>
+                  <p>{{formatDecimal(resData.pendingPoints)}}</p>
                 </div>
                 <div class="brief-right-item">
                   <h4>Redeemed</h4>
-                  <p>{{resData.consumptionPoints}}</p>
+                  <p>{{formatDecimal(resData.consumptionPoints)}}</p>
                 </div>
                 <div class="brief-right-item">
                   <h4>Reviews</h4>
-                  <p>{{resData.reviewPoints}}</p>
+                  <p>{{formatDecimal(resData.reviewPoints)}}</p>
                 </div>
                 <div class="brief-right-item">
                   <h4>Others</h4>
-                  <p>{{resData.otherPoints}}</p>
+                  <p>{{formatDecimal(resData.otherPoints)}}</p>
                 </div>
                 <div class="brief-right-item help">
                   <a href="https://www.coachrun.com/points/" class="help">
@@ -81,7 +81,7 @@
                       <span v-if="scope.row.isPending==1" class="text-pending">Pending</span> -->
                     <!-- <span :class="{'positive': scope.row.points.value > 0, 'negtive': scope.row.points.value < 0, 'pending': scope.row.points.isPending}">{{(scope.row.points.value > 0 ? '+' : '-') + ' ' + Math.abs(scope.row.points.value)}}</span>
                     <span v-if="scope.row.points.isPending" class="text-pending">Pending{{scope}}</span> -->
-                    <span :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0, 'pending': scope.row.isPending}">{{(scope.row.rewardPoint > 0 ? '+' : '-') + ' ' + Math.abs(scope.row.rewardPoint)}}</span>
+                    <span :class="{'positive': scope.row.rewardPoint > 0, 'negtive': scope.row.rewardPoint < 0, 'pending': scope.row.isPending}">{{(scope.row.rewardPoint > 0 ? '+' : '-') + ' ' + formatDecimal(Math.abs(scope.row.rewardPoint))}}</span>
                     <span v-if="scope.row.isPending==1" class="text-pending">Pending</span>
                   </template>
                 </el-table-column>
@@ -112,6 +112,7 @@
 
 <script>
   import ItemHeader from '@/components/ItemHeader'
+  import { formatDecimal } from "../../../configs/utils";
   // import MyRouterLink from '@/components/MyRouterLink'
 
 
@@ -140,6 +141,7 @@
       this.tableInfo(this.currentPage);
     },
     methods:{
+      formatDecimal,
       gotoPoints(){
         window.open('https://www.coachrun.com/points/', '_blank');
       },
