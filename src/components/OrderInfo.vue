@@ -19,7 +19,7 @@
                         </div>
                         <div class="total-points" v-show="ticketName!='upcomingTickets'">
                             <span>Total Payment: </span>
-                            <span class="total-money">${{getTotal(info.entities)}}</span>
+                            <span class="total-money">{{getTotal(info.entities)}}</span>
                         </div>
                       </div>
                     </template>
@@ -460,7 +460,7 @@
                 totalMoney +=data.paidAmount;
                 // console.log(data.paidAmount);
               })
-              return totalMoney;
+              return formatCurrency(totalMoney);
             },
             resche(data){
               // window.open(`http://testwww.coachrun.com/cgi-bin/order.cgi?a=order_detail&entry_id=${data.entityId}&action=reschedule`, '_blank');
