@@ -48,43 +48,35 @@
           });
         }
         if (this.positions.length){//防止数据为undefined问题
-          for (let i = 0;i<this.positions.length;i++) {
-            bounds.extend(new google.maps.LatLng(this.positions[i].address.latitude,this.positions[i].address.longitude));//加入中心点和zoom计算中
-            let fn = ((i)=>{
-              let pluru = {lat: this.positions[i].address.latitude, lng: this.positions[i].address.longitude}//经纬度位置
-              let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
-              // require("./img/stationlocation")
-              marker.setMap(map)
-              let content = `<div style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">`
-              if (this.positions[i].landmark){
-                if (this.positions[i].landmarkNote){
-                  content += this.positions[i].landmark+"("+this.positions[i].landmarkNote+")<br>"
-                }else {
-                  content += this.positions[i].landmark+"<br>"
-                }
-              }
-              if (this.positions[i].address.street) {
-                content += this.positions[i].address.street +"<br>"
-              }
-              if (this.positions[i].address.city) {
-                if (this.positions[i].address.state||this.positions[i].address.zipcode){
-                  content += this.positions[i].address.city +", "+ this.positions[i].address.state+" "+this.positions[i].address.zipcode+"<br>"
-                } else {
-                  content += this.positions[i].address.city +"<br>"
-                }
-              }
-              if (this.positions[i].address.country) {
-                content += this.newCountry[this.positions[i].address.country]+"</div>"
-              }
-              this.positions[i].infoContent = content
-              if (i == this.index) {//当前项是点击时的那一项
-                infowindow.setContent(this.positions[i].infoContent);
-                infowindow.open(map,marker);//直接打开
-              }
-              attachMessage(marker,this.positions[i].infoContent)
-            })(i)
-            fn = null
+          bounds.extend(new google.maps.LatLng(this.positions[this.index].address.latitude,this.positions[this.index].address.longitude));//加入中心点和zoom计算中
+          let pluru = {lat: this.positions[this.index].address.latitude, lng: this.positions[this.index].address.longitude}//经纬度位置
+          let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
+          marker.setMap(map)
+          let content = `<div style="font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;">`
+          if (this.positions[this.index].landmark){
+            if (this.positions[this.index].landmarkNote){
+              content += this.positions[this.index].landmark+"("+this.positions[this.index].landmarkNote+")<br>"
+            }else{
+              content += this.positions[this.index].landmark+"<br>"
+            }
           }
+          if (this.positions[this.index].address.street){
+            content += this.positions[this.index].address.street +"<br>"
+          }
+          if (this.positions[this.index].address.city){
+            if (this.positions[this.index].address.state||this.positions[this.index].address.zipcode){
+              content += this.positions[this.index].address.city +", "+ this.positions[this.index].address.state+" "+this.positions[this.index].address.zipcode+"<br>"
+            }else {
+              content += this.positions[this.index].address.city +"<br>"
+            }
+          }
+          if (this.positions[this.index].address.country) {
+            content += this.newCountry[this.positions[this.index].address.country]+"</div>"
+          }
+          this.positions[this.index].infoContent = content
+          infowindow.setContent(this.positions[this.index].infoContent);
+          infowindow.open(map,marker);//直接打开
+          attachMessage(marker,this.positions[this.index].infoContent)
         }
         map.fitBounds(bounds)//计算出的中心点和zoom给map
       }

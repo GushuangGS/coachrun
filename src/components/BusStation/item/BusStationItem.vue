@@ -23,7 +23,7 @@
   export default {
     props:{
       StationItem:{
-        type:Object,
+        // type:Object,
         default:{}
       },
       CityName:{
