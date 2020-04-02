@@ -36,9 +36,11 @@
       initMap() {
         let infowindow = new google.maps.InfoWindow();//信息窗口
         let bounds = new google.maps.LatLngBounds( );//计算中心点和zoom级别
+        let myLatlng =  new google.maps.LatLng(this.positions[this.index].address.latitude,this.positions[this.index].address.longitude);
         var myOptions = {
           zoom:15,
-          clickableIcons:false
+          clickableIcons:false,
+          center: myLatlng
         }
         const map = new google.maps.Map(document.getElementById('google-map'),myOptions);
         function attachMessage(marker, Message) {
@@ -48,7 +50,7 @@
           });
         }
         if (this.positions.length){//防止数据为undefined问题
-          bounds.extend(new google.maps.LatLng(this.positions[this.index].address.latitude,this.positions[this.index].address.longitude));//加入中心点和zoom计算中
+          //bounds.extend(new google.maps.LatLng(this.positions[this.index].address.latitude,this.positions[this.index].address.longitude));//加入中心点和zoom计算中
           let pluru = {lat: this.positions[this.index].address.latitude, lng: this.positions[this.index].address.longitude}//经纬度位置
           let marker = new google.maps.Marker({position: pluru,icon:stationlocation});//标记
           marker.setMap(map)
@@ -78,7 +80,7 @@
           infowindow.open(map,marker);//直接打开
           attachMessage(marker,this.positions[this.index].infoContent)
         }
-        map.fitBounds(bounds)//计算出的中心点和zoom给map
+        //map.fitBounds(bounds)//计算出的中心点和zoom给map
       }
     },
     name:"GoogleMap"
