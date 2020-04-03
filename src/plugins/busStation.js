@@ -10,7 +10,8 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 Vue.use(VueGoogleMaps, {
   load: {
     // test:AIzaSyD08dDbUoxkc2oP-UDrAcVe_KwplfAveIs
-    key: 'AIzaSyDtQRB-nYo06O-eb_c922r2xQJ2ZWksaao',
+    // key: 'AIzaSyDtQRB-nYo06O-eb_c922r2xQJ2ZWksaao',
+    key: process.env.VUE_APP_GOOGLE_MAP_KEY,
     libraries: 'places',
     language: 'US',
   },
