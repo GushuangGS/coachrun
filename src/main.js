@@ -188,6 +188,13 @@ axios.interceptors.request.use(
       if(config.url.indexOf('notifications')==-1){
         showFullScreenLoading();
       }
+      if(config.method == 'get'){
+        config.params = {
+          _t: new Date().getTime(),
+          ...config.params
+        }
+      }
+
       return config;
   },
   error => {

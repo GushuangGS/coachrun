@@ -38,7 +38,7 @@
                       <!-- <i class="icon-angle-right"></i> -->
                       <router-link :to="{name:'MyPoints'}" style="color: inherit;">My Available Points</router-link>
                     </el-menu-item>
-                    <el-menu-item>  
+                    <el-menu-item index="">  
                       <!-- <i class="icon-angle-right"></i> -->
                       <a @click="gotoWallet" style="color: inherit;">My Wallet</a>
                     </el-menu-item>
