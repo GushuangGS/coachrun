@@ -93,7 +93,7 @@
   import OrderInfo from '@/components/OrderInfo'
   import Cookies from 'js-cookie'
   import { formatCurrency,formatDecimal } from "../../../configs/utils";
-
+  // import {formatDate,formatTime} from 'ivy-company-core'
   export default {
     name: 'MyOrders',
     data() {
@@ -130,6 +130,7 @@
       console.log(this.showMemberShip)
       this.orderList();
       // console.log(this.expirationDate)
+      // console.log(formatDate('2020-04-09'),formatTime('18:01'))
     },
     methods: {
       formatDecimal,

@@ -1,4 +1,5 @@
 <template>
+<!-- <div> -->
   <div class="header">
     <i class="icon-menu menu" style="font-size: 26px" @click="clickMenu"></i>
     <el-drawer :size="'70%'" :visible.sync="showMenu" :direction="'ltr'" :show-close="false" :before-close="handleClose" custom-class="show-drawer">
@@ -157,6 +158,10 @@
       <i class="icon-basket" style="font-size: 26px;color:#333;"></i>
     </a>
   </div>
+  <!-- <div id="n_head_r_pic">
+    new
+  </div> -->
+<!-- </div> -->
 </template>
 
 <script>
@@ -216,6 +221,10 @@ export default {
   mounted() {
     this.shopNum = Cookies.get("IvyCustomer_ShoppingItems");
     // this.userEmail = Cookies.get("IvyCustomer_LoginEmail");
+    // const s = document.createElement('script');
+    // s.type = 'text/javascript';
+    // s.src = 'https://www.coachrun.com/js/second_line.js';
+    // document.body.appendChild(s);
   },
   methods: {
     handleClose() {
@@ -334,6 +343,14 @@ export default {
 </script>
 
 <style scoped lang="scss">
+#n_head_r_pic{
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: right;
+  padding: 0 20px 10px 0;
+  font-size: 14px;
+  color: red;
+}
 
 .header-left {
   display: flex;
@@ -354,7 +371,7 @@ export default {
   align-items: center;
   cursor: pointer;
   background: rgba(255, 255, 255, 1);
-  padding: 15px 20px;
+  padding: 15px 20px 10px 20px;
   justify-content: space-between;
 }
 .logo {
@@ -582,7 +599,7 @@ nav {
         }
       }
     }
-
+//-----
     img {
       width: 44px;
       height: 44px;
