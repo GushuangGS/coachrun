@@ -37,6 +37,9 @@ Vue.use(ivyNotificationDesktop)
 import ivyMembershipCard from 'ivy-membership-card'
 Vue.use(ivyMembershipCard)
 
+import ivyCompanyBusiness from 'ivy-company-business'
+Vue.use(ivyCompanyBusiness)
+
 // ---------fir-coachrun.firebaseapp.com-------auth.coachrun.com-----
 var firebaseConfig = {
   apiKey: "AIzaSyBBcB6htx6yN66aYrzE8yNgaqwcntPZX2c",
